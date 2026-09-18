@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mina Video AI</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0b1020;
+    color:white;
+}
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:25px 18px 50px;
+}
+.logo{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    margin:15px 0 5px;
+}
+.logo span{color:#8b5cf6}
+.subtitle{
+    text-align:center;
+    color:#aab2c5;
+    margin-bottom:30px;
+}
+.card{
+    background:#151c31;
+    border:1px solid #27304a;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+}
+label{
+    display:block;
+    margin:14px 0 8px;
+    color:#cbd3e5;
+    font-weight:bold;
+}
+input,select,textarea{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #35405f;
+    background:#0e1528;
+    color:white;
+    font-size:16px;
+}
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+button{
+    width:100%;
+    padding:16px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:18px;
+}
+button:active{transform:scale(.98)}
+.result{
+    display:none;
+}
+.scene{
+    background:#0d1427;
+    border:1px solid #303a58;
+    border-radius:14px;
+    padding:15px;
+    margin-top:12px;
+}
+.scene h3{
+    margin-top:0;
+    color:#a78bfa;
+}
+.small{
+    color:#aab2c5;
+    font-size:14px;
+    line-height:1.5;
+}
+.loading{
+    display:none;
+    text-align:center;
+    padding:20px;
+}
+.spinner{
+    width:35px;
+    height:35px;
+    border:4px solid #333c58;
+    border-top-color:#8b5cf6;
+    border-radius:50%;
+    margin:auto;
+    animation:spin 1s linear infinite;
+}
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">🎬 <span>MINA</span> VIDEO AI</div>
+    <div class="subtitle">
+        Hikâyeni sahnelere dönüştür.
+    </div>
+
+    <div class="card">
+
+        <label>🎯 Video konusu</label>
+        <textarea id="topic"
+        placeholder="Örn: 20 yıl önce kaybolan ve tekrar ortaya çıkan gizemli uçak"></textarea>
+
+        <label>⏱️ Video süresi</label>
+        <select id="duration">
+            <option value="30">30 saniye</option>
+            <option value="60" selected>60 saniye</option>
+            <option value="120">2 dakika</option>
+            <option value="300">5 dakika</option>
+            <option value="480">8 dakika</option>
+        </select>
+
+        <label>🌍 Dil</label>
+        <select id="language">
+            <option>Türkçe</option>
+            <option>English</option>
+            <option>Deutsch</option>
+        </select>
+
+        <label>🎨 Görsel tarz</label>
+        <select id="style">
+            <option>Gerçekçi ve sinematik</option>
+            <option>Karanlık ve gizemli</option>
+            <option>Belgesel tarzı</option>
+            <option>Hollywood sinematik</option>
+        </select>
+
+        <button onclick="createProject()">
+            🚀 VİDEO PROJESİ OLUŞTUR
+        </button>
+
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Mina hikâyeni hazırlıyor...</p>
+    </div>
+
+    <div class="card result" id="result">
+
+        <h2>🎬 Video Projesi</h2>
+
+        <div id="script"></div>
+
+        <h2>🎞️ Sahne Planı</h2>
+
+        <div id="scenes"></div>
+
+        <h2>🎙️ Seslendirme</h2>
+
+        <div class="scene">
+            <p id="voice"></p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function createProject(){
+
+    const topic =
+        document.getElementById("topic").value.trim();
+
+    const duration =
+        document.getElementById("duration").value;
+
+    const language =
+        document.getElementById("language").value;
+
+    const style =
+        document.getElementById("style").value;
+
+    if(!topic){
+        alert("Önce video konusunu yaz.");
+        return;
+    }
+
+    document.getElementById("result").style.display="none";
+    document.getElementById("loading").style.display="block";
+
+    setTimeout(()=>{
+
+        document.getElementById("loading").style.display="none";
+        document.getElementById("result").style.display="block";
+
+        const sceneCount =
+            duration <= 30 ? 4 :
+            duration <= 60 ? 6 :
+            duration <= 120 ? 8 :
+            duration <= 300 ? 12 : 16;
+
+        document.getElementById("script").innerHTML = `
+            <div class="scene">
+                <h3>📝 Senaryo</h3>
+                <p>
+                ${topic}...
+                Bu olay yıllardır cevaplanmayı bekleyen
+                sorularla çevrili. Şimdi olayın izlerini
+                adım adım takip ediyoruz.
+                </p>
+                <p class="small">
+                Dil: ${language}<br>
+                Süre: ${duration} saniye<br>
+                Stil: ${style}
+                </p>
+            </div>
+        `;
+
+        let scenes="";
+
+        for(let i=1;i<=sceneCount;i++){
+
+            scenes += `
+                <div class="scene">
+                    <h3>Sahne ${i}</h3>
+
+                    <p>
+                    <b>Görüntü:</b>
+                    ${topic} hakkında ${style.toLowerCase()}
+                    bir sinematik sahne.
+                    </p>
+
+                    <p>
+                    <b>🎨 Görsel komutu:</b><br>
+                    Cinematic realistic scene,
+                    ${topic}, dramatic lighting,
+                    detailed environment,
+                    documentary photography,
+                    high detail, 16:9
+                    </p>
+
+                    <p class="small">
+                    Süre: yaklaşık
+                    ${Math.max(3,Math.round(duration/sceneCount))}
+                    saniye
+                    </p>
+                </div>
+            `;
+        }
+
+        document.getElementById("scenes").innerHTML=scenes;
+
+        document.getElementById("voice").innerText =
+        `Bu videoda ${topic} olayının ardındaki
+        gizemi araştırıyoruz. Yıllar boyunca cevapsız
+        kalan sorular, yeni ortaya çıkan bilgilerle
+        yeniden gündeme geliyor.`;
+
+    },1200);
+}
+
+</script>
+
+</body>
+</html>
