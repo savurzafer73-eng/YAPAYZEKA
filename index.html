@@ -11,100 +11,101 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#070b16,#101a35,#090d19);
-color:#fff;
-min-height:100vh
+background:linear-gradient(135deg,#070b16,#111d3d,#080c18);
+color:white;
+min-height:100vh;
 }
 
 .container{
 max-width:760px;
 margin:auto;
-padding:22px 15px 50px
+padding:22px 15px 50px;
 }
 
 h1{
 text-align:center;
-font-size:31px;
-margin:5px 0 8px
+font-size:32px;
+margin:5px 0 8px;
 }
 
 .subtitle{
 text-align:center;
 color:#aeb9d8;
-margin-bottom:22px
+margin-bottom:22px;
 }
 
 .card{
-background:rgba(18,27,52,.95);
+background:rgba(18,27,52,.96);
 border:1px solid rgba(255,255,255,.1);
 border-radius:18px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 15px 40px rgba(0,0,0,.25)
+box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
 
 .card h2{
 margin:0 0 14px;
-font-size:20px
+font-size:20px;
 }
 
 label{
 display:block;
 margin:12px 0 6px;
 font-weight:bold;
-color:#cbd5f2
+color:#cbd5f2;
 }
 
-textarea,select{
+textarea,
+select{
 width:100%;
 border:1px solid rgba(255,255,255,.12);
 background:#080d1b;
-color:#fff;
+color:white;
 border-radius:12px;
 padding:12px;
 font-size:15px;
-outline:none
+outline:none;
 }
 
 textarea{
 min-height:120px;
-resize:vertical
+resize:vertical;
 }
 
 .row{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px
+gap:10px;
 }
 
 button{
 width:100%;
 border:0;
 border-radius:13px;
-padding:13px;
+padding:14px;
 margin-top:10px;
 font-size:15px;
 font-weight:bold;
 cursor:pointer;
-color:#fff;
-background:linear-gradient(135deg,#5d5cff,#8c4dff)
-}
-
-button.secondary{
-background:#263252
+color:white;
+background:linear-gradient(135deg,#5d5cff,#8c4dff);
 }
 
 button.green{
-background:linear-gradient(135deg,#159957,#0cba6b)
+background:linear-gradient(135deg,#159957,#0cba6b);
 }
 
 button.red{
-background:#713247
+background:#713247;
+}
+
+button.secondary{
+background:#263252;
 }
 
 button:disabled{
 opacity:.5;
-cursor:not-allowed
+cursor:not-allowed;
 }
 
 .status{
@@ -112,12 +113,17 @@ padding:12px;
 border-radius:12px;
 background:#080d1b;
 margin-top:12px;
-color:#b9c5e5;
-line-height:1.5
+line-height:1.5;
+font-size:14px;
 }
 
-.ok{color:#61f2a0}
-.err{color:#ff7589}
+.ok{
+color:#62f3a0;
+}
+
+.err{
+color:#ff7589;
+}
 
 .script{
 white-space:pre-wrap;
@@ -125,27 +131,27 @@ background:#080d1b;
 border-radius:12px;
 padding:14px;
 line-height:1.6;
-min-height:100px
+min-height:100px;
 }
 
 .scene{
 background:#080d1b;
 border-radius:14px;
 padding:13px;
-margin-bottom:12px
+margin-bottom:12px;
 }
 
 .scene-title{
 font-weight:bold;
 color:#8ea5ff;
-margin-bottom:8px
+margin-bottom:8px;
 }
 
 .scene img{
 width:100%;
 display:block;
 border-radius:12px;
-margin-top:10px
+margin-top:10px;
 }
 
 .progress{
@@ -153,47 +159,52 @@ height:10px;
 background:#070b16;
 border-radius:20px;
 overflow:hidden;
-margin-top:12px
+margin-top:12px;
 }
 
 .progressbar{
 height:100%;
 width:0%;
 background:linear-gradient(90deg,#5d5cff,#d44cff);
-transition:.3s
+transition:.3s;
 }
 
 #videoArea{
-display:none
+display:none;
 }
 
 video{
 width:100%;
+border-radius:14px;
 background:#000;
-border-radius:14px
+display:block;
 }
 
 .download{
 display:block;
 text-align:center;
 text-decoration:none;
-color:#fff;
+color:white;
 background:#159957;
 padding:13px;
 border-radius:13px;
 margin-top:12px;
-font-weight:bold
+font-weight:bold;
 }
 
 .small{
 font-size:12px;
 color:#8996b8;
-line-height:1.5
+line-height:1.5;
 }
 
 @media(max-width:560px){
-.row{grid-template-columns:1fr}
-h1{font-size:27px}
+.row{
+grid-template-columns:1fr;
+}
+h1{
+font-size:27px;
+}
 }
 </style>
 </head>
@@ -209,29 +220,33 @@ Gerçek AI görselleri • Türkçe / Deutsch / English • Sinematik Video
 </div>
 
 
-<!-- AI -->
+<!-- AI CONNECTION -->
 
 <div class="card">
 
 <h2>🤖 AI Bağlantısı</h2>
 
 <div class="small">
-Mina'yı Pollinations AI'ya bağla.
+Mina'yı Pollinations AI'ya güvenli OAuth bağlantısıyla bağla.
 </div>
 
 <button id="connectBtn">
 🔐 AI'YA BAĞLAN
 </button>
 
-<button id="logoutBtn"
+<button
+id="disconnectBtn"
 class="secondary"
 style="display:none">
 🔓 BAĞLANTIYI KES
 </button>
 
-<div id="authStatus"
+<div
+id="authStatus"
 class="status">
+
 Bağlantı bekleniyor...
+
 </div>
 
 </div>
@@ -291,7 +306,7 @@ placeholder="Örneğin: 2030 yılında Mars'ta keşfedilen gizemli şehir"></tex
 
 <label>Görsel tarzı</label>
 
-<select id="style">
+<select id="visualStyle">
 
 <option value="cinematic">🎬 Cinematic</option>
 <option value="realistic">📷 Photorealistic</option>
@@ -311,12 +326,11 @@ placeholder="Örneğin: 2030 yılında Mars'ta keşfedilen gizemli şehir"></tex
 
 <select id="voice">
 
-<option value="rachel">Rachel</option>
-<option value="bella">Bella</option>
-<option value="domi">Domi</option>
-<option value="antoni">Antoni</option>
-<option value="josh">Josh</option>
-<option value="adam">Adam</option>
+<option value="nova">Nova</option>
+<option value="alloy">Alloy</option>
+<option value="echo">Echo</option>
+<option value="onyx">Onyx</option>
+<option value="shimmer">Shimmer</option>
 
 </select>
 
@@ -335,10 +349,12 @@ class="green">
 
 
 <div class="progress">
+
 <div
 id="progressBar"
 class="progressbar">
 </div>
+
 </div>
 
 
@@ -393,7 +409,9 @@ class="red">
 <h2>🎞️ AI Sahneler</h2>
 
 <div id="scenes">
+
 Henüz sahne oluşturulmadı.
+
 </div>
 
 </div>
@@ -402,19 +420,19 @@ Henüz sahne oluşturulmadı.
 <!-- VIDEO -->
 
 <div
-class="card"
-id="videoArea">
+id="videoArea"
+class="card">
 
 <h2>🎬 Final Video</h2>
 
 <video
-id="video"
+id="finalVideo"
 controls
 playsinline>
 </video>
 
 <a
-id="download"
+id="downloadVideo"
 class="download"
 download="mina-video.webm">
 
@@ -424,18 +442,20 @@ download="mina-video.webm">
 
 </div>
 
-
 </div>
 
 
 <script>
 
-/* =====================================================
+/* ======================================================
    MINA VIDEO AI
-===================================================== */
+   REAL POLLINATIONS OAUTH 2.0 + PKCE
+====================================================== */
 
 
-/* APP */
+/* ------------------------------------------------------
+   APP SETTINGS
+------------------------------------------------------ */
 
 const APP_KEY =
 "pk_QJfK0SKE0MqAqf3I";
@@ -444,16 +464,23 @@ const REDIRECT_URI =
 "https://savurzafer73-eng.github.io/YAPAYZEKA/";
 
 
-/* POLLINATIONS */
+/* Pollinations */
 
-const AUTH =
+const AUTH_URL =
 "https://enter.pollinations.ai/authorize";
 
-const API =
+const TOKEN_URL =
+"https://enter.pollinations.ai/api/oauth/token";
+
+const API_URL =
 "https://gen.pollinations.ai";
 
 
-/* CANONICAL MODEL IDS */
+/*
+IMPORTANT:
+
+These are CANONICAL model IDs.
+*/
 
 const TEXT_MODEL =
 "openai/gpt-5.4-nano";
@@ -465,15 +492,15 @@ const AUDIO_MODEL =
 "elevenlabs/eleven-multilingual-v2";
 
 
-/* =====================================================
+/* ------------------------------------------------------
    ELEMENTS
-===================================================== */
+------------------------------------------------------ */
 
 const connectBtn =
 document.getElementById("connectBtn");
 
-const logoutBtn =
-document.getElementById("logoutBtn");
+const disconnectBtn =
+document.getElementById("disconnectBtn");
 
 const authStatus =
 document.getElementById("authStatus");
@@ -490,16 +517,16 @@ document.getElementById("language");
 const duration =
 document.getElementById("duration");
 
-const style =
-document.getElementById("style");
+const visualStyle =
+document.getElementById("visualStyle");
 
 const voice =
 document.getElementById("voice");
 
-const script =
+const scriptBox =
 document.getElementById("script");
 
-const scenes =
+const scenesBox =
 document.getElementById("scenes");
 
 const progressBar =
@@ -511,115 +538,158 @@ document.getElementById("progressText");
 const videoArea =
 document.getElementById("videoArea");
 
-const video =
-document.getElementById("video");
+const finalVideo =
+document.getElementById("finalVideo");
 
-const download =
-document.getElementById("download");
+const downloadVideo =
+document.getElementById("downloadVideo");
 
 
-/* =====================================================
-   USER KEY
-===================================================== */
+/* ------------------------------------------------------
+   TOKEN
+------------------------------------------------------ */
 
-let USER_KEY =
-localStorage.getItem(
-"mina_user_key"
+let accessToken =
+sessionStorage.getItem(
+"mina_access_token"
 ) || "";
 
 
-/* =====================================================
-   AUTH RESULT
-===================================================== */
+/* ------------------------------------------------------
+   HELPERS
+------------------------------------------------------ */
 
-function readKey(){
+function randomString(length){
 
-const hash =
-window.location.hash.substring(1);
+const chars =
+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-if(!hash)return false;
+let result = "";
 
-const params =
-new URLSearchParams(hash);
+for(
+let i=0;
+i<length;
+i++
+){
 
-
-/*
-Pollinations may return
-api_key / key
-*/
-
-const key =
-params.get("api_key") ||
-params.get("key") ||
-params.get("access_token");
-
-
-if(key){
-
-USER_KEY =
-key;
-
-localStorage.setItem(
-"mina_user_key",
-USER_KEY
+result +=
+chars.charAt(
+Math.floor(
+Math.random()*chars.length
+)
 );
 
-history.replaceState(
-null,
-document.title,
-window.location.pathname
+}
+
+return result;
+
+}
+
+
+/* ------------------------------------------------------
+   BASE64URL
+------------------------------------------------------ */
+
+function base64url(buffer){
+
+let bytes =
+new Uint8Array(buffer);
+
+let binary = "";
+
+for(
+let i=0;
+i<bytes.byteLength;
+i++
+){
+
+binary +=
+String.fromCharCode(
+bytes[i]
 );
 
-return true;
 }
 
-return false;
-
-}
-
-
-/* =====================================================
-   AUTH UI
-===================================================== */
-
-function updateAuth(){
-
-if(USER_KEY){
-
-connectBtn.style.display =
-"none";
-
-logoutBtn.style.display =
-"block";
-
-authStatus.innerHTML =
-'<span class="ok">🟢 Mina AI bağlantısı aktif.</span>';
-
-}else{
-
-connectBtn.style.display =
-"block";
-
-logoutBtn.style.display =
-"none";
-
-authStatus.textContent =
-"Bağlantı bekleniyor...";
-
-}
+return btoa(binary)
+.replace(/\+/g,"-")
+.replace(/\//g,"_")
+.replace(/=+$/,"");
 
 }
 
 
-/* =====================================================
+/* ------------------------------------------------------
+   PKCE
+------------------------------------------------------ */
+
+async function createPKCE(){
+
+const verifier =
+randomString(64);
+
+const data =
+new TextEncoder().encode(
+verifier
+);
+
+const digest =
+await crypto.subtle.digest(
+"SHA-256",
+data
+);
+
+const challenge =
+base64url(digest);
+
+return {
+verifier,
+challenge
+};
+
+}
+
+
+/* ------------------------------------------------------
    CONNECT
-===================================================== */
+------------------------------------------------------ */
 
 connectBtn.onclick =
-function(){
+async function(){
+
+try{
+
+authStatus.textContent =
+"🔄 Pollinations bağlantısı hazırlanıyor...";
+
+
+const pkce =
+await createPKCE();
+
+
+const state =
+randomString(32);
+
 
 /*
-Canonical models ONLY.
+Save temporarily.
+
+sessionStorage is specifically appropriate
+for the OAuth callback.
+*/
+
+sessionStorage.setItem(
+"mina_pkce_verifier",
+pkce.verifier
+);
+
+sessionStorage.setItem(
+"mina_oauth_state",
+state
+);
+
+
+/*
+ONLY REQUEST MODELS WE NEED.
 */
 
 const models =
@@ -633,6 +703,12 @@ AUDIO_MODEL
 const params =
 new URLSearchParams();
 
+
+params.set(
+"response_type",
+"code"
+);
+
 params.set(
 "client_id",
 APP_KEY
@@ -644,13 +720,13 @@ REDIRECT_URI
 );
 
 params.set(
-"models",
-models
+"scope",
+"usage"
 );
 
 params.set(
-"scope",
-"usage"
+"models",
+models
 );
 
 params.set(
@@ -658,47 +734,383 @@ params.set(
 "7"
 );
 
+params.set(
+"budget",
+"10"
+);
+
+params.set(
+"state",
+state
+);
+
+params.set(
+"code_challenge",
+pkce.challenge
+);
+
+params.set(
+"code_challenge_method",
+"S256"
+);
+
+
+const url =
+AUTH_URL +
+"?" +
+params.toString();
+
 
 /*
-Use Pollinations authorization page.
+Go to Pollinations.
 */
 
-window.location.assign(
-AUTH + "?" +
-params.toString()
-);
+window.location.href =
+url;
+
+
+}catch(error){
+
+authStatus.innerHTML =
+'<span class="err">❌ ' +
+escapeHTML(
+error.message
+) +
+'</span>';
+
+}
 
 };
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* ------------------------------------------------------
+   OAUTH CALLBACK
+------------------------------------------------------ */
 
-logoutBtn.onclick =
-function(){
+async function handleCallback(){
 
-USER_KEY = "";
-
-localStorage.removeItem(
-"mina_user_key"
+const params =
+new URLSearchParams(
+window.location.search
 );
 
-updateAuth();
+const code =
+params.get("code");
 
-};
+const returnedState =
+params.get("state");
+
+const oauthError =
+params.get("error");
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
 
-function auth(){
+/*
+No OAuth callback.
+*/
 
-if(!USER_KEY){
+if(
+!code &&
+!oauthError
+){
+
+return;
+
+}
+
+
+/*
+Pollinations rejected authorization.
+*/
+
+if(oauthError){
+
+authStatus.innerHTML =
+'<span class="err">❌ Pollinations bağlantısı reddedildi: ' +
+escapeHTML(
+oauthError
+) +
+'</span>';
+
+return;
+
+}
+
+
+const savedState =
+sessionStorage.getItem(
+"mina_oauth_state"
+);
+
+const verifier =
+sessionStorage.getItem(
+"mina_pkce_verifier"
+);
+
+
+/*
+State validation.
+*/
+
+if(
+!savedState ||
+returnedState !== savedState
+){
+
+authStatus.innerHTML =
+'<span class="err">❌ OAuth güvenlik doğrulaması başarısız.</span>';
+
+return;
+
+}
+
+
+/*
+PKCE verifier must exist.
+*/
+
+if(!verifier){
+
+authStatus.innerHTML =
+'<span class="err">❌ PKCE doğrulama bilgisi bulunamadı.</span>';
+
+return;
+
+}
+
+
+authStatus.textContent =
+"🔄 Pollinations anahtarı alınıyor...";
+
+
+try{
+
+
+/*
+Exchange authorization code
+for scoped sk_ token.
+*/
+
+const response =
+await fetch(
+TOKEN_URL,
+{
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/x-www-form-urlencoded"
+},
+
+body:
+new URLSearchParams({
+
+grant_type:
+"authorization_code",
+
+code:
+code,
+
+client_id:
+APP_KEY,
+
+redirect_uri:
+REDIRECT_URI,
+
+code_verifier:
+verifier
+
+})
+
+}
+);
+
+
+const text =
+await response.text();
+
+
+let data;
+
+try{
+
+data =
+JSON.parse(text);
+
+}catch(e){
 
 throw new Error(
-"Önce AI'YA BAĞLAN butonuna bas."
+"Token sunucusundan geçersiz cevap geldi: " +
+text.substring(0,300)
+);
+
+}
+
+
+if(!response.ok){
+
+throw new Error(
+data?.error_description ||
+data?.error?.message ||
+data?.error ||
+"OAuth token alınamadı."
+);
+
+}
+
+
+const token =
+data.access_token;
+
+
+if(!token){
+
+throw new Error(
+"Pollinations access_token göndermedi."
+);
+
+}
+
+
+/*
+Store only in sessionStorage.
+*/
+
+accessToken =
+token;
+
+sessionStorage.setItem(
+"mina_access_token",
+accessToken
+);
+
+
+/*
+Clean temporary OAuth data.
+*/
+
+sessionStorage.removeItem(
+"mina_pkce_verifier"
+);
+
+sessionStorage.removeItem(
+"mina_oauth_state"
+);
+
+
+/*
+Remove ?code=... from address.
+*/
+
+history.replaceState(
+null,
+document.title,
+window.location.pathname
+);
+
+
+/*
+Update UI.
+*/
+
+updateAuthUI();
+
+
+authStatus.innerHTML =
+'<span class="ok">🟢 Mina AI bağlantısı başarılı!</span>';
+
+
+}catch(error){
+
+console.error(
+"OAuth error:",
+error
+);
+
+authStatus.innerHTML =
+'<span class="err">❌ OAuth hatası: ' +
+escapeHTML(
+error.message
+) +
+'</span>';
+
+}
+
+}
+
+
+/* ------------------------------------------------------
+   AUTH UI
+------------------------------------------------------ */
+
+function updateAuthUI(){
+
+if(accessToken){
+
+connectBtn.style.display =
+"none";
+
+disconnectBtn.style.display =
+"block";
+
+authStatus.innerHTML =
+'<span class="ok">🟢 Mina AI bağlantısı aktif.</span>';
+
+}else{
+
+connectBtn.style.display =
+"block";
+
+disconnectBtn.style.display =
+"none";
+
+if(
+!authStatus.textContent.includes(
+"❌"
+)
+){
+
+authStatus.textContent =
+"Bağlantı bekleniyor...";
+
+}
+
+}
+
+}
+
+
+/* ------------------------------------------------------
+   DISCONNECT
+------------------------------------------------------ */
+
+disconnectBtn.onclick =
+function(){
+
+accessToken = "";
+
+sessionStorage.removeItem(
+"mina_access_token"
+);
+
+updateAuthUI();
+
+progressText.textContent =
+"Bağlantı kesildi.";
+
+};
+
+
+/* ------------------------------------------------------
+   AUTH CHECK
+------------------------------------------------------ */
+
+function requireAuth(){
+
+if(!accessToken){
+
+throw new Error(
+"Önce AI'YA BAĞLAN butonuna basmalısın."
 );
 
 }
@@ -706,45 +1118,60 @@ throw new Error(
 }
 
 
-function progress(n,text){
+/* ------------------------------------------------------
+   PROGRESS
+------------------------------------------------------ */
+
+function setProgress(
+percent,
+message
+){
 
 progressBar.style.width =
-n + "%";
+percent + "%";
 
 progressText.textContent =
-text;
+message;
 
 }
 
 
-function cleanText(text){
+/* ------------------------------------------------------
+   HTML ESCAPE
+------------------------------------------------------ */
 
-return String(text)
-.replace(/```json/gi,"")
-.replace(/```/g,"")
-.trim();
+function escapeHTML(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
-/* =====================================================
+/* ======================================================
    AI TEXT
-===================================================== */
+====================================================== */
 
 async function aiText(prompt){
 
-auth();
+requireAuth();
 
-const r =
+
+const response =
 await fetch(
-API +
+API_URL +
 "/v1/chat/completions",
 {
 method:"POST",
 
 headers:{
 "Authorization":
-"Bearer " + USER_KEY,
+"Bearer " +
+accessToken,
 
 "Content-Type":
 "application/json"
@@ -752,50 +1179,56 @@ headers:{
 
 body:JSON.stringify({
 
-model:TEXT_MODEL,
+model:
+TEXT_MODEL,
 
 messages:[
 {
 role:"user",
 content:prompt
 }
-]
+],
+
+temperature:
+0.8
 
 })
-});
+
+}
+);
 
 
-if(!r.ok){
+const raw =
+await response.text();
 
-const t =
-await r.text();
+
+if(!response.ok){
 
 throw new Error(
 "AI metin hatası: " +
-t.substring(0,500)
+raw.substring(0,500)
 );
 
 }
 
 
 const data =
-await r.json();
+JSON.parse(raw);
+
 
 return (
-data.choices &&
-data.choices[0] &&
-data.choices[0].message &&
-data.choices[0].message.content
-) || "";
+data?.choices?.[0]?.message?.content ||
+""
+).trim();
 
 }
 
 
-/* =====================================================
+/* ======================================================
    SCRIPT
-===================================================== */
+====================================================== */
 
-async function makeScript(){
+async function createScript(){
 
 const lang =
 language.value === "de"
@@ -806,7 +1239,10 @@ language.value === "de"
 
 
 const prompt =
-`Create a professional cinematic narration.
+
+`You are a professional cinematic video script writer.
+
+Create a narration for a ${duration.value}-second video.
 
 Topic:
 ${topic.value}
@@ -814,28 +1250,32 @@ ${topic.value}
 Language:
 ${lang}
 
-Duration:
-${duration.value} seconds.
+Style:
+Cinematic, emotional, mysterious and highly engaging.
 
 Rules:
-Strong hook.
-Interesting.
-Emotional.
-Natural AI narration.
-No scene labels.
-Return ONLY narration text.`;
+- Start with a powerful hook.
+- Keep the viewer curious.
+- Natural narration.
+- No scene labels.
+- No greetings.
+- Return only the narration.`;
 
 
-return await aiText(prompt);
+return await aiText(
+prompt
+);
 
 }
 
 
-/* =====================================================
+/* ======================================================
    SCENES
-===================================================== */
+====================================================== */
 
-async function makeScenes(text){
+async function createScenes(
+narration
+){
 
 const count =
 Number(duration.value) <= 30
@@ -848,38 +1288,49 @@ Number(duration.value) <= 30
 
 
 const prompt =
-`Create exactly ${count} cinematic scenes.
+
+`Create exactly ${count} cinematic visual scenes.
 
 Topic:
 ${topic.value}
 
 Narration:
-${text}
+${narration}
 
 Visual style:
-${style.value}
+${visualStyle.value}
 
 Return ONLY valid JSON.
 
 [
 {
-"title":"...",
-"description":"...",
-"prompt":"Detailed cinematic image prompt in English"
+"title":"Scene title",
+"description":"Short description",
+"prompt":"Detailed English cinematic image prompt"
 }
 ]
 
-No text in images.
-No logos.
-No watermark.
-16:9.`;
+Rules:
+- Exactly ${count} scenes.
+- 16:9.
+- Photorealistic.
+- No text.
+- No logo.
+- No watermark.`;
 
 
 let raw =
-await aiText(prompt);
+await aiText(
+prompt
+);
+
 
 raw =
-cleanText(raw);
+raw
+.replace(/```json/gi,"")
+.replace(/```/g,"")
+.trim();
+
 
 const start =
 raw.indexOf("[");
@@ -887,36 +1338,46 @@ raw.indexOf("[");
 const end =
 raw.lastIndexOf("]");
 
-if(start>=0 && end>start){
+
+if(
+start >= 0 &&
+end > start
+){
 
 raw =
 raw.substring(
 start,
-end+1
+end + 1
 );
 
 }
 
-return JSON.parse(raw);
+
+return JSON.parse(
+raw
+);
 
 }
 
 
-/* =====================================================
+/* ======================================================
    IMAGE
-===================================================== */
+====================================================== */
 
-async function makeImage(prompt){
+async function createImage(
+prompt
+){
 
-auth();
+requireAuth();
+
 
 const finalPrompt =
 prompt +
-", cinematic, photorealistic, highly detailed, 16:9, no text, no logo, no watermark";
+", cinematic photography, photorealistic, highly detailed, dramatic lighting, 16:9, no text, no logo, no watermark";
 
 
 const url =
-API +
+API_URL +
 "/image/" +
 encodeURIComponent(
 finalPrompt
@@ -930,29 +1391,30 @@ IMAGE_MODEL
 "&n=1" +
 "&key=" +
 encodeURIComponent(
-USER_KEY
+accessToken
 );
 
 
-const r =
+const response =
 await fetch(url);
 
 
-if(!r.ok){
+if(!response.ok){
 
-const t =
-await r.text();
+const raw =
+await response.text();
 
 throw new Error(
 "AI görsel hatası: " +
-t.substring(0,400)
+raw.substring(0,400)
 );
 
 }
 
 
 const blob =
-await r.blob();
+await response.blob();
+
 
 return URL.createObjectURL(
 blob
@@ -961,115 +1423,62 @@ blob
 }
 
 
-/* =====================================================
-   AUDIO
-===================================================== */
+/* ======================================================
+   SCENE DISPLAY
+====================================================== */
 
-async function makeAudio(text){
+function displayScenes(
+list
+){
 
-auth();
-
-const r =
-await fetch(
-API +
-"/v1/audio/speech",
-{
-method:"POST",
-
-headers:{
-"Authorization":
-"Bearer " + USER_KEY,
-
-"Content-Type":
-"application/json"
-},
-
-body:JSON.stringify({
-
-model:AUDIO_MODEL,
-
-input:text,
-
-voice:voice.value,
-
-response_format:"mp3"
-
-})
-});
-
-
-if(!r.ok){
-
-const t =
-await r.text();
-
-throw new Error(
-"AI ses hatası: " +
-t.substring(0,400)
-);
-
-}
-
-return await r.blob();
-
-}
-
-
-/* =====================================================
-   SHOW SCENES
-===================================================== */
-
-function showScenes(list){
-
-scenes.innerHTML="";
+scenesBox.innerHTML = "";
 
 list.forEach(
-function(item,i){
+function(scene,index){
 
-const box =
+const div =
 document.createElement(
 "div"
 );
 
-box.className =
+div.className =
 "scene";
 
-box.innerHTML =
-`
-<div class="scene-title">
-SAHNE ${i+1} — ${escapeHTML(item.title || "")}
-</div>
+div.innerHTML =
 
-<div>
-${escapeHTML(item.description || "")}
-</div>
-`;
+'<div class="scene-title">' +
+"SAHNE " +
+(index + 1) +
+" — " +
+escapeHTML(
+scene.title || ""
+) +
+"</div>" +
 
-scenes.appendChild(box);
+"<div>" +
+escapeHTML(
+scene.description || ""
+) +
+"</div>";
+
+scenesBox.appendChild(
+div
+);
 
 }
+
 );
 
 }
 
 
-function escapeHTML(s){
+/* ======================================================
+   IMAGE LOAD
+====================================================== */
 
-return String(s)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   LOAD IMAGE
-===================================================== */
-
-function loadImage(src){
+function loadImage(
+src
+){
 
 return new Promise(
 function(resolve,reject){
@@ -1104,17 +1513,20 @@ src;
 }
 
 
-/* =====================================================
+/* ======================================================
    CANVAS
-===================================================== */
+====================================================== */
 
 const canvas =
 document.createElement(
 "canvas"
 );
 
-canvas.width = 1280;
-canvas.height = 720;
+canvas.width =
+1280;
+
+canvas.height =
+720;
 
 const ctx =
 canvas.getContext(
@@ -1122,11 +1534,14 @@ canvas.getContext(
 );
 
 
-/* =====================================================
-   DRAW
-===================================================== */
+/* ======================================================
+   CINEMATIC DRAW
+====================================================== */
 
-function draw(img,p){
+function drawImage(
+img,
+progress
+){
 
 const cw =
 canvas.width;
@@ -1135,39 +1550,52 @@ const ch =
 canvas.height;
 
 const iw =
-img.naturalWidth;
+img.naturalWidth ||
+img.width;
 
 const ih =
-img.naturalHeight;
+img.naturalHeight ||
+img.height;
+
 
 const scale =
 Math.max(
-cw/iw,
-ch/ih
+cw / iw,
+ch / ih
 );
 
-const bw =
-iw*scale;
 
-const bh =
-ih*scale;
+const baseW =
+iw * scale;
+
+const baseH =
+ih * scale;
+
 
 const zoom =
-1 + p*.07;
+1 +
+progress *
+0.07;
 
-const w =
-bw*zoom;
 
-const h =
-bh*zoom;
+const width =
+baseW *
+zoom;
+
+const height =
+baseH *
+zoom;
+
 
 const x =
-(cw-w)/2;
+(cw - width) / 2;
 
 const y =
-(ch-h)/2;
+(ch - height) / 2;
 
-ctx.fillStyle="#000";
+
+ctx.fillStyle =
+"#000";
 
 ctx.fillRect(
 0,
@@ -1176,70 +1604,128 @@ cw,
 ch
 );
 
+
 ctx.drawImage(
 img,
 x,
 y,
-w,
-h
+width,
+height
 );
 
 }
 
 
-/* =====================================================
-   BUILD VIDEO
-===================================================== */
+/* ======================================================
+   AUDIO
+====================================================== */
 
-async function buildVideo(
+async function createAudio(
+text
+){
+
+requireAuth();
+
+
+/*
+Use Pollinations audio endpoint.
+
+The browser can then use the returned MP3
+when building the video.
+*/
+
+const url =
+API_URL +
+"/audio/" +
+encodeURIComponent(
+text
+) +
+"?voice=" +
+encodeURIComponent(
+voice.value
+);
+
+
+const response =
+await fetch(
+url,
+{
+headers:{
+"Authorization":
+"Bearer " +
+accessToken
+}
+}
+);
+
+
+if(!response.ok){
+
+const raw =
+await response.text();
+
+throw new Error(
+"AI ses hatası: " +
+raw.substring(0,400)
+);
+
+}
+
+
+return await response.blob();
+
+}
+
+
+/* ======================================================
+   VIDEO
+====================================================== */
+
+async function createVideo(
 images,
 audioBlob
 ){
 
-const totalSeconds =
-Number(duration.value);
-
-const fps = 30;
+const total =
+Number(
+duration.value
+);
 
 const stream =
 canvas.captureStream(
-fps
+30
 );
 
 
-/* AUDIO */
-
-let audio =
+let audioElement =
 null;
 
 let audioContext =
 null;
 
+
 if(audioBlob){
 
-const audioUrl =
+try{
+
+const audioURL =
 URL.createObjectURL(
 audioBlob
 );
 
-audio =
+audioElement =
 new Audio(
-audioUrl
+audioURL
 );
 
-audio.crossOrigin =
+audioElement.crossOrigin =
 "anonymous";
 
-audio.preload =
-"auto";
-
-
-try{
 
 await new Promise(
 function(resolve){
 
-audio.onloadedmetadata =
+audioElement.onloadedmetadata =
 resolve;
 
 setTimeout(
@@ -1247,8 +1733,7 @@ resolve,
 3000
 );
 
-}
-);
+});
 
 
 audioContext =
@@ -1261,8 +1746,9 @@ window.webkitAudioContext
 const source =
 audioContext
 .createMediaElementSource(
-audio
+audioElement
 );
+
 
 const destination =
 audioContext
@@ -1286,11 +1772,12 @@ track
 }
 );
 
-}catch(e){
 
-console.log(
-"Audio stream:",
-e
+}catch(error){
+
+console.warn(
+"Ses video stream'e eklenemedi:",
+error
 );
 
 }
@@ -1298,10 +1785,11 @@ e
 }
 
 
-/* RECORDER */
+/* Recorder */
 
 let mime =
 "video/webm;codecs=vp9,opus";
+
 
 if(
 !MediaRecorder.isTypeSupported(
@@ -1329,11 +1817,16 @@ const chunks=[];
 
 
 recorder.ondataavailable =
-function(e){
+function(event){
 
-if(e.data.size>0){
+if(
+event.data &&
+event.data.size > 0
+){
 
-chunks.push(e.data);
+chunks.push(
+event.data
+);
 
 }
 
@@ -1345,17 +1838,17 @@ recorder.start(
 );
 
 
-if(audio){
+if(audioElement){
 
 try{
 
-await audio.play();
+await audioElement.play();
 
-}catch(e){
+}catch(error){
 
-console.log(
-"Audio autoplay:",
-e
+console.warn(
+"Audio play:",
+error
 );
 
 }
@@ -1363,59 +1856,66 @@ e
 }
 
 
-const sceneSeconds =
-totalSeconds /
+const sceneDuration =
+total /
 images.length;
 
-const started =
+const startTime =
 performance.now();
 
 
 return new Promise(
 function(resolve){
 
-function loop(now){
+function render(
+now
+){
 
 const elapsed =
-(now-started)/1000;
+(now-startTime) /
+1000;
 
 
-const index =
+const sceneIndex =
 Math.min(
-images.length-1,
+images.length - 1,
 Math.floor(
-elapsed/
-sceneSeconds
+elapsed /
+sceneDuration
 )
 );
 
 
-const local =
+const localProgress =
 (
 elapsed -
-index*sceneSeconds
+sceneIndex *
+sceneDuration
 ) /
-sceneSeconds;
+sceneDuration;
 
 
-draw(
-images[index],
+drawImage(
+images[sceneIndex],
 Math.max(
 0,
 Math.min(
 1,
-local
+localProgress
+)
 )
 );
 
 
-if(elapsed>=totalSeconds){
+if(
+elapsed >= total
+){
 
 recorder.stop();
 
-if(audio){
+if(audioElement){
 
-audio.pause();
+audioElement.pause();
 
 }
 
@@ -1423,15 +1923,14 @@ audio.pause();
 setTimeout(
 function(){
 
-const blob =
+resolve(
 new Blob(
 chunks,
 {
 type:mime
 }
+)
 );
-
-resolve(blob);
 
 },
 300
@@ -1443,13 +1942,14 @@ return;
 
 
 requestAnimationFrame(
-loop
+render
 );
 
 }
 
+
 requestAnimationFrame(
-loop
+render
 );
 
 });
@@ -1457,19 +1957,23 @@ loop
 }
 
 
-/* =====================================================
+/* ======================================================
    MAIN
-===================================================== */
+====================================================== */
 
 generateBtn.onclick =
 async function(){
 
 try{
 
-auth();
+requireAuth();
 
 
-if(!topic.value.trim()){
+const subject =
+topic.value.trim();
+
+
+if(!subject){
 
 alert(
 "Önce video konusunu yaz."
@@ -1489,85 +1993,93 @@ videoArea.style.display =
 
 /* SCRIPT */
 
-progress(
+setProgress(
 5,
 "📝 AI senaryo yazıyor..."
 );
 
-const text =
-await makeScript();
 
-script.textContent =
-text;
+const narration =
+await createScript();
+
+
+scriptBox.textContent =
+narration;
 
 
 /* SCENES */
 
-progress(
+setProgress(
 20,
 "🎞️ AI sahneleri planlıyor..."
 );
 
-const list =
-await makeScenes(
-text
+
+const sceneList =
+await createScenes(
+narration
 );
 
-showScenes(
-list
+
+displayScenes(
+sceneList
 );
 
 
 /* IMAGES */
 
-const imageUrls=[];
+const imageURLs=[];
+
 
 for(
 let i=0;
-i<list.length;
+i<sceneList.length;
 i++
 ){
 
-progress(
+setProgress(
 25 +
 Math.round(
-(i/list.length)*45
+(i / sceneList.length) *
+45
 ),
-"🖼️ AI görsel " +
+"🖼️ AI görsel oluşturuyor " +
 (i+1) +
 "/" +
-list.length
-);
-
-const img =
-await makeImage(
-list[i].prompt
-);
-
-imageUrls.push(
-img
+sceneList.length
 );
 
 
-/* Add image */
+const image =
+await createImage(
+sceneList[i].prompt
+);
 
-const boxes =
-scenes.querySelectorAll(
+
+imageURLs.push(
+image
+);
+
+
+const sceneElements =
+scenesBox.querySelectorAll(
 ".scene"
 );
 
-if(boxes[i]){
 
-const image =
+if(sceneElements[i]){
+
+const img =
 document.createElement(
 "img"
 );
 
-image.src =
-img;
+img.src =
+image;
 
-boxes[i].appendChild(
-image
+sceneElements[i]
+.appendChild(
+img
 );
 
 }
@@ -1577,27 +2089,32 @@ image
 
 /* AUDIO */
 
-progress(
-72,
+let audioBlob =
+null;
+
+
+setProgress(
+73,
 "🔊 AI ses oluşturuyor..."
 );
 
-let audioBlob;
 
 try{
 
 audioBlob =
-await makeAudio(
-text
+await createAudio(
+narration
 );
 
-}catch(e){
+}catch(error){
 
-console.warn(e);
+console.warn(
+error
+);
 
-progress(
-72,
-"⚠️ Ses alınamadı, video sessiz hazırlanıyor..."
+setProgress(
+73,
+"⚠️ Ses alınamadı, video sessiz oluşturuluyor..."
 );
 
 }
@@ -1605,58 +2122,64 @@ progress(
 
 /* LOAD */
 
-progress(
+setProgress(
 80,
 "🎬 Video hazırlanıyor..."
 );
 
+
 const images=[];
 
+
 for(
-const src of imageUrls
+const url of imageURLs
 ){
 
 images.push(
 await loadImage(
-src
+url
 )
 );
 
 }
 
 
-/* VIDEO */
+/* BUILD */
 
-const result =
-await buildVideo(
+const videoBlob =
+await createVideo(
 images,
 audioBlob
 );
 
 
-const videoUrl =
+const videoURL =
 URL.createObjectURL(
-result
+videoBlob
 );
 
-video.src =
-videoUrl;
 
-download.href =
-videoUrl;
+finalVideo.src =
+videoURL;
 
-download.download =
+
+downloadVideo.href =
+videoURL;
+
+
+downloadVideo.download =
 "mina-video-" +
 Date.now() +
 ".webm";
+
 
 videoArea.style.display =
 "block";
 
 
-progress(
+setProgress(
 100,
-"✅ MINA videosu hazır!"
+"✅ MINA VIDEO HAZIR!"
 );
 
 
@@ -1665,19 +2188,21 @@ behavior:"smooth"
 });
 
 
-}catch(e){
+}catch(error){
 
-console.error(e);
+console.error(
+error
+);
 
-progress(
+setProgress(
 0,
 "❌ Hata: " +
-e.message
+error.message
 );
 
 alert(
 "MINA HATASI:\n\n" +
-e.message
+error.message
 );
 
 }finally{
@@ -1690,9 +2215,9 @@ false;
 };
 
 
-/* =====================================================
+/* ======================================================
    BROWSER VOICE
-===================================================== */
+====================================================== */
 
 document.getElementById(
 "listenBtn"
@@ -1700,9 +2225,11 @@ document.getElementById(
 function(){
 
 const text =
-script.textContent.trim();
+scriptBox.textContent.trim();
 
-if(!text ||
+
+if(
+!text ||
 text ===
 "Henüz senaryo oluşturulmadı."
 ){
@@ -1711,28 +2238,34 @@ return;
 
 }
 
+
 if(
 "speechSynthesis" in window
 ){
 
 speechSynthesis.cancel();
 
-const u =
+
+const utterance =
 new SpeechSynthesisUtterance(
 text
 );
 
-u.lang =
+
+utterance.lang =
 language.value === "de"
 ? "de-DE"
 : language.value === "en"
 ? "en-US"
 : "tr-TR";
 
-u.rate=1;
+
+utterance.rate =
+1;
+
 
 speechSynthesis.speak(
-u
+utterance
 );
 
 }
@@ -1756,21 +2289,47 @@ speechSynthesis.cancel();
 };
 
 
-/* =====================================================
-   START
-===================================================== */
+/* ======================================================
+   DEFAULT
+====================================================== */
 
-readKey();
-
-updateAuth();
-
-
-if(!topic.value){
+if(
+!topic.value
+){
 
 topic.value =
 "Dünyanın en gizemli kayıp şehri";
 
 }
+
+
+/* ======================================================
+   START OAUTH CALLBACK
+====================================================== */
+
+handleCallback()
+.then(
+function(){
+
+updateAuthUI();
+
+}
+)
+.catch(
+function(error){
+
+console.error(
+error
+);
+
+authStatus.innerHTML =
+'<span class="err">❌ ' +
+escapeHTML(
+error.message
+) +
+'</span>';
+
+});
 
 </script>
 
