@@ -3,107 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI</title>
+<title>Mina Video AI V2</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#0b1020;
+    background:
+        radial-gradient(circle at top,#1d1640 0%,#0b1020 38%,#070b15 100%);
     color:white;
 }
+
 .container{
-    max-width:700px;
+    max-width:760px;
     margin:auto;
-    padding:25px 18px 50px;
+    padding:22px 16px 60px;
 }
+
 .logo{
     text-align:center;
-    font-size:32px;
-    font-weight:bold;
+    font-size:34px;
+    font-weight:900;
     margin:15px 0 5px;
+    letter-spacing:-1px;
 }
-.logo span{color:#8b5cf6}
+
+.logo span{
+    color:#9b6cff;
+}
+
 .subtitle{
     text-align:center;
     color:#aab2c5;
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
+
 .card{
-    background:#151c31;
-    border:1px solid #27304a;
-    border-radius:18px;
+    background:rgba(21,28,49,.92);
+    border:1px solid #2b3554;
+    border-radius:20px;
     padding:20px;
     margin-bottom:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
 }
+
+h2{
+    margin-top:0;
+}
+
 label{
     display:block;
-    margin:14px 0 8px;
-    color:#cbd3e5;
+    margin:15px 0 8px;
+    color:#d8def0;
     font-weight:bold;
 }
+
 input,select,textarea{
     width:100%;
     padding:14px;
-    border-radius:12px;
-    border:1px solid #35405f;
-    background:#0e1528;
+    border-radius:13px;
+    border:1px solid #384462;
+    background:#0c1325;
     color:white;
     font-size:16px;
+    outline:none;
 }
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#8b5cf6;
+}
+
 textarea{
-    min-height:100px;
+    min-height:110px;
     resize:vertical;
 }
+
 button{
     width:100%;
-    padding:16px;
+    padding:15px;
     border:0;
     border-radius:14px;
-    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    background:linear-gradient(135deg,#8b5cf6,#2563eb);
     color:white;
-    font-size:18px;
-    font-weight:bold;
+    font-size:17px;
+    font-weight:800;
     cursor:pointer;
     margin-top:18px;
+    transition:.2s;
 }
-button:active{transform:scale(.98)}
-.result{
-    display:none;
+
+button:hover{
+    transform:translateY(-1px);
+    filter:brightness(1.08);
 }
-.scene{
-    background:#0d1427;
-    border:1px solid #303a58;
-    border-radius:14px;
-    padding:15px;
-    margin-top:12px;
+
+button:active{
+    transform:scale(.98);
 }
-.scene h3{
-    margin-top:0;
-    color:#a78bfa;
+
+.secondary{
+    background:#202a43;
+    border:1px solid #3b4868;
 }
-.small{
-    color:#aab2c5;
-    font-size:14px;
-    line-height:1.5;
+
+.green{
+    background:linear-gradient(135deg,#059669,#10b981);
 }
+
+.orange{
+    background:linear-gradient(135deg,#ea580c,#f59e0b);
+}
+
+.danger{
+    background:#252c40;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.actions button{
+    margin-top:10px;
+}
+
 .loading{
     display:none;
     text-align:center;
-    padding:20px;
+    padding:25px;
 }
+
 .spinner{
-    width:35px;
-    height:35px;
-    border:4px solid #333c58;
-    border-top-color:#8b5cf6;
+    width:40px;
+    height:40px;
+    border:4px solid #343d59;
+    border-top-color:#9b6cff;
     border-radius:50%;
     margin:auto;
     animation:spin 1s linear infinite;
 }
+
 @keyframes spin{
     to{transform:rotate(360deg)}
+}
+
+.result{
+    display:none;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 11px;
+    border-radius:20px;
+    background:#241a49;
+    color:#c4b5fd;
+    font-size:13px;
+    margin:3px;
+}
+
+.scene{
+    background:#0d1427;
+    border:1px solid #303a58;
+    border-radius:15px;
+    padding:16px;
+    margin-top:12px;
+}
+
+.scene h3{
+    margin-top:0;
+    color:#a78bfa;
+}
+
+.scene-number{
+    display:inline-block;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    border-radius:50%;
+    background:#7c3aed;
+    margin-right:7px;
+}
+
+.prompt{
+    background:#080d19;
+    border:1px solid #29344f;
+    border-radius:10px;
+    padding:12px;
+    font-size:14px;
+    line-height:1.55;
+    color:#d9def0;
+    word-break:break-word;
+}
+
+.small{
+    color:#9fa9bf;
+    font-size:14px;
+    line-height:1.55;
+}
+
+.voice-box{
+    background:#0d1427;
+    border:1px solid #303a58;
+    padding:16px;
+    border-radius:15px;
+    line-height:1.7;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:15px 0;
+}
+
+.stat{
+    background:#0d1427;
+    border:1px solid #303a58;
+    border-radius:13px;
+    padding:13px;
+    text-align:center;
+}
+
+.stat b{
+    display:block;
+    font-size:20px;
+    color:#a78bfa;
+}
+
+.hidden{
+    display:none;
+}
+
+.copy-btn{
+    width:auto;
+    padding:8px 12px;
+    margin:8px 0 0;
+    font-size:13px;
+}
+
+.history-item{
+    padding:12px;
+    border-bottom:1px solid #29344c;
+    cursor:pointer;
+}
+
+.history-item:last-child{
+    border-bottom:0;
+}
+
+.history-item:hover{
+    background:#111a2e;
+}
+
+@media(max-width:520px){
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr 1fr;
+    }
+
+    .logo{
+        font-size:29px;
+    }
 }
 </style>
 </head>
@@ -113,17 +282,20 @@ button:active{transform:scale(.98)}
 <div class="container">
 
     <div class="logo">🎬 <span>MINA</span> VIDEO AI</div>
+
     <div class="subtitle">
-        Hikâyeni sahnelere dönüştür.
+        Hikâyeni saniyeler içinde video projesine dönüştür.
     </div>
 
     <div class="card">
 
         <label>🎯 Video konusu</label>
+
         <textarea id="topic"
-        placeholder="Örn: 20 yıl önce kaybolan ve tekrar ortaya çıkan gizemli uçak"></textarea>
+        placeholder="Örn: 20 yıl önce kaybolan gizemli uçak yeniden ortaya çıktı"></textarea>
 
         <label>⏱️ Video süresi</label>
+
         <select id="duration">
             <option value="30">30 saniye</option>
             <option value="60" selected>60 saniye</option>
@@ -133,18 +305,29 @@ button:active{transform:scale(.98)}
         </select>
 
         <label>🌍 Dil</label>
+
         <select id="language">
-            <option>Türkçe</option>
-            <option>English</option>
-            <option>Deutsch</option>
+            <option value="tr">Türkçe</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
         </select>
 
         <label>🎨 Görsel tarz</label>
+
         <select id="style">
-            <option>Gerçekçi ve sinematik</option>
-            <option>Karanlık ve gizemli</option>
-            <option>Belgesel tarzı</option>
-            <option>Hollywood sinematik</option>
+            <option value="cinematic">Gerçekçi ve sinematik</option>
+            <option value="dark">Karanlık ve gizemli</option>
+            <option value="documentary">Belgesel tarzı</option>
+            <option value="hollywood">Hollywood sinematik</option>
+        </select>
+
+        <label>🎙️ Ses tonu</label>
+
+        <select id="voiceTone">
+            <option value="dramatic">Dramatik</option>
+            <option value="mysterious">Gizemli</option>
+            <option value="documentary">Belgesel</option>
+            <option value="energetic">Enerjik</option>
         </select>
 
         <button onclick="createProject()">
@@ -154,31 +337,289 @@ button:active{transform:scale(.98)}
     </div>
 
     <div class="loading" id="loading">
+
         <div class="spinner"></div>
-        <p>Mina hikâyeni hazırlıyor...</p>
+
+        <p id="loadingText">
+            Mina hikâyeni hazırlıyor...
+        </p>
+
     </div>
+
 
     <div class="card result" id="result">
 
         <h2>🎬 Video Projesi</h2>
 
+        <div id="projectInfo"></div>
+
+        <div class="stats">
+            <div class="stat">
+                <b id="statScenes">0</b>
+                Sahne
+            </div>
+
+            <div class="stat">
+                <b id="statDuration">0</b>
+                Saniye
+            </div>
+
+            <div class="stat">
+                <b id="statWords">0</b>
+                Kelime
+            </div>
+        </div>
+
+
+        <h2>📝 Senaryo</h2>
+
         <div id="script"></div>
+
 
         <h2>🎞️ Sahne Planı</h2>
 
         <div id="scenes"></div>
 
+
         <h2>🎙️ Seslendirme</h2>
 
-        <div class="scene">
+        <div class="voice-box">
+
             <p id="voice"></p>
+
+            <button class="green" onclick="speakVoice()">
+                🔊 SESLENDİR
+            </button>
+
+            <button class="secondary" onclick="stopVoice()">
+                ⏹️ DURDUR
+            </button>
+
         </div>
+
+
+        <h2>💾 Projeyi Kaydet</h2>
+
+        <div class="actions">
+
+            <button class="secondary" onclick="downloadTXT()">
+                📄 TXT İNDİR
+            </button>
+
+            <button class="secondary" onclick="downloadJSON()">
+                🗂️ JSON İNDİR
+            </button>
+
+        </div>
+
+        <button class="orange" onclick="copyProject()">
+            📋 PROJEYİ KOPYALA
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>🕘 Son Projeler</h2>
+
+        <div id="history">
+            <p class="small">
+                Henüz kayıtlı proje yok.
+            </p>
+        </div>
+
+        <button class="danger" onclick="clearHistory()">
+            🗑️ Geçmişi Temizle
+        </button>
 
     </div>
 
 </div>
 
+
 <script>
+
+let currentProject = null;
+
+
+/* =========================
+   TEXT DATA
+========================= */
+
+const languageNames = {
+    tr:"Türkçe",
+    en:"English",
+    de:"Deutsch"
+};
+
+const styleNames = {
+    cinematic:"Gerçekçi ve sinematik",
+    dark:"Karanlık ve gizemli",
+    documentary:"Belgesel tarzı",
+    hollywood:"Hollywood sinematik"
+};
+
+
+/* =========================
+   SCENE COUNT
+========================= */
+
+function getSceneCount(duration){
+
+    duration = Number(duration);
+
+    if(duration <= 30) return 4;
+    if(duration <= 60) return 6;
+    if(duration <= 120) return 8;
+    if(duration <= 300) return 12;
+
+    return 16;
+}
+
+
+/* =========================
+   GENERATE SCRIPT
+========================= */
+
+function generateScript(topic,duration,tone){
+
+    const intro = {
+
+        dramatic:
+        `Bazı olaylar vardır ki, üzerinden yıllar geçse bile cevaplanmayı bekler. ${topic}. İlk bakışta sıradan görünen bu olayın arkasında ise çok daha büyük sorular vardır.`,
+
+        mysterious:
+        `Gece sessizdi. Her şey normal görünüyordu. Ta ki ${topic}. O andan sonra ortaya çıkan izler, olayın göründüğü kadar basit olmadığını gösterdi.`,
+
+        documentary:
+        `Bu bölümde ${topic} olayını inceliyoruz. Olayın başlangıcından günümüze kadar ortaya çıkan bilgiler, tanık anlatımları ve dikkat çeken ayrıntılar bize farklı bir tablo sunuyor.`,
+
+        energetic:
+        `${topic}! Bu olay düşündüğünüzden çok daha ilginç. Şimdi hikâyenin başlangıcına gidiyor ve bütün ayrıntıları adım adım inceliyoruz.`
+    };
+
+    const middle = {
+
+        dramatic:
+        `İlk ipucu ortaya çıktığında kimse bunun olayın yönünü değiştireceğini bilmiyordu. Ancak yeni bilgiler birbirini takip ettikçe soru işaretleri daha da büyüdü.`,
+
+        mysterious:
+        `Fakat asıl şaşırtıcı olan bundan sonra yaşandı. Bazı ayrıntılar birbirleriyle örtüşüyor, bazıları ise olayın arkasında hâlâ bilinmeyen bir şey olduğunu düşündürüyor.`,
+
+        documentary:
+        `Mevcut bilgiler karşılaştırıldığında olayın birkaç önemli aşamadan oluştuğu görülüyor. Ancak bazı noktalar kesin olarak doğrulanmış değil ve farklı açıklamalar bulunuyor.`,
+
+        energetic:
+        `Ve şimdi olayın en şaşırtıcı bölümüne geliyoruz. Çünkü ortaya çıkan yeni ayrıntılar bütün hikâyeyi farklı bir açıdan görmemizi sağlıyor.`
+    };
+
+    const ending = {
+
+        dramatic:
+        `Bugün bile bu olayın bütün sorularına kesin cevap verilmiş değil. Belki de en büyük soru şu: Gerçekte ne oldu?`,
+
+        mysterious:
+        `Geride hâlâ cevaplanmamış sorular var. Belki de gerçek, bildiğimiz hikâyeden çok daha farklı.`,
+
+        documentary:
+        `Sonuç olarak olayla ilgili bazı bilgiler doğrulanmış olsa da bütün ayrıntılar kesinlik kazanmış değil. Araştırma ise devam ediyor.`,
+
+        energetic:
+        `İşte bu yüzden bu hikâye hâlâ konuşuluyor. Sizce olayın arkasındaki gerçek ne olabilir?`
+    };
+
+    let base =
+        intro[tone] + " " +
+        middle[tone] + " " +
+        ending[tone];
+
+    const targetWords =
+        Math.max(80,Math.round(duration * 2.1));
+
+    while(base.split(/\s+/).length < targetWords){
+
+        base += " " + middle[tone];
+    }
+
+    return base;
+}
+
+
+/* =========================
+   SCENE GENERATOR
+========================= */
+
+function generateSceneDescription(topic,style,index,total){
+
+    const parts = [
+
+        `Geniş sinematik plan: ${topic}`,
+
+        `Olayın merkezindeki mekân ve çevre ayrıntılı şekilde görülüyor`,
+
+        `Kamera yavaşça olayın önemli ayrıntısına yaklaşıyor`,
+
+        `Gece atmosferi, dramatik ışık ve güçlü gölgeler`,
+
+        `Ana karakter veya olayın merkezi görsel olarak vurgulanıyor`,
+
+        `Son bölümde gizemli bir ayrıntı ön plana çıkıyor`
+    ];
+
+    return parts[(index-1) % parts.length];
+}
+
+
+/* =========================
+   PROMPT GENERATOR
+========================= */
+
+function generatePrompt(topic,style,index){
+
+    let visualStyle = "";
+
+    if(style === "cinematic"){
+        visualStyle =
+        "photorealistic cinematic photography, realistic lighting, cinematic composition";
+    }
+
+    if(style === "dark"){
+        visualStyle =
+        "dark mysterious atmosphere, dramatic shadows, moody cinematic lighting";
+    }
+
+    if(style === "documentary"){
+        visualStyle =
+        "realistic documentary photography, natural lighting, investigative atmosphere";
+    }
+
+    if(style === "hollywood"){
+        visualStyle =
+        "Hollywood movie scene, epic cinematic lighting, highly detailed environment";
+    }
+
+    return `
+${visualStyle},
+subject: ${topic},
+scene ${index},
+high detail,
+realistic environment,
+natural proportions,
+dramatic composition,
+depth of field,
+professional cinematography,
+4K,
+16:9,
+no text,
+no watermark
+`.trim();
+}
+
+
+/* =========================
+   CREATE PROJECT
+========================= */
 
 function createProject(){
 
@@ -186,7 +627,7 @@ function createProject(){
         document.getElementById("topic").value.trim();
 
     const duration =
-        document.getElementById("duration").value;
+        Number(document.getElementById("duration").value);
 
     const language =
         document.getElementById("language").value;
@@ -194,84 +635,625 @@ function createProject(){
     const style =
         document.getElementById("style").value;
 
+    const tone =
+        document.getElementById("voiceTone").value;
+
+
     if(!topic){
+
         alert("Önce video konusunu yaz.");
+
         return;
     }
 
+
     document.getElementById("result").style.display="none";
+
     document.getElementById("loading").style.display="block";
+
+
+    const messages = [
+        "Mina hikâyeni analiz ediyor...",
+        "Senaryo hazırlanıyor...",
+        "Sahneler oluşturuluyor...",
+        "Görsel komutları hazırlanıyor...",
+        "Seslendirme metni hazırlanıyor..."
+    ];
+
+
+    let messageIndex=0;
+
+    const interval=setInterval(()=>{
+
+        document.getElementById("loadingText").innerText =
+            messages[messageIndex % messages.length];
+
+        messageIndex++;
+
+    },500);
+
 
     setTimeout(()=>{
 
-        document.getElementById("loading").style.display="none";
-        document.getElementById("result").style.display="block";
+        clearInterval(interval);
 
         const sceneCount =
-            duration <= 30 ? 4 :
-            duration <= 60 ? 6 :
-            duration <= 120 ? 8 :
-            duration <= 300 ? 12 : 16;
+            getSceneCount(duration);
 
-        document.getElementById("script").innerHTML = `
-            <div class="scene">
-                <h3>📝 Senaryo</h3>
-                <p>
-                ${topic}...
-                Bu olay yıllardır cevaplanmayı bekleyen
-                sorularla çevrili. Şimdi olayın izlerini
-                adım adım takip ediyoruz.
-                </p>
-                <p class="small">
-                Dil: ${language}<br>
-                Süre: ${duration} saniye<br>
-                Stil: ${style}
-                </p>
-            </div>
-        `;
+        const script =
+            generateScript(topic,duration,tone);
 
-        let scenes="";
+        const voice =
+            script;
+
+
+        const scenes=[];
 
         for(let i=1;i<=sceneCount;i++){
 
-            scenes += `
-                <div class="scene">
-                    <h3>Sahne ${i}</h3>
+            scenes.push({
 
-                    <p>
-                    <b>Görüntü:</b>
-                    ${topic} hakkında ${style.toLowerCase()}
-                    bir sinematik sahne.
-                    </p>
+                number:i,
 
-                    <p>
-                    <b>🎨 Görsel komutu:</b><br>
-                    Cinematic realistic scene,
-                    ${topic}, dramatic lighting,
-                    detailed environment,
-                    documentary photography,
-                    high detail, 16:9
-                    </p>
+                duration:
+                    Math.max(
+                        3,
+                        Math.round(duration/sceneCount)
+                    ),
 
-                    <p class="small">
-                    Süre: yaklaşık
-                    ${Math.max(3,Math.round(duration/sceneCount))}
-                    saniye
-                    </p>
-                </div>
-            `;
+                description:
+                    generateSceneDescription(
+                        topic,
+                        style,
+                        i,
+                        sceneCount
+                    ),
+
+                prompt:
+                    generatePrompt(
+                        topic,
+                        style,
+                        i
+                    )
+            });
         }
 
-        document.getElementById("scenes").innerHTML=scenes;
 
-        document.getElementById("voice").innerText =
-        `Bu videoda ${topic} olayının ardındaki
-        gizemi araştırıyoruz. Yıllar boyunca cevapsız
-        kalan sorular, yeni ortaya çıkan bilgilerle
-        yeniden gündeme geliyor.`;
+        currentProject = {
 
-    },1200);
+            id:Date.now(),
+
+            topic,
+
+            duration,
+
+            language,
+
+            style,
+
+            tone,
+
+            script,
+
+            voice,
+
+            scenes,
+
+            createdAt:
+                new Date().toLocaleString("tr-TR")
+        };
+
+
+        renderProject();
+
+
+        saveHistory();
+
+
+        document.getElementById("loading").style.display="none";
+
+        document.getElementById("result").style.display="block";
+
+        window.scrollTo({
+            top:document.getElementById("result").offsetTop - 15,
+            behavior:"smooth"
+        });
+
+    },1300);
 }
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderProject(){
+
+    const p=currentProject;
+
+
+    document.getElementById("projectInfo").innerHTML = `
+
+        <span class="badge">
+        🌍 ${languageNames[p.language]}
+        </span>
+
+        <span class="badge">
+        ⏱️ ${p.duration} saniye
+        </span>
+
+        <span class="badge">
+        🎨 ${styleNames[p.style]}
+        </span>
+
+        <span class="badge">
+        🎙️ ${p.tone}
+        </span>
+
+    `;
+
+
+    document.getElementById("statScenes").innerText =
+        p.scenes.length;
+
+    document.getElementById("statDuration").innerText =
+        p.duration;
+
+    document.getElementById("statWords").innerText =
+        p.script.split(/\s+/).length;
+
+
+    document.getElementById("script").innerHTML = `
+
+        <div class="scene">
+
+            <p>
+            ${escapeHTML(p.script)}
+            </p>
+
+        </div>
+
+    `;
+
+
+    let html="";
+
+
+    p.scenes.forEach(scene=>{
+
+        html += `
+
+        <div class="scene">
+
+            <h3>
+                <span class="scene-number">
+                    ${scene.number}
+                </span>
+
+                Sahne ${scene.number}
+            </h3>
+
+            <p>
+                <b>🎥 Görüntü:</b><br>
+                ${escapeHTML(scene.description)}
+            </p>
+
+            <p>
+                <b>⏱️ Süre:</b>
+                ${scene.duration} saniye
+            </p>
+
+            <p>
+                <b>🎨 Görsel komutu:</b>
+            </p>
+
+            <div class="prompt">
+                ${escapeHTML(scene.prompt)}
+            </div>
+
+            <button
+                class="copy-btn secondary"
+                onclick="copyText(${JSON.stringify(scene.prompt)})">
+
+                📋 Promptu Kopyala
+
+            </button>
+
+        </div>
+
+        `;
+    });
+
+
+    document.getElementById("scenes").innerHTML=html;
+
+    document.getElementById("voice").innerText=p.voice;
+}
+
+
+/* =========================
+   TEXT TO SPEECH
+========================= */
+
+function speakVoice(){
+
+    if(!currentProject){
+
+        alert("Önce bir proje oluştur.");
+
+        return;
+    }
+
+    if(!("speechSynthesis" in window)){
+
+        alert("Bu tarayıcı seslendirmeyi desteklemiyor.");
+
+        return;
+    }
+
+
+    speechSynthesis.cancel();
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            currentProject.voice
+        );
+
+
+    const lang =
+        currentProject.language === "en"
+        ? "en-US"
+        :
+        currentProject.language === "de"
+        ? "de-DE"
+        :
+        "tr-TR";
+
+
+    utterance.lang=lang;
+
+    utterance.rate=.92;
+
+    utterance.pitch=.95;
+
+    utterance.volume=1;
+
+
+    speechSynthesis.speak(utterance);
+}
+
+
+function stopVoice(){
+
+    if("speechSynthesis" in window){
+
+        speechSynthesis.cancel();
+
+    }
+}
+
+
+/* =========================
+   COPY
+========================= */
+
+function copyText(text){
+
+    navigator.clipboard.writeText(text)
+    .then(()=>{
+
+        alert("Kopyalandı ✅");
+
+    })
+    .catch(()=>{
+
+        alert("Kopyalama başarısız.");
+
+    });
+}
+
+
+function copyProject(){
+
+    if(!currentProject)return;
+
+
+    const text =
+        buildTXT(currentProject);
+
+
+    navigator.clipboard.writeText(text)
+    .then(()=>{
+
+        alert("Tüm proje panoya kopyalandı ✅");
+
+    });
+}
+
+
+/* =========================
+   TXT
+========================= */
+
+function buildTXT(p){
+
+    let text="";
+
+    text += "MINA VIDEO AI V2\n";
+    text += "====================\n\n";
+
+    text += "KONU:\n";
+    text += p.topic + "\n\n";
+
+    text += "SÜRE: " + p.duration + " saniye\n";
+
+    text += "DİL: " +
+        languageNames[p.language] + "\n";
+
+    text += "STİL: " +
+        styleNames[p.style] + "\n\n";
+
+
+    text += "SENARYO\n";
+    text += "====================\n";
+    text += p.script + "\n\n";
+
+
+    text += "SAHNELER\n";
+    text += "====================\n\n";
+
+
+    p.scenes.forEach(scene=>{
+
+        text +=
+        "SAHNE " +
+        scene.number +
+        "\n";
+
+        text +=
+        "Süre: " +
+        scene.duration +
+        " saniye\n";
+
+        text +=
+        "Görüntü: " +
+        scene.description +
+        "\n";
+
+        text +=
+        "Görsel Prompt:\n" +
+        scene.prompt +
+        "\n\n";
+    });
+
+
+    text += "SESLENDİRME\n";
+    text += "====================\n";
+
+    text += p.voice;
+
+
+    return text;
+}
+
+
+function downloadTXT(){
+
+    if(!currentProject)return;
+
+
+    const blob =
+        new Blob(
+            [buildTXT(currentProject)],
+            {type:"text/plain;charset=utf-8"}
+        );
+
+
+    downloadBlob(
+        blob,
+        "mina-video-projesi.txt"
+    );
+}
+
+
+/* =========================
+   JSON
+========================= */
+
+function downloadJSON(){
+
+    if(!currentProject)return;
+
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    currentProject,
+                    null,
+                    2
+                )
+            ],
+            {type:"application/json;charset=utf-8"}
+        );
+
+
+    downloadBlob(
+        blob,
+        "mina-video-projesi.json"
+    );
+}
+
+
+function downloadBlob(blob,fileName){
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href=url;
+
+    a.download=fileName;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function saveHistory(){
+
+    if(!currentProject)return;
+
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "mina_video_history"
+            ) || "[]"
+        );
+
+
+    history.unshift(currentProject);
+
+
+    history =
+        history.slice(0,8);
+
+
+    localStorage.setItem(
+        "mina_video_history",
+        JSON.stringify(history)
+    );
+
+
+    renderHistory();
+}
+
+
+function renderHistory(){
+
+    const box =
+        document.getElementById("history");
+
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "mina_video_history"
+            ) || "[]"
+        );
+
+
+    if(!history.length){
+
+        box.innerHTML=
+            `<p class="small">
+            Henüz kayıtlı proje yok.
+            </p>`;
+
+        return;
+    }
+
+
+    box.innerHTML="";
+
+
+    history.forEach((item,index)=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className="history-item";
+
+
+        div.innerHTML = `
+
+            <b>🎬 ${escapeHTML(item.topic)}</b>
+
+            <div class="small">
+                ${item.duration} saniye ·
+                ${item.createdAt}
+            </div>
+
+        `;
+
+
+        div.onclick=()=>{
+
+            currentProject=item;
+
+            renderProject();
+
+            document.getElementById("result")
+                .style.display="block";
+
+            window.scrollTo({
+                top:document.getElementById("result").offsetTop - 15,
+                behavior:"smooth"
+            });
+
+        };
+
+
+        box.appendChild(div);
+
+    });
+}
+
+
+function clearHistory(){
+
+    if(!confirm(
+        "Kayıtlı tüm projeler silinsin mi?"
+    ))return;
+
+
+    localStorage.removeItem(
+        "mina_video_history"
+    );
+
+
+    renderHistory();
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   START
+========================= */
+
+renderHistory();
 
 </script>
 
