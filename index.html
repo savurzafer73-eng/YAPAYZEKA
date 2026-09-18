@@ -625,46 +625,65 @@ async function connectAI(){
 
     try{
 
-        const verifier =
-        randomString(64);
+        const verifier = randomString(64);
 
         const challenge =
-        await sha256Base64Url(verifier);
+            await sha256Base64Url(verifier);
 
+        // PKCE bilgisini iki yerde sakla
         localStorage.setItem(
             "mina_pkce_verifier",
             verifier
         );
 
+        sessionStorage.setItem(
+            "mina_pkce_verifier",
+            verifier
+        );
+
+        // Eski token varsa temizle
+        localStorage.removeItem(
+            "mina_polli_token"
+        );
+
         const redirectUri =
-        location.origin + location.pathname;
+            location.origin +
+            location.pathname;
 
         const params =
-        new URLSearchParams({
+            new URLSearchParams({
 
-            client_id:APP_KEY,
+                client_id: APP_KEY,
 
-            redirect_uri:redirectUri,
+                redirect_uri: redirectUri,
 
-            response_type:"code",
+                response_type: "code",
 
-            code_challenge:challenge,
+                code_challenge: challenge,
 
-            code_challenge_method:"S256",
+                code_challenge_method: "S256",
 
-            scope:"profile usage",
+                scope: "profile usage",
 
-            models:
-            "black-forest-labs/flux.1-schnell,openai",
+                models:
+                "black-forest-labs/flux.1-schnell,openai",
 
-            expiry:"7"
+                expiry: "7"
 
-        });
+            });
 
-        location.href =
-        POLLI_AUTH + "?" + params.toString();
+        showStatus(
+            "🔄 Pollinations giriş sayfasına yönlendiriliyorsun..."
+        );
+
+        window.location.href =
+            POLLI_AUTH +
+            "?" +
+            params.toString();
 
     }catch(error){
+
+        console.error(error);
 
         showStatus(
             "❌ Bağlantı hatası: " +
@@ -674,12 +693,6 @@ async function connectAI(){
     }
 
 }
-
-
-/* =========================================================
-   OAUTH CALLBACK
-========================================================= */
-
 async function handleOAuthCallback(){
 
     const params = new URLSearchParams(location.search);
