@@ -682,6 +682,163 @@ async function connectAI(){
 
 async function handleOAuthCallback(){
 
+    const params = new URLSearchParams(location.search);
+
+    const code = params.get("code");
+
+    if(!code) return;
+
+    let verifier =
+        localStorage.getItem("mina_pkce_verifier");
+
+    /*
+      Bazı tarayıcılarda OAuth dönüşünde
+      localStorage gecikebiliyor.
+      sessionStorage yedeğini de kontrol ediyoruz.
+    */
+
+    if(!verifier){
+
+        verifier =
+            sessionStorage.getItem("mina_pkce_verifier");
+
+    }
+
+    if(!verifier){
+
+        showStatus(
+            "❌ PKCE bilgisi bulunamadı. Yeniden bağlanmayı deniyoruz..."
+        );
+
+        /*
+          Eski/bozuk OAuth dönüşünü temizle.
+        */
+
+        localStorage.removeItem(
+            "mina_polli_token"
+        );
+
+        localStorage.removeItem(
+            "mina_pkce_verifier"
+        );
+
+        sessionStorage.removeItem(
+            "mina_pkce_verifier"
+        );
+
+        const cleanUrl =
+            location.origin +
+            location.pathname;
+
+        history.replaceState(
+            {},
+            document.title,
+            cleanUrl
+        );
+
+        return;
+
+    }
+
+    try{
+
+        showStatus(
+            "🔄 AI bağlantısı tamamlanıyor..."
+        );
+
+        const redirectUri =
+            location.origin +
+            location.pathname;
+
+        const response =
+            await fetch(
+                POLLI_TOKEN,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                        "application/x-www-form-urlencoded"
+                    },
+
+                    body:
+                    new URLSearchParams({
+
+                        grant_type:
+                        "authorization_code",
+
+                        client_id:
+                        APP_KEY,
+
+                        code:code,
+
+                        redirect_uri:
+                        redirectUri,
+
+                        code_verifier:
+                        verifier
+
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            throw new Error(
+                data.error_description ||
+                data.error ||
+                data.message ||
+                "Token alınamadı."
+            );
+
+        }
+
+        accessToken =
+            data.access_token;
+
+        localStorage.setItem(
+            "mina_polli_token",
+            accessToken
+        );
+
+        localStorage.removeItem(
+            "mina_pkce_verifier"
+        );
+
+        sessionStorage.removeItem(
+            "mina_pkce_verifier"
+        );
+
+        history.replaceState(
+            {},
+            document.title,
+            location.pathname
+        );
+
+        setConnected();
+
+        showStatus(
+            "🟢 Mina AI başarıyla bağlandı!"
+        );
+
+    }catch(error){
+
+        console.error(
+            "OAuth Error:",
+            error
+        );
+
+        showStatus(
+            "❌ OAuth hatası: " +
+            error.message
+        );
+
+    }
+
+}
     const params =
     new URLSearchParams(location.search);
 
@@ -763,10 +920,15 @@ async function handleOAuthCallback(){
         accessToken =
         data.access_token;
 
-        localStorage.setItem(
-            "mina_polli_token",
-            accessToken
-        );
+       localStorage.setItem(
+    "mina_pkce_verifier",
+    verifier
+);
+
+sessionStorage.setItem(
+    "mina_pkce_verifier",
+    verifier
+);
 
         localStorage.removeItem(
             "mina_pkce_verifier"
