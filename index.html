@@ -3,269 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MINA VIDEO AI V8</title>
+<title>Mina Video AI</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
+    font-family:Arial,sans-serif;
     background:
-      radial-gradient(circle at top,#172554 0,#0b1020 42%,#050814 100%);
+      radial-gradient(circle at top,#18264d 0,#0b1020 45%,#050812 100%);
     color:#fff;
     min-height:100vh;
 }
 
 .container{
-    width:100%;
-    max-width:900px;
+    width:min(900px,94%);
     margin:auto;
-    padding:22px;
+    padding:22px 0 50px;
 }
 
-.header{
+h1{
     text-align:center;
-    margin-bottom:22px;
-}
-
-.logo{
-    font-size:34px;
-    font-weight:900;
-    letter-spacing:2px;
-}
-
-.logo span{
-    color:#7dd3fc;
+    margin:5px 0 5px;
+    font-size:32px;
 }
 
 .subtitle{
-    color:#aeb9d6;
-    margin-top:7px;
+    text-align:center;
+    color:#aab6d3;
+    margin-bottom:22px;
 }
 
 .card{
-    background:rgba(17,25,50,.82);
+    background:rgba(18,26,48,.88);
     border:1px solid rgba(255,255,255,.10);
-    border-radius:20px;
+    border-radius:18px;
     padding:20px;
     margin-bottom:18px;
-    box-shadow:0 15px 45px rgba(0,0,0,.30);
-    backdrop-filter:blur(10px);
+    box-shadow:0 15px 45px rgba(0,0,0,.25);
 }
 
-h2{
-    margin:0 0 14px;
+.card h2{
+    margin-top:0;
     font-size:20px;
 }
 
 label{
     display:block;
-    color:#b8c4df;
-    margin-bottom:8px;
-    font-size:14px;
+    margin:12px 0 7px;
+    color:#dce4fa;
+    font-weight:bold;
 }
 
 textarea,
-input,
-select{
+select,
+input[type="range"]{
     width:100%;
-    border:1px solid rgba(255,255,255,.12);
-    background:#080d1d;
+}
+
+textarea,
+select{
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:12px;
+    background:#0b1225;
     color:white;
-    border-radius:13px;
-    padding:13px;
-    outline:none;
+    padding:12px;
     font-size:15px;
+    outline:none;
 }
 
 textarea{
-    min-height:105px;
+    min-height:115px;
     resize:vertical;
 }
 
 button{
     border:0;
-    border-radius:13px;
+    border-radius:12px;
     padding:13px 17px;
     color:white;
-    font-size:15px;
-    font-weight:800;
+    background:#315cff;
     cursor:pointer;
+    font-weight:bold;
+    font-size:15px;
     transition:.2s;
 }
 
 button:hover{
     transform:translateY(-1px);
-    filter:brightness(1.08);
+    filter:brightness(1.12);
 }
 
-.primary{
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+    transform:none;
 }
 
-.green{
-    background:linear-gradient(135deg,#059669,#10b981);
-}
-
-.red{
-    background:linear-gradient(135deg,#dc2626,#b91c1c);
-}
-
-.gray{
-    background:#27324d;
-}
-
-.full{
-    width:100%;
-}
+.btn-green{background:#159957}
+.btn-red{background:#c7354b}
+.btn-purple{background:#743cff}
+.btn-dark{background:#202b46}
 
 .row{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:12px;
+    gap:14px;
+}
+
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:15px;
 }
 
 .status{
-    padding:12px 14px;
-    border-radius:12px;
-    background:#080d1d;
-    border:1px solid rgba(255,255,255,.08);
-    color:#aeb9d6;
+    padding:11px 13px;
+    border-radius:10px;
+    background:#0b1225;
+    color:#aab6d3;
     margin-top:12px;
+    font-size:14px;
+    word-break:break-word;
+}
+
+.connected{
+    color:#5df29c;
+}
+
+.scene{
+    background:#0a1020;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:15px;
+    padding:13px;
+    margin:12px 0;
+}
+
+.scene img{
+    width:100%;
+    border-radius:12px;
+    display:block;
+    background:#060a14;
+    min-height:150px;
+    object-fit:cover;
+}
+
+.scene-title{
+    font-weight:bold;
+    margin:10px 0 6px;
+}
+
+.scene-text{
+    color:#c4cee4;
     line-height:1.5;
-}
-
-.status.ok{
-    border-color:#10b981;
-    color:#86efac;
-}
-
-.status.err{
-    border-color:#ef4444;
-    color:#fca5a5;
-}
-
-.connectBox{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.connection{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-weight:800;
-}
-
-.dot{
-    width:11px;
-    height:11px;
-    border-radius:50%;
-    background:#ef4444;
-    box-shadow:0 0 10px #ef4444;
-}
-
-.dot.on{
-    background:#22c55e;
-    box-shadow:0 0 12px #22c55e;
+    font-size:14px;
 }
 
 .progress{
     width:100%;
-    height:10px;
-    background:#080d1d;
-    border-radius:20px;
+    height:8px;
+    border-radius:10px;
     overflow:hidden;
-    margin-top:14px;
-    display:none;
+    background:#070c18;
+    margin-top:12px;
 }
 
-.progressBar{
+.progress div{
     height:100%;
     width:0%;
-    background:linear-gradient(90deg,#38bdf8,#8b5cf6);
+    background:#4e78ff;
     transition:.3s;
-}
-
-.scene{
-    margin-top:16px;
-    border-radius:18px;
-    overflow:hidden;
-    background:#080d1d;
-    border:1px solid rgba(255,255,255,.09);
-}
-
-.sceneHead{
-    padding:12px 14px;
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    background:#10182e;
-    font-weight:800;
-}
-
-.sceneImg{
-    width:100%;
-    display:block;
-    aspect-ratio:16/9;
-    object-fit:cover;
-    background:#050814;
-}
-
-.sceneText{
-    padding:14px;
-    color:#c5cee2;
-    line-height:1.55;
-}
-
-.loader{
-    display:inline-block;
-    width:15px;
-    height:15px;
-    border:2px solid rgba(255,255,255,.25);
-    border-top-color:#fff;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-    vertical-align:middle;
-}
-
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
-
-.hidden{
-    display:none!important;
-}
-
-.small{
-    color:#7f8baa;
-    font-size:12px;
-    line-height:1.5;
-}
-
-#videoCanvas{
-    width:100%;
-    border-radius:16px;
-    background:#000;
-    display:block;
 }
 
 video{
     width:100%;
-    border-radius:16px;
-    display:block;
+    border-radius:15px;
     background:#000;
+    display:block;
 }
 
 .download{
     display:block;
     text-align:center;
     text-decoration:none;
+    color:white;
+    background:#159957;
+    padding:14px;
+    border-radius:12px;
     margin-top:12px;
+    font-weight:bold;
+}
+
+.small{
+    color:#8794b3;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.voice-box{
+    background:#0a1020;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    padding:14px;
+}
+
+.range-value{
+    display:inline-block;
+    margin-left:8px;
+    color:#79a0ff;
+}
+
+#welcome{
+    display:none;
+    color:#8df5b8;
+    margin-top:10px;
+}
+
+#loading{
+    display:none;
+    text-align:center;
+    padding:20px;
+}
+
+.spinner{
+    width:35px;
+    height:35px;
+    border:4px solid rgba(255,255,255,.15);
+    border-top-color:#4e78ff;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 10px;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
 }
 
 @media(max-width:650px){
@@ -273,12 +246,12 @@ video{
         grid-template-columns:1fr;
     }
 
-    .logo{
+    h1{
         font-size:27px;
     }
 
-    .container{
-        padding:12px;
+    .card{
+        padding:15px;
     }
 }
 </style>
@@ -288,400 +261,418 @@ video{
 
 <div class="container">
 
-    <div class="header">
-        <div class="logo">🎬 MINA <span>VIDEO AI</span></div>
-        <div class="subtitle">
-            Gerçek AI görselleri • Türkçe ses • Sinematik video
-        </div>
-    </div>
+<h1>🎬 MINA VIDEO AI</h1>
 
-    <!-- BAĞLANTI -->
-    <div class="card">
+<div class="subtitle">
+Gerçek AI görselleri • Türkçe / Deutsch / English ses • Sinematik video
+</div>
 
-        <h2>🤖 AI Bağlantısı</h2>
+<!-- AI CONNECTION -->
+<div class="card">
 
-        <div class="connectBox">
+<h2>🤖 AI Bağlantısı</h2>
 
-            <div class="connection">
-                <span id="connectionDot" class="dot"></span>
-                <span id="connectionText">AI bağlı değil</span>
-            </div>
+<div id="connectionText">
+Mina'yı AI'ya bağlamak için aşağıdaki butona bas.
+</div>
 
-            <div>
-                <button id="connectBtn" class="primary" onclick="connectAI()">
-                    🤖 AI'YE BAĞLAN
-                </button>
+<div class="buttons">
+<button id="connectBtn" onclick="connectAI()">
+🔐 AI'YA BAĞLAN
+</button>
 
-                <button id="logoutBtn"
-                        class="red hidden"
-                        onclick="logoutAI()">
-                    ÇIKIŞ
-                </button>
-            </div>
+<button id="logoutBtn"
+        class="btn-red"
+        onclick="logoutAI()"
+        style="display:none">
+🚪 ÇIKIŞ
+</button>
+</div>
 
-        </div>
+<div id="welcome"></div>
 
-        <div id="authStatus" class="status">
-            Video oluşturmak için önce AI bağlantısını kur.
-        </div>
-
-        <div class="small" style="margin-top:10px">
-            Mina, gizli API anahtarını kodun içine koymaz.
-            Pollinations OAuth ile kullanıcı yetkilendirmesi kullanılır.
-        </div>
-
-    </div>
-
-    <!-- PROJE -->
-    <div class="card">
-
-        <h2>🎥 Video Projesi</h2>
-
-        <label>Video konusu</label>
-
-        <textarea
-            id="topic"
-            placeholder="Örneğin: Dünyanın en gizemli 5 kayıp şehri..."
-        ></textarea>
-
-        <div class="row" style="margin-top:13px">
-
-            <div>
-                <label>Video süresi</label>
-
-                <select id="duration">
-                    <option value="30">30 saniye</option>
-                    <option value="45">45 saniye</option>
-                    <option value="60" selected>60 saniye</option>
-                    <option value="90">90 saniye</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Görsel stil</label>
-
-                <select id="style">
-                    <option value="cinematic realistic">
-                        🎬 Sinematik gerçekçi
-                    </option>
-
-                    <option value="documentary">
-                        📺 Belgesel
-                    </option>
-
-                    <option value="dark cinematic">
-                        🌑 Karanlık sinematik
-                    </option>
-
-                    <option value="epic cinematic">
-                        ⚔️ Epik sinematik
-                    </option>
-
-                    <option value="photorealistic">
-                        📷 Fotogerçekçi
-                    </option>
-                </select>
-            </div>
-
-        </div>
-
-        <button
-            id="createBtn"
-            class="primary full"
-            style="margin-top:15px"
-            onclick="createVideo()">
-
-            🎬 TÜM VİDEOYU OLUŞTUR
-
-        </button>
-
-        <div class="progress" id="progress">
-            <div class="progressBar" id="progressBar"></div>
-        </div>
-
-        <div id="mainStatus" class="status hidden"></div>
-
-    </div>
-
-    <!-- SENARYO -->
-    <div class="card hidden" id="scriptCard">
-
-        <h2>📝 Mina'nın Senaryosu</h2>
-
-        <textarea id="scriptOutput"></textarea>
-
-    </div>
-
-    <!-- SAHNELER -->
-    <div class="card hidden" id="scenesCard">
-
-        <h2>🎞️ AI Sahneleri</h2>
-
-        <div id="scenes"></div>
-
-    </div>
-
-    <!-- VİDEO -->
-    <div class="card hidden" id="videoCard">
-
-        <h2>🎥 Oluşturulan Video</h2>
-
-        <video id="finalVideo" controls></video>
-
-        <a
-            id="downloadVideo"
-            class="download primary"
-            download="mina-video-ai.webm">
-
-            ⬇️ VİDEOYU İNDİR
-
-        </a>
-
-    </div>
-
-    <canvas id="videoCanvas" width="1280" height="720"
-            class="hidden"></canvas>
+<div id="status" class="status">
+Bağlantı bekleniyor...
+</div>
 
 </div>
+
+
+<!-- PROJECT -->
+<div class="card">
+
+<h2>🎥 Video Projesi</h2>
+
+<label>Video konusu</label>
+
+<textarea id="topic"
+placeholder="Örnek: Başarılı insanların asla vazgeçmemesinin 5 nedeni..."></textarea>
+
+<div class="row">
+
+<div>
+<label>Video süresi</label>
+
+<select id="duration">
+<option value="30">30 saniye</option>
+<option value="45">45 saniye</option>
+<option value="60" selected>60 saniye</option>
+<option value="90">90 saniye</option>
+</select>
+</div>
+
+<div>
+<label>Görsel tarzı</label>
+
+<select id="style">
+<option value="cinematic">Sinematik</option>
+<option value="realistic">Gerçekçi</option>
+<option value="documentary">Belgesel</option>
+<option value="dark cinematic">Karanlık sinematik</option>
+<option value="motivational">Motivasyon</option>
+<option value="futuristic">Fütüristik</option>
+</select>
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>🌍 Dil</label>
+
+<select id="language" onchange="updateVoices()">
+<option value="tr">🇹🇷 Türkçe</option>
+<option value="de">🇩🇪 Deutsch</option>
+<option value="en">🇬🇧 English</option>
+</select>
+</div>
+
+<div>
+<label>🎙️ Ses</label>
+
+<select id="voice">
+<option>Sesler yükleniyor...</option>
+</select>
+</div>
+
+</div>
+
+<button class="btn-purple"
+        style="width:100%;margin-top:16px"
+        onclick="createVideo()">
+🎬 TÜM VİDEOYU OLUŞTUR
+</button>
+
+</div>
+
+
+<!-- VOICE -->
+<div class="card">
+
+<h2>🎙️ Seslendirme</h2>
+
+<div class="voice-box">
+
+<label>Ses dili</label>
+
+<select id="voiceLanguage" onchange="syncLanguage()">
+<option value="tr">🇹🇷 Türkçe</option>
+<option value="de">🇩🇪 Almanca</option>
+<option value="en">🇬🇧 İngilizce</option>
+</select>
+
+<label>
+Ses hızı
+<span id="speedValue" class="range-value">0.92</span>
+</label>
+
+<input
+type="range"
+id="speed"
+min="0.65"
+max="1.25"
+step="0.01"
+value="0.92"
+oninput="speedValue.textContent=this.value">
+
+<div class="buttons">
+
+<button onclick="testVoice()">
+▶️ TEST SESİ
+</button>
+
+<button class="btn-red"
+        onclick="stopVoice()">
+⏹️ DURDUR
+</button>
+
+<button class="btn-green"
+        onclick="speakScript()">
+🔊 SENARYOYU SESLENDİR
+</button>
+
+</div>
+
+<div class="small" style="margin-top:10px">
+Ses seçimi cihazındaki kullanılabilir seslere göre otomatik doldurulur.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SCRIPT -->
+<div class="card">
+
+<h2>📝 AI Senaryo</h2>
+
+<textarea id="script"
+placeholder="AI tarafından oluşturulan senaryo burada görünecek..."></textarea>
+
+<div class="buttons">
+
+<button onclick="generateOnlyScript()">
+🤖 SENARYO OLUŞTUR
+</button>
+
+<button class="btn-dark"
+        onclick="speakScript()">
+🔊 OKUT
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SCENES -->
+<div class="card">
+
+<h2>🖼️ AI Sahneleri</h2>
+
+<div id="scenes">
+<div class="small">
+Henüz sahne oluşturulmadı.
+</div>
+</div>
+
+</div>
+
+
+<!-- VIDEO -->
+<div class="card">
+
+<h2>🎬 Son Video</h2>
+
+<div id="loading">
+
+<div class="spinner"></div>
+
+<div id="loadingText">
+Video hazırlanıyor...
+</div>
+
+<div class="progress">
+<div id="progressBar"></div>
+</div>
+
+</div>
+
+<video id="finalVideo"
+       controls
+       playsinline>
+</video>
+
+<a id="downloadLink"
+   class="download"
+   style="display:none">
+⬇️ VİDEOYU İNDİR
+</a>
+
+</div>
+
+</div>
+
+
+<canvas id="canvas"
+        width="1280"
+        height="720"
+        style="display:none">
+</canvas>
 
 
 <script>
 
 /* =========================================================
-   MINA VIDEO AI V8
-   =========================================================
-
-   1) Aşağıdaki APP_KEY alanına kendi Pollinations
-      PUBLIC APP KEY değerini yaz.
-
-      Örnek:
-
-      const APP_KEY = "pk_QJfK0SKE0MqAqf3I";
-
-   2) Pollinations panelinde Redirect URI olarak
-      bu HTML'nin tam adresini kaydet.
-
-   GitHub Pages örneği:
-
-      https://kullaniciadi.github.io/mina-video-ai/
-
-   ========================================================= */
-
-
-/* =========================
-   AYARLAR
-========================= */
+   MINA VIDEO AI V8.1
+========================================================= */
 
 const APP_KEY = "pk_QJfK0SKE0MqAqf3I";
 
 const POLLI_AUTH =
-    "https://enter.pollinations.ai/authorize";
+"https://enter.pollinations.ai/authorize";
 
 const POLLI_TOKEN =
-    "https://enter.pollinations.ai/api/oauth/token";
+"https://enter.pollinations.ai/api/oauth/token";
 
 const POLLI_API =
-    "https://gen.pollinations.ai";
+"https://gen.pollinations.ai";
 
-const IMAGE_MODEL = "black-forest-labs/flux.1-schnell";
+const IMAGE_MODEL =
+"black-forest-labs/flux.1-schnell";
 
-const TEXT_MODEL = "openai";
+const TEXT_MODEL =
+"openai";
 
-
-/* =========================
-   DEĞİŞKENLER
-========================= */
-
-let accessToken = null;
+let accessToken =
+localStorage.getItem("mina_polli_token") || "";
 
 let scenesData = [];
 
-let generatedImages = [];
+let currentVoices = [];
 
-let mediaRecorder = null;
+let audioContext = null;
 
-let recordedChunks = [];
-
-let currentVideoURL = null;
+let generatedAudioBlob = null;
 
 
-/* =========================
-   ELEMENTLER
-========================= */
+/* =========================================================
+   LANGUAGE
+========================================================= */
 
-const connectionDot =
-    document.getElementById("connectionDot");
+const languageNames = {
 
-const connectionText =
-    document.getElementById("connectionText");
+    tr:{
+        name:"Türkçe",
+        instruction:"Write the narration in natural Turkish.",
+        voiceLang:"tr-TR"
+    },
 
-const connectBtn =
-    document.getElementById("connectBtn");
+    de:{
+        name:"German",
+        instruction:"Write the narration in natural German.",
+        voiceLang:"de-DE"
+    },
 
-const logoutBtn =
-    document.getElementById("logoutBtn");
+    en:{
+        name:"English",
+        instruction:"Write the narration in natural English.",
+        voiceLang:"en-US"
+    }
 
-const authStatus =
-    document.getElementById("authStatus");
-
-const mainStatus =
-    document.getElementById("mainStatus");
-
-const progress =
-    document.getElementById("progress");
-
-const progressBar =
-    document.getElementById("progressBar");
-
-const scenes =
-    document.getElementById("scenes");
-
-const canvas =
-    document.getElementById("videoCanvas");
-
-const ctx =
-    canvas.getContext("2d");
-
+};
 
 
 /* =========================================================
    PKCE
 ========================================================= */
 
-function randomString(length = 64){
+function randomString(length=64){
 
     const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
 
-    let result = "";
+    let result="";
 
-    const values =
-        new Uint32Array(length);
+    const array =
+    new Uint8Array(length);
 
-    crypto.getRandomValues(values);
+    crypto.getRandomValues(array);
 
     for(let i=0;i<length;i++){
 
-        result +=
-            chars[values[i] % chars.length];
+        result += chars[array[i] % chars.length];
 
     }
 
     return result;
+
 }
 
 
-function base64url(buffer){
+async function sha256Base64Url(value){
 
-    let binary = "";
+    const data =
+    new TextEncoder().encode(value);
+
+    const hash =
+    await crypto.subtle.digest("SHA-256",data);
 
     const bytes =
-        new Uint8Array(buffer);
+    new Uint8Array(hash);
 
-    for(let i=0;i<bytes.byteLength;i++){
+    let binary="";
 
-        binary +=
-            String.fromCharCode(bytes[i]);
-
-    }
+    bytes.forEach(b=>{
+        binary += String.fromCharCode(b);
+    });
 
     return btoa(binary)
         .replace(/\+/g,"-")
         .replace(/\//g,"_")
         .replace(/=+$/,"");
-}
 
-
-async function sha256(text){
-
-    const data =
-        new TextEncoder().encode(text);
-
-    return crypto.subtle.digest(
-        "SHA-256",
-        data
-    );
 }
 
 
 /* =========================================================
-   AUTH
+   CONNECT AI
 ========================================================= */
 
 async function connectAI(){
 
-    if(
-        !APP_KEY ||
-        APP_KEY === "BURAYA_PK_APP_KEY_YAZ"
-    ){
-
-        setAuthError(
-            "Önce APP_KEY alanına Pollinations pk_ App Key değerini yazmalısın."
-        );
-
-        return;
-    }
-
     try{
 
         const verifier =
-            randomString(96);
+        randomString(64);
 
         const challenge =
-            base64url(
-                await sha256(verifier)
-            );
+        await sha256Base64Url(verifier);
 
-        const state =
-            randomString(48);
-
-        sessionStorage.setItem(
+        localStorage.setItem(
             "mina_pkce_verifier",
             verifier
         );
 
-        sessionStorage.setItem(
-            "mina_oauth_state",
-            state
-        );
-
         const redirectUri =
-            window.location.href.split("#")[0];
+        location.origin + location.pathname;
 
         const params =
-            new URLSearchParams({
+        new URLSearchParams({
 
-                response_type:"code",
+            client_id:APP_KEY,
 
-                client_id:APP_KEY,
+            redirect_uri:redirectUri,
 
-                redirect_uri:redirectUri,
+            response_type:"code",
 
-                scope:"profile usage",
+            code_challenge:challenge,
 
-                state:state,
+            code_challenge_method:"S256",
 
-                code_challenge:challenge,
+            scope:"profile usage",
 
-                code_challenge_method:"S256",
+            models:
+            "black-forest-labs/flux.1-schnell,openai",
 
-               models:"black-forest-labs/flux.1-schnell,openai/gpt-5.4-nano",
+            expiry:"7"
 
-                expiry:"7"
+        });
 
-            });
-
-        window.location.href =
-            POLLI_AUTH + "?" + params.toString();
+        location.href =
+        POLLI_AUTH + "?" + params.toString();
 
     }catch(error){
 
-        setAuthError(
-            "AI bağlantısı başlatılamadı: " +
+        showStatus(
+            "❌ Bağlantı hatası: " +
             error.message
         );
 
     }
+
 }
 
 
@@ -692,108 +683,72 @@ async function connectAI(){
 async function handleOAuthCallback(){
 
     const params =
-        new URLSearchParams(
-            window.location.search
-        );
+    new URLSearchParams(location.search);
 
     const code =
-        params.get("code");
+    params.get("code");
 
-    const returnedState =
-        params.get("state");
-
-    const oauthError =
-        params.get("error");
-
-    if(oauthError){
-
-        setAuthError(
-            "AI bağlantısı reddedildi: " +
-            oauthError
-        );
-
-        cleanURL();
-
-        return;
-    }
-
-    if(!code){
-
-        restoreSession();
-
-        return;
-    }
-
-    const savedState =
-        sessionStorage.getItem(
-            "mina_oauth_state"
-        );
+    if(!code) return;
 
     const verifier =
-        sessionStorage.getItem(
-            "mina_pkce_verifier"
-        );
+    localStorage.getItem(
+        "mina_pkce_verifier"
+    );
 
-    if(
-        !savedState ||
-        !verifier ||
-        returnedState !== savedState
-    ){
+    if(!verifier){
 
-        setAuthError(
-            "Güvenlik doğrulaması başarısız oldu."
+        showStatus(
+            "❌ PKCE bilgisi bulunamadı."
         );
 
         return;
+
     }
 
     try{
 
-        setMainStatus(
-            "🔐 AI yetkilendirmesi tamamlanıyor..."
+        showStatus(
+            "🔄 AI bağlantısı tamamlanıyor..."
         );
 
         const redirectUri =
-            window.location.href
-                .split("?")[0]
-                .split("#")[0];
-
-        const body =
-            new URLSearchParams({
-
-                grant_type:
-                    "authorization_code",
-
-                code:code,
-
-                client_id:
-                    APP_KEY,
-
-                redirect_uri:
-                    redirectUri,
-
-                code_verifier:
-                    verifier
-
-            });
+        location.origin + location.pathname;
 
         const response =
-            await fetch(
-                POLLI_TOKEN,
-                {
-                    method:"POST",
+        await fetch(
+            POLLI_TOKEN,
+            {
+                method:"POST",
 
-                    headers:{
-                        "Content-Type":
-                            "application/x-www-form-urlencoded"
-                    },
+                headers:{
+                    "Content-Type":
+                    "application/x-www-form-urlencoded"
+                },
 
-                    body:body.toString()
-                }
-            );
+                body:
+                new URLSearchParams({
+
+                    grant_type:
+                    "authorization_code",
+
+                    client_id:
+                    APP_KEY,
+
+                    code:code,
+
+                    redirect_uri:
+                    redirectUri,
+
+                    code_verifier:
+                    verifier
+
+                })
+
+            }
+        );
 
         const data =
-            await response.json();
+        await response.json();
 
         if(!response.ok){
 
@@ -806,29 +761,29 @@ async function handleOAuthCallback(){
         }
 
         accessToken =
-            data.access_token;
+        data.access_token;
 
-        sessionStorage.setItem(
-            "mina_access_token",
+        localStorage.setItem(
+            "mina_polli_token",
             accessToken
         );
 
-        sessionStorage.removeItem(
+        localStorage.removeItem(
             "mina_pkce_verifier"
         );
 
-        sessionStorage.removeItem(
-            "mina_oauth_state"
+        history.replaceState(
+            {},
+            document.title,
+            location.pathname
         );
-
-        cleanURL();
 
         setConnected();
 
     }catch(error){
 
-        setAuthError(
-            "AI bağlantısı kurulamadı: " +
+        showStatus(
+            "❌ OAuth hatası: " +
             error.message
         );
 
@@ -841,131 +796,80 @@ async function handleOAuthCallback(){
    SESSION
 ========================================================= */
 
-function restoreSession(){
+function setConnected(){
 
-    const token =
-        sessionStorage.getItem(
-            "mina_access_token"
-        );
+    document.getElementById(
+        "connectBtn"
+    ).style.display="none";
 
-    if(token){
+    document.getElementById(
+        "logoutBtn"
+    ).style.display="inline-block";
 
-        accessToken = token;
+    document.getElementById(
+        "connectionText"
+    ).innerHTML =
+    '<span class="connected">● Mina AI bağlantısı aktif</span>';
 
-        setConnected();
+    document.getElementById(
+        "welcome"
+    ).style.display="block";
 
-    }
+    document.getElementById(
+        "welcome"
+    ).textContent =
+    "✅ AI bağlantısı hazır. Mina çalışıyor!";
+
+    showStatus(
+        "🟢 AI bağlantısı aktif."
+    );
 
 }
 
 
 function logoutAI(){
 
-    accessToken = null;
-
-    sessionStorage.removeItem(
-        "mina_access_token"
+    localStorage.removeItem(
+        "mina_polli_token"
     );
 
-    setDisconnected();
+    accessToken="";
 
-}
+    document.getElementById(
+        "connectBtn"
+    ).style.display="inline-block";
 
+    document.getElementById(
+        "logoutBtn"
+    ).style.display="none";
 
-function cleanURL(){
+    document.getElementById(
+        "connectionText"
+    ).textContent =
+    "Mina'yı AI'ya bağlamak için aşağıdaki butona bas.";
 
-    window.history.replaceState(
-        {},
-        document.title,
-        window.location.pathname +
-        window.location.hash
+    showStatus(
+        "Bağlantı kapatıldı."
     );
 
 }
 
 
 /* =========================================================
-   UI AUTH
+   STATUS
 ========================================================= */
 
-function setConnected(){
+function showStatus(message){
 
-    connectionDot.classList.add("on");
-
-    connectionText.textContent =
-        "AI bağlantısı aktif";
-
-    connectBtn.classList.add("hidden");
-
-    logoutBtn.classList.remove("hidden");
-
-    authStatus.className =
-        "status ok";
-
-    authStatus.innerHTML =
-        "🟢 <b>AI bağlantısı aktif.</b><br>" +
-        "Mina artık gerçek AI görselleri oluşturabilir.";
-
-}
-
-
-function setDisconnected(){
-
-    connectionDot.classList.remove("on");
-
-    connectionText.textContent =
-        "AI bağlı değil";
-
-    connectBtn.classList.remove("hidden");
-
-    logoutBtn.classList.add("hidden");
-
-    authStatus.className =
-        "status";
-
-    authStatus.textContent =
-        "Video oluşturmak için önce AI bağlantısını kur.";
-
-}
-
-
-function setAuthError(message){
-
-    authStatus.className =
-        "status err";
-
-    authStatus.textContent =
-        "⚠️ " + message;
-
-}
-
-
-function setMainStatus(message){
-
-    mainStatus.classList.remove("hidden");
-
-    mainStatus.className =
-        "status";
-
-    mainStatus.innerHTML =
-        message;
-
-}
-
-
-function setProgress(percent){
-
-    progress.style.display =
-        "block";
-
-    progressBar.style.width =
-        percent + "%";
+    document.getElementById(
+        "status"
+    ).textContent=message;
 
 }
 
 
 /* =========================================================
-   POLLINATIONS TEXT
+   AI TEXT
 ========================================================= */
 
 async function aiText(prompt){
@@ -973,116 +877,87 @@ async function aiText(prompt){
     if(!accessToken){
 
         throw new Error(
-            "AI bağlantısı yok."
+            "Önce AI'YA BAĞLAN butonuna bas."
         );
 
     }
 
     const response =
-        await fetch(
-            POLLI_API +
-            "/v1/chat/completions",
-            {
+    await fetch(
+        POLLI_API +
+        "/v1/chat/completions",
+        {
+            method:"POST",
 
-                method:"POST",
+            headers:{
+                "Content-Type":
+                "application/json",
 
-                headers:{
+                "Authorization":
+                "Bearer " + accessToken
+            },
 
-                    "Authorization":
-                        "Bearer " + accessToken,
+            body:JSON.stringify({
 
-                    "Content-Type":
-                        "application/json"
+                model:TEXT_MODEL,
 
-                },
+                messages:[
+                    {
+                        role:"user",
+                        content:prompt
+                    }
+                ],
 
-                body:JSON.stringify({
+                temperature:.7
 
-                    model:TEXT_MODEL,
+            })
 
-                    messages:[
-
-                        {
-                            role:"system",
-
-                            content:
-                            "Sen profesyonel bir Türkçe video senaristisin. " +
-                            "Kısa, etkileyici, anlaşılır ve görselleştirilebilir " +
-                            "sahneler yaz."
-                        },
-
-                        {
-                            role:"user",
-                            content:prompt
-                        }
-
-                    ],
-
-                    temperature:.8
-
-                })
-
-            }
-        );
+        }
+    );
 
     const data =
-        await response.json();
+    await response.json();
 
     if(!response.ok){
 
         throw new Error(
             data.error?.message ||
-            data.error ||
-            "Metin AI hatası."
+            data.message ||
+            "AI metin hatası."
         );
 
     }
 
-    return (
-        data.choices?.[0]?.message?.content ||
-        ""
-    );
+    return data
+        .choices?.[0]
+        ?.message
+        ?.content || "";
 
 }
 
 
 /* =========================================================
-   JSON SAHNE AYRIŞTIRMA
+   JSON EXTRACT
 ========================================================= */
 
 function extractJSON(text){
 
     text =
-        text.trim();
-
-    text =
-        text.replace(
-            /```json/gi,
-            ""
-        );
-
-    text =
-        text.replace(
-            /```/g,
-            ""
-        );
+    text
+    .replace(/```json/gi,"")
+    .replace(/```/g,"")
+    .trim();
 
     const first =
-        text.indexOf("[");
+    text.indexOf("{");
 
     const last =
-        text.lastIndexOf("]");
+    text.lastIndexOf("}");
 
-    if(
-        first >= 0 &&
-        last > first
-    ){
+    if(first>=0 && last>first){
 
         text =
-            text.substring(
-                first,
-                last + 1
-            );
+        text.slice(first,last+1);
 
     }
 
@@ -1092,71 +967,162 @@ function extractJSON(text){
 
 
 /* =========================================================
-   SENARYO + SAHNE OLUŞTUR
+   SCRIPT
 ========================================================= */
 
-async function createScript(topic,duration,style){
+async function createScript(
+    topic,
+    duration,
+    style,
+    language
+){
 
-    const sceneCount =
-        duration <= 30 ? 5 :
-        duration <= 45 ? 6 :
-        duration <= 60 ? 8 :
-        10;
+    const lang =
+    languageNames[language];
 
     const prompt = `
 
-KONU:
+You are Mina Video AI, a professional short-form
+cinematic video script writer.
+
+Topic:
 ${topic}
 
-VIDEO SURESI:
-${duration} saniye
+Duration:
+${duration} seconds.
 
-GÖRSEL STIL:
-${style}
+Visual style:
+${style}.
 
-Bu konu için yaklaşık ${sceneCount} sahneden oluşan
-profesyonel bir kısa video hazırla.
+Language:
+${lang.name}
 
-Her sahne yaklaşık 5-8 saniye sürsün.
+IMPORTANT:
+${lang.instruction}
 
-Önce kısa bir Türkçe anlatıcı metni oluştur.
+Create a compelling short video.
 
-Sonra SADECE aşağıdaki JSON formatında sahneleri ver:
+Return ONLY valid JSON.
 
-[
- {
-   "title":"Sahne başlığı",
-   "narration":"Bu sahnede anlatılacak Türkçe cümleler",
-   "visual":"İngilizce, ayrıntılı, fotogerçekçi AI görsel promptu"
- }
-]
+Required format:
 
-Görsel promptlarında:
-- insanlar varsa gerçekçi insan görünümü
-- gerçekçi ışık
-- sinematik kamera
-- ayrıntılı çevre
-- doğal renkler
-- 16:9 composition
-- no text
-- no logo
-- no watermark
+{
+  "title":"...",
+  "scenes":[
+    {
+      "title":"Scene title",
+      "visual":"Detailed visual prompt in English",
+      "narration":"Narration in ${lang.name}"
+    }
+  ]
+}
 
-kullan.
+Rules:
 
-Sadece JSON döndür.
+- Create 4 to 7 scenes.
+- Narration must be in ${lang.name}.
+- Visual prompts must be in English.
+- Visual prompts should describe cinematic realistic imagery.
+- Do not put text or subtitles inside generated images.
+- Make the narration natural and suitable for voice-over.
+- Keep total narration suitable for approximately ${duration} seconds.
 `;
 
-    const raw =
-        await aiText(prompt);
+    const result =
+    await aiText(prompt);
 
-    return extractJSON(raw);
+    const json =
+    extractJSON(result);
+
+    if(!json.scenes ||
+       !Array.isArray(json.scenes)){
+
+        throw new Error(
+            "AI geçerli sahne listesi oluşturamadı."
+        );
+
+    }
+
+    return json;
 
 }
 
 
 /* =========================================================
-   IMAGE GENERATION
+   GENERATE SCRIPT ONLY
+========================================================= */
+
+async function generateOnlyScript(){
+
+    const topic =
+    document.getElementById("topic")
+    .value.trim();
+
+    if(!topic){
+
+        alert(
+            "Önce video konusunu yaz."
+        );
+
+        return;
+
+    }
+
+    try{
+
+        const duration =
+        Number(
+            document.getElementById(
+                "duration"
+            ).value
+        );
+
+        const style =
+        document.getElementById(
+            "style"
+        ).value;
+
+        const language =
+        document.getElementById(
+            "language"
+        ).value;
+
+        showStatus(
+            "🤖 AI senaryoyu yazıyor..."
+        );
+
+        const script =
+        await createScript(
+            topic,
+            duration,
+            style,
+            language
+        );
+
+        document.getElementById(
+            "script"
+        ).value =
+        script.scenes
+        .map(s=>s.narration)
+        .join("\n\n");
+
+        showStatus(
+            "✅ Senaryo hazır."
+        );
+
+    }catch(error){
+
+        showStatus(
+            "❌ " + error.message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGE
 ========================================================= */
 
 async function generateImage(prompt){
@@ -1169,61 +1135,54 @@ async function generateImage(prompt){
 
     }
 
-    const finalPrompt =
-        `${prompt},
-        ${document.getElementById("style").value},
-        cinematic photography,
-        realistic lighting,
-        highly detailed,
-        professional film still,
-        16:9,
-        no text,
-        no logo,
-        no watermark`;
+    const encoded =
+    encodeURIComponent(prompt);
 
     const url =
-        POLLI_API +
-        "/image/" +
-        encodeURIComponent(finalPrompt) +
-        "?model=" +
-        encodeURIComponent(IMAGE_MODEL) +
-        "&width=1280" +
-        "&height=720" +
-        "&n=1";
+    POLLI_API +
+    "/image/" +
+    encoded +
+    "?model=" +
+    encodeURIComponent(
+        IMAGE_MODEL
+    ) +
+    "&width=1280" +
+    "&height=720" +
+    "&n=1";
 
     const response =
-        await fetch(
-            url,
-            {
-                method:"GET",
-
-                headers:{
-                    "Authorization":
-                        "Bearer " + accessToken
-                }
+    await fetch(
+        url,
+        {
+            headers:{
+                "Authorization":
+                "Bearer " + accessToken
             }
-        );
+        }
+    );
 
     if(!response.ok){
 
-        let errorText = "";
+        let msg="Görsel üretilemedi.";
 
         try{
-            errorText =
-                await response.text();
+
+            const data =
+            await response.json();
+
+            msg =
+            data.error?.message ||
+            data.message ||
+            msg;
+
         }catch(e){}
 
-        throw new Error(
-            "AI görsel hatası " +
-            response.status +
-            " " +
-            errorText
-        );
+        throw new Error(msg);
 
     }
 
     const blob =
-        await response.blob();
+    await response.blob();
 
     return URL.createObjectURL(blob);
 
@@ -1231,264 +1190,605 @@ async function generateImage(prompt){
 
 
 /* =========================================================
-   SCENE UI
+   SHOW SCENES
 ========================================================= */
 
-function createSceneBox(index,scene){
+function renderScenes(){
 
-    const div =
-        document.createElement("div");
+    const box =
+    document.getElementById(
+        "scenes"
+    );
 
-    div.className =
-        "scene";
+    box.innerHTML="";
 
-    div.id =
-        "scene-" + index;
+    scenesData.forEach(
+        (scene,index)=>{
 
-    div.innerHTML = `
+            const div =
+            document.createElement("div");
 
-        <div class="sceneHead">
+            div.className="scene";
 
-            <span>
-                🎬 Sahne ${index + 1}
-            </span>
+            div.innerHTML=`
 
-            <span id="sceneStatus-${index}">
-                Bekliyor
-            </span>
+                <img
+                    src="${scene.image}"
+                    alt="AI sahne ${index+1}"
+                >
 
-        </div>
+                <div class="scene-title">
+                    ${index+1}. ${escapeHTML(scene.title)}
+                </div>
 
-        <img
-            id="sceneImg-${index}"
-            class="sceneImg"
-            alt="AI sahnesi">
+                <div class="scene-text">
+                    ${escapeHTML(scene.narration)}
+                </div>
 
-        <div class="sceneText">
+            `;
 
-            <b>${escapeHTML(scene.title)}</b>
+            box.appendChild(div);
 
-            <br><br>
-
-            ${escapeHTML(scene.narration)}
-
-        </div>
-
-    `;
-
-    scenes.appendChild(div);
-
-}
-
-
-function escapeHTML(text){
-
-    return String(text || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        }
+    );
 
 }
 
 
 /* =========================================================
-   TÜM VİDEO
+   HTML ESCAPE
+========================================================= */
+
+function escapeHTML(text){
+
+    return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   AUDIO / TTS
+========================================================= */
+
+function loadVoices(){
+
+    currentVoices =
+    speechSynthesis
+    .getVoices();
+
+    updateVoices();
+
+}
+
+
+function updateVoices(){
+
+    const select =
+    document.getElementById(
+        "voice"
+    );
+
+    if(!select) return;
+
+    const language =
+    document.getElementById(
+        "language"
+    ).value;
+
+    const prefix =
+    language==="tr"
+    ? "tr"
+    : language==="de"
+    ? "de"
+    : "en";
+
+    const voices =
+    currentVoices.filter(
+        v =>
+        v.lang
+        .toLowerCase()
+        .startsWith(prefix)
+    );
+
+    select.innerHTML="";
+
+    if(!voices.length){
+
+        const option =
+        document.createElement(
+            "option"
+        );
+
+        option.value="";
+
+        option.textContent =
+        "Cihazında bu dil için ses bulunamadı";
+
+        select.appendChild(option);
+
+        return;
+
+    }
+
+    voices.forEach(
+        (voice,index)=>{
+
+            const option =
+            document.createElement(
+                "option"
+            );
+
+            option.value=index;
+
+            option.textContent =
+            voice.name +
+            " (" +
+            voice.lang +
+            ")";
+
+            select.appendChild(option);
+
+        }
+    );
+
+}
+
+
+function syncLanguage(){
+
+    const lang =
+    document.getElementById(
+        "voiceLanguage"
+    ).value;
+
+    document.getElementById(
+        "language"
+    ).value=lang;
+
+    updateVoices();
+
+}
+
+
+function getSelectedVoice(){
+
+    const language =
+    document.getElementById(
+        "voiceLanguage"
+    ).value;
+
+    const prefix =
+    language==="tr"
+    ? "tr"
+    : language==="de"
+    ? "de"
+    : "en";
+
+    const voices =
+    currentVoices.filter(
+        v =>
+        v.lang
+        .toLowerCase()
+        .startsWith(prefix)
+    );
+
+    const index =
+    Number(
+        document.getElementById(
+            "voice"
+        ).value
+    );
+
+    return voices[index] || voices[0] || null;
+
+}
+
+
+function speak(text){
+
+    if(!text) return;
+
+    speechSynthesis.cancel();
+
+    const utter =
+    new SpeechSynthesisUtterance(
+        text
+    );
+
+    const language =
+    document.getElementById(
+        "voiceLanguage"
+    ).value;
+
+    utter.lang =
+    language==="tr"
+    ? "tr-TR"
+    : language==="de"
+    ? "de-DE"
+    : "en-US";
+
+    const voice =
+    getSelectedVoice();
+
+    if(voice){
+
+        utter.voice=voice;
+
+    }
+
+    utter.rate =
+    Number(
+        document.getElementById(
+            "speed"
+        ).value
+    );
+
+    utter.pitch=1;
+
+    utter.volume=1;
+
+    speechSynthesis.speak(
+        utter
+    );
+
+}
+
+
+function testVoice(){
+
+    const language =
+    document.getElementById(
+        "voiceLanguage"
+    ).value;
+
+    const text =
+    language==="tr"
+    ? "Merhaba, ben Mina. Yapay zekâ ile videolar oluşturuyorum."
+    : language==="de"
+    ? "Hallo, ich bin Mina. Ich erstelle Videos mit künstlicher Intelligenz."
+    : "Hello, I am Mina. I create videos with artificial intelligence.";
+
+    speak(text);
+
+}
+
+
+function speakScript(){
+
+    const text =
+    document.getElementById(
+        "script"
+    ).value.trim();
+
+    if(!text){
+
+        alert(
+            "Önce bir senaryo oluştur."
+        );
+
+        return;
+
+    }
+
+    speak(text);
+
+}
+
+
+function stopVoice(){
+
+    speechSynthesis.cancel();
+
+}
+
+
+/* =========================================================
+   POLLINATIONS SERVER AUDIO
+========================================================= */
+
+async function generateServerAudio(text){
+
+    if(!accessToken){
+
+        throw new Error(
+            "AI bağlantısı yok."
+        );
+
+    }
+
+    const voice =
+    getServerVoice();
+
+    const response =
+    await fetch(
+        POLLI_API +
+        "/v1/audio/speech",
+        {
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/json",
+
+                "Authorization":
+                "Bearer " + accessToken
+            },
+
+            body:JSON.stringify({
+
+                model:"tts-1",
+
+                input:text,
+
+                voice:voice,
+
+                response_format:"mp3"
+
+            })
+
+        }
+    );
+
+    if(!response.ok){
+
+        let msg =
+        "AI ses üretimi başarısız.";
+
+        try{
+
+            const data =
+            await response.json();
+
+            msg =
+            data.error?.message ||
+            data.message ||
+            msg;
+
+        }catch(e){}
+
+        throw new Error(msg);
+
+    }
+
+    return await response.blob();
+
+}
+
+
+function getServerVoice(){
+
+    const language =
+    document.getElementById(
+        "voiceLanguage"
+    ).value;
+
+    /*
+      Pollinations/OpenAI uyumlu
+      temel sesler.
+      Seçilen dil için doğal sonuç
+      alınabilmesi amacıyla farklı
+      varsayılanlar kullanıyoruz.
+    */
+
+    if(language==="de")
+        return "alloy";
+
+    if(language==="en")
+        return "nova";
+
+    return "shimmer";
+
+}
+
+
+/* =========================================================
+   CREATE VIDEO
 ========================================================= */
 
 async function createVideo(){
 
-    if(!accessToken){
-
-        setMainStatus(
-            "⚠️ Önce <b>AI'YE BAĞLAN</b> butonuna bas."
-        );
-
-        return;
-    }
-
     const topic =
-        document.getElementById("topic")
-            .value.trim();
+    document.getElementById(
+        "topic"
+    ).value.trim();
 
     if(!topic){
 
-        setMainStatus(
-            "⚠️ Önce video konusunu yaz."
+        alert(
+            "Önce video konusu yaz."
         );
 
         return;
+
+    }
+
+    if(!accessToken){
+
+        alert(
+            "Önce AI'YA BAĞLAN butonuna bas."
+        );
+
+        return;
+
     }
 
     const duration =
-        Number(
-            document.getElementById("duration")
-                .value
-        );
+    Number(
+        document.getElementById(
+            "duration"
+        ).value
+    );
 
     const style =
-        document.getElementById("style")
-            .value;
+    document.getElementById(
+        "style"
+    ).value;
+
+    const language =
+    document.getElementById(
+        "language"
+    ).value;
+
+    document.getElementById(
+        "voiceLanguage"
+    ).value=language;
 
     try{
 
-        document.getElementById("scriptCard")
-            .classList.remove("hidden");
-
-        document.getElementById("scenesCard")
-            .classList.remove("hidden");
-
-        document.getElementById("videoCard")
-            .classList.add("hidden");
-
-        scenes.innerHTML = "";
-
-        generatedImages = [];
-
-        recordedChunks = [];
-
-        setProgress(5);
-
-        setMainStatus(
-            "🧠 Mina senaryoyu hazırlıyor..."
+        showLoading(
+            true,
+            "🤖 AI senaryo hazırlanıyor..."
         );
-
-        scenesData =
-            await createScript(
-                topic,
-                duration,
-                style
-            );
-
-        if(!Array.isArray(scenesData)){
-
-            throw new Error(
-                "Sahne listesi alınamadı."
-            );
-
-        }
 
         const script =
-            scenesData
-                .map(
-                    s => s.narration
-                )
-                .join(" ");
-
-        document.getElementById(
-            "scriptOutput"
-        ).value = script;
-
-        scenesData.forEach(
-            (scene,index) => {
-                createSceneBox(
-                    index,
-                    scene
-                );
-            }
+        await createScript(
+            topic,
+            duration,
+            style,
+            language
         );
 
-        setProgress(12);
+        document.getElementById(
+            "script"
+        ).value =
+        script.scenes
+        .map(s=>s.narration)
+        .join("\n\n");
 
-        /* GÖRSELLER */
+        scenesData=[];
+
+        const total =
+        script.scenes.length;
 
         for(
             let i=0;
-            i<scenesData.length;
+            i<total;
             i++
         ){
 
             const scene =
-                scenesData[i];
+            script.scenes[i];
 
-            const status =
-                document.getElementById(
-                    "sceneStatus-" + i
-                );
-
-            status.innerHTML =
-                '<span class="loader"></span> AI görseli oluşturuluyor';
-
-            setMainStatus(
-                `🖼️ Sahne ${i+1}/${scenesData.length} AI tarafından oluşturuluyor...`
+            showLoading(
+                true,
+                "🖼️ AI görseli hazırlanıyor: " +
+                (i+1) +
+                "/" +
+                total
             );
 
-            try{
+            const image =
+            await generateImage(
+                scene.visual +
+                ", cinematic composition, high detail, realistic lighting, 16:9"
+            );
 
-                const imageURL =
-                    await generateImage(
-                        scene.visual
-                    );
+            scenesData.push({
 
-                generatedImages.push(
-                    imageURL
-                );
+                title:scene.title,
 
-                document.getElementById(
-                    "sceneImg-" + i
-                ).src =
-                    imageURL;
+                narration:scene.narration,
 
-                status.textContent =
-                    "✓ Hazır";
+                visual:scene.visual,
 
-            }catch(error){
+                image:image
 
-                status.textContent =
-                    "⚠️ Hata";
+            });
 
-                console.error(
-                    "Scene",
-                    i,
-                    error
-                );
-
-                generatedImages.push(
-                    null
-                );
-
-            }
-
-            const percent =
-                12 +
-                (
-                    (i + 1) /
-                    scenesData.length
-                ) * 68;
+            renderScenes();
 
             setProgress(
-                Math.round(percent)
+                ((i+1)/total)*70
             );
 
         }
 
-
-        /* SES + VIDEO */
-
-        setMainStatus(
-            "🎙️ Türkçe ses ve sinematik video hazırlanıyor..."
+        showLoading(
+            true,
+            "🎙️ AI seslendirme hazırlanıyor..."
         );
 
-        setProgress(82);
+        /*
+          Final video sesli oluşturmayı
+          deniyoruz. Eğer uygulama anahtarı
+          ses modeline izin vermiyorsa
+          aşağıdaki kod tarayıcı TTS
+          önizlemesine geri dönecek.
+        */
+
+        let audioBlob=null;
+
+        const narration =
+        scenesData
+        .map(s=>s.narration)
+        .join(" ");
+
+        try{
+
+            audioBlob =
+            await generateServerAudio(
+                narration
+            );
+
+            generatedAudioBlob =
+            audioBlob;
+
+            showLoading(
+                true,
+                "🎬 Görüntü + ses birleştiriliyor..."
+            );
+
+        }catch(audioError){
+
+            console.warn(
+                "Server TTS:",
+                audioError
+            );
+
+            showLoading(
+                true,
+                "🎬 Video oluşturuluyor..."
+            );
+
+            /*
+              Ses API'si anahtar tarafından
+              izinli değilse video yine oluşur.
+            */
+
+            generatedAudioBlob=null;
+
+        }
 
         await buildVideo(
-            duration
+            scenesData,
+            duration,
+            audioBlob
         );
 
-        setProgress(100);
+        showLoading(
+            false
+        );
 
-        setMainStatus(
-            "✅ <b>MINA VIDEO AI</b> videoyu tamamladı."
+        showStatus(
+            audioBlob
+            ? "✅ Video hazır! Görüntü + AI ses tamamlandı."
+            : "✅ Video hazır! Ses önizleme kullanılabilir; final ses için AI ses yetkisi gerekir."
         );
 
     }catch(error){
 
         console.error(error);
 
-        setMainStatus(
+        showLoading(false);
+
+        showStatus(
             "❌ Hata: " +
-            escapeHTML(error.message)
+            error.message
         );
 
     }
@@ -1497,571 +1797,436 @@ async function createVideo(){
 
 
 /* =========================================================
-   TEXT TO SPEECH
-========================================================= */
-
-function speak(text){
-
-    return new Promise(resolve => {
-
-        if(
-            !("speechSynthesis" in window)
-        ){
-
-            resolve();
-
-            return;
-        }
-
-        window.speechSynthesis.cancel();
-
-        const utter =
-            new SpeechSynthesisUtterance(
-                text
-            );
-
-        utter.lang =
-            "tr-TR";
-
-        utter.rate =
-            .92;
-
-        utter.pitch =
-            1;
-
-        utter.volume =
-            1;
-
-        utter.onend =
-            () => resolve();
-
-        utter.onerror =
-            () => resolve();
-
-        window.speechSynthesis.speak(
-            utter
-        );
-
-        /*
-          Güvenlik süresi:
-          bazı eski Chrome sürümlerinde
-          onend gecikebilir.
-        */
-
-        setTimeout(
-            () => resolve(),
-            9000
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   IMAGE LOAD
-========================================================= */
-
-function loadImage(src){
-
-    return new Promise(
-        (resolve,reject) => {
-
-            if(!src){
-
-                reject(
-                    new Error(
-                        "Görsel yok."
-                    )
-                );
-
-                return;
-            }
-
-            const img =
-                new Image();
-
-            img.onload =
-                () => resolve(img);
-
-            img.onerror =
-                () => reject(
-                    new Error(
-                        "Görsel yüklenemedi."
-                    )
-                );
-
-            img.src =
-                src;
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CANVAS DRAW
-========================================================= */
-
-function drawCover(
-    ctx,
-    img,
-    zoom,
-    panX,
-    panY
-){
-
-    const cw =
-        canvas.width;
-
-    const ch =
-        canvas.height;
-
-    const iw =
-        img.width;
-
-    const ih =
-        img.height;
-
-    const scale =
-        Math.max(
-            cw / iw,
-            ch / ih
-        ) * zoom;
-
-    const nw =
-        iw * scale;
-
-    const nh =
-        ih * scale;
-
-    const x =
-        (cw - nw) / 2 +
-        panX;
-
-    const y =
-        (ch - nh) / 2 +
-        panY;
-
-    ctx.drawImage(
-        img,
-        x,
-        y,
-        nw,
-        nh
-    );
-
-}
-
-
-/* =========================================================
-   VİDEO OLUŞTUR
+   BUILD VIDEO
 ========================================================= */
 
 async function buildVideo(
-    totalDuration
+    scenes,
+    totalDuration,
+    audioBlob
 ){
 
-    const validImages =
-        generatedImages.filter(
-            x => x
-        );
+    const canvas =
+    document.getElementById(
+        "canvas"
+    );
 
-    if(!validImages.length){
+    const ctx =
+    canvas.getContext("2d");
 
-        throw new Error(
-            "Hiç AI görseli oluşturulamadı."
-        );
+    const videoStream =
+    canvas.captureStream(30);
 
-    }
+    let finalStream =
+    videoStream;
 
-    const imageObjects = [];
+    let audioContextLocal=null;
 
-    for(
-        const src of validImages
-    ){
+    let audioDestination=null;
+
+    let audioSource=null;
+
+    let audioBuffer=null;
+
+    /*
+      Server audio varsa Web Audio üzerinden
+      MediaRecorder'a ekliyoruz.
+    */
+
+    if(audioBlob){
 
         try{
 
-            imageObjects.push(
-                await loadImage(src)
+            audioContextLocal =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+            const arrayBuffer =
+            await audioBlob.arrayBuffer();
+
+            audioBuffer =
+            await audioContextLocal
+            .decodeAudioData(
+                arrayBuffer
             );
+
+            audioDestination =
+            audioContextLocal
+            .createMediaStreamDestination();
+
+            audioSource =
+            audioContextLocal
+            .createBufferSource();
+
+            audioSource.buffer =
+            audioBuffer;
+
+            audioSource.connect(
+                audioDestination
+            );
+
+            const tracks =
+            videoStream
+            .getVideoTracks()
+            .concat(
+                audioDestination
+                .stream
+                .getAudioTracks()
+            );
+
+            finalStream =
+            new MediaStream(
+                tracks
+            );
+
+        }catch(error){
+
+            console.warn(
+                "Audio capture error:",
+                error
+            );
+
+        }
+
+    }
+
+    let mimeType="video/webm";
+
+    if(!MediaRecorder.isTypeSupported(
+        "video/webm;codecs=vp9,opus"
+    )){
+
+        if(MediaRecorder.isTypeSupported(
+            "video/webm;codecs=vp8,opus"
+        )){
+
+            mimeType=
+            "video/webm;codecs=vp8,opus";
+
+        }else{
+
+            mimeType="video/webm";
+
+        }
+
+    }
+
+    const recorder =
+    new MediaRecorder(
+        finalStream,
+        {
+            mimeType:mimeType,
+            videoBitsPerSecond:6000000
+        }
+    );
+
+    const chunks=[];
+
+    recorder.ondataavailable =
+    event=>{
+
+        if(event.data.size>0){
+
+            chunks.push(
+                event.data
+            );
+
+        }
+
+    };
+
+    const finished =
+    new Promise(
+        resolve=>{
+
+            recorder.onstop=resolve;
+
+        }
+    );
+
+    recorder.start();
+
+    if(audioSource){
+
+        try{
+
+            audioSource.start(0);
 
         }catch(e){}
 
     }
 
-    if(!imageObjects.length){
-
-        throw new Error(
-            "AI görselleri yüklenemedi."
-        );
-
-    }
-
-    const stream =
-        canvas.captureStream(30);
-
-    let mime =
-        "video/webm;codecs=vp9";
-
-    if(
-        !MediaRecorder.isTypeSupported(
-            mime
-        )
-    ){
-
-        mime =
-            "video/webm";
-
-    }
-
-    mediaRecorder =
-        new MediaRecorder(
-            stream,
-            {
-                mimeType:mime,
-                videoBitsPerSecond:5000000
-            }
-        );
-
-    recordedChunks = [];
-
-    mediaRecorder.ondataavailable =
-        event => {
-
-            if(
-                event.data &&
-                event.data.size > 0
-            ){
-
-                recordedChunks.push(
-                    event.data
-                );
-
-            }
-
-        };
-
-
-    const stopped =
-        new Promise(
-            resolve => {
-
-                mediaRecorder.onstop =
-                    resolve;
-
-            }
-        );
-
-
-    mediaRecorder.start(
-        250
-    );
-
+    const sceneCount =
+    scenes.length;
 
     const sceneDuration =
-        Math.max(
-            3500,
-            (
-                totalDuration *
-                1000
-            ) / imageObjects.length
-        );
-
+    totalDuration /
+    sceneCount;
 
     for(
         let i=0;
-        i<imageObjects.length;
+        i<sceneCount;
         i++
     ){
 
-        const img =
-            imageObjects[i];
-
-        const scene =
-            scenesData[i];
-
         await animateScene(
-            img,
-            scene,
-            sceneDuration
+            ctx,
+            canvas,
+            scenes[i],
+            sceneDuration,
+            i
         );
 
     }
 
+    recorder.stop();
 
-    mediaRecorder.stop();
+    if(audioSource){
 
-    await stopped;
+        try{
+            audioSource.stop();
+        }catch(e){}
 
+    }
+
+    await finished;
+
+    if(audioContextLocal){
+
+        try{
+
+            await audioContextLocal.close();
+
+        }catch(e){}
+
+    }
 
     const blob =
-        new Blob(
-            recordedChunks,
-            {
-                type:
-                    "video/webm"
-            }
-        );
+    new Blob(
+        chunks,
+        {
+            type:"video/webm"
+        }
+    );
 
+    const url =
+    URL.createObjectURL(
+        blob
+    );
 
-    if(currentVideoURL){
+    const video =
+    document.getElementById(
+        "finalVideo"
+    );
 
-        URL.revokeObjectURL(
-            currentVideoURL
-        );
+    video.src=url;
 
-    }
-
-
-    currentVideoURL =
-        URL.createObjectURL(
-            blob
-        );
-
-
-    const finalVideo =
-        document.getElementById(
-            "finalVideo"
-        );
-
-    finalVideo.src =
-        currentVideoURL;
-
+    video.load();
 
     const download =
-        document.getElementById(
-            "downloadVideo"
-        );
-
-    download.href =
-        currentVideoURL;
-
-
     document.getElementById(
-        "videoCard"
-    ).classList.remove(
-        "hidden"
+        "downloadLink"
     );
+
+    download.href=url;
+
+    download.download =
+    "mina-video-ai.webm";
+
+    download.style.display=
+    "block";
 
 }
 
 
 /* =========================================================
-   SİNEMATİK SAHNE
+   ANIMATE SCENE
 ========================================================= */
 
 async function animateScene(
-    img,
+    ctx,
+    canvas,
     scene,
-    duration
+    duration,
+    index
 ){
 
-    const start =
-        performance.now();
-
-    const end =
-        start + duration;
-
-    /*
-      Seslendirme başlatılır.
-      Görsel aynı anda hareket eder.
-    */
-
-    speak(
-        scene.narration
+    const image =
+    await loadImage(
+        scene.image
     );
 
+    const fps=30;
+
+    const frames =
+    Math.max(
+        1,
+        Math.floor(
+            duration*fps
+        )
+    );
+
+    for(
+        let frame=0;
+        frame<frames;
+        frame++
+    ){
+
+        const progress =
+        frame/(frames-1 || 1);
+
+        const zoom =
+        1 +
+        progress*.07;
+
+        const cw =
+        canvas.width;
+
+        const ch =
+        canvas.height;
+
+        const iw =
+        image.width;
+
+        const ih =
+        image.height;
+
+        const scale =
+        Math.max(
+            cw/iw,
+            ch/ih
+        ) * zoom;
+
+        const w =
+        iw*scale;
+
+        const h =
+        ih*scale;
+
+        const x =
+        (cw-w)/2;
+
+        const y =
+        (ch-h)/2;
+
+        ctx.fillStyle="#000";
+
+        ctx.fillRect(
+            0,
+            0,
+            cw,
+            ch
+        );
+
+        ctx.drawImage(
+            image,
+            x,
+            y,
+            w,
+            h
+        );
+
+        /*
+          Hafif karartma
+        */
+
+        const gradient =
+        ctx.createLinearGradient(
+            0,
+            ch*.55,
+            0,
+            ch
+        );
+
+        gradient.addColorStop(
+            0,
+            "rgba(0,0,0,0)"
+        );
+
+        gradient.addColorStop(
+            1,
+            "rgba(0,0,0,.65)"
+        );
+
+        ctx.fillStyle=gradient;
+
+        ctx.fillRect(
+            0,
+            0,
+            cw,
+            ch
+        );
+
+        /*
+          Başlık
+        */
+
+        ctx.font=
+        "bold 38px Arial";
+
+        ctx.fillStyle=
+        "rgba(255,255,255,.95)";
+
+        ctx.shadowColor=
+        "rgba(0,0,0,.8)";
+
+        ctx.shadowBlur=10;
+
+        ctx.fillText(
+            scene.title,
+            55,
+            70
+        );
+
+        ctx.shadowBlur=0;
+
+        setProgress(
+            70 +
+            (
+                (
+                    index +
+                    progress
+                ) /
+                scenesData.length
+            )*30
+        );
+
+        await wait(
+            1000/fps
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGE LOADER
+========================================================= */
+
+function loadImage(src){
 
     return new Promise(
-        resolve => {
+        (resolve,reject)=>{
 
-            function frame(now){
+            const img =
+            new Image();
 
-                const elapsed =
-                    now - start;
+            img.onload=()=>{
+                resolve(img);
+            };
 
-                const p =
-                    Math.min(
-                        1,
-                        elapsed / duration
-                    );
-
-
-                /*
-                  Ken Burns:
-                  yavaş zoom + hafif yatay hareket
-                */
-
-                const zoom =
-                    1.00 +
-                    p * 0.085;
-
-                const panX =
-                    Math.sin(
-                        p * Math.PI
-                    ) * 18;
-
-                const panY =
-                    Math.cos(
-                        p * Math.PI
-                    ) * 5;
-
-
-                ctx.clearRect(
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
+            img.onerror=()=>{
+                reject(
+                    new Error(
+                        "Görsel yüklenemedi."
+                    )
                 );
+            };
 
-
-                drawCover(
-                    ctx,
-                    img,
-                    zoom,
-                    panX,
-                    panY
-                );
-
-
-                /*
-                  Hafif karartma
-                */
-
-                const vignette =
-                    ctx.createRadialGradient(
-                        640,
-                        360,
-                        180,
-                        640,
-                        360,
-                        700
-                    );
-
-                vignette.addColorStop(
-                    0,
-                    "rgba(0,0,0,0)"
-                );
-
-                vignette.addColorStop(
-                    1,
-                    "rgba(0,0,0,.42)"
-                );
-
-                ctx.fillStyle =
-                    vignette;
-
-                ctx.fillRect(
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
-                );
-
-
-                /*
-                  Alt yazı tarzı anlatıcı alanı
-                */
-
-                const boxH =
-                    88;
-
-                const gradient =
-                    ctx.createLinearGradient(
-                        0,
-                        632,
-                        0,
-                        720
-                    );
-
-                gradient.addColorStop(
-                    0,
-                    "rgba(0,0,0,0)"
-                );
-
-                gradient.addColorStop(
-                    1,
-                    "rgba(0,0,0,.78)"
-                );
-
-                ctx.fillStyle =
-                    gradient;
-
-                ctx.fillRect(
-                    0,
-                    632,
-                    1280,
-                    boxH
-                );
-
-
-                if(
-                    p < .18
-                ){
-
-                    ctx.globalAlpha =
-                        Math.min(
-                            1,
-                            p / .18
-                        );
-
-                }else if(
-                    p > .84
-                ){
-
-                    ctx.globalAlpha =
-                        Math.max(
-                            0,
-                            (1-p) / .16
-                        );
-
-                }else{
-
-                    ctx.globalAlpha =
-                        1;
-
-                }
-
-
-                ctx.fillStyle =
-                    "#fff";
-
-                ctx.font =
-                    "bold 27px Arial";
-
-                ctx.textAlign =
-                    "center";
-
-                ctx.fillText(
-                    scene.title || "",
-                    640,
-                    690
-                );
-
-
-                ctx.globalAlpha =
-                    1;
-
-
-                if(now < end){
-
-                    requestAnimationFrame(
-                        frame
-                    );
-
-                }else{
-
-                    resolve();
-
-                }
-
-            }
-
-            requestAnimationFrame(
-                frame
-            );
+            img.src=src;
 
         }
     );
@@ -2070,14 +2235,94 @@ async function animateScene(
 
 
 /* =========================================================
-   BAŞLANGIÇ
+   UI HELPERS
+========================================================= */
+
+function wait(ms){
+
+    return new Promise(
+        resolve =>
+        setTimeout(
+            resolve,
+            ms
+        )
+    );
+
+}
+
+
+function setProgress(value){
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+    Math.min(
+        100,
+        Math.max(
+            0,
+            value
+        )
+    ) + "%";
+
+}
+
+
+function showLoading(
+    visible,
+    text=""
+){
+
+    const loading =
+    document.getElementById(
+        "loading"
+    );
+
+    loading.style.display =
+    visible
+    ? "block"
+    : "none";
+
+    if(text){
+
+        document.getElementById(
+            "loadingText"
+        ).textContent=text;
+
+    }
+
+}
+
+
+/* =========================================================
+   INIT
 ========================================================= */
 
 window.addEventListener(
     "load",
-    () => {
+    async ()=>{
 
-        handleOAuthCallback();
+        if(
+            "speechSynthesis"
+            in window
+        ){
+
+            loadVoices();
+
+            speechSynthesis
+            .addEventListener(
+                "voiceschanged",
+                loadVoices
+            );
+
+        }
+
+        if(accessToken){
+
+            setConnected();
+
+        }
+
+        await handleOAuthCallback();
 
     }
 );
