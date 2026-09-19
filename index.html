@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI V7</title>
+<title>Mina Video AI V8</title>
 
 <style>
 *{box-sizing:border-box}
@@ -23,7 +23,7 @@ body{
 
 h1{
     text-align:center;
-    margin:5px 0 4px;
+    margin:5px 0;
     font-size:30px;
 }
 
@@ -49,7 +49,6 @@ label{
 }
 
 textarea,
-input,
 select{
     width:100%;
     background:#0b1122;
@@ -84,24 +83,12 @@ button{
 }
 
 button:hover{
-    filter:brightness(1.12);
+    filter:brightness(1.1);
 }
 
 button:disabled{
     opacity:.5;
     cursor:not-allowed;
-}
-
-.secondary{
-    background:#25314e;
-}
-
-.green{
-    background:#138a5b;
-}
-
-.orange{
-    background:#b96b13;
 }
 
 .status{
@@ -111,34 +98,12 @@ button:disabled{
     border:1px solid #293754;
     margin-top:10px;
     line-height:1.5;
+    word-break:break-word;
 }
 
-.success{
-    color:#53e6a4;
-}
-
-.error{
-    color:#ff7474;
-}
-
-.warning{
-    color:#ffd166;
-}
-
-.progress{
-    height:9px;
-    background:#202b45;
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:12px;
-}
-
-.progressBar{
-    height:100%;
-    width:0%;
-    background:#6c63ff;
-    transition:.3s;
-}
+.success{color:#53e6a4}
+.error{color:#ff7474}
+.warning{color:#ffd166}
 
 .scene{
     background:#0c1428;
@@ -158,14 +123,12 @@ button:disabled{
 .small{
     color:#91a0c2;
     font-size:13px;
-}
-
-.audioBox{
-    margin-top:12px;
+    line-height:1.5;
 }
 
 audio{
     width:100%;
+    margin-top:10px;
 }
 
 video{
@@ -175,8 +138,19 @@ video{
     margin-top:12px;
 }
 
-.hidden{
-    display:none;
+.progress{
+    height:9px;
+    background:#202b45;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:12px;
+}
+
+.progressBar{
+    height:100%;
+    width:0%;
+    background:#6c63ff;
+    transition:.3s;
 }
 
 .badge{
@@ -186,7 +160,16 @@ video{
     background:#202d4a;
     color:#b9c7e8;
     font-size:12px;
-    margin:3px;
+    margin-top:5px;
+}
+
+.download{
+    display:block;
+    text-align:center;
+    margin-top:12px;
+    color:#8fa2ff;
+    font-weight:bold;
+    text-decoration:none;
 }
 </style>
 </head>
@@ -196,7 +179,13 @@ video{
 <div class="container">
 
 <h1>🎬 Mina Video AI</h1>
-<div class="subtitle">Yapay zekâ ile senaryodan videoya</div>
+
+<div class="subtitle">
+Senaryodan yapay zekâ videosuna
+</div>
+
+
+<!-- BAĞLANTI -->
 
 <div class="card">
 
@@ -204,95 +193,160 @@ video{
 🔴 Mina AI bağlantısı yapılmadı.
 </div>
 
-<button id="connectBtn" onclick="connectPollinations()">
+<button id="connectBtn"
+onclick="connectPollinations()">
 🔐 Mina AI'yi Bağla
 </button>
 
 </div>
+
+
+<!-- KONU -->
 
 <div class="card">
 
 <label>🎯 Video konusu</label>
 
 <textarea id="topic"
-placeholder="Örneğin: Başarısızlıktan başarıya ulaşan bir insanın gerçekçi ve ilham verici hikâyesi"></textarea>
+placeholder="Örneğin: Başarısızlıktan başarıya ulaşan bir insanın hikâyesi"></textarea>
 
-<label style="margin-top:14px">🌍 Dil</label>
+<label style="margin-top:14px">
+🌍 Dil
+</label>
 
 <select id="language">
-<option value="tr">Türkçe</option>
-<option value="de">Deutsch</option>
-<option value="en">English</option>
+
+<option value="tr">
+Türkçe
+</option>
+
+<option value="de">
+Deutsch
+</option>
+
+<option value="en">
+English
+</option>
+
 </select>
 
-<label style="margin-top:14px">🎞️ Sahne sayısı</label>
+
+<label style="margin-top:14px">
+🎞️ Sahne sayısı
+</label>
 
 <select id="sceneCount">
-<option value="3">3 Sahne</option>
-<option value="4" selected>4 Sahne</option>
-<option value="5">5 Sahne</option>
+
+<option value="3">
+3 Sahne
+</option>
+
+<option value="4" selected>
+4 Sahne
+</option>
+
+<option value="5">
+5 Sahne
+</option>
+
 </select>
 
-<button id="scriptBtn" onclick="generateScript()">
+
+<button id="scriptBtn"
+onclick="generateScript()">
 🧠 1. AI Senaryo Oluştur
 </button>
 
 </div>
 
+
+<!-- SENARYO -->
+
 <div class="card">
 
-<label>📝 Senaryo</label>
+<label>
+📝 Senaryo
+</label>
 
 <textarea id="script"
 placeholder="Senaryo burada oluşacak..."></textarea>
 
-<button id="sceneBtn" onclick="generateScenes()" disabled>
+<button id="sceneBtn"
+onclick="generateScenes()"
+disabled>
 🎬 2. AI Sahneleri Oluştur
 </button>
 
 </div>
 
+
+<!-- SAHNELER -->
+
 <div class="card">
 
-<label>🖼️ Görseller</label>
+<label>
+🖼️ Görseller
+</label>
 
 <div id="scenes"></div>
 
-<button id="imageBtn" onclick="generateImages()" disabled>
+<button id="imageBtn"
+onclick="generateImages()"
+disabled>
 🎨 3. AI Görselleri Oluştur
 </button>
 
 </div>
 
+
+<!-- SES -->
+
 <div class="card">
 
-<label>🔊 Seslendirme</label>
+<label>
+🔊 AI Seslendirme
+</label>
 
-<div id="audioStatus" class="status">
+<div id="audioStatus"
+class="status">
 Henüz ses oluşturulmadı.
 </div>
 
-<button id="audioBtn" onclick="generateVoice()" disabled>
+<button id="audioBtn"
+onclick="generateVoice()"
+disabled>
 🎙️ 4. AI Seslendirme Oluştur
 </button>
 
-<div id="audioBox" class="audioBox"></div>
+<div id="audioBox"></div>
 
 </div>
 
+
+<!-- VIDEO -->
+
 <div class="card">
 
-<label>🎥 Video</label>
+<label>
+🎥 Video
+</label>
 
-<button id="videoBtn" onclick="createVideo()" disabled>
+<button id="videoBtn"
+onclick="createVideo()"
+disabled>
 🎬 5. WebM Video Oluştur
 </button>
 
 <div class="progress">
-<div id="progressBar" class="progressBar"></div>
+
+<div id="progressBar"
+class="progressBar">
 </div>
 
-<div id="videoStatus" class="status">
+</div>
+
+<div id="videoStatus"
+class="status">
 Video henüz oluşturulmadı.
 </div>
 
@@ -302,13 +356,15 @@ Video henüz oluşturulmadı.
 
 </div>
 
+
 <script>
 
 /* =========================================================
-   MINA VIDEO AI V7
+   AYARLAR
 ========================================================= */
 
-const APP_KEY = "pk_QJfK0SKE0MqAqf3I";
+const APP_KEY =
+"pk_QJfK0SKE0MqAqf3I";
 
 const REDIRECT_URI =
 "https://savurzafer73-eng.github.io/YAPAYZEKA/";
@@ -381,7 +437,7 @@ document.getElementById("progressBar");
    CALLBACK
 ========================================================= */
 
-(function checkCallback(){
+(function(){
 
     const hash =
     window.location.hash;
@@ -418,19 +474,20 @@ document.getElementById("progressBar");
 
 
 /* =========================================================
-   STORED TOKEN
+   KAYITLI KEY
 ========================================================= */
 
-const storedToken =
+const saved =
 sessionStorage.getItem(
     "mina_pollinations_key"
 );
 
-if(storedToken){
+if(saved){
 
-    accessToken = storedToken;
+    accessToken = saved;
 
     setConnected();
+
 }
 
 
@@ -458,17 +515,20 @@ function connectPollinations(){
     AUTH_URL +
     "?" +
     params.toString();
+
 }
 
 
 /* =========================================================
-   CONNECTED
+   BAĞLANDI
 ========================================================= */
 
 function setConnected(){
 
     connectionStatus.innerHTML =
-    "🟢 <span class='success'>Mina AI bağlantısı aktif.</span>";
+    "🟢 <span class='success'>" +
+    "Mina AI bağlantısı aktif." +
+    "</span>";
 
     connectBtn.textContent =
     "🟢 Mina AI Bağlı";
@@ -479,7 +539,7 @@ function setConnected(){
 
 
 /* =========================================================
-   API CHAT
+   CHAT
 ========================================================= */
 
 async function apiChat(messages){
@@ -497,6 +557,7 @@ async function apiChat(messages){
         API_URL +
         "/v1/chat/completions",
         {
+
             method:"POST",
 
             headers:{
@@ -518,11 +579,13 @@ async function apiChat(messages){
 
                 temperature:
                 0.8
+
             })
+
         }
     );
 
-    const text =
+    const raw =
     await response.text();
 
     if(!response.ok){
@@ -531,13 +594,13 @@ async function apiChat(messages){
             "AI HTTP " +
             response.status +
             ": " +
-            text
+            raw
         );
 
     }
 
     const data =
-    JSON.parse(text);
+    JSON.parse(raw);
 
     return (
         data?.choices?.[0]?.message?.content ||
@@ -563,13 +626,13 @@ async function generateScript(){
         return;
     }
 
-    const t =
+    const value =
     topic.value.trim();
 
-    if(!t){
+    if(!value){
 
         alert(
-            "Önce video konusunu yaz."
+            "Video konusunu yaz."
         );
 
         return;
@@ -608,20 +671,19 @@ async function generateScript(){
                 role:"user",
 
                 content:
-                `Konu: ${t}
+                `Konu: ${value}
 
 Dil: ${lang}
 
-Yaklaşık 60-90 saniyelik,
-sürükleyici ve sinematik bir video
-senaryosu yaz.
+60-90 saniyelik,
+sürükleyici ve sinematik
+bir video senaryosu yaz.
 
-Başlangıç güçlü bir merak uyandırsın.
-Ortada olay gelişsin.
-Sonunda etkileyici bir sonuç olsun.
+İlk cümle merak uyandırsın.
+Hikâyenin ortasında güçlü bir gelişme olsun.
+Final etkileyici olsun.
 
-Sadece senaryoyu yaz.
-Sahne numarası kullanma.`
+Sadece senaryoyu yaz.`
             }
 
         ]);
@@ -633,13 +695,11 @@ Sahne numarası kullanma.`
             "sceneBtn"
         ).disabled = false;
 
-        audioStatus.innerHTML =
-        "Senaryo hazır. Önce sahneleri oluştur.";
-
-    }catch(error){
+    }
+    catch(error){
 
         alert(
-            "❌ AI senaryo hatası:\n" +
+            "❌ Senaryo hatası:\n" +
             error.message
         );
 
@@ -649,6 +709,7 @@ Sahne numarası kullanma.`
 
     btn.textContent =
     "🧠 1. AI Senaryo Oluştur";
+
 }
 
 
@@ -671,7 +732,9 @@ async function generateScenes(){
     }
 
     const count =
-    Number(sceneCount.value);
+    Number(
+        sceneCount.value
+    );
 
     const btn =
     document.getElementById(
@@ -685,13 +748,6 @@ async function generateScenes(){
 
     try{
 
-        const lang =
-        language.value === "tr"
-        ? "Türkçe"
-        : language.value === "de"
-        ? "Almanca"
-        : "İngilizce";
-
         const result =
         await apiChat([
 
@@ -699,7 +755,7 @@ async function generateScenes(){
                 role:"system",
 
                 content:
-                "Sen profesyonel sinematik storyboard uzmanısın."
+                "Sen profesyonel storyboard uzmanısın."
             },
 
             {
@@ -708,20 +764,16 @@ async function generateScenes(){
                 content:
                 `Bu senaryoyu ${count} sinematik sahneye böl.
 
-Dil: ${lang}
-
-Her sahne için tam olarak şu formatı kullan:
+Her sahnede:
 
 SAHNE 1:
 Görsel: ...
 Anlatım: ...
 
-SAHNE 2:
-Görsel: ...
-Anlatım: ...
+şeklinde yaz.
 
-Her sahnede gerçekçi,
-sinematik ve detaylı görsel tarifleri oluştur.
+Görseller gerçekçi,
+sinematik ve ayrıntılı olsun.
 
 Senaryo:
 ${text}`
@@ -738,10 +790,8 @@ ${text}`
             "imageBtn"
         ).disabled = false;
 
-        audioStatus.innerHTML =
-        "Sahneler hazır. Görselleri oluşturabilirsin.";
-
-    }catch(error){
+    }
+    catch(error){
 
         alert(
             "❌ Sahne hatası:\n" +
@@ -754,11 +804,12 @@ ${text}`
 
     btn.textContent =
     "🎬 2. AI Sahneleri Oluştur";
+
 }
 
 
 /* =========================================================
-   PARSE SCENES
+   PARSE
 ========================================================= */
 
 function parseScenes(text){
@@ -767,47 +818,37 @@ function parseScenes(text){
     text.split(
         /SAHNE\s+\d+\s*:/gi
     )
-    .map(x => x.trim())
+    .map(x=>x.trim())
     .filter(Boolean);
 
     return parts.map(
         (part,index)=>{
 
-            let visual = "";
-            let narration = "";
-
-            const v =
+            const visualMatch =
             part.match(
                 /Görsel\s*:\s*([\s\S]*?)(?=Anlatım\s*:|$)/i
             );
 
-            const a =
+            const narrationMatch =
             part.match(
                 /Anlatım\s*:\s*([\s\S]*)/i
             );
 
-            if(v)
-                visual =
-                v[1].trim();
-
-            if(a)
-                narration =
-                a[1].trim();
-
-            if(!visual)
-                visual = part;
-
             return {
 
-                number:index+1,
+                number:
+                index+1,
 
                 visual:
-
-                visual,
+                visualMatch
+                ? visualMatch[1].trim()
+                : part,
 
                 narration:
+                narrationMatch
+                ? narrationMatch[1].trim()
+                : ""
 
-                narration
             };
 
         }
@@ -817,7 +858,7 @@ function parseScenes(text){
 
 
 /* =========================================================
-   RENDER SCENES
+   RENDER
 ========================================================= */
 
 function renderScenes(){
@@ -837,32 +878,32 @@ function renderScenes(){
 
             div.innerHTML = `
 
-                <b>🎬 Sahne ${i+1}</b>
+            <b>🎬 Sahne ${i+1}</b>
 
-                <div class="small"
-                     style="margin-top:7px">
+            <div class="small"
+                 style="margin-top:7px">
 
-                    ${escapeHTML(
-                        s.visual
-                    )}
+                ${escapeHTML(
+                    s.visual
+                )}
 
-                </div>
+            </div>
 
-                <div style="margin-top:9px">
+            <div style="margin-top:9px">
 
-                    <b>🎙️ Anlatım:</b>
+                <b>🎙️ Anlatım</b>
 
-                    <div class="small">
+                <div class="small">
 
                     ${escapeHTML(
                         s.narration
                     )}
 
-                    </div>
-
                 </div>
 
-                <div id="img-${i}"></div>
+            </div>
+
+            <div id="img-${i}"></div>
 
             `;
 
@@ -881,17 +922,22 @@ function renderScenes(){
 function escapeHTML(str){
 
     return String(str)
+
     .replace(/&/g,"&amp;")
+
     .replace(/</g,"&lt;")
+
     .replace(/>/g,"&gt;")
+
     .replace(/"/g,"&quot;")
+
     .replace(/'/g,"&#039;");
 
 }
 
 
 /* =========================================================
-   IMAGE
+   GÖRSELLER
 ========================================================= */
 
 async function generateImages(){
@@ -919,22 +965,21 @@ async function generateImages(){
 
     try{
 
-        for(let i=0;i<scenesData.length;i++){
+        for(
+            let i=0;
+            i<scenesData.length;
+            i++
+        ){
 
             const s =
             scenesData[i];
 
             const prompt =
-            `${s.visual}
-
-Cinematic film still,
-photorealistic,
-dramatic lighting,
-high detail,
-professional photography,
-16:9,
-no text,
-no watermark`;
+            s.visual +
+            ", cinematic film still, " +
+            "photorealistic, dramatic lighting, " +
+            "professional photography, " +
+            "high detail, 16:9, no text, no watermark";
 
             const url =
             API_URL +
@@ -952,9 +997,7 @@ no watermark`;
             );
 
             const img =
-            document.createElement(
-                "img"
-            );
+            document.createElement("img");
 
             img.src = url;
 
@@ -969,8 +1012,15 @@ no watermark`;
             generatedImages.push(url);
 
             await new Promise(
-                resolve =>
-                img.onload = resolve
+                resolve=>{
+
+                    img.onload =
+                    resolve;
+
+                    img.onerror =
+                    resolve;
+
+                }
             );
 
         }
@@ -980,9 +1030,10 @@ no watermark`;
         ).disabled = false;
 
         audioStatus.innerHTML =
-        "🟢 Görseller hazır. Şimdi AI seslendirmesini oluştur.";
+        "🟢 Görseller hazır. Seslendirmeyi oluşturabilirsin.";
 
-    }catch(error){
+    }
+    catch(error){
 
         alert(
             "❌ Görsel hatası:\n" +
@@ -995,117 +1046,46 @@ no watermark`;
 
     btn.textContent =
     "🎨 3. AI Görselleri Oluştur";
+
 }
 
 
 /* =========================================================
-   AUDIO MODEL LİSTESİ
+   SES MODELİ BUL
 ========================================================= */
 
-async function getAudioModels(){
+async function getPublicAudioModels(){
 
-    const endpoints = [
-
+    const response =
+    await fetch(
         API_URL +
-        "/audio/models",
+        "/audio/models"
+    );
 
-        API_URL +
-        "/v1/models"
+    const raw =
+    await response.text();
 
-    ];
+    if(!response.ok){
 
-    let lastError = null;
-
-    for(
-        const endpoint
-        of endpoints
-    ){
-
-        try{
-
-            const response =
-            await fetch(
-                endpoint,
-                {
-                    headers:{
-                        "Authorization":
-                        "Bearer " +
-                        accessToken
-                    }
-                }
-            );
-
-            const raw =
-            await response.text();
-
-            if(!response.ok){
-
-                lastError =
-                new Error(
-                    endpoint +
-                    " HTTP " +
-                    response.status +
-                    " " +
-                    raw
-                );
-
-                continue;
-            }
-
-            const data =
-            JSON.parse(raw);
-
-            let list = [];
-
-            if(
-                Array.isArray(data)
-            ){
-
-                list = data;
-
-            }
-            else if(
-                Array.isArray(data.data)
-            ){
-
-                list = data.data;
-
-            }
-            else if(
-                Array.isArray(
-                    data.models
-                )
-            ){
-
-                list = data.models;
-
-            }
-
-            return list;
-
-        }catch(e){
-
-            lastError = e;
-
-        }
+        throw new Error(
+            "audio/models HTTP " +
+            response.status +
+            ": " +
+            raw
+        );
 
     }
 
-    throw (
-        lastError ||
-        new Error(
-            "Ses modelleri alınamadı."
-        )
-    );
+    return JSON.parse(raw);
 
 }
 
 
 /* =========================================================
-   MODEL ID ÇIKAR
+   MODEL ID AL
 ========================================================= */
 
-function modelId(item){
+function getModelId(item){
 
     if(typeof item === "string")
         return item;
@@ -1121,69 +1101,67 @@ function modelId(item){
 
 
 /* =========================================================
-   AUDIO MODEL SEÇ
+   ADAY MODELLER
 ========================================================= */
 
-async function findWorkingAudioModel(){
+async function buildAudioCandidates(){
 
-    const models =
-    await getAudioModels();
+    let models = [];
 
-    const candidates = [];
+    try{
 
-    for(
-        const item
-        of models
-    ){
-
-        const id =
-        modelId(item);
-
-        if(!id)
-            continue;
-
-        const lower =
-        id.toLowerCase();
-
-        const isAudio =
-        lower.includes("eleven") ||
-        lower.includes("tts") ||
-        lower.includes("speech") ||
-        lower.includes("audio") ||
-        lower.includes("qwen") ||
-        lower.includes("kokoro") ||
-        lower.includes("csm");
-
-        if(!isAudio)
-            continue;
-
-        /*
-         * Özellikle problem çıkaran modeli
-         * listenin başına almıyoruz.
-         */
+        const data =
+        await getPublicAudioModels();
 
         if(
-            lower ===
-            "elevenlabs/eleven-v3"
+            Array.isArray(data)
         ){
 
-            continue;
+            models = data;
+
+        }
+        else if(
+            Array.isArray(data.data)
+        ){
+
+            models = data.data;
+
+        }
+        else if(
+            Array.isArray(data.models)
+        ){
+
+            models = data.models;
+
         }
 
-        candidates.push(id);
+    }
+    catch(e){
+
+        console.warn(
+            "Audio model listesi alınamadı:",
+            e
+        );
 
     }
 
 
+    const discovered =
+    models
+    .map(getModelId)
+    .filter(Boolean);
+
+
     /*
-     * Tercih sırası
+     * Kullanıcının anahtarında görünen
+     * modeli özellikle ekliyoruz.
      */
 
-    const preferred = [
+    const candidates = [
 
-        "elevenlabs/eleven-multilingual-v2",
+        "community/NamanSoni78/FISH-AUDIO-S2.1-PRO",
 
-        "elevenlabs/eleven-flash-v2.5",
+        "fish-audio/s2.1-pro",
 
         "qwen/qwen3-tts-flash",
 
@@ -1191,147 +1169,59 @@ async function findWorkingAudioModel(){
 
         "hexgrad/kokoro-82m",
 
-        "sesame/csm-1b"
+        "sesame/csm-1b",
+
+        "elevenlabs/eleven-flash-v2.5",
+
+        "elevenlabs/eleven-multilingual-v2"
 
     ];
 
 
-    const ordered = [
+    discovered.forEach(
+        model=>{
 
-        ...preferred.filter(
-            x => candidates.includes(x)
-        ),
-
-        ...candidates.filter(
-            x => !preferred.includes(x)
-        )
-
-    ];
-
-
-    if(!ordered.length){
-
-        throw new Error(
-            "Kullanılabilir ses modeli bulunamadı."
-        );
-
-    }
-
-
-    /*
-     * Modelleri gerçekten deneyerek
-     * izin verilen ilk modeli buluyoruz.
-     */
-
-    const testText =
-    "Merhaba, Mina AI ses testi.";
-
-    const failed = [];
-
-
-    for(
-        const model
-        of ordered
-    ){
-
-        try{
-
-            const response =
-            await fetch(
-                API_URL +
-                "/v1/audio/speech",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                        "application/json",
-
-                        "Authorization":
-                        "Bearer " +
-                        accessToken
-                    },
-
-                    body:JSON.stringify({
-
-                        model:model,
-
-                        input:testText,
-
-                        voice:
-                        getVoice(),
-
-                        response_format:
-                        "mp3"
-
-                    })
-                }
-            );
-
+            const low =
+            model.toLowerCase();
 
             if(
-                response.ok
+                low.includes("tts") ||
+                low.includes("speech") ||
+                low.includes("fish") ||
+                low.includes("kokoro") ||
+                low.includes("csm") ||
+                low.includes("eleven")
             ){
 
-                return {
-
-                    model:model,
-
-                    failed:failed
-
-                };
+                candidates.push(model);
 
             }
 
-
-            const errorText =
-            await response.text();
-
-            failed.push(
-                model +
-                " → HTTP " +
-                response.status
-            );
-
-        }catch(e){
-
-            failed.push(
-                model +
-                " → " +
-                e.message
-            );
-
         }
-
-    }
-
-
-    throw new Error(
-        "API anahtarının izin verdiği "
-        +
-        "kullanılabilir ses modeli bulunamadı.\n\n"
-        +
-        "Denemeler:\n" +
-        failed.join("\n")
     );
+
+
+    return [
+        ...new Set(candidates)
+    ];
 
 }
 
 
 /* =========================================================
-   SES
+   SES İÇİN VOICE
 ========================================================= */
 
 function getVoice(){
 
+    /*
+     * Fish Audio için önce voice
+     * göndermeden deneyeceğiz.
+     */
+
     if(
         language.value === "tr"
     ){
-
-        /*
-         * Pollinations'ın desteklediği
-         * genel ElevenLabs seslerinden biri.
-         */
 
         return "nova";
 
@@ -1351,7 +1241,140 @@ function getVoice(){
 
 
 /* =========================================================
-   AUDIO ÜRET
+   POST TTS
+========================================================= */
+
+async function tryPostAudio(
+    model,
+    text,
+    withVoice
+){
+
+    const body = {
+
+        model:
+        model,
+
+        input:
+        text,
+
+        response_format:
+        "mp3"
+
+    };
+
+
+    if(withVoice){
+
+        body.voice =
+        getVoice();
+
+    }
+
+
+    const response =
+    await fetch(
+        API_URL +
+        "/v1/audio/speech",
+        {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/json",
+
+                "Authorization":
+                "Bearer " +
+                accessToken
+            },
+
+            body:
+            JSON.stringify(body)
+
+        }
+    );
+
+
+    const raw =
+    await response.text();
+
+
+    return {
+
+        ok:
+        response.ok,
+
+        status:
+        response.status,
+
+        raw:
+        raw,
+
+        contentType:
+        response.headers
+        .get("content-type")
+
+    };
+
+}
+
+
+/* =========================================================
+   GET TTS
+========================================================= */
+
+async function tryGetAudio(
+    model,
+    text
+){
+
+    const url =
+    API_URL +
+    "/audio/" +
+    encodeURIComponent(text) +
+    "?model=" +
+    encodeURIComponent(model) +
+    "&voice=" +
+    encodeURIComponent(
+        getVoice()
+    ) +
+    "&key=" +
+    encodeURIComponent(
+        accessToken
+    );
+
+
+    const response =
+    await fetch(url);
+
+
+    const raw =
+    await response.text();
+
+
+    return {
+
+        ok:
+        response.ok,
+
+        status:
+        response.status,
+
+        raw:
+        raw,
+
+        contentType:
+        response.headers
+        .get("content-type")
+
+    };
+
+}
+
+
+/* =========================================================
+   SESİ OLUŞTUR
 ========================================================= */
 
 async function generateVoice(){
@@ -1377,132 +1400,358 @@ async function generateVoice(){
     btn.disabled = true;
 
     btn.textContent =
-    "🎙️ Ses modeli aranıyor...";
+    "🔎 Ses modeli aranıyor...";
 
 
     audioStatus.innerHTML =
-    "⏳ API anahtarına izin verilen ses modeli bulunuyor...";
+    "⏳ API anahtarının kullanabileceği ses modeli test ediliyor...";
 
 
     try{
 
-        const result =
-        await findWorkingAudioModel();
+        const candidates =
+        await buildAudioCandidates();
 
-        selectedAudioModel =
-        result.model;
-
-        audioStatus.innerHTML =
-        "🟢 Kullanılan ses modeli: " +
-        "<b>" +
-        escapeHTML(
-            selectedAudioModel
-        ) +
-        "</b>";
-
-        btn.textContent =
-        "🎙️ Ses oluşturuluyor...";
+        const failures = [];
 
 
-        const response =
-        await fetch(
-            API_URL +
-            "/v1/audio/speech",
-            {
-                method:"POST",
-
-                headers:{
-                    "Content-Type":
-                    "application/json",
-
-                    "Authorization":
-                    "Bearer " +
-                    accessToken
-                },
-
-                body:JSON.stringify({
-
-                    model:
-                    selectedAudioModel,
-
-                    input:text,
-
-                    voice:
-                    getVoice(),
-
-                    response_format:
-                    "mp3"
-
-                })
-            }
-        );
-
-
-        if(!response.ok){
-
-            const errorText =
-            await response.text();
-
-            throw new Error(
-                "AI ses servisi HTTP " +
-                response.status +
-                " döndürdü. " +
-                errorText
-            );
-
-        }
-
-
-        const blob =
-        await response.blob();
-
-
-        if(
-            !blob.size
+        for(
+            const model
+            of candidates
         ){
 
-            throw new Error(
-                "Ses servisi boş dosya döndürdü."
-            );
+            audioStatus.innerHTML =
+            "⏳ Deneniyor:<br>" +
+            "<b>" +
+            escapeHTML(model) +
+            "</b>";
+
+
+            /*
+             * 1. POST — voice olmadan
+             *
+             * Fish Audio gibi bazı modellerde
+             * voice parametresi 400 oluşturabilir.
+             */
+
+            try{
+
+                const r1 =
+                await tryPostAudio(
+                    model,
+                    text,
+                    false
+                );
+
+
+                if(r1.ok){
+
+                    const blob =
+                    new Blob(
+                        [
+                            r1.raw
+                        ],
+                        {
+                            type:
+                            r1.contentType ||
+                            "audio/mpeg"
+                        }
+                    );
+
+                    /*
+                     * fetch().text() binary için uygun değil.
+                     * Bu nedenle başarılı POST'u aşağıdaki
+                     * binary fonksiyonla tekrar çağırıyoruz.
+                     */
+
+                    const binary =
+                    await fetch(
+                        API_URL +
+                        "/v1/audio/speech",
+                        {
+
+                            method:"POST",
+
+                            headers:{
+                                "Content-Type":
+                                "application/json",
+
+                                "Authorization":
+                                "Bearer " +
+                                accessToken
+                            },
+
+                            body:
+                            JSON.stringify({
+
+                                model:
+                                model,
+
+                                input:
+                                text,
+
+                                response_format:
+                                "mp3"
+
+                            })
+
+                        }
+                    );
+
+
+                    if(binary.ok){
+
+                        const audioBlob =
+                        await binary.blob();
+
+                        selectedAudioModel =
+                        model;
+
+                        generatedAudioURL =
+                        URL.createObjectURL(
+                            audioBlob
+                        );
+
+                        showAudioSuccess(
+                            model
+                        );
+
+                        btn.disabled = false;
+
+                        btn.textContent =
+                        "🎙️ 4. AI Seslendirme Oluştur";
+
+                        return;
+
+                    }
+
+                }
+
+
+                failures.push(
+                    model +
+                    " / POST no-voice → HTTP " +
+                    r1.status +
+                    " → " +
+                    cleanError(
+                        r1.raw
+                    )
+                );
+
+            }
+            catch(e){
+
+                failures.push(
+                    model +
+                    " / POST no-voice → " +
+                    e.message
+                );
+
+            }
+
+
+            /*
+             * 2. POST — voice ile
+             */
+
+            try{
+
+                const r2 =
+                await tryPostAudio(
+                    model,
+                    text,
+                    true
+                );
+
+
+                if(r2.ok){
+
+                    const binary =
+                    await fetch(
+                        API_URL +
+                        "/v1/audio/speech",
+                        {
+
+                            method:"POST",
+
+                            headers:{
+                                "Content-Type":
+                                "application/json",
+
+                                "Authorization":
+                                "Bearer " +
+                                accessToken
+                            },
+
+                            body:
+                            JSON.stringify({
+
+                                model:
+                                model,
+
+                                input:
+                                text,
+
+                                voice:
+                                getVoice(),
+
+                                response_format:
+                                "mp3"
+
+                            })
+
+                        }
+                    );
+
+
+                    if(binary.ok){
+
+                        const audioBlob =
+                        await binary.blob();
+
+                        selectedAudioModel =
+                        model;
+
+                        generatedAudioURL =
+                        URL.createObjectURL(
+                            audioBlob
+                        );
+
+                        showAudioSuccess(
+                            model
+                        );
+
+                        btn.disabled = false;
+
+                        btn.textContent =
+                        "🎙️ 4. AI Seslendirme Oluştur";
+
+                        return;
+
+                    }
+
+                }
+
+
+                failures.push(
+                    model +
+                    " / POST voice → HTTP " +
+                    r2.status +
+                    " → " +
+                    cleanError(
+                        r2.raw
+                    )
+                );
+
+            }
+            catch(e){
+
+                failures.push(
+                    model +
+                    " / POST voice → " +
+                    e.message
+                );
+
+            }
+
+
+            /*
+             * 3. GET endpoint
+             */
+
+            try{
+
+                const r3 =
+                await tryGetAudio(
+                    model,
+                    text
+                );
+
+
+                if(r3.ok){
+
+                    const binary =
+                    await fetch(
+                        API_URL +
+                        "/audio/" +
+                        encodeURIComponent(text) +
+                        "?model=" +
+                        encodeURIComponent(model) +
+                        "&voice=" +
+                        encodeURIComponent(
+                            getVoice()
+                        ) +
+                        "&key=" +
+                        encodeURIComponent(
+                            accessToken
+                        )
+                    );
+
+
+                    if(binary.ok){
+
+                        const audioBlob =
+                        await binary.blob();
+
+                        selectedAudioModel =
+                        model;
+
+                        generatedAudioURL =
+                        URL.createObjectURL(
+                            audioBlob
+                        );
+
+                        showAudioSuccess(
+                            model
+                        );
+
+                        btn.disabled = false;
+
+                        btn.textContent =
+                        "🎙️ 4. AI Seslendirme Oluştur";
+
+                        return;
+
+                    }
+
+                }
+
+
+                failures.push(
+                    model +
+                    " / GET → HTTP " +
+                    r3.status +
+                    " → " +
+                    cleanError(
+                        r3.raw
+                    )
+                );
+
+            }
+            catch(e){
+
+                failures.push(
+                    model +
+                    " / GET → " +
+                    e.message
+                );
+
+            }
 
         }
 
 
-        generatedAudioURL =
-        URL.createObjectURL(
-            blob
+        throw new Error(
+            "Hiçbir ses yöntemi başarılı olmadı.\n\n" +
+            failures.join("\n\n")
         );
 
-
-        audioBox.innerHTML = `
-
-            <audio
-                controls
-                src="${generatedAudioURL}">
-            </audio>
-
-        `;
-
-
-        audioStatus.innerHTML =
-        "🟢 AI seslendirme hazır.<br>" +
-        "<span class='badge'>" +
-        escapeHTML(
-            selectedAudioModel
-        ) +
-        "</span>";
-
-
-        document.getElementById(
-            "videoBtn"
-        ).disabled = false;
-
-
-    }catch(error){
+    }
+    catch(error){
 
         audioStatus.innerHTML =
         "<span class='error'>" +
-        "❌ AI ses hatası:<br>" +
+        "❌ AI ses hatası:<br><br>" +
         escapeHTML(
             error.message
         ) +
@@ -1524,7 +1773,83 @@ async function generateVoice(){
 
 
 /* =========================================================
-   VIDEO OLUŞTUR
+   HATA TEMİZLE
+========================================================= */
+
+function cleanError(raw){
+
+    if(!raw)
+        return "";
+
+    let value =
+    String(raw);
+
+    try{
+
+        const data =
+        JSON.parse(value);
+
+        if(
+            data?.error?.message
+        ){
+
+            return data.error.message;
+
+        }
+
+        if(
+            data?.message
+        ){
+
+            return data.message;
+
+        }
+
+    }
+    catch(e){}
+
+    return value
+    .replace(/\s+/g," ")
+    .slice(0,500);
+
+}
+
+
+/* =========================================================
+   SES BAŞARILI
+========================================================= */
+
+function showAudioSuccess(model){
+
+    audioBox.innerHTML = `
+
+        <audio
+            controls
+            src="${generatedAudioURL}">
+        </audio>
+
+    `;
+
+
+    audioStatus.innerHTML =
+    "<span class='success'>" +
+    "🟢 AI seslendirme hazır." +
+    "</span><br>" +
+
+    "<span class='badge'>" +
+    escapeHTML(model) +
+    "</span>";
+
+
+    document.getElementById(
+        "videoBtn"
+    ).disabled = false;
+
+}
+
+
+/* =========================================================
+   VIDEO
 ========================================================= */
 
 async function createVideo(){
@@ -1546,7 +1871,7 @@ async function createVideo(){
     ){
 
         alert(
-            "Tarayıcın MediaRecorder desteklemiyor."
+            "Tarayıcın video kaydını desteklemiyor."
         );
 
         return;
@@ -1562,7 +1887,6 @@ async function createVideo(){
 
     videoStatus.innerHTML =
     "🎬 Video hazırlanıyor...";
-
 
     progressBar.style.width =
     "5%";
@@ -1587,9 +1911,7 @@ async function createVideo(){
 
 
         const stream =
-        canvas.captureStream(
-            30
-        );
+        canvas.captureStream(30);
 
 
         const recorder =
@@ -1621,7 +1943,7 @@ async function createVideo(){
 
         const stopped =
         new Promise(
-            resolve => {
+            resolve=>{
 
                 recorder.onstop =
                 resolve;
@@ -1650,13 +1972,13 @@ async function createVideo(){
 
 
             await new Promise(
-                (resolve,reject)=>{
+                resolve=>{
 
                     img.onload =
                     resolve;
 
                     img.onerror =
-                    reject;
+                    resolve;
 
                 }
             );
@@ -1670,13 +1992,13 @@ async function createVideo(){
 
 
             await new Promise(
-                resolve => {
+                resolve=>{
 
                     function draw(){
 
                         const elapsed =
-                        performance.now()
-                        - start;
+                        performance.now() -
+                        start;
 
                         const p =
                         Math.min(
@@ -1710,12 +2032,12 @@ async function createVideo(){
                         const w =
                         img.width *
                         scale *
-                        (1 + p*0.04);
+                        (1+p*.04);
 
                         const h =
                         img.height *
                         scale *
-                        (1 + p*0.04);
+                        (1+p*.04);
 
 
                         const x =
@@ -1740,18 +2062,22 @@ async function createVideo(){
                             (
                                 (i+p) /
                                 generatedImages.length
-                            ) * 90
+                            ) *
+                            90
                         ) +
                         "%";
 
 
-                        if(p<1){
+                        if(
+                            p<1
+                        ){
 
                             requestAnimationFrame(
                                 draw
                             );
 
-                        }else{
+                        }
+                        else{
 
                             resolve();
 
@@ -1790,24 +2116,17 @@ async function createVideo(){
 
         videoBox.innerHTML = `
 
-            <video
-                controls
-                src="${url}">
-            </video>
+        <video
+            controls
+            src="${url}">
+        </video>
 
-            <a
-                href="${url}"
-                download="mina-video.webm"
-                style="
-                display:block;
-                text-align:center;
-                margin-top:12px;
-                color:#8fa2ff;
-                font-weight:bold;
-                "
-            >
+        <a
+            class="download"
+            href="${url}"
+            download="mina-video.webm">
             ⬇️ Videoyu Kaydet
-            </a>
+        </a>
 
         `;
 
@@ -1818,12 +2137,11 @@ async function createVideo(){
 
         videoStatus.innerHTML =
         "<span class='success'>" +
-        "🟢 Video başarıyla oluşturuldu."
-        +
+        "🟢 Video başarıyla oluşturuldu." +
         "</span>";
 
-
-    }catch(error){
+    }
+    catch(error){
 
         videoStatus.innerHTML =
         "<span class='error'>" +
@@ -1833,34 +2151,12 @@ async function createVideo(){
         ) +
         "</span>";
 
-        console.error(
-            error
-        );
-
     }
 
 
     btn.disabled = false;
 
 }
-
-
-/* =========================================================
-   SAYFA
-========================================================= */
-
-window.addEventListener(
-    "load",
-    function(){
-
-        if(accessToken){
-
-            setConnected();
-
-        }
-
-    }
-);
 
 </script>
 
