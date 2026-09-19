@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mina Video AI V5</title>
+<title>Mina Video AI V6</title>
 
 <style>
 *{box-sizing:border-box}
@@ -102,6 +102,7 @@ border-radius:10px;
 background:#080d1a;
 color:#b8c3d7;
 line-height:1.5;
+word-break:break-word;
 }
 
 .scene{
@@ -166,6 +167,13 @@ background:#159957;
 display:none;
 margin-top:12px;
 }
+
+.info{
+font-size:12px;
+color:#78869d;
+margin-top:8px;
+line-height:1.5;
+}
 </style>
 </head>
 
@@ -173,7 +181,7 @@ margin-top:12px;
 
 <div class="container">
 
-<h1>🎬 Mina Video AI V5</h1>
+<h1>🎬 Mina Video AI V6</h1>
 
 <div class="subtitle">
 Senaryo • Sahneler • AI Görseller • AI Ses • Video
@@ -270,6 +278,10 @@ Henüz sahne oluşturulmadı.
 Mikrofon gerekmez.
 </div>
 
+<div class="info">
+Ses modeli otomatik kontrol edilir.
+</div>
+
 <audio
 id="audioPreview"
 controls
@@ -357,6 +369,8 @@ let selectedAudioBlob=null;
 
 let videoBlob=null;
 
+let selectedVoiceModel=null;
+
 
 /* =====================================================
    ELEMENTS
@@ -436,7 +450,6 @@ return "İngilizce";
 
 /* =====================================================
    CONNECT
-   LEGACY FRAGMENT FLOW
 ===================================================== */
 
 connectBtn.onclick=function(){
@@ -445,7 +458,6 @@ try{
 
 connection.textContent=
 "⏳ Pollinations bağlantı sayfası açılıyor...";
-
 
 const params=
 new URLSearchParams({
@@ -457,22 +469,14 @@ client_id:
 APP_KEY,
 
 scope:
-"usage",
-
-models:
-"black-forest-labs/flux.1-schnell,openai/gpt-5.4-nano",
-
-expiry:
-"7"
+"usage"
 
 });
-
 
 const authURL=
 AUTH_URL+
 "?"+
 params.toString();
-
 
 window.location.href=
 authURL;
@@ -489,7 +493,7 @@ error.message;
 
 
 /* =====================================================
-   READ FRAGMENT
+   READ AUTH FRAGMENT
 ===================================================== */
 
 function readAuthFragment(){
@@ -511,7 +515,6 @@ params.get("api_key");
 const error=
 params.get("error");
 
-
 if(error){
 
 connection.textContent=
@@ -527,15 +530,8 @@ return false;
 
 }
 
-
 if(!apiKey)
 return false;
-
-
-/*
-   Pollinations'ın legacy BYOP
-   akışından gelen kullanıcı anahtarı.
-*/
 
 accessToken=
 apiKey;
@@ -545,17 +541,11 @@ sessionStorage.setItem(
 accessToken
 );
 
-
-/*
-   Anahtarı URL'den hemen kaldır.
-*/
-
 history.replaceState(
 {},
 document.title,
 REDIRECT_URI
 );
-
 
 setConnected();
 
@@ -590,17 +580,8 @@ connectBtn.textContent=
 
 function checkExistingConnection(){
 
-/*
-   Önce URL fragmentini kontrol et.
-*/
-
 if(readAuthFragment())
 return;
-
-
-/*
-   Sonra sessionStorage.
-*/
 
 if(accessToken){
 
@@ -614,7 +595,6 @@ connection.textContent=
 }
 
 }
-
 
 checkExistingConnection();
 
@@ -632,7 +612,6 @@ throw new Error(
 );
 
 }
-
 
 const response=
 await fetch(
@@ -667,7 +646,6 @@ temperature:.7
 
 });
 
-
 const raw=
 await response.text();
 
@@ -685,7 +663,6 @@ message:raw
 };
 
 }
-
 
 if(!response.ok){
 
@@ -715,7 +692,6 @@ response.status)
 );
 
 }
-
 
 return(
 data.choices?.[0]?.message?.content||
@@ -752,7 +728,6 @@ scriptStatus.textContent=
 getLanguageName()+
 " senaryosu hazırlanıyor...";
 
-
 try{
 
 const result=
@@ -780,7 +755,6 @@ getLanguageName()+
 }
 
 ]);
-
 
 script.value=
 result.trim();
@@ -856,7 +830,6 @@ s.replace(/,\s*}/g,"}");
 s=
 s.replace(/,\s*]/g,"]");
 
-
 try{
 
 return JSON.parse(s);
@@ -894,7 +867,7 @@ null;
 
 
 /* =====================================================
-   FALLBACK
+   FALLBACK SCENES
 ===================================================== */
 
 function createFallbackScenes(){
@@ -912,27 +885,35 @@ return [
 
 {
 text:"Hikâyemiz burada başlıyor.",
-visual:"cinematic realistic opening scene, dramatic lighting"
+visual:
+"cinematic realistic opening scene, dramatic lighting"
 },
 
 {
-text:"Karakterimiz büyük bir zorlukla karşılaşıyor.",
-visual:"person facing a difficult challenge, cinematic realistic film scene"
+text:
+"Karakterimiz büyük bir zorlukla karşılaşıyor.",
+visual:
+"person facing a difficult challenge, cinematic realistic film scene"
 },
 
 {
 text:"Fakat pes etmiyor.",
-visual:"determined person continuing forward, cinematic lighting"
+visual:
+"determined person continuing forward, cinematic lighting"
 },
 
 {
-text:"Her adım onu hedefine biraz daha yaklaştırıyor.",
-visual:"person walking toward a bright future, cinematic realistic scene"
+text:
+"Her adım onu hedefine biraz daha yaklaştırıyor.",
+visual:
+"person walking toward a bright future, cinematic realistic scene"
 },
 
 {
-text:"Sonunda büyük değişim gerçekleşiyor.",
-visual:"successful person standing confidently, cinematic movie scene"
+text:
+"Sonunda büyük değişim gerçekleşiyor.",
+visual:
+"successful person standing confidently, cinematic movie scene"
 }
 
 ];
@@ -968,7 +949,6 @@ scenes.innerHTML="";
 sceneStatus.textContent=
 "⏳ AI sahneleri hazırlıyor...";
 
-
 try{
 
 const result=
@@ -994,10 +974,8 @@ script.value
 
 ]);
 
-
 let parsed=
 cleanAIJson(result);
-
 
 if(
 !Array.isArray(parsed)||
@@ -1018,7 +996,6 @@ parsed.length+
 " sahne oluşturuldu.";
 
 }
-
 
 scenesData=
 parsed.map(
@@ -1045,13 +1022,11 @@ image:null
 })
 );
 
-
 renderScenes();
 
 await generateImages();
 
 voiceBtn.disabled=false;
-
 
 }catch(error){
 
@@ -1110,7 +1085,7 @@ return String(value||"")
 
 
 /* =====================================================
-   RENDER
+   RENDER SCENES
 ===================================================== */
 
 function renderScenes(){
@@ -1163,7 +1138,6 @@ sceneStatus.textContent=
 scenesData.length+
 " hazırlanıyor...";
 
-
 try{
 
 const prompt=
@@ -1179,7 +1153,6 @@ encodeURIComponent(IMAGE_MODEL)+
 "&width=1280"+
 "&height=720";
 
-
 const response=
 await fetch(
 url,
@@ -1193,23 +1166,25 @@ accessToken
 
 });
 
-
 if(!response.ok){
+
+const errorText=
+await response.text();
 
 throw new Error(
 "Görsel alınamadı. HTTP "+
-response.status
+response.status+
+" "+
+errorText
 );
 
 }
-
 
 const blob=
 await response.blob();
 
 scenesData[i].image=
 await blobToDataURL(blob);
-
 
 const holder=
 document.getElementById(
@@ -1246,7 +1221,7 @@ sceneStatus.textContent=
 
 
 /* =====================================================
-   BLOB
+   BLOB TO DATA URL
 ===================================================== */
 
 function blobToDataURL(blob){
@@ -1276,6 +1251,150 @@ reader.readAsDataURL(blob);
 
 
 /* =====================================================
+   AUDIO MODEL DISCOVERY
+===================================================== */
+
+async function findAudioModel(){
+
+/*
+   Önce olası modelleri kontrol et.
+*/
+
+const endpoints=[
+
+API_URL+"/audio/models",
+
+API_URL+"/v1/audio/models",
+
+API_URL+"/models"
+
+];
+
+for(
+const endpoint of endpoints
+){
+
+try{
+
+const response=
+await fetch(
+endpoint,
+{
+
+headers:{
+"Authorization":
+"Bearer "+
+accessToken
+}
+
+});
+
+if(!response.ok)
+continue;
+
+const data=
+await response.json();
+
+let list=[];
+
+if(Array.isArray(data))
+list=data;
+
+if(Array.isArray(data.models))
+list=data.models;
+
+if(Array.isArray(data.data))
+list=data.data;
+
+
+const names=
+list.map(
+item=>{
+
+if(typeof item==="string")
+return item;
+
+return(
+item.id||
+item.name||
+item.model||
+""
+);
+
+})
+.filter(Boolean);
+
+
+const audioNames=
+names.filter(
+name=>
+/audio|tts|eleven|voice|speech/i
+.test(name)
+);
+
+
+if(audioNames.length){
+
+/*
+   Önce multilingual modeller.
+*/
+
+const preferred=
+audioNames.find(
+name=>
+/multilingual/i.test(name)
+);
+
+if(preferred)
+return preferred;
+
+
+/*
+   Sonra ElevenLabs.
+*/
+
+const eleven=
+audioNames.find(
+name=>
+/eleven/i.test(name)
+);
+
+if(eleven)
+return eleven;
+
+
+/*
+   Son olarak ilk ses modeli.
+*/
+
+return audioNames[0];
+
+}
+
+}catch(error){
+
+console.warn(
+"Ses modeli listesi alınamadı:",
+endpoint,
+error
+);
+
+}
+
+}
+
+
+/*
+   Model listesi alınamazsa
+   yaygın model ile dene.
+*/
+
+return "elevenlabs/eleven-multilingual-v2";
+
+}
+
+
+/* =====================================================
    AI AUDIO
 ===================================================== */
 
@@ -1292,25 +1411,104 @@ return;
 
 }
 
+if(!accessToken){
+
+alert(
+"Önce Mina AI'yi bağla."
+);
+
+return;
+
+}
+
 voiceBtn.disabled=true;
 
 videoBtn.disabled=true;
 
+selectedAudioBlob=null;
+
 voiceStatus.textContent=
-"⏳ "+
-getLanguageName()+
-" AI sesi hazırlanıyor...";
+"⏳ İzin verilen AI ses modeli kontrol ediliyor...";
 
 
 try{
+
+selectedVoiceModel=
+await findAudioModel();
+
+voiceStatus.textContent=
+"⏳ Ses hazırlanıyor...";
+
 
 const voice=
 language.value==="tr"
 ?"nova"
 :language.value==="de"
-?"alloy"
-:"shimmer";
+?"daniel"
+:"alloy";
 
+
+/*
+   Öncelikli yeni TTS endpoint.
+*/
+
+let response=
+await fetch(
+API_URL+
+"/v1/audio/speech",
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+"application/json",
+
+"Authorization":
+"Bearer "+
+accessToken
+
+},
+
+body:JSON.stringify({
+
+model:
+selectedVoiceModel,
+
+input:
+script.value.trim(),
+
+voice:
+voice,
+
+response_format:
+"mp3"
+
+})
+
+});
+
+
+/*
+   Bazı Pollinations sürümlerinde
+   doğrudan /audio endpoint çalışabilir.
+*/
+
+if(!response.ok){
+
+const firstError=
+await response.text();
+
+console.warn(
+"Yeni TTS endpoint hatası:",
+firstError
+);
+
+
+/*
+   İkinci yöntem.
+*/
 
 const audioURL=
 API_URL+
@@ -1319,10 +1517,13 @@ encodeURIComponent(
 script.value.trim()
 )+
 "?voice="+
-encodeURIComponent(voice);
+encodeURIComponent(voice)+
+"&model="+
+encodeURIComponent(
+selectedVoiceModel
+);
 
-
-const response=
+response=
 await fetch(
 audioURL,
 {
@@ -1335,18 +1536,19 @@ accessToken
 
 });
 
-
 if(!response.ok){
 
-const text=
+const secondError=
 await response.text();
 
 throw new Error(
-"AI ses servisi HTTP "+
+"Ses servisi HTTP "+
 response.status+
 " döndürdü. "+
-text
+secondError
 );
+
+}
 
 }
 
@@ -1355,7 +1557,10 @@ selectedAudioBlob=
 await response.blob();
 
 
-if(!selectedAudioBlob.size){
+if(
+!selectedAudioBlob||
+!selectedAudioBlob.size
+){
 
 throw new Error(
 "Ses dosyası boş geldi."
@@ -1364,29 +1569,45 @@ throw new Error(
 }
 
 
-audioPreview.src=
+const audioURL=
 URL.createObjectURL(
 selectedAudioBlob
 );
 
+audioPreview.src=
+audioURL;
+
 audioPreview.style.display=
 "block";
 
-voiceStatus.textContent=
-"✅ "+
-getLanguageName()+
-" AI seslendirme hazır.";
+
+voiceStatus.innerHTML=
+"✅ <b>AI seslendirme hazır.</b><br>"+
+"Model: "+
+escapeHtml(
+selectedVoiceModel
+);
+
 
 videoBtn.disabled=false;
 
 
 }catch(error){
 
-console.error(error);
+console.error(
+"AI AUDIO ERROR:",
+error
+);
+
+selectedAudioBlob=null;
+
+videoBtn.disabled=true;
 
 voiceStatus.innerHTML=
-"❌ AI ses hatası: "+
-escapeHtml(error.message);
+"❌ <b>AI ses hatası:</b><br>"+
+escapeHtml(
+error.message
+);
 
 }
 
@@ -1460,16 +1681,16 @@ return;
 
 }
 
-
 videoBtn.disabled=true;
 
 downloadBtn.style.display="none";
 
 preview.style.display="none";
 
+progressBar.style.width="0%";
+
 videoStatus.textContent=
 "⏳ Sesli video hazırlanıyor...";
-
 
 try{
 
@@ -1482,7 +1703,6 @@ selectedAudioBlob
 );
 
 audio.preload="auto";
-
 
 await new Promise(
 (resolve,reject)=>{
@@ -1509,7 +1729,6 @@ const AudioContextClass=
 window.AudioContext||
 window.webkitAudioContext;
 
-
 if(!AudioContextClass){
 
 throw new Error(
@@ -1522,16 +1741,13 @@ throw new Error(
 const audioContext=
 new AudioContextClass();
 
-
 const source=
 audioContext.createMediaElementSource(
 audio
 );
 
-
 const destination=
 audioContext.createMediaStreamDestination();
-
 
 source.connect(destination);
 
@@ -1547,14 +1763,12 @@ canvas.width=1280;
 
 canvas.height=720;
 
-
 const ctx=
 canvas.getContext("2d");
 
 
 const videoStream=
 canvas.captureStream(30);
-
 
 const finalStream=
 new MediaStream();
@@ -1589,7 +1803,6 @@ mime=
 
 }
 
-
 if(
 !MediaRecorder.isTypeSupported(mime)
 ){
@@ -1607,7 +1820,6 @@ finalStream,
 mimeType:mime
 }
 );
-
 
 const chunks=[];
 
@@ -1673,7 +1885,6 @@ audio.duration||30,
 10
 );
 
-
 const sceneDuration=
 duration/
 scenesData.length;
@@ -1736,7 +1947,6 @@ const local=
 elapsed-
 index*sceneDuration;
 
-
 const zoom=
 1+
 Math.min(
@@ -1744,13 +1954,11 @@ Math.min(
 local/sceneDuration*.08
 );
 
-
 const ratio=
 Math.max(
 canvas.width/img.width,
 canvas.height/img.height
 );
-
 
 const width=
 img.width*ratio*zoom;
@@ -1779,14 +1987,12 @@ if(text){
 ctx.fillStyle=
 "rgba(0,0,0,.68)";
 
-
 ctx.fillRect(
 35,
 canvas.height-140,
 canvas.width-70,
 95
 );
-
 
 ctx.fillStyle="#fff";
 
@@ -1795,7 +2001,6 @@ ctx.font=
 
 ctx.textAlign=
 "center";
-
 
 drawWrappedText(
 ctx,
@@ -1850,13 +2055,11 @@ URL.createObjectURL(
 videoBlob
 );
 
-
 preview.src=
 videoURL;
 
 preview.style.display=
 "block";
-
 
 downloadBtn.style.display=
 "block";
@@ -1888,7 +2091,6 @@ link.remove();
 progressBar.style.width=
 "100%";
 
-
 videoStatus.textContent=
 "✅ Video hazır! "+
 getLanguageName()+
@@ -1904,7 +2106,6 @@ videoStatus.textContent=
 error.message;
 
 }
-
 
 videoBtn.disabled=false;
 
@@ -1940,7 +2141,6 @@ line
 ?line+" "+word
 :word;
 
-
 if(
 ctx.measureText(test).width>
 maxWidth&&
@@ -1965,7 +2165,6 @@ lines.push(line);
 
 
 const lineHeight=34;
-
 
 const startY=
 y-
@@ -1996,6 +2195,8 @@ language.onchange=
 function(){
 
 selectedAudioBlob=null;
+
+selectedVoiceModel=null;
 
 audioPreview.style.display=
 "none";
