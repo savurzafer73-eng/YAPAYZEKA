@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mina Video AI V4</title>
+<title>Mina Video AI V5</title>
 
 <style>
 *{box-sizing:border-box}
@@ -48,7 +48,8 @@ color:#c7d0e2;
 margin-bottom:8px;
 }
 
-textarea,select{
+textarea,
+select{
 width:100%;
 background:#080d1a;
 color:#fff;
@@ -172,12 +173,14 @@ margin-top:12px;
 
 <div class="container">
 
-<h1>🎬 Mina Video AI V4</h1>
+<h1>🎬 Mina Video AI V5</h1>
 
 <div class="subtitle">
 Senaryo • Sahneler • AI Görseller • AI Ses • Video
 </div>
 
+
+<!-- KONU -->
 
 <div class="card">
 
@@ -192,11 +195,9 @@ placeholder="Örneğin: Sıfırdan başlayıp büyük başarıya ulaşan bir ins
 </label>
 
 <select id="language">
-
 <option value="tr">🇹🇷 Türkçe</option>
 <option value="de">🇩🇪 Deutsch</option>
 <option value="en">🇬🇧 English</option>
-
 </select>
 
 <button id="connectBtn">
@@ -209,6 +210,8 @@ placeholder="Örneğin: Sıfırdan başlayıp büyük başarıya ulaşan bir ins
 
 </div>
 
+
+<!-- SENARYO -->
 
 <div class="card">
 
@@ -227,6 +230,8 @@ placeholder="Örneğin: Sıfırdan başlayıp büyük başarıya ulaşan bir ins
 </div>
 
 
+<!-- SAHNELER -->
+
 <div class="card">
 
 <label>🎬 2. AI Sahneler</label>
@@ -244,6 +249,8 @@ Henüz sahne oluşturulmadı.
 </div>
 
 
+<!-- SES -->
+
 <div class="card">
 
 <label>🎙️ 3. AI Seslendirme</label>
@@ -252,6 +259,7 @@ Henüz sahne oluşturulmadı.
 <span class="badge">🇹🇷 Türkçe</span>
 <span class="badge">🇩🇪 Almanca</span>
 <span class="badge">🇬🇧 English</span>
+<span class="badge">🤖 Mina AI Voice</span>
 </div>
 
 <button id="voiceBtn" class="secondary" disabled>
@@ -270,6 +278,8 @@ style="display:none;width:100%;margin-top:12px">
 
 </div>
 
+
+<!-- VIDEO -->
 
 <div class="card">
 
@@ -290,9 +300,15 @@ Sahne ve AI sesi hazır olduğunda video oluşturulabilir.
 </div>
 
 
+<!-- SONUÇ -->
+
 <div class="card">
 
-<video id="preview" controls playsinline></video>
+<video
+id="preview"
+controls
+playsinline>
+</video>
 
 <button id="downloadBtn">
 ⬇️ Videoyu İndir
@@ -306,7 +322,7 @@ Sahne ve AI sesi hazır olduğunda video oluşturulabilir.
 <script>
 
 /* =====================================================
-   MINA / POLLINATIONS CONFIG
+   MINA CONFIG
 ===================================================== */
 
 const APP_KEY =
@@ -320,9 +336,6 @@ const API_URL =
 
 const AUTH_URL =
 "https://enter.pollinations.ai/authorize";
-
-const TOKEN_URL =
-"https://enter.pollinations.ai/api/oauth/token";
 
 const TEXT_MODEL =
 "openai/gpt-5.4-nano";
@@ -349,58 +362,58 @@ let videoBlob=null;
    ELEMENTS
 ===================================================== */
 
-const topic =
+const topic=
 document.getElementById("topic");
 
-const language =
+const language=
 document.getElementById("language");
 
-const connectBtn =
+const connectBtn=
 document.getElementById("connectBtn");
 
-const connection =
+const connection=
 document.getElementById("connection");
 
-const scriptBtn =
+const scriptBtn=
 document.getElementById("scriptBtn");
 
-const scriptStatus =
+const scriptStatus=
 document.getElementById("scriptStatus");
 
-const script =
+const script=
 document.getElementById("script");
 
-const sceneBtn =
+const sceneBtn=
 document.getElementById("sceneBtn");
 
-const sceneStatus =
+const sceneStatus=
 document.getElementById("sceneStatus");
 
-const scenes =
+const scenes=
 document.getElementById("scenes");
 
-const voiceBtn =
+const voiceBtn=
 document.getElementById("voiceBtn");
 
-const voiceStatus =
+const voiceStatus=
 document.getElementById("voiceStatus");
 
-const audioPreview =
+const audioPreview=
 document.getElementById("audioPreview");
 
-const videoBtn =
+const videoBtn=
 document.getElementById("videoBtn");
 
-const videoStatus =
+const videoStatus=
 document.getElementById("videoStatus");
 
-const preview =
+const preview=
 document.getElementById("preview");
 
-const downloadBtn =
+const downloadBtn=
 document.getElementById("downloadBtn");
 
-const progressBar =
+const progressBar=
 document.getElementById("progressBar");
 
 
@@ -422,156 +435,49 @@ return "İngilizce";
 
 
 /* =====================================================
-   RANDOM
-===================================================== */
-
-function randomString(length=64){
-
-const chars=
-"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
-
-let result="";
-
-if(window.crypto && crypto.getRandomValues){
-
-const values=
-new Uint32Array(length);
-
-crypto.getRandomValues(values);
-
-for(let i=0;i<length;i++){
-
-result+=
-chars[values[i]%chars.length];
-
-}
-
-return result;
-
-}
-
-for(let i=0;i<length;i++){
-
-result+=
-chars[Math.floor(Math.random()*chars.length)];
-
-}
-
-return result;
-
-}
-
-
-/* =====================================================
-   SHA256
-===================================================== */
-
-async function sha256(text){
-
-const data=
-new TextEncoder().encode(text);
-
-return crypto.subtle.digest(
-"SHA-256",
-data
-);
-
-}
-
-
-/* =====================================================
-   BASE64 URL
-===================================================== */
-
-function base64url(buffer){
-
-let binary="";
-
-const bytes=
-new Uint8Array(buffer);
-
-for(let i=0;i<bytes.length;i++){
-
-binary+=
-String.fromCharCode(bytes[i]);
-
-}
-
-return btoa(binary)
-.replace(/\+/g,"-")
-.replace(/\//g,"_")
-.replace(/=/g,"");
-
-}
-
-
-/* =====================================================
    CONNECT
+   LEGACY FRAGMENT FLOW
 ===================================================== */
 
-connectBtn.onclick=
-async()=>{
+connectBtn.onclick=function(){
 
 try{
 
 connection.textContent=
-"⏳ Pollinations bağlantısı hazırlanıyor...";
+"⏳ Pollinations bağlantı sayfası açılıyor...";
 
-const verifier=
-randomString(64);
-
-const challenge=
-base64url(
-await sha256(verifier)
-);
-
-const state=
-randomString(32);
-
-sessionStorage.setItem(
-"mina_code_verifier",
-verifier
-);
-
-sessionStorage.setItem(
-"mina_oauth_state",
-state
-);
 
 const params=
 new URLSearchParams({
 
-response_type:"code",
+redirect_uri:
+REDIRECT_URI,
 
-client_id:APP_KEY,
+client_id:
+APP_KEY,
 
-redirect_uri:REDIRECT_URI,
-
-scope:"profile usage",
-
-state:state,
-
-code_challenge:challenge,
-
-code_challenge_method:"S256",
+scope:
+"usage",
 
 models:
 "black-forest-labs/flux.1-schnell,openai/gpt-5.4-nano",
 
-expiry:"7"
+expiry:
+"7"
 
 });
 
-const url=
+
+const authURL=
 AUTH_URL+
 "?"+
 params.toString();
 
-window.location.href=url;
+
+window.location.href=
+authURL;
 
 }catch(error){
-
-console.error(error);
 
 connection.textContent=
 "❌ Bağlantı başlatılamadı: "+
@@ -583,193 +489,66 @@ error.message;
 
 
 /* =====================================================
-   CALLBACK
+   READ FRAGMENT
 ===================================================== */
 
-async function handleCallback(){
+function readAuthFragment(){
 
-try{
+const hash=
+window.location.hash;
+
+if(!hash)
+return false;
 
 const params=
 new URLSearchParams(
-window.location.search
+hash.substring(1)
 );
+
+const apiKey=
+params.get("api_key");
 
 const error=
 params.get("error");
 
+
 if(error){
 
-const description=
-params.get("error_description")||
-"Pollinations yetkilendirmesi reddedildi.";
-
 connection.textContent=
-"❌ "+
-description;
+"❌ Pollinations bağlantısı reddedildi.";
 
-return;
-
-}
-
-const code=
-params.get("code");
-
-if(!code){
-
-if(accessToken){
-
-await verifyToken();
-
-}else{
-
-connection.textContent=
-"🔴 Mina AI bağlantısı yapılmadı.";
-
-}
-
-return;
-
-}
-
-const returnedState=
-params.get("state");
-
-const savedState=
-sessionStorage.getItem(
-"mina_oauth_state"
+history.replaceState(
+{},
+document.title,
+REDIRECT_URI
 );
 
-if(
-!returnedState ||
-!savedState ||
-returnedState!==savedState
-){
-
-throw new Error(
-"OAuth güvenlik doğrulaması başarısız."
-);
-
-}
-
-const verifier=
-sessionStorage.getItem(
-"mina_code_verifier"
-);
-
-if(!verifier){
-
-throw new Error(
-"PKCE doğrulama kodu bulunamadı."
-);
+return false;
 
 }
 
 
-connection.textContent=
-"⏳ Mina AI yetkilendiriliyor...";
+if(!apiKey)
+return false;
 
 
 /*
-   ÖNEMLİ:
-   Pollinations güncel API'si
-   application/x-www-form-urlencoded
-   bekliyor.
+   Pollinations'ın legacy BYOP
+   akışından gelen kullanıcı anahtarı.
 */
 
-const body=
-new URLSearchParams({
-
-grant_type:
-"authorization_code",
-
-code:code,
-
-client_id:
-APP_KEY,
-
-redirect_uri:
-REDIRECT_URI,
-
-code_verifier:
-verifier
-
-});
-
-
-const response=
-await fetch(
-TOKEN_URL,
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":
-"application/x-www-form-urlencoded"
-},
-
-body:body.toString()
-
-});
-
-
-const raw=
-await response.text();
-
-let data={};
-
-try{
-
-data=
-JSON.parse(raw);
-
-}catch(_){
-
-data={
-message:raw
-};
-
-}
-
-
-if(!response.ok){
-
-throw new Error(
-data.error_description||
-data.error||
-data.message||
-("Token alınamadı. HTTP "+response.status)
-);
-
-}
-
-
-if(!data.access_token){
-
-throw new Error(
-"Pollinations access token döndürmedi."
-);
-
-}
-
-
 accessToken=
-data.access_token;
+apiKey;
 
 sessionStorage.setItem(
 "mina_access_token",
 accessToken
 );
 
-sessionStorage.removeItem(
-"mina_code_verifier"
-);
 
-sessionStorage.removeItem(
-"mina_oauth_state"
-);
-
+/*
+   Anahtarı URL'den hemen kaldır.
+*/
 
 history.replaceState(
 {},
@@ -778,102 +557,9 @@ REDIRECT_URI
 );
 
 
-await verifyToken();
-
-
-}catch(error){
-
-console.error(
-"Mina OAuth:",
-error
-);
-
-connection.textContent=
-"❌ Mina AI bağlantı hatası: "+
-error.message;
-
-scriptBtn.disabled=true;
-
-}
-
-}
-
-
-/* =====================================================
-   VERIFY TOKEN
-===================================================== */
-
-async function verifyToken(){
-
-if(!accessToken){
-
-throw new Error(
-"Access token bulunamadı."
-);
-
-}
-
-connection.textContent=
-"⏳ Mina AI bağlantısı kontrol ediliyor...";
-
-
-try{
-
-const response=
-await fetch(
-API_URL+
-"/v1/models",
-{
-
-headers:{
-"Authorization":
-"Bearer "+
-accessToken
-}
-
-});
-
-
-if(
-response.status===401 ||
-response.status===403
-){
-
-sessionStorage.removeItem(
-"mina_access_token"
-);
-
-accessToken=null;
-
-throw new Error(
-"Mina AI yetkilendirmesi geçersiz veya süresi dolmuş."
-);
-
-}
-
-
-if(!response.ok){
-
-throw new Error(
-"Mina AI doğrulaması başarısız. HTTP "+
-response.status
-);
-
-}
-
-
 setConnected();
 
-
-}catch(error){
-
-connection.textContent=
-"❌ "+
-error.message;
-
-scriptBtn.disabled=true;
-
-}
+return true;
 
 }
 
@@ -899,10 +585,38 @@ connectBtn.textContent=
 
 
 /* =====================================================
-   CALLBACK START
+   EXISTING TOKEN
 ===================================================== */
 
-handleCallback();
+function checkExistingConnection(){
+
+/*
+   Önce URL fragmentini kontrol et.
+*/
+
+if(readAuthFragment())
+return;
+
+
+/*
+   Sonra sessionStorage.
+*/
+
+if(accessToken){
+
+setConnected();
+
+}else{
+
+connection.textContent=
+"🔴 Mina AI bağlantısı yapılmadı.";
+
+}
+
+}
+
+
+checkExistingConnection();
 
 
 /* =====================================================
@@ -976,7 +690,7 @@ message:raw
 if(!response.ok){
 
 if(
-response.status===401 ||
+response.status===401||
 response.status===403
 ){
 
@@ -985,6 +699,11 @@ sessionStorage.removeItem(
 );
 
 accessToken=null;
+
+connection.innerHTML=
+"🔴 Mina AI bağlantısı sona ermiş.";
+
+scriptBtn.disabled=true;
 
 }
 
@@ -1011,7 +730,7 @@ data.choices?.[0]?.message?.content||
 ===================================================== */
 
 scriptBtn.onclick=
-async()=>{
+async function(){
 
 const value=
 topic.value.trim();
@@ -1115,7 +834,7 @@ s.indexOf("[");
 const last=
 s.lastIndexOf("]");
 
-if(first>=0 && last>first){
+if(first>=0&&last>first){
 
 s=
 s.substring(first,last+1);
@@ -1137,6 +856,7 @@ s.replace(/,\s*}/g,"}");
 s=
 s.replace(/,\s*]/g,"]");
 
+
 try{
 
 return JSON.parse(s);
@@ -1145,11 +865,8 @@ return JSON.parse(s);
 
 const result=[];
 
-const regex=
-/\{[\s\S]*?\}/g;
-
 const matches=
-s.match(regex)||[];
+s.match(/\{[\s\S]*?\}/g)||[];
 
 for(
 const item of matches
@@ -1160,11 +877,8 @@ try{
 const object=
 JSON.parse(item);
 
-if(object){
-
+if(object)
 result.push(object);
-
-}
 
 }catch(_){}
 
@@ -1180,7 +894,7 @@ null;
 
 
 /* =====================================================
-   FALLBACK SCENES
+   FALLBACK
 ===================================================== */
 
 function createFallbackScenes(){
@@ -1245,7 +959,7 @@ sentence
 ===================================================== */
 
 sceneBtn.onclick=
-async()=>{
+async function(){
 
 sceneBtn.disabled=true;
 
@@ -1266,7 +980,7 @@ role:"system",
 content:
 "Sadece geçerli JSON array döndür. "+
 "Markdown kullanma. "+
-"Her obje yalnızca narration ve visual alanlarına sahip olsun. "+
+"Her obje narration ve visual alanlarına sahip olsun. "+
 'Örnek: [{"narration":"...","visual":"..."}]'
 },
 
@@ -1342,7 +1056,6 @@ voiceBtn.disabled=false;
 }catch(error){
 
 console.warn(error);
-
 
 scenesData=
 createFallbackScenes()
@@ -1432,7 +1145,7 @@ scenes.appendChild(div);
 
 
 /* =====================================================
-   IMAGE
+   IMAGE GENERATION
 ===================================================== */
 
 async function generateImages(){
@@ -1449,6 +1162,7 @@ sceneStatus.textContent=
 "/"+
 scenesData.length+
 " hazırlanıyor...";
+
 
 try{
 
@@ -1496,6 +1210,7 @@ await response.blob();
 scenesData[i].image=
 await blobToDataURL(blob);
 
+
 const holder=
 document.getElementById(
 "img-"+i
@@ -1531,7 +1246,7 @@ sceneStatus.textContent=
 
 
 /* =====================================================
-   BLOB TO DATA URL
+   BLOB
 ===================================================== */
 
 function blobToDataURL(blob){
@@ -1543,7 +1258,11 @@ const reader=
 new FileReader();
 
 reader.onload=
-()=>resolve(reader.result);
+function(){
+
+resolve(reader.result);
+
+};
 
 reader.onerror=
 reject;
@@ -1557,66 +1276,11 @@ reader.readAsDataURL(blob);
 
 
 /* =====================================================
-   SIMPLE BROWSER TTS FALLBACK
-===================================================== */
-
-function browserSpeak(text){
-
-return new Promise(
-resolve=>{
-
-if(
-!window.speechSynthesis
-){
-
-resolve();
-
-return;
-
-}
-
-const utterance=
-new SpeechSynthesisUtterance(text);
-
-if(language.value==="tr"){
-
-utterance.lang="tr-TR";
-
-}else if(language.value==="de"){
-
-utterance.lang="de-DE";
-
-}else{
-
-utterance.lang="en-US";
-
-}
-
-utterance.rate=.95;
-
-utterance.onend=
-()=>resolve();
-
-utterance.onerror=
-()=>resolve();
-
-speechSynthesis.cancel();
-
-speechSynthesis.speak(
-utterance
-);
-
-});
-
-}
-
-
-/* =====================================================
-   AI VOICE
+   AI AUDIO
 ===================================================== */
 
 voiceBtn.onclick=
-async()=>{
+async function(){
 
 if(!script.value.trim()){
 
@@ -1633,13 +1297,10 @@ voiceBtn.disabled=true;
 videoBtn.disabled=true;
 
 voiceStatus.textContent=
-"⏳ AI ses sistemi hazırlanıyor...";
+"⏳ "+
+getLanguageName()+
+" AI sesi hazırlanıyor...";
 
-
-/*
-   Pollinations güncel audio endpointi
-   kullanıcı yetkili anahtarıyla çalışır.
-*/
 
 try{
 
@@ -1650,6 +1311,7 @@ language.value==="tr"
 ?"alloy"
 :"shimmer";
 
+
 const audioURL=
 API_URL+
 "/audio/"+
@@ -1658,6 +1320,7 @@ script.value.trim()
 )+
 "?voice="+
 encodeURIComponent(voice);
+
 
 const response=
 await fetch(
@@ -1675,21 +1338,24 @@ accessToken
 
 if(!response.ok){
 
+const text=
+await response.text();
+
 throw new Error(
 "AI ses servisi HTTP "+
 response.status+
-" döndürdü."
+" döndürdü. "+
+text
 );
 
 }
+
 
 selectedAudioBlob=
 await response.blob();
 
 
-if(
-!selectedAudioBlob.size
-){
+if(!selectedAudioBlob.size){
 
 throw new Error(
 "Ses dosyası boş geldi."
@@ -1712,6 +1378,7 @@ getLanguageName()+
 " AI seslendirme hazır.";
 
 videoBtn.disabled=false;
+
 
 }catch(error){
 
@@ -1741,19 +1408,29 @@ const image=
 new Image();
 
 image.onload=
-()=>resolve(image);
+function(){
+
+resolve(image);
+
+};
 
 image.onerror=
-()=>reject(
+function(){
+
+reject(
 new Error(
 "Görsel yüklenemedi."
 )
 );
 
+};
+
 image.src=src;
 
 }
 );
+
+}
 
 
 /* =====================================================
@@ -1761,7 +1438,7 @@ image.src=src;
 ===================================================== */
 
 videoBtn.onclick=
-async()=>{
+async function(){
 
 if(!selectedAudioBlob){
 
@@ -1783,13 +1460,12 @@ return;
 
 }
 
+
 videoBtn.disabled=true;
 
-downloadBtn.style.display=
-"none";
+downloadBtn.style.display="none";
 
-preview.style.display=
-"none";
+preview.style.display="none";
 
 videoStatus.textContent=
 "⏳ Sesli video hazırlanıyor...";
@@ -1815,11 +1491,15 @@ audio.onloadedmetadata=
 resolve;
 
 audio.onerror=
-()=>reject(
+function(){
+
+reject(
 new Error(
 "AI ses dosyası okunamadı."
 )
 );
+
+};
 
 }
 );
@@ -1828,6 +1508,7 @@ new Error(
 const AudioContextClass=
 window.AudioContext||
 window.webkitAudioContext;
+
 
 if(!AudioContextClass){
 
@@ -1841,13 +1522,16 @@ throw new Error(
 const audioContext=
 new AudioContextClass();
 
+
 const source=
 audioContext.createMediaElementSource(
 audio
 );
 
+
 const destination=
 audioContext.createMediaStreamDestination();
+
 
 source.connect(destination);
 
@@ -1863,11 +1547,14 @@ canvas.width=1280;
 
 canvas.height=720;
 
+
 const ctx=
 canvas.getContext("2d");
 
+
 const videoStream=
 canvas.captureStream(30);
+
 
 const finalStream=
 new MediaStream();
@@ -1880,6 +1567,7 @@ track=>
 finalStream.addTrack(track)
 );
 
+
 destination.stream
 .getAudioTracks()
 .forEach(
@@ -1891,6 +1579,7 @@ finalStream.addTrack(track)
 let mime=
 "video/webm;codecs=vp9,opus";
 
+
 if(
 !MediaRecorder.isTypeSupported(mime)
 ){
@@ -1900,11 +1589,13 @@ mime=
 
 }
 
+
 if(
 !MediaRecorder.isTypeSupported(mime)
 ){
 
-mime="video/webm";
+mime=
+"video/webm";
 
 }
 
@@ -1917,18 +1608,21 @@ mimeType:mime
 }
 );
 
+
 const chunks=[];
 
 
 recorder.ondataavailable=
-event=>{
+function(event){
 
 if(
 event.data&&
 event.data.size>0
 ){
 
-chunks.push(event.data);
+chunks.push(
+event.data
+);
 
 }
 
@@ -1979,6 +1673,7 @@ audio.duration||30,
 10
 );
 
+
 const sceneDuration=
 duration/
 scenesData.length;
@@ -2003,9 +1698,7 @@ const elapsed=
 (performance.now()-start)/1000;
 
 
-if(
-elapsed>=duration
-){
+if(elapsed>=duration){
 
 recorder.stop();
 
@@ -2021,6 +1714,7 @@ Math.floor(
 elapsed/sceneDuration
 )
 );
+
 
 const img=
 images[index];
@@ -2042,6 +1736,7 @@ const local=
 elapsed-
 index*sceneDuration;
 
+
 const zoom=
 1+
 Math.min(
@@ -2049,17 +1744,20 @@ Math.min(
 local/sceneDuration*.08
 );
 
+
 const ratio=
 Math.max(
 canvas.width/img.width,
 canvas.height/img.height
 );
 
+
 const width=
 img.width*ratio*zoom;
 
 const height=
 img.height*ratio*zoom;
+
 
 ctx.drawImage(
 img,
@@ -2081,12 +1779,14 @@ if(text){
 ctx.fillStyle=
 "rgba(0,0,0,.68)";
 
+
 ctx.fillRect(
 35,
 canvas.height-140,
 canvas.width-70,
 95
 );
+
 
 ctx.fillStyle="#fff";
 
@@ -2095,6 +1795,7 @@ ctx.font=
 
 ctx.textAlign=
 "center";
+
 
 drawWrappedText(
 ctx,
@@ -2127,6 +1828,7 @@ await finished;
 
 audio.pause();
 
+
 try{
 
 audioContext.close();
@@ -2142,10 +1844,12 @@ type:mime
 }
 );
 
+
 const videoURL=
 URL.createObjectURL(
 videoBlob
 );
+
 
 preview.src=
 videoURL;
@@ -2153,12 +1857,13 @@ videoURL;
 preview.style.display=
 "block";
 
+
 downloadBtn.style.display=
 "block";
 
 
 downloadBtn.onclick=
-()=>{
+function(){
 
 const link=
 document.createElement("a");
@@ -2167,7 +1872,9 @@ link.href=
 videoURL;
 
 link.download=
-"mina-video-"+Date.now()+".webm";
+"mina-video-"+
+Date.now()+
+".webm";
 
 document.body.appendChild(link);
 
@@ -2181,10 +1888,12 @@ link.remove();
 progressBar.style.width=
 "100%";
 
+
 videoStatus.textContent=
 "✅ Video hazır! "+
 getLanguageName()+
 " AI sesi videoya eklendi.";
+
 
 }catch(error){
 
@@ -2195,6 +1904,7 @@ videoStatus.textContent=
 error.message;
 
 }
+
 
 videoBtn.disabled=false;
 
@@ -2230,6 +1940,7 @@ line
 ?line+" "+word
 :word;
 
+
 if(
 ctx.measureText(test).width>
 maxWidth&&
@@ -2248,10 +1959,13 @@ line=test;
 
 }
 
+
 if(line)
 lines.push(line);
 
+
 const lineHeight=34;
+
 
 const startY=
 y-
@@ -2260,7 +1974,7 @@ lineHeight/2;
 
 
 lines.forEach(
-(line,index)=>{
+function(line,index){
 
 ctx.fillText(
 line,
@@ -2279,7 +1993,7 @@ index*lineHeight
 ===================================================== */
 
 language.onchange=
-()=>{
+function(){
 
 selectedAudioBlob=null;
 
@@ -2302,7 +2016,7 @@ getLanguageName()+
 
 topic.addEventListener(
 "input",
-()=>{
+function(){
 
 sceneBtn.disabled=true;
 
