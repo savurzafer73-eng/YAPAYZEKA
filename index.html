@@ -992,19 +992,30 @@ async function generateOneImage(
                     return URL.createObjectURL(blob);
                 }
 
-                if(response.status===429){
+               if(response.status===402){
 
-                    lastError =
-                    new Error(
-                        "429 Queue full"
-                    );
+    lastError =
+    new Error(
+        "402 Ücretli model reddedildi. " +
+        "Ücretsiz modele geçiliyor..."
+    );
 
-                    await sleep(
-                        5000 * (attempt+1)
-                    );
+    continue;
+}
 
-                    continue;
-                }
+if(response.status===429){
+
+    lastError =
+    new Error(
+        "429 Queue full"
+    );
+
+    await sleep(
+        5000 * (attempt+1)
+    );
+
+    continue;
+}
 
                 const txt =
                 await response.text();
