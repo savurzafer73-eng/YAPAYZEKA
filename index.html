@@ -3,295 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI V12.4</title>
-
+<title>Mina Video AI V12.5</title>
 <style>
 *{box-sizing:border-box}
-
 body{
-    margin:0;
-    background:#080b14;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
+ margin:0;background:#080b14;color:#fff;font-family:Arial,sans-serif
 }
-
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
+.wrap{max-width:900px;margin:auto;padding:18px}
+h1{text-align:center;color:#8b5cf6;margin:8px 0}
+.sub{text-align:center;color:#aaa;margin-bottom:20px}
+.box{
+ background:#111827;border:1px solid #293244;border-radius:16px;
+ padding:16px;margin-bottom:15px
 }
-
-h1{
-    text-align:center;
-    margin:5px 0 4px;
-    font-size:32px;
+label{display:block;font-weight:bold;margin:10px 0 6px}
+select,input,textarea,button{
+ width:100%;padding:12px;border-radius:10px;border:1px solid #374151;
+ background:#0b1220;color:white;font-size:15px
 }
-
-.sub{
-    text-align:center;
-    color:#9da7bd;
-    margin-bottom:20px;
-}
-
-.card{
-    background:#111827;
-    border:1px solid #273149;
-    border-radius:16px;
-    padding:18px;
-    margin-bottom:16px;
-}
-
-h2{
-    margin-top:0;
-    font-size:20px;
-}
-
-label{
-    display:block;
-    margin:12px 0 6px;
-    color:#cbd5e1;
-    font-weight:bold;
-}
-
-select,
-textarea,
-input[type=file],
-input[type=text]{
-    width:100%;
-    background:#090d18;
-    color:white;
-    border:1px solid #34405c;
-    border-radius:10px;
-    padding:12px;
-    font-size:15px;
-}
-
-textarea{
-    min-height:280px;
-    resize:vertical;
-    line-height:1.55;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.grid3{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-}
-
+textarea{min-height:210px;resize:vertical;line-height:1.5}
 button{
-    border:0;
-    border-radius:10px;
-    padding:12px 16px;
-    background:#2563eb;
-    color:#fff;
-    font-weight:bold;
-    cursor:pointer;
-    margin:4px;
+ cursor:pointer;background:#7c3aed;border:0;font-weight:bold;margin-top:8px
 }
-
-button:hover{
-    filter:brightness(1.12);
+button:hover{background:#6d28d9}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:10px
 }
-
-button.secondary{
-    background:#374151;
+.card{
+ background:#0b1220;border:1px solid #30394c;border-radius:12px;
+ padding:12px
 }
-
-button.success{
-    background:#059669;
+.small{font-size:12px;color:#9ca3af}
+.counter{text-align:right;color:#a78bfa;font-weight:bold;margin-top:5px}
+.progress{
+ height:10px;background:#252b38;border-radius:20px;overflow:hidden;margin-top:10px
 }
-
-button.danger{
-    background:#b91c1c;
+.bar{height:100%;width:0;background:#8b5cf6}
+.sceneTitle{color:#c4b5fd;font-weight:bold}
+img.preview{
+ width:100%;height:150px;object-fit:cover;border-radius:8px;margin-top:8px
 }
-
-button.gold{
-    background:#a16207;
+canvas{
+ width:100%;max-width:800px;display:block;margin:15px auto;
+ background:#000;border-radius:12px
 }
-
-button:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-}
-
-.status{
-    background:#080c16;
-    border:1px solid #273149;
-    border-radius:10px;
-    padding:12px;
-    min-height:44px;
-    color:#a7f3d0;
-}
-
-.small{
-    font-size:13px;
-    color:#94a3b8;
-}
-
-.counter{
-    color:#60a5fa;
-    font-weight:bold;
-}
-
-.scene{
-    background:#0a0f1c;
-    border:1px solid #293650;
-    border-radius:14px;
-    padding:14px;
-    margin-top:12px;
-}
-
-.sceneHeader{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    align-items:center;
-}
-
-.sceneHeader strong{
-    font-size:17px;
-}
-
-.sceneTime{
-    color:#60a5fa;
-    font-size:13px;
-}
-
-.scene img{
-    width:100%;
-    max-height:240px;
-    object-fit:cover;
-    border-radius:10px;
-    margin-top:10px;
-    display:none;
-}
-
-.scene textarea{
-    min-height:100px;
-}
-
-.prompt{
-    min-height:80px!important;
-}
-
-#preview{
-    width:100%;
-    max-width:960px;
-    display:block;
-    margin:auto;
-    background:#000;
-    border-radius:12px;
-}
-
-.progressWrap{
-    height:14px;
-    background:#05070c;
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:12px;
-}
-
-#progress{
-    width:0%;
-    height:100%;
-    background:#2563eb;
-}
-
-#download{
-    display:none;
-    text-align:center;
-    margin-top:15px;
-}
-
-#download a{
-    display:inline-block;
-    padding:13px 20px;
-    border-radius:10px;
-    background:#059669;
-    color:#fff;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.warning{
-    background:#3b2f0b;
-    border:1px solid #735d16;
-    color:#fde68a;
-    padding:12px;
-    border-radius:10px;
-    margin-top:10px;
-}
-
-.ok{
-    background:#052e24;
-    border:1px solid #065f46;
-    color:#a7f3d0;
-    padding:12px;
-    border-radius:10px;
-}
-
-@media(max-width:700px){
-    .grid,
-    .grid3{
-        grid-template-columns:1fr;
-    }
-
-    h1{
-        font-size:25px;
-    }
-
-    .container{
-        padding:10px;
-    }
+#status{text-align:center;color:#a78bfa;min-height:24px;margin:10px}
+.danger{color:#f87171}
+.ok{color:#4ade80}
+@media(max-width:650px){
+ .row,.grid{grid-template-columns:1fr}
+ .wrap{padding:10px}
 }
 </style>
 </head>
 
 <body>
+<div class="wrap">
 
-<div class="container">
+<h1>🎬 MINA VIDEO AI</h1>
+<div class="sub">V12.5 • Mystery Nacht Video Studio</div>
 
-<h1>🌑 MINA VIDEO AI</h1>
-<div class="sub">V12.4 • Mystery Nacht Video Generator</div>
-
-<div class="card">
-
-<h2>🎯 Gizemli Olay</h2>
-
-<label>100 olaydan birini seç</label>
-
+<div class="box">
+<label>🔎 Gizemli Olay</label>
 <select id="mystery"></select>
 
-<div class="small" id="mysteryInfo">
-Bir gizemli olay seç.
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>⚙️ Video Ayarları</h2>
-
-<div class="grid3">
-
+<div class="row">
 <div>
 <label>🌍 Dil</label>
 <select id="language">
-<option value="de">🇩🇪 Almanca</option>
-<option value="tr">🇹🇷 Türkçe</option>
-<option value="en">🇬🇧 İngilizce</option>
+<option value="de">Deutsch</option>
+<option value="tr">Türkçe</option>
+<option value="en">English</option>
 </select>
 </div>
 
 <div>
-<label>⏱️ Senaryo Süresi</label>
-<select id="scriptDuration">
+<label>⏱️ Hedef Süre</label>
+<select id="duration">
 <option value="1">1 dakika</option>
 <option value="2">2 dakika</option>
 <option value="3">3 dakika</option>
@@ -306,1729 +95,549 @@ Bir gizemli olay seç.
 <option value="12" selected>12 dakika</option>
 </select>
 </div>
+</div>
 
+<div class="row">
 <div>
 <label>🎬 Sahne Sayısı</label>
 <select id="sceneCount">
-<option value="4">4 sahne</option>
-<option value="5">5 sahne</option>
-<option value="6" selected>6 sahne</option>
+<option value="4">4 Sahne</option>
+<option value="5">5 Sahne</option>
+<option value="6" selected>6 Sahne</option>
 </select>
 </div>
 
-</div>
-
-<label>🎨 Görsel Stil</label>
-
+<div>
+<label>🎨 Stil</label>
 <select id="style">
-<option>🎬 Sinematik</option>
-<option>🧙 Fantastik</option>
-<option>🤖 Bilim Kurgu</option>
-<option>🎨 3D Animasyon</option>
-<option>✏️ 2D Animasyon</option>
-<option>🌑 Karanlık/Gizemli</option>
-<option>📸 Fotogerçekçi</option>
-<option>💥 Aksiyon</option>
-<option>🏰 Orta Çağ</option>
-<option>🌌 Epik</option>
+<option>Sinematik</option>
+<option>Karanlık/Gizemli</option>
+<option>Fotogerçekçi</option>
+<option>Fantastik</option>
+<option>Bilim Kurgu</option>
+<option>3D Animasyon</option>
+<option>2D Animasyon</option>
+<option>Aksiyon</option>
+<option>Orta Çağ</option>
+<option>Epik</option>
 </select>
-
-<br>
-
-<button onclick="generateScript()">🧠 Senaryo Oluştur</button>
-<button class="secondary" onclick="copyScript()">📋 Senaryoyu Kopyala</button>
-<button class="danger" onclick="clearScript()">🗑️ Temizle</button>
-
+</div>
 </div>
 
-<div class="card">
+<button onclick="generateScript()">🧠 SENARYO OLUŞTUR</button>
+</div>
 
-<h2>📝 Senaryo</h2>
+<div class="box">
+<label>📝 Senaryo</label>
+<textarea id="script" maxlength="999"
+placeholder="Burada maksimum 999 karakterlik senaryo olacak..."></textarea>
+<div class="counter"><span id="count">0</span> / 999</div>
 
 <div class="small">
-Hedef uzunluk:
-<span id="targetWords" class="counter">1740 kelime</span>
+⚠️ Bu sürümde kullanılabilir maksimum alan 999 karakterdir.
 </div>
 
-<textarea id="script" placeholder="Senaryo burada oluşacak..."></textarea>
-
-<div class="small">
-Kelime sayısı:
-<span id="wordCount" class="counter">0</span>
+<div class="row">
+<button onclick="copyScript()">📋 Kopyala</button>
+<button onclick="clearScript()">🗑️ Temizle</button>
+</div>
 </div>
 
-</div>
-
-<div class="card">
-
-<h2>🎙️ TTSMaker Sesi</h2>
-
-<p class="small">
-Senaryoyu TTSMaker'a gönder, Almanca sesi MP3 olarak indir ve buraya yükle.
-</p>
-
+<div class="box">
+<label>🎙️ TTSMaker Ses Dosyası</label>
 <input type="file" id="audioFile" accept="audio/*">
-
-<div id="audioInfo" class="small">
-Henüz ses yüklenmedi.
+<div id="audioInfo" class="small">Henüz ses yüklenmedi.</div>
 </div>
 
-<audio id="audioPlayer" controls style="width:100%;margin-top:10px;display:none"></audio>
-
+<div class="box">
+<label>🎬 Sahneler</label>
+<div id="scenes" class="grid"></div>
 </div>
 
-<div class="card">
-
-<h2>🎬 Sahneler</h2>
-
-<div id="scenes"></div>
-
+<div class="box">
+<button onclick="prepareScenes()">🔄 SAHNELERİ HAZIRLA</button>
+<button onclick="renderVideo()">🎥 VİDEOYU OLUŞTUR</button>
 </div>
 
-<div class="card">
+<div id="status"></div>
+<div class="progress"><div id="bar" class="bar"></div></div>
 
-<h2>🎥 Video</h2>
+<canvas id="canvas" width="1280" height="720"></canvas>
 
-<div id="status" class="status">
-Hazır.
-</div>
-
-<div class="progressWrap">
-<div id="progress"></div>
-</div>
-
-<br>
-
-<button class="success" onclick="renderVideo()">
-🎥 Videoyu Oluştur
-</button>
-
-<button class="secondary" onclick="stopRender()">
-⏹️ Durdur
-</button>
-
-<canvas id="canvas" width="1280" height="720" style="display:none"></canvas>
-
-<video id="preview" controls></video>
-
-<div id="download">
-<a id="downloadLink">⬇️ Videoyu İndir</a>
-</div>
-
+<div class="box">
+<button id="downloadBtn" style="display:none">⬇️ VİDEOYU İNDİR</button>
 </div>
 
 </div>
 
 <script>
+const MAX=999;
 
-/* =========================================================
-   MINA VIDEO AI V12.4
-   100 MYSTERY DATABASE
-========================================================= */
-
-const MYSTERIES = [
-
-["mary-celeste","Mary Celeste","Terk edilmiş gemi","Gerçek bir denizcilik gizemi."],
-["dyatlov","Dyatlov Geçidi","Gizemli dağ olayı","Bir grup dağcının ölümünü çevreleyen çözülememiş sorular."],
-["flannan","Flannan Adaları Deniz Feneri","Kayıp deniz fenercileri","Üç deniz fenercisinin kayboluşu."],
-["somerton","Somerton Adamı","Kimliği belirsiz adam","Kimliği ve ölümü uzun süre çözülemeyen vaka."],
-["roanoke","Roanoke Kayıp Kolonisi","Kayıp koloni","Bir koloninin ortadan kaybolması."],
-["wow","Wow! Sinyali","Uzaydan gelen sinyal","Kısa süreli olağanüstü bir radyo sinyali."],
-["cyclops","USS Cyclops","Kayıp gemi","Büyük bir geminin iz bırakmadan kaybolması."],
-["oak","Oak Island Hazinesi","Ada hazinesi","Yüzyıllardır süren hazine arayışı."],
-["bermuda","Bermuda Şeytan Üçgeni","Deniz ve hava gizemleri","Çok sayıda hikâyeye konu olmuş bölge."],
-["tunguska","Tunguska Olayı","Gökyüzündeki patlama","1908'de meydana gelen devasa atmosferik olay."],
-["dbcooper","D. B. Cooper","Uçaktan kaybolan adam","Bir uçak kaçırma olayının ardından kaybolan kişi."],
-["isdal","Isdal Kadını","Kimliği belirsiz kadın","Norveç'te bulunan ve kimliği uzun süre belirlenemeyen kadın."],
-["hinterkaifeck","Hinterkaifeck Cinayetleri","Çözülemeyen aile cinayeti","Almanya'nın en ünlü çözülmemiş vakalarından biri."],
-["lead-masks","Lead Masks Vakası","İki gizemli ölüm","Brezilya'da bulunan iki kişinin ölümü."],
-["yogtze","YOGTZE Vakası","Gizemli son mesaj","Bir adamın geride bıraktığı anlaşılmaz mesaj."],
-["sodder","Sodder Çocukları","Yangından sonra kaybolan çocuklar","Bir ev yangını sonrasında ortaya çıkan sorular."],
-["beaumont","Beaumont Çocukları","Kayıp kardeşler","Avustralya'da kaybolan üç kardeş."],
-["springfield","Springfield Three","Üç kişinin kayboluşu","Aynı evden kaybolan üç kadın."],
-["yuba","Yuba County Five","Dağlarda kaybolan beş kişi","Beş arkadaşın kayboluşu."],
-["zodiac","Zodiac Katili","Şifreli mektuplar","Şifreler ve mektuplarla tanınan faili meçhul vaka."],
-["black-dahlia","Black Dahlia","Çözülemeyen cinayet","Hollywood tarihinin ünlü faili meçhul vakalarından."],
-["jack-ripper","Jack the Ripper","Kimliği bilinmeyen katil","Londra'daki tarihi cinayetler serisi."],
-["max-headroom","Max Headroom Sinyali","Televizyon yayınına müdahale","Canlı yayın sırasında gerçekleşen gizemli yayın kesintisi."],
-["rendlesham","Rendlesham Forest","Orman olayı","İngiltere'de askeri personelin bildirdiği sıra dışı olay."],
-["phoenix","Phoenix Lights","Gökyüzündeki ışıklar","Arizona'da gözlenen sıra dışı ışık olayı."],
-["shag-harbour","Shag Harbour","Denize düşen gizemli cisim","Kanada'da bildirilen sıra dışı olay."],
-["kecksburg","Kecksburg Olayı","Ormana düşen cisim","Pennsylvania'da anlatılan gizemli olay."],
-["cash-landrum","Cash-Landrum Olayı","Gökyüzündeki parlak cisim","Teksas'ta bildirilen sıra dışı karşılaşma."],
-["taos-hum","Taos Hum","Duyulamayan ses","Bazı insanların bildirdiği gizemli düşük frekanslı ses."],
-["voynich","Voynich El Yazması","Çözülemeyen kitap","Bilinmeyen yazısıyla ünlü tarihi el yazması."],
-["phaistos","Phaistos Diski","Gizemli disk","Üzerindeki işaretleri hâlâ tartışılan arkeolojik eser."],
-["amber-room","Amber Odası","Kayıp oda","Savaş sırasında kaybolan ünlü sanat hazinesi."],
-["princes","Kuledeki Prensler","Kayıp prensler","İngiliz tarihinin en ünlü gizemlerinden biri."],
-["dancing-plague","1518 Dans Vebası","Kontrol edilemeyen dans","Strazburg'da kayıtlara geçmiş sıra dışı toplumsal olay."],
-["antikythera","Antikythera Mekanizması","Antik hesap makinesi","Antik dünyadan kalan olağanüstü mekanik düzenek."],
-["flight19","Flight 19","Kaybolan uçuş grubu","Bir grup askeri uçağın kaybolması."],
-["lady-be-good","Lady Be Good","Çölde bulunan uçak","Çölde yıllar sonra keşfedilen uçak."],
-["star-dust","Star Dust","Son mesaj","Bir yolcu uçağının gizemli kayboluşu."],
-["carroll-deering","Carroll A. Deering","Terk edilmiş gemi","Mürettebatı kayıp halde bulunan gemi."],
-["joyita","MV Joyita","Terk edilmiş gemi","Geminin bulunmasına rağmen insanların kayıp olması."],
-["kaz2","Kaz II","Hayalet yat","Mürettebatsız bulunan modern bir tekne."],
-["baychimo","SS Baychimo","Hayalet gemi","Kuzey kutup bölgesinde uzun süre görüldüğü bildirilen gemi."],
-["lake-bodom","Lake Bodom","Göl kenarındaki cinayet","Finlandiya'da çözülemeyen tarihi vaka."],
-["texarkana","Texarkana Moonlight Cinayetleri","Maskeli saldırgan","Kimliği belirlenemeyen saldırgan vakası."],
-["villisca","Villisca Cinayetleri","Küçük kasaba gizemi","ABD tarihindeki çözülememiş cinayetlerden biri."],
-["keddie","Keddie Cinayetleri","Dağ evindeki cinayet","Kaliforniya'daki çözülememiş vaka."],
-["setagaya","Setagaya Ailesi Cinayeti","Evdeki bilinmeyen katil","Japonya'nın uzun süre çözülemeyen cinayet vakalarından."],
-["florence","Floransa Canavarı","Uzun süren cinayet soruşturması","İtalya'daki ünlü çözülememiş vaka."],
-["servant-girl","Servant Girl Annihilator","Austin gizemi","19. yüzyılın çözülmemiş suç serilerinden."],
-["kremers-froon","Kremers ve Froon","Panama'daki kayboluş","İki genç kadının kayboluşu."],
-["tamam-shud","Tamám Shud","Cepteki gizemli kâğıt","Somerton vakasının merkezindeki ünlü ipucu."],
-["man-iron-mask","Demir Maskeli Adam","Kimliği saklanan mahkum","Fransa tarihindeki gizemli mahkum."],
-["woolpit","Woolpit'in Yeşil Çocukları","Orta Çağ hikâyesi","İngiltere'de anlatılan sıra dışı tarihi olay."],
-["great-amherst","Great Amherst Gizemi","Evdeki tuhaf olaylar","Kanada'da ünlenen paranormal vaka."],
-["cottingley","Cottingley Perileri","Fotoğraflardaki periler","Ünlü fotoğraf tartışmasının hikâyesi."],
-["taured","Taured Adamı","Gizemli yolcu hikâyesi","Yıllardır anlatılan ve ayrıntıları tartışmalı vaka."],
-["nazca","Nazca Çizgileri","Çölde dev şekiller","Peru'daki devasa yer çizimlerinin amacı."],
-["easter-island","Paskalya Adası Moai Gizemi","Dev taş heykeller","Heykellerin nasıl taşındığı ve yapıldığı sorusu."],
-["stonehenge","Stonehenge","Taşların amacı","Tarihi yapının kullanım amacı üzerine araştırmalar."],
-["great-pyramid","Büyük Piramit'in Gizemleri","Antik mühendislik","Piramitlerin yapım yöntemleri üzerine sorular."],
-["sphinx","Sfenks'in Gizemi","Çölün bekçisi","Sfenks'in tarihi ve amacı üzerine tartışmalar."],
-["baghdad-battery","Bağdat Pili","Antik elektrik iddiası","Eski bir eserin işlevi üzerine tartışma."],
-["antikythera-ship","Antikythera Batığı","Denizin altındaki hazine","Antik batıktan çıkan sıra dışı eserler."],
-["terracotta","Terracotta Ordusu","Yeraltındaki ordu","Çin'deki devasa mezar kompleksi."],
-["qin-tomb","Qin Shi Huang Mezarı","Açılmamış mezar","Çin'in en önemli arkeolojik gizemlerinden biri."],
-["library-alexandria","İskenderiye Kütüphanesi","Kayıp bilgi","Antik dünyanın kayıp bilgi merkezi."],
-["holy-grail","Kutsal Kase","Kayıp kutsal emanet","Yüzyıllardır anlatılan tarihi gizem."],
-["ark-covenant","Ahit Sandığı","Kayıp kutsal sandık","Yerinin bilinmediği tarihi eser."],
-["lost-city-z","Kayıp Z Şehri","Amazon'daki kayıp şehir","Kaşiflerin aradığı efsanevi şehir."],
-["el-dorado","El Dorado","Altın şehir efsanesi","Güney Amerika'daki ünlü keşif hikâyesi."],
-["atlantis","Atlantis","Kayıp kıta","Antik kaynaklardan günümüze ulaşan ünlü hikâye."],
-["mu","Mu Kıtası","Kayıp kıta iddiası","Modern dönem gizem anlatılarından biri."],
-["shangri-la","Shangri-La","Kayıp cennet","Uzaklarda bulunduğu söylenen efsanevi yer."],
-["roanoke-code","Roanoke'daki Croatoan Yazısı","Tek kelimelik ipucu","Kayıp koloninin ardında bıraktığı ünlü işaret."],
-["oak-money-pit","Oak Island Money Pit","Gizemli kuyu","Adadaki yapının amacı üzerine teoriler."],
-["mary-celeste-cargo","Mary Celeste'nin Yükü","Gemide kalan eşyalar","Terk edilmiş gemide geride kalan ayrıntılar."],
-["flannan-logbook","Flannan Deniz Feneri Günlüğü","Son kayıtlar","Deniz fenerindeki kayıtların oluşturduğu gizem."],
-["dyatlov-radio","Dyatlov Sonrası Araştırmalar","Dağdaki izler","Vakanın nedenine ilişkin farklı açıklamalar."],
-["tunguska-forest","Tunguska Ormanı","Yıkılmış orman","Devasa alanı etkileyen patlamanın nedeni."],
-["siberia-meteor","Sibirya Gizemli Kraterleri","Yerin altındaki patlamalar","Sibirya'daki sıra dışı jeolojik olaylar."],
-["wow-source","Wow! Sinyalinin Kaynağı","72 saniyelik mesaj","Sinyalin nereden geldiği sorusu."],
-["fast-radio","Hızlı Radyo Patlamaları","Uzaydan kısa sinyaller","Kısa süreli kozmik radyo sinyallerinin gizemi."],
-["tabbys-star","Tabby'nin Yıldızı","Tuhaf parlaklık değişimleri","Bir yıldızın sıra dışı ışık değişimleri."],
-["oumuamua","ʻOumuamua","Güneş sisteminden geçen cisim","Gözlemlenen sıra dışı yıldızlararası nesne."],
-["dark-matter","Karanlık Maddenin Gizemi","Görünmeyen madde","Evrenin büyük bölümünü açıklamaya çalışan araştırmalar."],
-["dark-energy","Karanlık Enerji","Evrenin hızlanan genişlemesi","Kozmolojinin büyük bilinmezlerinden biri."],
-["ball-lightning","Küre Yıldırımı","Havadaki parlak küreler","Nadir bildirilen atmosferik olay."],
-["green-flash","Yeşil Flaş","Ufukta yeşil ışık","Nadir atmosferik optik olay."],
-["min-min","Min Min Işıkları","Avustralya ışıkları","Avustralya'da anlatılan gizemli ışıklar."],
-["marfa-lights","Marfa Işıkları","Çöldeki ışıklar","Teksas'ta uzun süredir gözlenen ışıklar."],
-["hessdalen","Hessdalen Işıkları","Norveç gökyüzündeki ışıklar","Uzun yıllardır araştırılan ışık fenomeni."],
-["mystery-airship","1896 Gizemli Hava Gemileri","Gökyüzündeki hava gemileri","Uçaklardan önce bildirilen gizemli hava aracı gözlemleri."],
-["foo-fighters","Foo Fighters","Savaş uçaklarının ışıkları","II. Dünya Savaşı sırasında rapor edilen ışıklar."],
-["ghost-rockets","Ghost Rockets","İskandinav gökyüzü gözlemleri","Savaş sonrası dönemin gizemli gözlemleri."],
-["washington-ufo","Washington UFO Olayı","Radar ve ışıklar","1952'de Washington çevresindeki gözlemler."],
-["mantell","Mantell Olayı","Pilotun son uçuşu","ABD'deki erken UFO vakalarından biri."],
-["tehran-ufo","Tahran UFO Olayı","Savaş uçakları ve ışık","İran'da bildirilen sıra dışı hava olayı."],
-["japan-airlines","Japan Airlines 1628","Pilotların bildirdiği cisim","Alaska üzerinde rapor edilen hava olayı."],
-["colares","Colares Olayları","Işıklar ve raporlar","Brezilya'da bildirilen sıra dışı olaylar."],
-["belgian-wave","Belçika UFO Dalgası","Üçgen cisimler","1989–1990 dönemindeki gözlem dalgası."],
-["lubbock-lights","Lubbock Lights","Gece gökyüzündeki ışıklar","ABD'de 1951'de bildirilen ışıklar."],
-["kelly-hopkinsville","Kelly-Hopkinsville","Çiftlikteki gece","Kentucky'de anlatılan ünlü karşılaşma."],
-["socorro","Socorro Olayı","Çölde görülen cisim","New Mexico'daki ünlü vaka."],
-["rendlesham-radar","Rendlesham Radar Kayıtları","Radar ve ışıklar","Vakanın radar boyutuna odaklanan anlatı."],
-["phoenix-wedge","Phoenix Işıklarının Tanıkları","Geniş ışık dizisi","Phoenix çevresindeki gözlemlerin tanıkları."],
-["mh370","MH370","Kayıp uçak","Uçağın kayboluşuna ilişkin uzun süren arama."],
-["star-tiger","Star Tiger","Atlantik üzerinde kayboluş","Bir yolcu uçağının iz bırakmadan kaybolması."],
-["star-aerolineas","Star Ariel","Gizemli uçak kayboluşu","Atlantik'teki kayıp uçuş vakalarından."],
-["bsaa","BSAA Kayıp Uçuşları","Atlantik gizemleri","Erken dönem ticari havacılığın kayıp uçuşları."],
-["ourang-medan","Ourang Medan","Terk edilmiş gemi hikâyesi","Gemi hikâyesinin gerçekliği ve kaynakları tartışmalıdır."],
-["octavius","Octavius","Buzlardaki gemi hikâyesi","Tarihi denizcilik anlatılarından biri; doğruluğu tartışmalıdır."],
-["ghost-ship","Hayalet Gemiler","Mürettebatsız gemiler","Terk edilmiş gemiler etrafındaki gerçek vakalar."],
-["sailor-mystery","Kayıp Denizciler","Denizde kaybolan insanlar","Tarihi denizcilik vakalarındaki ortak gizemler."],
-["yuba-mountain","Yuba Dağ Gizemi","Dağda bulunan araç","Yuba County Five olayının arama boyutu."],
-["beaumont-beach","Beaumont Sahili","Kaybolan çocuklar","Avustralya'nın en ünlü kayıp çocuk vakalarından."],
-["black-dahlia-code","Black Dahlia İpuçları","Gazete ve mektuplar","Vakadaki ipuçlarının incelenmesi."],
-["zodiac-ciphers","Zodiac Şifreleri","Çözülen ve çözülemeyen mesajlar","Şifreli mektupların oluşturduğu gizem."],
-["db-cooper-money","D. B. Cooper Parası","Para izleri","Vakadaki para ve arama çalışmaları."],
-["voynich-symbols","Voynich Sembolleri","Bilinmeyen yazı","El yazmasındaki sembollerin çözülememesi."],
-["phaistos-symbols","Phaistos Sembolleri","Diskteki işaretler","Disk üzerindeki yazının anlamı."],
-["nazca-purpose","Nazca'nın Amacı","Dev yer çizimleri","Çizgilerin neden yapıldığına ilişkin farklı açıklamalar."],
-["stonehenge-transport","Stonehenge Taşları","Dev taşların taşınması","Taşların nasıl taşındığı sorusu."],
-["antikythera-gears","Antikythera Dişlileri","Antik mekanizma","Düzeneğin olağanüstü karmaşıklığı."],
-["amber-search","Amber Odası Arayışı","Kayıp sanat hazinesi","Kaybolan odanın akıbeti."],
-["alexandria-fire","İskenderiye'nin Kayıp Bilgileri","Kayıp kitaplar","Antik bilginin ne kadarının kaybolduğu sorusu."],
-["nazca-new","Nazca'nın Yeni Araştırmaları","Çölde yeni şekiller","Nazca bölgesindeki araştırmalar."],
-["piri-reis","Piri Reis Haritası","Haritanın gizemleri","Tarihi haritanın yorumları."],
-["voynich-author","Voynich'in Yazarı","Kim yazdı?","El yazmasının yazarına ilişkin belirsizlik."],
-["lost-expedition","Kayıp Keşif Seferleri","Dünyanın bilinmeyen bölgeleri","Tarihte kaybolan keşif ekipleri."],
-["franklin","Franklin Keşif Seferi","Arktik'te kaybolan ekip","Kuzey kutup bölgesindeki tarihi keşif faciası."],
-["erebus","HMS Erebus","Buzlardaki keşif gemisi","Franklin seferinin gemilerinden biri."],
-["terror","HMS Terror","Kayıp keşif gemisi","Arktik keşif tarihinin önemli gizemlerinden."],
-["lost-dutchman","Lost Dutchman's Gold Mine","Kayıp altın madeni","Arizona'daki efsanevi maden arayışı."],
-["superstition","Superstition Mountains","Dağlardaki kayıp hazine","Kayıp hazine hikâyeleriyle ünlü bölge."],
-["beale-ciphers","Beale Şifreleri","Kayıp hazine kodları","Hazine arayışını başlatan şifreler."],
-["churchill-codes","Churchill'in Kayıp Kodları","Tarihi şifreler","Tarihi kodların çevresindeki gizem."],
-["tamam-document","Somerton'daki Kitap","Gizemli sayfalar","Vaka ile ilişkilendirilen kitap ve ipuçları."],
-["lake-anomaly","Gölün Derinliklerindeki Gizem","Su altı keşifleri","Göllerdeki açıklanamayan gözlemler."],
-["loch-ness","Loch Ness Canavarı","Göldeki gizem","Yüzyılı aşkın süredir anlatılan göl yaratığı hikâyesi."],
-["champ-lake","Lake Champlain Canavarı","Göl canavarı","Kuzey Amerika'daki ünlü göl yaratığı anlatısı."],
-["mothman","Mothman","Point Pleasant Gizemi","1960'larda bildirilen sıra dışı karşılaşmalar."],
-["flatwoods","Flatwoods Canavarı","Gece gökyüzü olayı","West Virginia'da anlatılan ünlü vaka."],
-["jersey-devil","Jersey Devil","Pine Barrens Efsanesi","New Jersey'deki eski yaratık hikâyesi."],
-["bell-witch","Bell Witch","Tennessee Gizemi","Amerikan folklorundaki ünlü paranormal hikâye."],
-["amityville","Amityville Olayı","Evdeki paranormal iddialar","Gerçek olaylarla sonradan oluşan anlatıların karıştığı vaka."],
-["enfield","Enfield Poltergeist","Evdeki olaylar","İngiltere'deki ünlü paranormal vaka."],
-["black-monk","Black Monk of Pontefract","Pontefract Gizemi","İngiltere'de anlatılan paranormal olay."],
-["borley","Borley Papaz Evi","İngiltere'nin hayaletli evi","Tarihi paranormal iddialarla tanınan yapı."],
-["bell-witch-code","Bell Witch Belgeleri","Eski kayıtlar","Hikâyenin belgeleri ve sonradan oluşan anlatılar."],
-["hessdalen-research","Hessdalen Araştırmaları","Işıkların ölçülmesi","Fenomeni bilimsel olarak inceleme girişimleri."],
-["taos-research","Taos Hum Araştırmaları","Gizemli ses araştırmaları","İddia edilen sesin kaynağını bulma çalışmaları."],
-["wow-repeat","Wow! Sinyali ve Tekrar Arayışı","Sinyalin yeniden bulunamaması","Olağanüstü sinyalin neden tekrar görülmediği sorusu."]
+const M=[
+["Mary Celeste","Mary Celeste gemisi 1872'de Atlantik'te terk edilmiş halde bulundu. Gemide insanlar yoktu ancak gemi büyük ölçüde sağlamdı."],
+["Dyatlov Geçidi","1959'da dokuz dağcı Sovyetler Birliği'ndeki Ural Dağları'nda öldü. Çadırları içeriden kesilmişti ve olay uzun süre açıklanamadı."],
+["Flannan Adaları","1900 yılında İskoçya açıklarındaki deniz fenerinde görev yapan üç bekçi ortadan kayboldu. Fener çalışır durumdaydı."],
+["Somerton Adamı","1948'de Avustralya'da kimliği belirlenemeyen bir adam ölü bulundu. Cebindeki gizemli not soruşturmayı yıllarca sürdürdü."],
+["Roanoke Kolonisi","1580'lerde Amerika'daki Roanoke kolonisi ortadan kayboldu. Yerleşimde yalnızca gizemli bir kelime bulundu."],
+["Wow! Sinyali","1977'de bir radyo teleskobu uzaydan gelen olağanüstü güçlü bir sinyal yakaladı. Sinyal bir daha aynı şekilde görülmedi."],
+["USS Cyclops","1918'de USS Cyclops adlı büyük gemi Atlantik'te 300'den fazla kişiyle kayboldu. Gemiden hiçbir kesin iz bulunamadı."],
+["Oak Island","Kanada'daki Oak Island'da yüzyıllardır gizli bir hazine olduğuna inanılıyor. Çok sayıda kazı yapıldı."],
+["Bermuda Şeytan Üçgeni","Atlantik'teki bölge birçok gemi ve uçak kayboluşuyla ilişkilendirildi. Olayların bir kısmı ise normal açıklamalara sahip."],
+["Black Dahlia","1947'de Elizabeth Short Los Angeles'ta öldürülmüş halde bulundu. Cinayet yıllarca çözülemedi."],
+["Zodiac Katili","1960'larda Kaliforniya'da bir seri katil gazetelere şifreli mektuplar gönderdi. Kimliği kesin olarak belirlenemedi."],
+["DB Cooper","1971'de bir adam uçak kaçırıp para aldıktan sonra paraşütle atladı. Kendisi ve paranın büyük kısmı bulunamadı."],
+["Beale Şifreleri","Virginia'da gömülü olduğu iddia edilen bir hazineyi anlatan üç şifre ortaya çıktı. Şifrelerden yalnızca biri kısmen çözüldü."],
+["Phaistos Diski","Girit'te bulunan disk üzerindeki semboller hâlâ tartışılıyor. Yazının anlamı konusunda kesin bir uzlaşı yok."],
+["Voynich El Yazması","Yüzlerce yıldır bilinmeyen bir yazıyla yazılmış bir kitap araştırmacıları şaşırtıyor."],
+["Antikythera Mekanizması","Denizden çıkarılan antik mekanizma karmaşık dişlileriyle şaşkınlık yarattı. İşlevinin astronomik hesaplamalarla bağlantılı olduğu düşünülüyor."],
+["Nazca Çizgileri","Peru'daki devasa çizgiler ve şekiller yüzyıllardır araştırılıyor. Bazılarının amacı hâlâ tartışılıyor."],
+["Stonehenge","İngiltere'deki dev taşların nasıl ve neden yerleştirildiği uzun süre gizem olarak kaldı."],
+["Terracotta Ordusu","Çin'de imparator mezarını koruyan binlerce asker heykeli bulundu. Yapım süreci hâlâ hayranlık uyandırıyor."],
+["Kayıp Franklin Seferi","1845'te Arktik'e giden Franklin seferi iki gemiyle kayboldu. Gemilerin kalıntıları çok daha sonra bulundu."],
+["Amelia Earhart","Ünlü havacı 1937'de dünya turu sırasında kayboldu. Uçağının nerede düştüğü kesin olarak belirlenemedi."],
+["MH370","2014'te yolcu uçağı MH370 kayboldu. Geniş aramalara rağmen uçağın ana enkazı uzun süre bulunamadı."],
+["Air France 447","2009'da Rio-Paris seferi Atlantik'e düştü. Arama çalışmaları uzun sürdü ve enkaz daha sonra bulundu."],
+["Tunguska Olayı","1908'de Sibirya üzerinde dev bir patlama meydana geldi. Patlamanın bir asteroid veya kuyruklu yıldız parçasından kaynaklandığı düşünülüyor."],
+["Sodder Çocukları","1945'te bir ev yangınından sonra beş çocuğun akıbeti tartışma konusu oldu. Aile çocukların yangında ölmediğine inanıyordu."],
+["Isdal Kadını","1970'te Norveç'te kimliği belirsiz bir kadın ölü bulundu. Çok sayıda sahte kimlik ipucu vardı."],
+["Keddie Cinayetleri","1981'de Kaliforniya'da bir kulübede korkunç cinayetler işlendi. Olayın bazı yönleri yıllarca çözülemedi."],
+["Lead Masks Olayı","1966'da Brezilya'da iki adam gizemli kıyafet ve kurşun maskelerle ölü bulundu."],
+["Max Headroom Saldırısı","1987'de ABD'de iki televizyon yayını gizemli bir kişi tarafından kesildi. Fail kesin olarak belirlenemedi."],
+["Dancing Mania","Orta Çağ Avrupa'sında insanların kontrolsüz biçimde dans ettiği bildirilen olaylar kayıtlara geçti."],
+["Mary Reeser","1951'de Florida'da bir kadın evinde neredeyse tamamen yanmış halde bulundu. Olayın fiziksel açıklaması tartışıldı."],
+["Taos Hum","New Mexico'daki bazı insanların duyduğunu söylediği düşük frekanslı uğultu yıllardır araştırılıyor."],
+["Green Children of Woolpit","İngiltere'de Orta Çağ'da yeşil tenli iki çocuğun ortaya çıktığına dair tarihsel bir anlatı bulunuyor."],
+["Man in the Iron Mask","Fransa'da kimliği gizli tutulan bir mahkûm hakkındaki hikâye yüzyıllar boyunca merak uyandırdı."],
+["Kaspar Hauser","1828'de Almanya'da ortaya çıkan ve geçmişi belirsiz genç adam hakkında birçok teori geliştirildi."],
+["Tamam Shud","Somerton Adamı vakasında bulunan iki kelimelik ifade olayın en meşhur ipuçlarından biri oldu."],
+["Hinterkaifeck","1922'de Almanya'da bir çiftlikte aile üyeleri öldürüldü. Cinayet uzun süre çözülemedi."],
+["Jamison Ailesi","Bir aile 2009'da Oklahoma'da kayboldu. Kalıntılar yıllar sonra bulundu."],
+["Springfield Üçlüsü","1992'de Missouri'de üç kadın kayboldu. Olay hâlâ çözülememiş vakalar arasında."],
+["Yuba County Five","1978'de beş erkek gizemli koşullarda kayboldu. Araçları ve bazı kişisel eşyaları bulundu."],
+["Flannan Günlüğü","Deniz fenerindeki bekçilerin günlük kayıtları kayboluşla ilgili çeşitli yorumlara yol açtı."],
+["Mavi Tren Soygunu","Ünlü mücevher hırsızlığı vakalarından biri yıllarca çeşitli teorilerle anıldı."],
+["Lindbergh Kaçırılması","1932'de Charles Lindbergh'in çocuğu kaçırıldı. Olay büyük bir soruşturma başlattı."],
+["D.B. Cooper Para Notları","Cooper'ın verdiği para serisinden bazı banknotların yıllar sonra bulunması soru işaretleri doğurdu."],
+["Wow Sinyalinin Kaynağı","Sinyalin kaynağı belirlenemedi. Astronomi tarihinde en ünlü tek seferlik radyo sinyallerinden biri oldu."],
+["Kayıp Koloni","Roanoke'daki koloninin neden ortadan kaybolduğu kesin olarak bilinmiyor."],
+["Oak Island Kuyusu","Kazılar sırasında çeşitli tüneller ve yapılar bulunduğu iddia edildi."],
+["Piri Reis Haritası","1513 tarihli harita, içerdiği kıyı çizimleri nedeniyle tarihçiler tarafından incelenmiştir."],
+["Shroud of Turin","Torino Kefeni'nin kökeni ve tarihlendirilmesi uzun süredir tartışma konusu."],
+["Ölü Deniz Parşömenleri","Çölde bulunan antik parşömenler dini ve tarihsel araştırmalar için büyük önem taşıdı."],
+["Rongorongo Yazısı","Paskalya Adası'ndaki tahta tabletlerdeki semboller hâlâ tam olarak çözülebilmiş değil."],
+["Piri Reis Kaynakları","Haritanın hangi eski kaynaklardan yararlandığı konusunda farklı görüşler vardır."],
+["Kayıp Amber Odası","II. Dünya Savaşı sırasında kaybolan ünlü Amber Odası'nın akıbeti kesin değildir."],
+["Amber Room","Rusya'daki Amber Odası savaş sırasında söküldü ve kayboldu."],
+["Romanovların Akıbeti","Rus imparatorluk ailesinin ölümü ve kayıp kalıntıları uzun süre gizem konusu oldu."],
+["Anastasia Efsanesi","Romanov ailesinden Anastasia'nın kurtulduğu iddiası yıllarca popüler kaldı."],
+["Kayıp Fabergé Yumurtaları","Bazı Fabergé yumurtalarının nerede olduğu uzun süre bilinmedi."],
+["Kayıp Hazine Gemileri","Denizlerde kaybolan hazine gemileri hakkında birçok arama çalışması yapıldı."],
+["Lusitania","1915'te Lusitania torpillendi. Batışın bazı ayrıntıları uzun süre tartışıldı."],
+["Titanic Gizemleri","Titanic'in batışıyla ilgili çok sayıda teori ortaya çıktı. Enkaz 1985'te bulundu."],
+["Titanic SOS","Titanic'in son radyo mesajları felaketin en önemli belgeleri arasında yer aldı."],
+["Bismarck","Alman savaş gemisi 1941'de battı ve enkazı onlarca yıl sonra araştırıldı."],
+["Kayıp U-Boat","Bazı denizaltıların son görevleri ve kaybolma nedenleri yıllar sonra bile inceleniyor."],
+["Djatlov Radyo İddiası","Dyatlov olayında radyoaktif maddeler ve çeşitli söylentiler de gündeme getirildi."],
+["Hessdalen Işıkları","Norveç'teki vadide görülen açıklanamayan ışıklar bilimsel olarak araştırıldı."],
+["Marfa Işıkları","Texas'taki gizemli ışıklar onlarca yıldır gözlemleniyor."],
+["Brown Mountain Işıkları","ABD'deki dağ bölgesinde görülen ışıklar hakkında çok sayıda açıklama önerildi."],
+["Min Min Işıkları","Avustralya'da geceleri görüldüğü söylenen ışıklar yerel folklorun parçası."],
+["Jersey Şeytanı","New Jersey folklorunda ormanlarda yaşadığı söylenen gizemli yaratık."],
+["Mothman","Point Pleasant bölgesinde görüldüğü iddia edilen kanatlı yaratık efsanesi."],
+["Loch Ness","İskoçya'daki gölde büyük bir yaratık görüldüğü iddiaları yıllardır sürüyor."],
+["Bigfoot","Kuzey Amerika'daki ormanlarda büyük insansı yaratık görüldüğü iddiaları araştırıldı."],
+["Yeti","Himalayalar'daki Yeti efsanesi keşif hikâyeleriyle dünyaya yayıldı."],
+["Koca Ayak Fotoğrafı","Ünlü görüntülerden bazıları yıllardır tartışılıyor."],
+["Fátima Güneş Olayı","1917'de Portekiz'de binlerce kişinin gözlemlediği iddia edilen olağanüstü olay."],
+["Philadelphia Deneyi","Donanma gemisinin görünmez olduğu iddiası sonradan bir şehir efsanesi olarak değerlendirildi."],
+["Montauk Projesi","ABD'de gizli deneyler yapıldığı iddialarına dayanan modern bir komplo anlatısı."],
+["Area 51","Nevada'daki gizli askeri tesis uzun yıllar UFO hikâyeleriyle ilişkilendirildi."],
+["Roswell","1947'de New Mexico'da yaşanan olay UFO tartışmalarının en bilinen örneklerinden biri."],
+["Phoenix Lights","1997'de Arizona üzerinde çok sayıda kişinin ışıklar gördüğünü bildirdiği olay."],
+["Rendlesham Forest","1980'de İngiltere'deki askeri üs yakınında UFO görüldüğü iddia edildi."],
+["Belgian UFO Wave","1989-1990 arasında Belçika'da çok sayıda UFO gözlemi rapor edildi."],
+["Cash-Landrum","1980'de Texas'ta üç kişinin parlak bir nesne gördüğünü bildirdiği olay."],
+["Kecksburg","1965'te Pennsylvania'da gökten düşen nesne hakkında çeşitli iddialar ortaya atıldı."],
+["Varginha Olayı","1996'da Brezilya'da UFO ve yaratık görüldüğüne dair iddialar ortaya çıktı."],
+["Ariel Okulu","1994'te Zimbabwe'deki çocukların sıra dışı bir nesne gördüklerini anlattığı olay."],
+["Belgian Triangle","Belçika'daki üçgen şekilli UFO gözlemleri geniş basında yer aldı."],
+["Havana Sendromu","Diplomatların yaşadığı belirtiler konusunda farklı açıklamalar ve araştırmalar yapıldı."],
+["Wow Signal 2","Wow! sinyaline benzer ikinci bir sinyal arandı ancak kesin bir tekrar bulunamadı."],
+["Oakville Blobs","1994'te Washington'da yağmur sonrası jelatinimsi maddeler bulunduğu bildirildi."],
+["Kırmızı Yağmur","Hindistan'da görülen kırmızı yağmur bazı dönemlerde olağanüstü iddialara yol açtı."],
+["Taured Adamı","Japonya'da başka bir dünyadan gelen adam hikâyesi internette yayıldı ancak olayın doğruluğu tartışmalıdır."],
+["Philadelphia Deneyi Gemisi","USS Eldridge hakkında görünmezlik iddiaları ortaya atıldı; resmi kanıt bulunmamaktadır."],
+["Kayıp 411","ABD'deki kayıp kişi vakalarını bir araya getiren popüler bir gizem anlatısı."],
+["Bennington Üçgeni","Vermont'ta birkaç kişinin kaybolması bölge hakkında efsanelerin oluşmasına yol açtı."],
+["Kayıp Kıta Atlantis","Atlantis anlatısı antik kaynaklardan beri kayıp uygarlık hikâyelerinin en ünlülerinden biri."],
+["Piri Reis ve Antarktika","Haritanın Antarktika'yı gösterdiği iddiası popüler olsa da bilimsel yorumlar daha karmaşıktır."],
+["Nazi Altın Treni","Polonya'da saklı Nazi treni olduğu iddiası büyük hazine aramalarına yol açtı."],
+["Yamashita Hazinesi","II. Dünya Savaşı sırasında Filipinler'de gizli altın bulunduğu iddiaları."],
+["Copper Scroll","Ölü Deniz Parşömenleri arasında hazine listesi içerdiği düşünülen farklı bir metin."],
+["Crown Jewels Gizemi","Tarihte kraliyet mücevherlerinin kaybolduğu ve yeniden bulunduğu birçok olay yaşandı."],
+["Kayıp Flor de la Mar","1511'de batan Portekiz gemisinin büyük hazine taşıdığı düşünülüyor."],
+["San José Galyonu","Kolombiya açıklarında batan İspanyol gemisi büyük miktarda değerli yükle ilişkilendiriliyor."],
+["Kayıp HMS Terror","Franklin seferinin gemilerinden Terror uzun süre kayıptı."],
+["Erebus Enkazı","Franklin seferinin HMS Erebus gemisi 2014'te bulundu."],
+["Mary Celeste Kaptanı","Geminin mürettebatının neden gemiyi terk ettiği kesin olarak bilinmiyor."],
+["Kayıp Crew of Carroll A. Deering","1921'de yelkenli gemi terk edilmiş halde bulundu."],
+["Kaz II","2007'de Avustralya yakınlarında üç kişilik mürettebatı kaybolmuş bir tekne bulundu."],
+["Ourang Medan","Hakkında çok sayıda hikâye anlatılan gizemli gemi vakası."],
+["Joyita","1955'te Pasifik'te terk edilmiş halde bulunan geminin mürettebatı kayıptı."],
+["MV Joyita","Gemi batmamıştı ancak yolcuların ve mürettebatın nerede olduğu çözülemedi."],
+["Kayıp USS Scorpion","1968'de ABD denizaltısı Atlantik'te kayboldu."],
+["USS Thresher","1963'te nükleer denizaltı deniz altında kayboldu."],
+["Scorpion Enkazı","Denizaltının enkazı daha sonra bulundu ancak kazanın ayrıntıları araştırıldı."],
+["Kayıp Amelia Earhart Uçağı","Earhart'ın Lockheed Electra'sının ana enkazı kesin olarak bulunamadı."],
+["Gardner Adası","Earhart'ın Nikumaroro'ya ulaşmış olabileceği teorisi araştırmacılar tarafından incelendi."],
+["Kayıp Kaspar Hauser","Kaspar Hauser'in geçmişi ve saldırıya uğrama olayı hâlâ tarihçilerin ilgisini çekiyor."],
+["Hammersmith Hayaleti","Londra'da 1800'lerde hayalet saldırılarıyla ilgili bir panik yaşandı."],
+["Spring-Heeled Jack","Viktorya dönemi Londra'sında sıra dışı bir figürün görüldüğü iddiaları."],
+["Culpeper Hayaleti","Eski İngiliz hayalet hikâyeleri arasında yer alan tartışmalı olay."],
+["Black Monk of Pontefract","İngiltere'de bir ailenin yaşadığı iddia edilen paranormal olaylar."],
+["Enfield Olayı","1970'lerde Londra'daki bir evde paranormal olaylar yaşandığı iddia edildi."]
 ];
 
-/* =========================================================
-   STATE
-========================================================= */
-
-let audioFile = null;
-let audioURL = null;
-let audioDuration = 0;
-let scenes = [];
-let subtitleTimeline = [];
-let mediaRecorder = null;
-let recordingChunks = [];
-let renderStop = false;
-let audioContext = null;
-let audioSource = null;
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const mysterySelect = document.getElementById("mystery");
-const mysteryInfo = document.getElementById("mysteryInfo");
-const scriptBox = document.getElementById("script");
-const wordCount = document.getElementById("wordCount");
-const targetWords = document.getElementById("targetWords");
-const language = document.getElementById("language");
-const durationSelect = document.getElementById("scriptDuration");
-const sceneCountSelect = document.getElementById("sceneCount");
-const styleSelect = document.getElementById("style");
-const audioInput = document.getElementById("audioFile");
-const audioPlayer = document.getElementById("audioPlayer");
-const audioInfo = document.getElementById("audioInfo");
-const scenesBox = document.getElementById("scenes");
-const statusBox = document.getElementById("status");
-const progress = document.getElementById("progress");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const preview = document.getElementById("preview");
-const downloadBox = document.getElementById("download");
-const downloadLink = document.getElementById("downloadLink");
-
-/* =========================================================
-   POPULATE 100 EVENTS
-========================================================= */
-
-function populateMysteries(){
-
-    mysterySelect.innerHTML = "";
-
-    MYSTERIES.forEach((m,index)=>{
-
-        const option = document.createElement("option");
-
-        option.value = index;
-        option.textContent =
-            (index+1) + ". " + m[1];
-
-        mysterySelect.appendChild(option);
-
-    });
-
-    updateMysteryInfo();
-}
-
-function updateMysteryInfo(){
-
-    const m = MYSTERIES[Number(mysterySelect.value)];
-
-    if(!m)return;
-
-    mysteryInfo.innerHTML =
-        "<b>"+m[2]+"</b> — "+m[3];
-}
-
-/* =========================================================
-   WORD TARGET
-========================================================= */
-
-function targetWordsForMinutes(min){
-
-    /*
-      Yaklaşık 145 kelime/dakika.
-      TTSMaker gerçek süresi videonun nihai süresini belirler.
-    */
-
-    return Math.round(Number(min)*145);
-
-}
-
-function updateTargetWords(){
-
-    const n = targetWordsForMinutes(durationSelect.value);
-
-    targetWords.textContent =
-        n.toLocaleString("tr-TR")+" kelime";
-
-}
-
-durationSelect.addEventListener("change",updateTargetWords);
-mysterySelect.addEventListener("change",updateMysteryInfo);
-
-scriptBox.addEventListener("input",()=>{
-    const words = countWords(scriptBox.value);
-    wordCount.textContent = words.toLocaleString("tr-TR");
+const mystery=document.getElementById("mystery");
+M.forEach((x,i)=>{
+ let o=document.createElement("option");
+ o.value=i;o.textContent=(i+1)+". "+x[0];
+ mystery.appendChild(o);
 });
 
-function countWords(text){
+const script=document.getElementById("script");
+const count=document.getElementById("count");
+script.addEventListener("input",()=>{
+ if(script.value.length>MAX)script.value=script.value.slice(0,MAX);
+ count.textContent=script.value.length;
+});
 
-    return text
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean)
-        .length;
+let audioFile=null;
+let audioDuration=0;
+let scenes=[];
+let finalBlob=null;
 
+document.getElementById("audioFile").addEventListener("change",e=>{
+ audioFile=e.target.files[0];
+ if(!audioFile)return;
+ const a=new Audio();
+ a.preload="metadata";
+ a.onloadedmetadata=()=>{
+  audioDuration=a.duration;
+  document.getElementById("audioInfo").innerHTML=
+   "🎵 "+audioFile.name+" • "+formatTime(audioDuration);
+ };
+ a.src=URL.createObjectURL(audioFile);
+});
+
+function formatTime(s){
+ if(!isFinite(s))return "--:--";
+ let m=Math.floor(s/60);
+ let sec=Math.floor(s%60).toString().padStart(2,"0");
+ return m+":"+sec;
 }
 
-/* =========================================================
-   LOCAL SCRIPT ENGINE
-========================================================= */
-
-const TEXT = {
-
-de:{
-intro:[
-"Heute erzählen wir von einem mysteriösen Fall, der bis heute Fragen offenlässt.",
-"Was damals geschah, ist dokumentiert. Doch einige entscheidende Antworten fehlen bis heute.",
-"Es beginnt mit einer ungewöhnlichen Situation, die später zu einem der rätselhaftesten Fälle wurde."
-],
-
-transition:[
-"Doch genau hier beginnt das eigentliche Rätsel.",
-"Die Details dieses Falls machen die Geschichte noch ungewöhnlicher.",
-"Je genauer man die Ereignisse betrachtet, desto mehr Fragen entstehen.",
-"Bis heute gibt es unterschiedliche Erklärungsversuche.",
-"Keine dieser Erklärungen beantwortet jedoch alle offenen Fragen."
-],
-
-theory:[
-"Eine mögliche Erklärung sieht die Ursache in natürlichen Umständen.",
-"Eine andere Theorie geht von einem menschlichen Fehler aus.",
-"Manche Forscher halten auch eine Kombination mehrerer Faktoren für möglich.",
-"Allerdings fehlt ein eindeutiger Beweis, der eine einzige Erklärung bestätigt."
-],
-
-ending:[
-"Vielleicht wird die Wahrheit eines Tages gefunden.",
-"Bis dahin bleibt dieser Fall eines der faszinierenden ungelösten Rätsel.",
-"Was wirklich geschah, bleibt eine offene Frage.",
-"Und genau deshalb wird dieser Fall bis heute untersucht."
-]
-},
-
-tr:{
-intro:[
-"Bugün, hâlâ cevaplanmamış sorular bırakan gizemli bir olayı anlatıyoruz.",
-"Olayın bazı bölümleri belgelenmiş durumda. Ancak en önemli soruların bazıları hâlâ cevapsız.",
-"Hikâye sıradan görünen bir olayla başlıyor, fakat kısa süre sonra büyük bir gizeme dönüşüyor."
-],
-
-transition:[
-"Fakat asıl gizem tam olarak burada başlıyor.",
-"Detaylara yaklaştıkça olay daha da ilginç hale geliyor.",
-"Her ayrıntı yeni bir soru ortaya çıkarıyor.",
-"Bugün bile farklı açıklamalar öne sürülüyor.",
-"Ancak bu açıklamaların hiçbiri bütün soruları kesin olarak cevaplamıyor."
-],
-
-theory:[
-"Bir açıklama olayın doğal şartlardan kaynaklanmış olabileceğini söylüyor.",
-"Başka bir teori insan hatası ihtimaline dikkat çekiyor.",
-"Bazı araştırmacılar ise birden fazla faktörün birlikte rol oynamış olabileceğini düşünüyor.",
-"Fakat tek bir açıklamayı kesin olarak kanıtlayan bir delil bulunmuyor."
-],
-
-ending:[
-"Belki bir gün olayın gerçek nedeni ortaya çıkacak.",
-"O zamana kadar bu vaka çözülememiş gizemlerden biri olarak kalacak.",
-"Gerçekte ne olduğunu kesin olarak bilmiyoruz.",
-"Ve belki de bu olayın en büyük gizemi tam olarak burada."
-]
-},
-
-en:{
-intro:[
-"Today we are looking at a mysterious case that still leaves important questions unanswered.",
-"Some parts of the story are documented, but several crucial questions remain unresolved.",
-"It begins with an unusual event that would later become one of the most intriguing mysteries."
-],
-
-transition:[
-"But this is where the real mystery begins.",
-"The more closely we examine the details, the more questions appear.",
-"Every new detail seems to create another unanswered question.",
-"Several explanations have been proposed over the years.",
-"Yet none of them completely explains every part of the case."
-],
-
-theory:[
-"One explanation suggests that natural circumstances may have played a role.",
-"Another possibility involves human error.",
-"Some researchers believe several factors may have combined.",
-"However, there is no single piece of evidence that proves one explanation beyond doubt."
-],
-
-ending:[
-"Perhaps the truth will eventually be discovered.",
-"Until then, the case remains one of the world's intriguing unsolved mysteries.",
-"We still do not know exactly what happened.",
-"And perhaps that unanswered question is what makes this case so fascinating."
-]
+function clampText(t){
+ t=(t||"").replace(/\s+/g," ").trim();
+ if(t.length<=MAX)return t;
+ let x=t.slice(0,MAX);
+ let p=Math.max(x.lastIndexOf("."),x.lastIndexOf("!"),x.lastIndexOf("?"));
+ if(p>700)x=x.slice(0,p+1);
+ else{
+  let s=x.lastIndexOf(" ");
+  if(s>800)x=x.slice(0,s);
+ }
+ return x.slice(0,MAX).trim();
 }
-
-};
-
-/* =========================================================
-   FACT-LIKE EVENT DETAILS
-========================================================= */
-
-function eventNarrative(m){
-
-    return {
-        de:[
-            "Der Fall ist unter dem Namen \""+m[1]+"\" bekannt.",
-            "Er wird häufig als \""+m[2]+"\" beschrieben.",
-            "Im Mittelpunkt stehen Ereignisse, deren vollständige Erklärung bis heute nicht eindeutig ist.",
-            "Historische Dokumente, Zeugenaussagen und spätere Untersuchungen haben unterschiedliche Hinweise geliefert.",
-            "Einige Details sind gut dokumentiert, während andere Angaben umstritten oder unvollständig sind.",
-            "Genau diese Mischung aus bekannten Fakten und offenen Fragen macht den Fall interessant."
-        ],
-
-        tr:[
-            "Bu olay \""+m[1]+"\" adıyla biliniyor.",
-            "Olay genellikle \""+m[2]+"\" olarak tanımlanıyor.",
-            "Merkezinde, bugüne kadar tamamen açıklanamayan gelişmeler bulunuyor.",
-            "Tarihi belgeler, tanıklıklar ve sonraki araştırmalar farklı ipuçları ortaya çıkardı.",
-            "Bazı ayrıntılar iyi belgelenmiş durumda, bazıları ise tartışmalı veya eksik.",
-            "Bilinen gerçeklerle cevaplanmamış soruların bir arada bulunması bu vakayı ilginç kılıyor."
-        ],
-
-        en:[
-            "The case is known as \""+m[1]+"\".",
-            "It is often described as a \""+m[2]+"\".",
-            "At its center are events that have never received a complete explanation.",
-            "Historical documents, witnesses and later investigations have produced different clues.",
-            "Some details are well documented, while others remain disputed or incomplete.",
-            "The combination of known facts and unanswered questions is what makes the case so intriguing."
-        ]
-    };
-
-}
-
-/* =========================================================
-   SCRIPT BUILDER
-========================================================= */
 
 function generateScript(){
+ const item=M[Number(mystery.value)];
+ const lang=document.getElementById("language").value;
+ const min=document.getElementById("duration").value;
+ const style=document.getElementById("style").value;
 
-    const m = MYSTERIES[Number(mysterySelect.value)];
+ let intro="",body="",end="";
 
-    const lang = language.value;
+ if(lang==="de"){
+  intro="Heute erzählen wir einen der rätselhaftesten Fälle der Geschichte. ";
+  body=item[1]+" ";
+  end="Bis heute bleiben wichtige Fragen offen. Was wirklich geschah, wissen wir nicht. ";
+ }else if(lang==="en"){
+  intro="Today we explore one of the most mysterious cases in history. ";
+  body=item[1]+" ";
+  end="Important questions remain unanswered. What really happened is still unknown. ";
+ }else{
+  intro="Bugün tarihin en gizemli olaylarından birini inceliyoruz. ";
+  body=item[1]+" ";
+  end="Önemli sorular hâlâ cevapsız. Gerçekte ne olduğunu kesin olarak bilmiyoruz. ";
+ }
 
-    const target = targetWordsForMinutes(durationSelect.value);
+ let extra=lang==="de"
+ ? "Forscher haben verschiedene Erklärungen vorgeschlagen. Einige Hinweise sind bekannt, andere bleiben umstritten. Der Fall fasziniert Menschen bis heute. "
+ :lang==="en"
+ ? "Researchers have proposed several explanations. Some clues are known, while others remain disputed. The case still fascinates people today. "
+ : "Araştırmacılar çeşitli açıklamalar ortaya koydu. Bazı ipuçları biliniyor, bazıları ise tartışmalı. Bu olay bugün bile insanları meraklandırıyor. ";
 
-    const t = TEXT[lang];
+ let text=intro+body;
+ while((text+extra+end).length<Math.min(MAX,Math.max(350,Number(min)*80))){
+  text+=extra;
+ }
+ text+=end;
 
-    const details = eventNarrative(m)[lang];
-
-    let parts = [];
-
-    parts.push(
-        t.intro[Math.floor(Math.random()*t.intro.length)]
-    );
-
-    parts.push(
-        ...details
-    );
-
-    /*
-      Olay adı tekrar tekrar doğal şekilde kullanılıyor.
-    */
-
-    let counter = 0;
-
-    while(countWords(parts.join(" ")) < target - 250){
-
-        if(counter % 4 === 0){
-            parts.push(t.transition[counter % t.transition.length]);
-        }
-
-        else if(counter % 4 === 1){
-            parts.push(details[counter % details.length]);
-        }
-
-        else if(counter % 4 === 2){
-            parts.push(t.theory[counter % t.theory.length]);
-        }
-
-        else{
-            parts.push(
-                lang==="de"
-                ? "Die Frage bleibt jedoch offen: Welche Erklärung passt wirklich zu allen bekannten Details?"
-                : lang==="tr"
-                ? "Fakat soru hâlâ ortada duruyor: Hangi açıklama bilinen bütün ayrıntıları gerçekten karşılıyor?"
-                : "But the question remains: which explanation actually fits all the known details?"
-            );
-        }
-
-        counter++;
-
-        if(counter>1000)break;
-    }
-
-    parts.push(
-        ...t.ending
-    );
-
-    let text = parts.join(" ");
-
-    /*
-      Hedefin çok üstüne çıkarsa kes.
-    */
-
-    const words = text.split(/\s+/);
-
-    if(words.length > target){
-
-        text =
-            words
-            .slice(0,target)
-            .join(" ");
-
-    }
-
-    /*
-      Sonuna kapanış ekle.
-    */
-
-    if(lang==="de"){
-        text += " Was glaubst du: Welche Erklärung könnte dieses Rätsel lösen?";
-    }
-
-    if(lang==="tr"){
-        text += " Sence bu gizemin gerçek açıklaması ne olabilir?";
-    }
-
-    if(lang==="en"){
-        text += " What do you think could finally explain this mystery?";
-    }
-
-    scriptBox.value = text;
-
-    wordCount.textContent =
-        countWords(text).toLocaleString("tr-TR");
-
-    buildScenes();
-
-    statusBox.innerHTML =
-        "✅ "+m[1]+" için yaklaşık "+
-        countWords(text)+
-        " kelimelik senaryo oluşturuldu.";
-
+ script.value=clampText(text);
+ count.textContent=script.value.length;
+ prepareScenes();
+ setStatus("✅ "+script.value.length+" karakterlik senaryo hazır.","ok");
 }
 
-/* =========================================================
-   COPY / CLEAR
-========================================================= */
-
 function copyScript(){
-
-    if(!scriptBox.value.trim())return;
-
-    navigator.clipboard.writeText(scriptBox.value)
-    .then(()=>{
-        statusBox.textContent="📋 Senaryo panoya kopyalandı.";
-    })
-    .catch(()=>{
-        scriptBox.select();
-        document.execCommand("copy");
-        statusBox.textContent="📋 Senaryo kopyalandı.";
-    });
-
+ script.select();
+ document.execCommand("copy");
+ setStatus("📋 Senaryo kopyalandı.","ok");
 }
 
 function clearScript(){
-
-    scriptBox.value="";
-    wordCount.textContent="0";
-    scenes=[];
-    subtitleTimeline=[];
-    scenesBox.innerHTML="";
-    statusBox.textContent="Temizlendi.";
-
+ script.value="";
+ count.textContent="0";
+ document.getElementById("scenes").innerHTML="";
+ scenes=[];
 }
 
-/* =========================================================
-   SCENE BUILDER
-========================================================= */
-
-function buildScenes(){
-
-    const count =
-        Number(sceneCountSelect.value);
-
-    scenes=[];
-
-    const script =
-        scriptBox.value.trim();
-
-    const words =
-        script.split(/\s+/).filter(Boolean);
-
-    const per =
-        Math.ceil(words.length/count);
-
-    for(let i=0;i<count;i++){
-
-        const start=i*per;
-        const end=Math.min(start+per,words.length);
-
-        const text =
-            words.slice(start,end).join(" ");
-
-        scenes.push({
-            number:i+1,
-            text:text,
-            prompt:"",
-            image:null,
-            start:0,
-            end:0,
-            duration:0
-        });
-
-    }
-
-    renderSceneInputs();
-
+function splitText(text,n){
+ let words=text.trim().split(/\s+/);
+ let result=[];
+ let total=words.length;
+ for(let i=0;i<n;i++){
+  let a=Math.floor(i*total/n);
+  let b=Math.floor((i+1)*total/n);
+  result.push(words.slice(a,b).join(" "));
+ }
+ return result;
 }
 
-sceneCountSelect.addEventListener("change",()=>{
+function prepareScenes(){
+ let text=clampText(script.value);
+ script.value=text;
+ count.textContent=text.length;
 
-    if(scriptBox.value.trim()){
-        buildScenes();
-    }
+ const n=Number(document.getElementById("sceneCount").value);
+ const style=document.getElementById("style").value;
+ const parts=splitText(text,n);
+ scenes=[];
 
-});
+ const box=document.getElementById("scenes");
+ box.innerHTML="";
 
-/* =========================================================
-   SCENE INPUT UI
-========================================================= */
+ parts.forEach((p,i)=>{
+  let obj={
+   subtitle:p,
+   prompt:`${style}, mysterious cinematic scene, ${M[i%M.length][0]}, dark atmosphere, dramatic lighting, realistic details`,
+   image:null
+  };
+  scenes.push(obj);
 
-function renderSceneInputs(){
-
-    scenesBox.innerHTML="";
-
-    scenes.forEach((scene,index)=>{
-
-        const div=document.createElement("div");
-
-        div.className="scene";
-
-        div.innerHTML=`
-
-        <div class="sceneHeader">
-
-            <strong>🎬 Sahne ${scene.number}</strong>
-
-            <span class="sceneTime" id="sceneTime${index}">
-            Henüz zaman yok
-            </span>
-
-        </div>
-
-        <label>📝 Sahne Altyazısı</label>
-
-        <textarea
-            id="sceneText${index}"
-            onchange="updateSceneText(${index})"
-        >${escapeHtml(scene.text)}</textarea>
-
-        <label>🤖 Görsel Promptu</label>
-
-        <textarea
-            class="prompt"
-            id="prompt${index}"
-            onchange="updateScenePrompt(${index})"
-        >${escapeHtml(makeImagePrompt(scene,index))}</textarea>
-
-        <label>🖼️ Görsel Ekle</label>
-
-        <input
-            type="file"
-            accept="image/*"
-            onchange="loadSceneImage(event,${index})"
-        >
-
-        <img id="sceneImg${index}">
-
-        `;
-
-        scenesBox.appendChild(div);
-
-    });
-
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerHTML=`
+   <div class="sceneTitle">🎬 SAHNE ${i+1}</div>
+   <label>📝 Altyazı</label>
+   <textarea id="sub${i}" maxlength="999">${p}</textarea>
+   <label>🖼️ Görsel</label>
+   <input type="file" accept="image/*" onchange="loadImage(${i},this)">
+   <img id="img${i}" class="preview" style="display:none">
+   <label>🤖 Görsel Promptu</label>
+   <textarea id="prompt${i}" style="min-height:90px">${obj.prompt}</textarea>
+  `;
+  box.appendChild(div);
+ });
 }
 
-function escapeHtml(str){
-
-    return String(str)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;");
-
+function loadImage(i,input){
+ const file=input.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=e=>{
+  scenes[i].image=e.target.result;
+  const im=document.getElementById("img"+i);
+  im.src=e.target.result;
+  im.style.display="block";
+ };
+ reader.readAsDataURL(file);
 }
 
-function updateSceneText(index){
-
-    scenes[index].text =
-        document.getElementById("sceneText"+index).value;
-
+function setStatus(t,c=""){
+ const s=document.getElementById("status");
+ s.textContent=t;
+ s.className=c;
 }
 
-function updateScenePrompt(index){
+function drawFrame(ctx,w,h,text,img,i,total){
+ ctx.fillStyle="#05070d";
+ ctx.fillRect(0,0,w,h);
 
-    scenes[index].prompt =
-        document.getElementById("prompt"+index).value;
+ if(img){
+  const image=new Image();
+  image.src=img;
+  if(image.complete){
+   drawCover(ctx,image,w,h);
+  }else{
+   image.onload=()=>{
+    drawCover(ctx,image,w,h);
+    drawOverlay(ctx,w,h,text,i,total);
+   };
+  }
+ }else{
+  const g=ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,"#111827");
+  g.addColorStop(1,"#020617");
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,w,h);
+ }
 
+ drawOverlay(ctx,w,h,text,i,total);
 }
 
-/* =========================================================
-   IMAGE PROMPT
-========================================================= */
-
-function makeImagePrompt(scene,index){
-
-    const m =
-        MYSTERIES[Number(mysterySelect.value)];
-
-    const style =
-        styleSelect.value;
-
-    const lang =
-        language.value;
-
-    let mood =
-        lang==="de"
-        ? "dunkle geheimnisvolle Atmosphäre, dramatisches Licht"
-        : lang==="tr"
-        ? "karanlık gizemli atmosfer, dramatik ışık"
-        : "dark mysterious atmosphere, dramatic lighting";
-
-    return (
-        m[1]+
-        ", "+
-        style+
-        ", "+
-        mood+
-        ", cinematic composition, highly detailed, realistic scene, no text, no watermark, scene "+(index+1)
-    );
-
+function drawCover(ctx,img,w,h){
+ const r=Math.max(w/img.width,h/img.height);
+ const nw=img.width*r,nh=img.height*r;
+ ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);
+ ctx.fillStyle="rgba(0,0,0,.42)";
+ ctx.fillRect(0,0,w,h);
 }
 
-/* =========================================================
-   IMAGE UPLOAD
-========================================================= */
+function drawOverlay(ctx,w,h,text,i,total){
+ ctx.fillStyle="rgba(0,0,0,.45)";
+ ctx.fillRect(0,0,w,70);
 
-function loadSceneImage(event,index){
+ ctx.fillStyle="#fff";
+ ctx.font="bold 28px Arial";
+ ctx.fillText("MYSTERY NACHT",35,45);
 
-    const file =
-        event.target.files &&
-        event.target.files[0];
+ ctx.font="bold 22px Arial";
+ ctx.fillText(`SZENE ${i+1}/${total}`,w-190,45);
 
-    if(!file)return;
+ ctx.fillStyle="rgba(0,0,0,.82)";
+ ctx.fillRect(45,h-180,w-90,125);
 
-    const reader =
-        new FileReader();
+ ctx.fillStyle="#fff";
+ ctx.font="bold 27px Arial";
 
-    reader.onload=function(e){
+ let lines=wrapText(ctx,text,w-140);
+ let y=h-140;
 
-        scenes[index].image =
-            e.target.result;
-
-        const img =
-            document.getElementById("sceneImg"+index);
-
-        img.src=e.target.result;
-        img.style.display="block";
-
-        statusBox.textContent =
-            "🖼️ Sahne "+(index+1)+" görseli eklendi.";
-
-    };
-
-    reader.readAsDataURL(file);
-
+ lines.slice(0,4).forEach(line=>{
+  ctx.fillText(line,70,y);
+  y+=34;
+ });
 }
 
-/* =========================================================
-   AUDIO
-========================================================= */
-
-audioInput.addEventListener("change",function(){
-
-    const file=this.files[0];
-
-    if(!file)return;
-
-    audioFile=file;
-
-    if(audioURL){
-        URL.revokeObjectURL(audioURL);
-    }
-
-    audioURL=
-        URL.createObjectURL(file);
-
-    audioPlayer.src=audioURL;
-    audioPlayer.style.display="block";
-
-    audioPlayer.onloadedmetadata=function(){
-
-        audioDuration=
-            audioPlayer.duration;
-
-        audioInfo.innerHTML =
-            "🎵 Ses süresi: <b>"+
-            formatTime(audioDuration)+
-            "</b>";
-
-        buildSubtitleTimeline();
-        redistributeScenes();
-
-    };
-
-});
-
-/* =========================================================
-   FORMAT TIME
-========================================================= */
-
-function formatTime(sec){
-
-    if(!isFinite(sec))return "00:00";
-
-    const m =
-        Math.floor(sec/60);
-
-    const s =
-        Math.floor(sec%60);
-
-    return (
-        String(m).padStart(2,"0")+
-        ":"+
-        String(s).padStart(2,"0")
-    );
-
+function wrapText(ctx,text,max){
+ const words=(text||"").split(/\s+/);
+ const lines=[];
+ let line="";
+ words.forEach(word=>{
+  const test=line?line+" "+word:word;
+  if(ctx.measureText(test).width>max){
+   if(line)lines.push(line);
+   line=word;
+  }else line=test;
+ });
+ if(line)lines.push(line);
+ return lines;
 }
-
-/* =========================================================
-   SUBTITLE TIMELINE
-========================================================= */
-
-function buildSubtitleTimeline(){
-
-    const text =
-        scriptBox.value.trim();
-
-    if(!text || !audioDuration)return;
-
-    const words =
-        text.split(/\s+/).filter(Boolean);
-
-    const chunks=[];
-
-    let current=[];
-
-    for(let i=0;i<words.length;i++){
-
-        current.push(words[i]);
-
-        const sentenceEnd =
-            /[.!?…]$/.test(words[i]);
-
-        if(
-            current.length>=12 ||
-            (sentenceEnd && current.length>=5)
-        ){
-
-            chunks.push(
-                current.join(" ")
-            );
-
-            current=[];
-
-        }
-
-    }
-
-    if(current.length){
-        chunks.push(current.join(" "));
-    }
-
-    const totalChars =
-        chunks.reduce(
-            (sum,x)=>sum+x.length,
-            0
-        );
-
-    let cursor=0;
-
-    subtitleTimeline=[];
-
-    chunks.forEach((chunk)=>{
-
-        const duration =
-            audioDuration*
-            (chunk.length/totalChars);
-
-        subtitleTimeline.push({
-
-            text:chunk,
-            start:cursor,
-            end:cursor+duration
-
-        });
-
-        cursor+=duration;
-
-    });
-
-}
-
-/* =========================================================
-   SCENE TIMING
-========================================================= */
-
-function redistributeScenes(){
-
-    if(!audioDuration)return;
-
-    if(!scenes.length){
-        buildScenes();
-    }
-
-    const totalChars =
-        scenes.reduce(
-            (sum,s)=>sum+s.text.length,
-            0
-        );
-
-    let cursor=0;
-
-    scenes.forEach((scene,index)=>{
-
-        const d =
-            audioDuration*
-            (scene.text.length/totalChars);
-
-        scene.start=cursor;
-        scene.end=cursor+d;
-        scene.duration=d;
-
-        cursor+=d;
-
-        const time =
-            document.getElementById(
-                "sceneTime"+index
-            );
-
-        if(time){
-
-            time.textContent =
-                formatTime(scene.start)+
-                " → "+
-                formatTime(scene.end);
-
-        }
-
-    });
-
-}
-
-/* =========================================================
-   FIND CURRENT SCENE
-========================================================= */
-
-function getCurrentScene(time){
-
-    if(!scenes.length)return 0;
-
-    for(let i=0;i<scenes.length;i++){
-
-        if(
-            time>=scenes[i].start &&
-            time<scenes[i].end
-        ){
-            return i;
-        }
-
-    }
-
-    return scenes.length-1;
-
-}
-
-/* =========================================================
-   FIND SUBTITLE
-========================================================= */
-
-function getSubtitle(time){
-
-    for(let i=0;i<subtitleTimeline.length;i++){
-
-        const item=
-            subtitleTimeline[i];
-
-        if(
-            time>=item.start &&
-            time<item.end
-        ){
-            return item.text;
-        }
-
-    }
-
-    return "";
-
-}
-
-/* =========================================================
-   DRAW IMAGE COVER
-========================================================= */
-
-function drawCover(img){
-
-    const cw=canvas.width;
-    const ch=canvas.height;
-
-    const iw=img.width;
-    const ih=img.height;
-
-    const scale=
-        Math.max(cw/iw,ch/ih);
-
-    const nw=iw*scale;
-    const nh=ih*scale;
-
-    const x=(cw-nw)/2;
-    const y=(ch-nh)/2;
-
-    ctx.drawImage(
-        img,
-        x,
-        y,
-        nw,
-        nh
-    );
-
-}
-
-/* =========================================================
-   TEXT WRAP
-========================================================= */
-
-function wrapText(text,maxWidth,font){
-
-    ctx.font=font;
-
-    const words =
-        text.split(/\s+/);
-
-    const lines=[];
-
-    let line="";
-
-    words.forEach(word=>{
-
-        const test =
-            line ? line+" "+word : word;
-
-        if(
-            ctx.measureText(test).width
-            >maxWidth
-        ){
-
-            if(line){
-                lines.push(line);
-            }
-
-            line=word;
-
-        }else{
-
-            line=test;
-
-        }
-
-    });
-
-    if(line){
-        lines.push(line);
-    }
-
-    return lines;
-
-}
-
-/* =========================================================
-   DRAW FRAME
-========================================================= */
-
-function drawFrame(time){
-
-    const index =
-        getCurrentScene(time);
-
-    const scene =
-        scenes[index];
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-    /*
-      IMAGE
-    */
-
-    if(scene && scene.image){
-
-        const img =
-            scene.loadedImage;
-
-        if(img && img.complete){
-
-            drawCover(img);
-
-        }else{
-
-            const temp=
-                new Image();
-
-            temp.onload=function(){
-
-                scene.loadedImage=temp;
-
-            };
-
-            temp.src=scene.image;
-
-            ctx.fillStyle="#05070c";
-            ctx.fillRect(
-                0,0,
-                canvas.width,
-                canvas.height
-            );
-
-        }
-
-    }else{
-
-        const g =
-            ctx.createLinearGradient(
-                0,0,
-                canvas.width,
-                canvas.height
-            );
-
-        g.addColorStop(0,"#05070c");
-        g.addColorStop(.5,"#111827");
-        g.addColorStop(1,"#020617");
-
-        ctx.fillStyle=g;
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-    }
-
-    /*
-      DARK OVERLAY
-    */
-
-    ctx.fillStyle=
-        "rgba(0,0,0,.40)";
-
-    ctx.fillRect(
-        0,0,
-        canvas.width,
-        canvas.height
-    );
-
-    /*
-      TITLE
-    */
-
-    ctx.fillStyle="#ffffff";
-    ctx.font="bold 28px Arial";
-
-    ctx.fillText(
-        "MYSTERY NACHT",
-        45,
-        55
-    );
-
-    ctx.font="18px Arial";
-    ctx.fillStyle="#cbd5e1";
-
-    const m =
-        MYSTERIES[
-            Number(mysterySelect.value)
-        ];
-
-    ctx.fillText(
-        m[1],
-        45,
-        84
-    );
-
-    /*
-      SCENE
-    */
-
-    ctx.fillStyle="#93c5fd";
-    ctx.font="bold 17px Arial";
-
-    ctx.fillText(
-        "SZENE "+(index+1),
-        canvas.width-145,
-        50
-    );
-
-    /*
-      SUBTITLE
-    */
-
-    const subtitle =
-        getSubtitle(time);
-
-    if(subtitle){
-
-        const boxX=55;
-        const boxY=canvas.height-180;
-        const boxW=canvas.width-110;
-        const boxH=125;
-
-        ctx.fillStyle=
-            "rgba(0,0,0,.76)";
-
-        ctx.fillRect(
-            boxX,
-            boxY,
-            boxW,
-            boxH
-        );
-
-        ctx.fillStyle="#fff";
-
-        const font=
-            "bold 25px Arial";
-
-        const lines =
-            wrapText(
-                subtitle,
-                boxW-40,
-                font
-            );
-
-        ctx.font=font;
-
-        const visible =
-            lines.slice(0,4);
-
-        visible.forEach((line,i)=>{
-
-            ctx.fillText(
-                line,
-                boxX+20,
-                boxY+35+(i*28)
-            );
-
-        });
-
-    }
-
-}
-
-/* =========================================================
-   PRELOAD SCENE IMAGES
-========================================================= */
-
-async function preloadImages(){
-
-    for(const scene of scenes){
-
-        if(!scene.image)continue;
-
-        await new Promise(resolve=>{
-
-            const img=new Image();
-
-            img.onload=()=>{
-
-                scene.loadedImage=img;
-                resolve();
-
-            };
-
-            img.onerror=resolve;
-
-            img.src=scene.image;
-
-        });
-
-    }
-
-}
-
-/* =========================================================
-   RENDER VIDEO
-========================================================= */
 
 async function renderVideo(){
-
-    if(!scriptBox.value.trim()){
-
-        alert("Önce senaryo oluştur.");
-        return;
-
-    }
-
-    if(!audioFile){
-
-        alert("Önce TTSMaker ses dosyasını yükle.");
-        return;
-
-    }
-
-    if(!audioDuration){
-
-        alert("Ses süresi henüz okunmadı.");
-        return;
-
-    }
-
-    if(!scenes.length){
-
-        buildScenes();
-
-    }
-
-    /*
-      Kullanıcı sahne metinlerini değiştirmiş olabilir.
-    */
-
-    scenes.forEach((scene,index)=>{
-
-        const textArea =
-            document.getElementById(
-                "sceneText"+index
-            );
-
-        const promptArea =
-            document.getElementById(
-                "prompt"+index
-            );
-
-        if(textArea){
-            scene.text=textArea.value;
-        }
-
-        if(promptArea){
-            scene.prompt=promptArea.value;
-        }
-
-    });
-
-    buildSubtitleTimeline();
-    redistributeScenes();
-
-    await preloadImages();
-
-    renderStop=false;
-    recordingChunks=[];
-
-    downloadBox.style.display="none";
-
-    statusBox.textContent=
-        "⏳ Video hazırlanıyor...";
-
-    progress.style.width="0%";
-
-    /*
-      AUDIO CONTEXT
-    */
-
-    if(audioContext){
-
-        try{
-            await audioContext.close();
-        }catch(e){}
-
-    }
-
-    audioContext=
-        new (
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
-
-    if(audioContext.state==="suspended"){
-
-        try{
-            await audioContext.resume();
-        }catch(e){}
-
-    }
-
-    const response =
-        await fetch(audioURL);
-
-    const buffer =
-        await response.arrayBuffer();
-
-    const audioBuffer =
-        await audioContext.decodeAudioData(
-            buffer
-        );
-
-    const destination =
-        audioContext.createMediaStreamDestination();
-
-    audioSource =
-        audioContext.createBufferSource();
-
-    audioSource.buffer=
-        audioBuffer;
-
-    audioSource.connect(
-        destination
-    );
-
-    /*
-      CANVAS STREAM
-    */
-
-    const canvasStream =
-        canvas.captureStream(30);
-
-    const combinedStream =
-        new MediaStream();
-
-    canvasStream
-        .getVideoTracks()
-        .forEach(track=>{
-            combinedStream.addTrack(track);
-        });
-
-    destination
-        .stream
-        .getAudioTracks()
-        .forEach(track=>{
-            combinedStream.addTrack(track);
-        });
-
-    /*
-      MEDIA RECORDER
-    */
-
-    let mime="video/webm;codecs=vp9,opus";
-
-    if(
-        !MediaRecorder.isTypeSupported(mime)
-    ){
-
-        mime="video/webm";
-
-    }
-
-    mediaRecorder =
-        new MediaRecorder(
-            combinedStream,
-            {
-                mimeType:mime,
-                videoBitsPerSecond:5000000
-            }
-        );
-
-    mediaRecorder.ondataavailable=
-        function(e){
-
-            if(e.data && e.data.size){
-
-                recordingChunks.push(
-                    e.data
-                );
-
-            }
-
-        };
-
-    mediaRecorder.onstop=
-        function(){
-
-            const blob=
-                new Blob(
-                    recordingChunks,
-                    {type:"video/webm"}
-                );
-
-            const url=
-                URL.createObjectURL(blob);
-
-            preview.src=url;
-
-            downloadLink.href=url;
-
-            downloadLink.download=
-                "mystery-nacht-"+Date.now()+".webm";
-
-            downloadBox.style.display=
-                "block";
-
-            statusBox.innerHTML=
-                "✅ Video hazır!";
-
-            progress.style.width="100%";
-
-        };
-
-    mediaRecorder.start(1000);
-
-    /*
-      AUDIO START
-    */
-
-    audioSource.start(0);
-
-    /*
-      RENDER LOOP
-    */
-
-    const startTime=
-        performance.now();
-
-    function loop(now){
-
-        if(renderStop){
-
-            stopRender();
-
-            return;
-
-        }
-
-        const elapsed=
-            (now-startTime)/1000;
-
-        drawFrame(elapsed);
-
-        const pct=
-            Math.min(
-                100,
-                (elapsed/audioDuration)*100
-            );
-
-        progress.style.width=
-            pct+"%";
-
-        statusBox.textContent=
-            "🎥 Oluşturuluyor... "+
-            Math.floor(pct)+"%";
-
-        if(elapsed<audioDuration){
-
-            requestAnimationFrame(loop);
-
-        }else{
-
-            setTimeout(()=>{
-
-                if(mediaRecorder &&
-                   mediaRecorder.state!=="inactive"){
-
-                    mediaRecorder.stop();
-
-                }
-
-                try{
-                    audioSource.stop();
-                }catch(e){}
-
-                try{
-                    audioContext.close();
-                }catch(e){}
-
-            },300);
-
-        }
-
-    }
-
-    requestAnimationFrame(loop);
-
+ if(!script.value.trim()){
+  setStatus("❌ Önce senaryo oluştur.","danger");
+  return;
+ }
+ if(!audioFile){
+  setStatus("❌ Önce TTSMaker ses dosyasını yükle.","danger");
+  return;
+ }
+ if(!audioDuration){
+  setStatus("❌ Ses süresi okunamadı.","danger");
+  return;
+ }
+
+ prepareScenes();
+
+ const canvas=document.getElementById("canvas");
+ const ctx=canvas.getContext("2d");
+ const stream=canvas.captureStream(30);
+
+ const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+ const dest=audioCtx.createMediaStreamDestination();
+
+ const buf=await audioFile.arrayBuffer();
+ const decoded=await audioCtx.decodeAudioData(buf.slice(0));
+
+ const source=audioCtx.createBufferSource();
+ source.buffer=decoded;
+ source.connect(dest);
+ source.connect(audioCtx.destination);
+
+ dest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
+
+ let recorder;
+ try{
+  recorder=new MediaRecorder(stream,{mimeType:"video/webm;codecs=vp9,opus"});
+ }catch(e){
+  recorder=new MediaRecorder(stream);
+ }
+
+ const chunks=[];
+ recorder.ondataavailable=e=>{
+  if(e.data.size)chunks.push(e.data);
+ };
+
+ recorder.onstop=()=>{
+  finalBlob=new Blob(chunks,{type:"video/webm"});
+  const url=URL.createObjectURL(finalBlob);
+  const btn=document.getElementById("downloadBtn");
+  btn.style.display="block";
+  btn.onclick=()=>{
+   const a=document.createElement("a");
+   a.href=url;
+   a.download="mystery-nacht.webm";
+   a.click();
+  };
+  setProgress(100);
+  setStatus("✅ Video hazır! Ses + görüntü + altyazı işlendi.","ok");
+ };
+
+ await audioCtx.resume();
+ recorder.start(100);
+
+ const start=performance.now();
+
+ function frame(now){
+  const elapsed=(now-start)/1000;
+
+  if(elapsed>=audioDuration){
+   source.stop();
+   recorder.stop();
+   audioCtx.close();
+   return;
+  }
+
+  const ratio=elapsed/audioDuration;
+  let index=Math.min(scenes.length-1,Math.floor(ratio*scenes.length));
+  let scene=splitText(script.value,scenes.length)[index]||"";
+  let image=scenes[index]?.image||null;
+
+  drawFrame(ctx,canvas.width,canvas.height,scene,image,index,scenes.length);
+
+  setProgress((elapsed/audioDuration)*100);
+  requestAnimationFrame(frame);
+ }
+
+ requestAnimationFrame(frame);
 }
 
-/* =========================================================
-   STOP
-========================================================= */
-
-function stopRender(){
-
-    renderStop=true;
-
-    if(mediaRecorder &&
-       mediaRecorder.state!=="inactive"){
-
-        mediaRecorder.stop();
-
-    }
-
-    try{
-
-        if(audioSource){
-            audioSource.stop();
-        }
-
-    }catch(e){}
-
-    statusBox.textContent=
-        "⏹️ Oluşturma durduruldu.";
-
+function setProgress(v){
+ document.getElementById("bar").style.width=Math.max(0,Math.min(100,v))+"%";
 }
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-populateMysteries();
-updateTargetWords();
-
 </script>
-
 </body>
 </html>
