@@ -3,66 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina AI Görsel Test</title>
+
+<title>Mina Görsel Test</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
-    background:#080c18;
+    min-height:100vh;
+    background:#080d18;
     color:#fff;
     font-family:Arial,sans-serif;
 }
 
 .container{
-    width:min(700px,94%);
+    width:min(720px,94%);
     margin:30px auto;
 }
 
 h1{
     text-align:center;
+    margin:0 0 8px;
     font-size:30px;
-    margin-bottom:8px;
 }
 
-.sub{
+.subtitle{
     text-align:center;
-    color:#9da8bd;
+    color:#9da8bb;
     margin-bottom:25px;
 }
 
-.box{
-    background:#12192b;
-    border:1px solid #293653;
-    border-radius:16px;
+.card{
+    background:#121a2b;
+    border:1px solid #293650;
+    border-radius:18px;
     padding:20px;
     margin-bottom:20px;
 }
 
 label{
     display:block;
-    margin-bottom:8px;
     font-weight:bold;
+    margin-bottom:8px;
 }
 
 input{
     width:100%;
     padding:15px;
-    border-radius:10px;
-    border:1px solid #3a4969;
-    background:#0a1020;
-    color:white;
+    border-radius:11px;
+    border:1px solid #3a4968;
+    background:#080e1d;
+    color:#fff;
     font-size:16px;
     outline:none;
 }
 
+input:focus{
+    border-color:#687cff;
+}
+
 button{
     width:100%;
-    padding:16px;
     margin-top:15px;
+    padding:16px;
     border:0;
-    border-radius:10px;
+    border-radius:11px;
     background:#5865f2;
     color:white;
     font-size:17px;
@@ -71,41 +79,58 @@ button{
 }
 
 button:disabled{
-    opacity:.5;
+    opacity:.55;
+    cursor:not-allowed;
 }
 
-#status{
+.status{
     margin-top:15px;
     padding:14px;
-    border-radius:10px;
-    background:#0a1020;
+    border-radius:11px;
+    background:#080e1d;
     color:#cbd5e1;
     white-space:pre-wrap;
     line-height:1.5;
 }
 
-#resultBox{
+#resultCard{
     display:none;
 }
 
 #result{
-    width:100%;
     display:block;
+    width:100%;
+    max-height:650px;
+    object-fit:contain;
     border-radius:14px;
-    margin-top:15px;
+    background:#050810;
 }
 
-#download{
-    display:none;
-    margin-top:15px;
+.caption{
+    margin-top:12px;
+    color:#aeb8ca;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.download{
+    display:block;
     width:100%;
+    margin-top:15px;
     padding:14px;
+    border-radius:10px;
     background:#159447;
     color:white;
     text-align:center;
     text-decoration:none;
-    border-radius:10px;
     font-weight:bold;
+}
+
+.info{
+    color:#8e9ab0;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:12px;
 }
 </style>
 </head>
@@ -114,275 +139,430 @@ button:disabled{
 
 <div class="container">
 
-<h1>🎬 Mina AI Görsel</h1>
+    <h1>🎬 Mina Görsel Test</h1>
 
-<div class="sub">
-KONU → AI GÖRSEL → EKRANDA
+    <div class="subtitle">
+        KONU → ÜCRETSİZ GÖRSEL → EKRANDA
+    </div>
+
+
+    <div class="card">
+
+        <label for="topic">
+            Konu
+        </label>
+
+        <input
+            id="topic"
+            type="text"
+            value="mysterious old house"
+            placeholder="Örneğin: abandoned castle"
+        >
+
+        <button id="searchBtn">
+            🔎 GÖRSEL BUL
+        </button>
+
+        <div id="status" class="status">
+            Hazır. Bir konu yaz ve butona bas.
+        </div>
+
+        <div class="info">
+            Görseller Wikimedia Commons üzerinden aranır.
+            API anahtarı veya ödeme gerekmez.
+        </div>
+
+    </div>
+
+
+    <div id="resultCard" class="card">
+
+        <h2>🖼️ Bulunan Görsel</h2>
+
+        <img
+            id="result"
+            alt="Bulunan görsel"
+        >
+
+        <div
+            id="caption"
+            class="caption">
+        </div>
+
+        <a
+            id="download"
+            class="download"
+            target="_blank"
+            rel="noopener">
+            🔗 GÖRSELİ AÇ
+        </a>
+
+    </div>
+
 </div>
 
-<div class="box">
-
-<label>Görsel konusu</label>
-
-<input
-    id="topic"
-    value="Gece yarısı terk edilmiş bir ormanda bulunan gizemli eski ev"
-    placeholder="Bir konu yaz..."
->
-
-<button id="generate">
-🖼️ AI GÖRSEL OLUŞTUR
-</button>
-
-<div id="status">
-Hazır.
-</div>
-
-</div>
-
-<div id="resultBox" class="box">
-
-<h2>✨ AI Görsel</h2>
-
-<img id="result">
-
-<a id="download" download="mina-ai-gorsel.png">
-⬇️ GÖRSELİ KAYDET
-</a>
-
-</div>
-
-</div>
 
 <script>
 
-const topic = document.getElementById("topic");
-const generate = document.getElementById("generate");
-const status = document.getElementById("status");
-const resultBox = document.getElementById("resultBox");
-const result = document.getElementById("result");
-const download = document.getElementById("download");
+const topicInput =
+    document.getElementById("topic");
+
+const searchBtn =
+    document.getElementById("searchBtn");
+
+const statusBox =
+    document.getElementById("status");
+
+const resultCard =
+    document.getElementById("resultCard");
+
+const resultImage =
+    document.getElementById("result");
+
+const caption =
+    document.getElementById("caption");
+
+const download =
+    document.getElementById("download");
 
 
-function setStatus(text){
-    status.textContent = text;
+function status(text){
+    statusBox.textContent = text;
 }
 
 
-generate.onclick = async function(){
+/*
+====================================================
+ WIKIMEDIA COMMONS GÖRSEL ARAMA
+====================================================
+*/
 
-    const konu = topic.value.trim();
+async function findImage(query){
 
-    if(!konu){
-        setStatus("❌ Önce bir konu yaz.");
-        return;
+    const api =
+        "https://commons.wikimedia.org/w/api.php";
+
+    const params = new URLSearchParams({
+
+        action:"query",
+
+        generator:"search",
+
+        gsrsearch:query,
+
+        gsrnamespace:"6",
+
+        gsrlimit:"10",
+
+        prop:"imageinfo",
+
+        iiprop:"url|mime|extmetadata",
+
+        iiurlwidth:"1200",
+
+        format:"json",
+
+        origin:"*"
+
+    });
+
+
+    const response =
+        await fetch(api + "?" + params.toString());
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "Görsel servisine bağlanılamadı. HTTP " +
+            response.status
+        );
+
     }
+
+
+    const data =
+        await response.json();
+
+
+    if(
+        !data.query ||
+        !data.query.pages
+    ){
+
+        return null;
+
+    }
+
+
+    const pages =
+        Object.values(data.query.pages);
+
 
     /*
-      Daha önce Pollinations OAuth ile aldığımız token.
+      SVG, PDF ve ses dosyalarını geç.
     */
-    const token =
-        localStorage.getItem("mina_pollinations_token");
 
-    if(!token){
+    for(const page of pages){
 
-        setStatus(
-            "❌ Pollinations bağlantısı bulunamadı.\n\n" +
-            "Önce Mina Video AI içindeki Pollinations OAuth bağlantısını yap."
-        );
+        if(!page.imageinfo ||
+           !page.imageinfo[0]){
 
-        return;
-    }
+            continue;
 
-
-    generate.disabled = true;
-
-    resultBox.style.display = "none";
-    download.style.display = "none";
-
-    setStatus(
-        "⏳ AI görsel oluşturuluyor...\n\n" +
-        "Lütfen bekle."
-    );
-
-
-    try{
-
-        const prompt =
-            konu +
-            ", cinematic, mysterious atmosphere, " +
-            "dramatic lighting, realistic photography, " +
-            "high detail, dark cinematic style";
-
-
-        /*
-          Güncel Pollinations Images API
-        */
-
-        const response = await fetch(
-            "https://gen.pollinations.ai/v1/images/generations",
-            {
-                method:"POST",
-
-                headers:{
-                    "Authorization":"Bearer " + token,
-                    "Content-Type":"application/json"
-                },
-
-                body:JSON.stringify({
-
-                    prompt:prompt,
-
-                    model:
-                    "black-forest-labs/flux.1-schnell",
-
-                    size:"1024x1024",
-
-                    n:1,
-
-                    response_format:"b64_json"
-
-                })
-            }
-        );
-
-
-        const text = await response.text();
-
-
-        if(!response.ok){
-
-            let errorMessage = text;
-
-            try{
-
-                const json = JSON.parse(text);
-
-                if(json.error){
-
-                    if(typeof json.error === "string"){
-                        errorMessage = json.error;
-                    }
-                    else if(json.error.message){
-                        errorMessage = json.error.message;
-                    }
-
-                }
-
-                else if(json.message){
-                    errorMessage = json.message;
-                }
-
-            }catch(e){}
-
-
-            throw new Error(
-                "HTTP " +
-                response.status +
-                "\n\n" +
-                errorMessage
-            );
         }
 
 
-        let data;
+        const info =
+            page.imageinfo[0];
+
+
+        const mime =
+            info.mime || "";
+
+
+        if(!mime.startsWith("image/")){
+
+            continue;
+
+        }
+
+
+        const url =
+            info.thumburl ||
+            info.url;
+
+
+        if(!url){
+
+            continue;
+
+        }
+
+
+        return {
+
+            title:
+                page.title
+                .replace(/^File:/,""),
+
+            url:url,
+
+            original:
+                info.url || url,
+
+            description:
+                info.extmetadata &&
+                info.extmetadata.ImageDescription
+                ? info.extmetadata.ImageDescription.value
+                : ""
+
+        };
+
+    }
+
+
+    return null;
+
+}
+
+
+/*
+====================================================
+ BUTON
+====================================================
+*/
+
+searchBtn.addEventListener(
+    "click",
+    async function(){
+
+        const query =
+            topicInput.value.trim();
+
+
+        if(!query){
+
+            status(
+                "❌ Önce bir konu yaz."
+            );
+
+            topicInput.focus();
+
+            return;
+
+        }
+
+
+        searchBtn.disabled = true;
+
+        resultCard.style.display = "none";
+
+
+        status(
+            "⏳ Görsel aranıyor...\n\n" +
+            "Konu: " + query
+        );
+
 
         try{
 
-            data = JSON.parse(text);
+            const image =
+                await findImage(query);
 
-        }catch(e){
 
-            throw new Error(
-                "Sunucudan geçerli JSON cevabı gelmedi.\n\n" +
-                text.substring(0,500)
+            if(!image){
+
+                /*
+                  İngilizce arama da dene.
+                */
+
+                status(
+                    "🔎 İlk aramada sonuç bulunamadı.\n" +
+                    "İkinci arama yapılıyor..."
+                );
+
+
+                const englishQuery =
+                    query
+                    .replace(
+                        /gizemli/gi,
+                        "mysterious"
+                    )
+                    .replace(
+                        /eski/gi,
+                        "old"
+                    )
+                    .replace(
+                        /ev/gi,
+                        "house"
+                    )
+                    .replace(
+                        /orman/gi,
+                        "forest"
+                    )
+                    .replace(
+                        /kale/gi,
+                        "castle"
+                    );
+
+
+                const second =
+                    await findImage(
+                        englishQuery
+                    );
+
+
+                if(!second){
+
+                    throw new Error(
+                        "Bu konu için görsel bulunamadı.\n\n" +
+                        "Daha genel bir konu dene.\n\n" +
+                        "Örnek:\n" +
+                        "old castle\n" +
+                        "dark forest\n" +
+                        "Berlin\n" +
+                        "abandoned house"
+                    );
+
+                }
+
+
+                showImage(second,query);
+
+            }else{
+
+                showImage(image,query);
+
+            }
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            status(
+                "❌ HATA\n\n" +
+                error.message
             );
-        }
 
+        }finally{
 
-        if(
-            !data ||
-            !data.data ||
-            !data.data[0]
-        ){
-
-            throw new Error(
-                "AI görsel verisi bulunamadı.\n\n" +
-                text.substring(0,500)
-            );
-        }
-
-
-        const item = data.data[0];
-
-
-        let imageURL;
-
-
-        /*
-          Base64 cevap
-        */
-
-        if(item.b64_json){
-
-            imageURL =
-                "data:image/png;base64," +
-                item.b64_json;
+            searchBtn.disabled = false;
 
         }
-
-        /*
-          URL cevap gelirse
-        */
-
-        else if(item.url){
-
-            imageURL = item.url;
-
-        }
-
-        else{
-
-            throw new Error(
-                "Görsel URL veya base64 verisi bulunamadı."
-            );
-        }
-
-
-        result.src = imageURL;
-
-        download.href = imageURL;
-
-        resultBox.style.display = "block";
-
-        download.style.display = "block";
-
-
-        setStatus(
-            "✅ BAŞARILI!\n\n" +
-            "Konu:\n" +
-            konu +
-            "\n\n" +
-            "AI görsel ekranda gösterildi."
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-        setStatus(
-            "❌ AI GÖRSEL HATASI\n\n" +
-            error.message
-        );
-
-    }finally{
-
-        generate.disabled = false;
 
     }
+);
 
-};
+
+/*
+====================================================
+ GÖRSELİ EKRANA KOY
+====================================================
+*/
+
+function showImage(image,query){
+
+    resultImage.onload =
+        function(){
+
+            resultCard.style.display =
+                "block";
+
+            status(
+                "✅ BAŞARILI!\n\n" +
+                "Konu: " + query +
+                "\n\n" +
+                "Görsel ekranda gösterildi."
+            );
+
+        };
+
+
+    resultImage.onerror =
+        function(){
+
+            status(
+                "❌ Görsel yüklenemedi.\n\n" +
+                "Başka bir sonuç aranabilir."
+            );
+
+        };
+
+
+    resultImage.src =
+        image.url;
+
+
+    caption.innerHTML =
+        "<b>Dosya:</b> " +
+        escapeHtml(image.title);
+
+
+    download.href =
+        image.original;
+
+}
+
+
+/*
+====================================================
+ GÜVENLİ METİN
+====================================================
+*/
+
+function escapeHtml(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
 
 </script>
 
