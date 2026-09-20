@@ -3,45 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>Mina AI Görsel Test</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
-    min-height:100vh;
+    background:#080c18;
+    color:#fff;
     font-family:Arial,sans-serif;
-    background:#0b1020;
-    color:white;
-    padding:25px;
 }
 
 .container{
-    max-width:700px;
-    margin:auto;
+    width:min(700px,94%);
+    margin:30px auto;
 }
 
 h1{
     text-align:center;
+    font-size:30px;
     margin-bottom:8px;
 }
 
-.subtitle{
+.sub{
     text-align:center;
-    color:#aeb7cc;
+    color:#9da8bd;
     margin-bottom:25px;
 }
 
 .box{
-    background:#151c31;
-    border:1px solid #2b3655;
+    background:#12192b;
+    border:1px solid #293653;
     border-radius:16px;
     padding:20px;
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 
 label{
@@ -52,82 +48,64 @@ label{
 
 input{
     width:100%;
-    padding:14px;
+    padding:15px;
     border-radius:10px;
-    border:1px solid #394663;
-    background:#0d1425;
+    border:1px solid #3a4969;
+    background:#0a1020;
     color:white;
-    font-size:15px;
+    font-size:16px;
     outline:none;
-}
-
-input:focus{
-    border-color:#6d8cff;
 }
 
 button{
     width:100%;
+    padding:16px;
     margin-top:15px;
-    padding:15px;
     border:0;
     border-radius:10px;
     background:#5865f2;
     color:white;
-    font-size:16px;
+    font-size:17px;
     font-weight:bold;
     cursor:pointer;
 }
 
-button:hover{
-    background:#6975ff;
-}
-
 button:disabled{
     opacity:.5;
-    cursor:not-allowed;
 }
 
-.status{
+#status{
     margin-top:15px;
-    padding:12px;
-    border-radius:10px;
-    background:#0d1425;
-    color:#cbd5e1;
-    line-height:1.5;
-    white-space:pre-wrap;
-}
-
-.image-box{
-    display:none;
-    text-align:center;
-}
-
-.image-box img{
-    width:100%;
-    max-width:650px;
-    border-radius:14px;
-    display:block;
-    margin:auto;
-    border:1px solid #34405e;
-}
-
-.download{
-    display:none;
-    margin-top:15px;
-    text-decoration:none;
-    background:#1f9d55;
-    color:white;
     padding:14px;
     border-radius:10px;
-    font-weight:bold;
-    text-align:center;
+    background:#0a1020;
+    color:#cbd5e1;
+    white-space:pre-wrap;
+    line-height:1.5;
 }
 
-.small{
-    font-size:13px;
-    color:#8994aa;
-    line-height:1.5;
-    margin-top:10px;
+#resultBox{
+    display:none;
+}
+
+#result{
+    width:100%;
+    display:block;
+    border-radius:14px;
+    margin-top:15px;
+}
+
+#download{
+    display:none;
+    margin-top:15px;
+    width:100%;
+    padding:14px;
+    background:#159447;
+    color:white;
+    text-align:center;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
 }
 </style>
 </head>
@@ -136,189 +114,275 @@ button:disabled{
 
 <div class="container">
 
-    <h1>🎬 Mina AI Görsel Test</h1>
+<h1>🎬 Mina AI Görsel</h1>
 
-    <div class="subtitle">
-        KONU → AI GÖRSEL → EKRANDA GÖSTER
-    </div>
+<div class="sub">
+KONU → AI GÖRSEL → EKRANDA
+</div>
 
-    <div class="box">
+<div class="box">
 
-        <label>Hugging Face Token</label>
+<label>Görsel konusu</label>
 
-        <input
-            id="token"
-            type="password"
-            placeholder="hf_ ile başlayan tokenını gir"
-        >
+<input
+    id="topic"
+    value="Gece yarısı terk edilmiş bir ormanda bulunan gizemli eski ev"
+    placeholder="Bir konu yaz..."
+>
 
-        <div class="small">
-            Token sadece bu tarayıcı oturumunda kullanılacak.
-            GitHub'a yükleme.
-        </div>
+<button id="generate">
+🖼️ AI GÖRSEL OLUŞTUR
+</button>
 
-        <br>
-
-        <label>Konu</label>
-
-        <input
-            id="topic"
-            type="text"
-            value="Gece yarısı terk edilmiş bir ormanda bulunan gizemli eski ev"
-            placeholder="Örneğin: Berlin'de terk edilmiş gizemli bir bina"
-        >
-
-        <button id="generateBtn">
-            🖼️ AI GÖRSEL OLUŞTUR
-        </button>
-
-        <div id="status" class="status">
-            Hazır. Konuyu yaz ve butona bas.
-        </div>
-
-    </div>
-
-    <div id="imageBox" class="box image-box">
-
-        <h2>✨ Oluşturulan AI Görsel</h2>
-
-        <img id="resultImage" alt="AI tarafından oluşturulan görsel">
-
-        <a
-            id="downloadBtn"
-            class="download"
-            download="mina-ai-gorsel.png"
-        >
-            ⬇️ GÖRSELİ KAYDET
-        </a>
-
-    </div>
+<div id="status">
+Hazır.
+</div>
 
 </div>
 
+<div id="resultBox" class="box">
 
-<script type="module">
+<h2>✨ AI Görsel</h2>
 
-import { InferenceClient }
-from "https://esm.sh/@huggingface/inference";
+<img id="result">
 
+<a id="download" download="mina-ai-gorsel.png">
+⬇️ GÖRSELİ KAYDET
+</a>
 
-const tokenInput = document.getElementById("token");
-const topicInput = document.getElementById("topic");
-const generateBtn = document.getElementById("generateBtn");
-const statusBox = document.getElementById("status");
+</div>
 
-const imageBox = document.getElementById("imageBox");
-const resultImage = document.getElementById("resultImage");
-const downloadBtn = document.getElementById("downloadBtn");
+</div>
+
+<script>
+
+const topic = document.getElementById("topic");
+const generate = document.getElementById("generate");
+const status = document.getElementById("status");
+const resultBox = document.getElementById("resultBox");
+const result = document.getElementById("result");
+const download = document.getElementById("download");
 
 
 function setStatus(text){
-    statusBox.textContent = text;
+    status.textContent = text;
 }
 
 
-generateBtn.addEventListener("click", async () => {
+generate.onclick = async function(){
 
-    const token = tokenInput.value.trim();
-    const topic = topicInput.value.trim();
+    const konu = topic.value.trim();
+
+    if(!konu){
+        setStatus("❌ Önce bir konu yaz.");
+        return;
+    }
+
+    /*
+      Daha önce Pollinations OAuth ile aldığımız token.
+    */
+    const token =
+        localStorage.getItem("mina_pollinations_token");
 
     if(!token){
-        setStatus("❌ Önce Hugging Face tokenını gir.");
-        tokenInput.focus();
+
+        setStatus(
+            "❌ Pollinations bağlantısı bulunamadı.\n\n" +
+            "Önce Mina Video AI içindeki Pollinations OAuth bağlantısını yap."
+        );
+
         return;
     }
 
-    if(!topic){
-        setStatus("❌ Önce bir konu yaz.");
-        topicInput.focus();
-        return;
-    }
 
-    generateBtn.disabled = true;
-    imageBox.style.display = "none";
-    downloadBtn.style.display = "none";
+    generate.disabled = true;
+
+    resultBox.style.display = "none";
+    download.style.display = "none";
 
     setStatus(
-        "⏳ AI görsel hazırlanıyor...\n\n" +
-        "Bu işlem biraz sürebilir. Lütfen butona tekrar basma."
+        "⏳ AI görsel oluşturuluyor...\n\n" +
+        "Lütfen bekle."
     );
+
 
     try{
 
-        const hf = new InferenceClient(token);
-
         const prompt =
-            topic +
-            ", cinematic mysterious atmosphere, " +
-            "dramatic lighting, highly detailed, realistic photography, " +
-            "dark cinematic composition, 16:9";
+            konu +
+            ", cinematic, mysterious atmosphere, " +
+            "dramatic lighting, realistic photography, " +
+            "high detail, dark cinematic style";
 
-        const imageBlob = await hf.textToImage({
-            model: "black-forest-labs/FLUX.1-dev",
-            inputs: prompt
-        });
 
-        if(!imageBlob){
-            throw new Error("AI görsel verisi alınamadı.");
+        /*
+          Güncel Pollinations Images API
+        */
+
+        const response = await fetch(
+            "https://gen.pollinations.ai/v1/images/generations",
+            {
+                method:"POST",
+
+                headers:{
+                    "Authorization":"Bearer " + token,
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+
+                    prompt:prompt,
+
+                    model:
+                    "black-forest-labs/flux.1-schnell",
+
+                    size:"1024x1024",
+
+                    n:1,
+
+                    response_format:"b64_json"
+
+                })
+            }
+        );
+
+
+        const text = await response.text();
+
+
+        if(!response.ok){
+
+            let errorMessage = text;
+
+            try{
+
+                const json = JSON.parse(text);
+
+                if(json.error){
+
+                    if(typeof json.error === "string"){
+                        errorMessage = json.error;
+                    }
+                    else if(json.error.message){
+                        errorMessage = json.error.message;
+                    }
+
+                }
+
+                else if(json.message){
+                    errorMessage = json.message;
+                }
+
+            }catch(e){}
+
+
+            throw new Error(
+                "HTTP " +
+                response.status +
+                "\n\n" +
+                errorMessage
+            );
         }
 
-        const imageUrl = URL.createObjectURL(imageBlob);
 
-        resultImage.src = imageUrl;
+        let data;
 
-        downloadBtn.href = imageUrl;
+        try{
 
-        imageBox.style.display = "block";
-        downloadBtn.style.display = "block";
+            data = JSON.parse(text);
+
+        }catch(e){
+
+            throw new Error(
+                "Sunucudan geçerli JSON cevabı gelmedi.\n\n" +
+                text.substring(0,500)
+            );
+        }
+
+
+        if(
+            !data ||
+            !data.data ||
+            !data.data[0]
+        ){
+
+            throw new Error(
+                "AI görsel verisi bulunamadı.\n\n" +
+                text.substring(0,500)
+            );
+        }
+
+
+        const item = data.data[0];
+
+
+        let imageURL;
+
+
+        /*
+          Base64 cevap
+        */
+
+        if(item.b64_json){
+
+            imageURL =
+                "data:image/png;base64," +
+                item.b64_json;
+
+        }
+
+        /*
+          URL cevap gelirse
+        */
+
+        else if(item.url){
+
+            imageURL = item.url;
+
+        }
+
+        else{
+
+            throw new Error(
+                "Görsel URL veya base64 verisi bulunamadı."
+            );
+        }
+
+
+        result.src = imageURL;
+
+        download.href = imageURL;
+
+        resultBox.style.display = "block";
+
+        download.style.display = "block";
+
 
         setStatus(
             "✅ BAŞARILI!\n\n" +
-            "Konu:\n" + topic +
-            "\n\nAI görsel ekranda gösterildi."
+            "Konu:\n" +
+            konu +
+            "\n\n" +
+            "AI görsel ekranda gösterildi."
         );
+
 
     }catch(error){
 
         console.error(error);
 
-        let message = error?.message || String(error);
-
-        if(message.includes("401")){
-            message =
-                "Token geçersiz veya yetkisiz.\n\n" +
-                "Hugging Face tokenını kontrol et.";
-        }
-
-        else if(message.includes("402")){
-            message =
-                "Hugging Face hesabının kullanılabilir kredisi olmayabilir.";
-        }
-
-        else if(message.includes("403")){
-            message =
-                "Hugging Face bu isteğe izin vermedi.\n\n" +
-                "Token izinlerini kontrol et.";
-        }
-
-        else if(message.includes("429")){
-            message =
-                "Çok fazla istek gönderildi.\n\n" +
-                "Biraz bekleyip tekrar dene.";
-        }
-
         setStatus(
             "❌ AI GÖRSEL HATASI\n\n" +
-            message
+            error.message
         );
 
     }finally{
 
-        generateBtn.disabled = false;
+        generate.disabled = false;
 
     }
 
-});
+};
 
 </script>
 
