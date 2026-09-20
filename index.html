@@ -3,44 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI V12.2</title>
+<title>Mina Video AI V12.3</title>
 
 <style>
 *{
     box-sizing:border-box;
 }
 
-body{
+html,body{
     margin:0;
+    padding:0;
     background:#070a12;
     color:#fff;
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
 }
 
 .container{
-    width:min(950px,94%);
+    width:min(100%,1000px);
     margin:auto;
-    padding:24px 0 70px;
+    padding:20px;
 }
 
-h1{
-    text-align:center;
-    margin:4px 0;
-    font-size:32px;
+header{
+    background:linear-gradient(135deg,#11182b,#080b14);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:22px;
+    padding:24px;
+    margin-bottom:18px;
+    box-shadow:0 15px 50px rgba(0,0,0,.35);
 }
 
-.mainSubtitle{
-    text-align:center;
-    color:#98a3b8;
-    margin:0 0 25px;
+.logo{
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    color:#8b5cf6;
+}
+
+.subtitle{
+    color:#9ca3af;
+    margin-top:7px;
+    line-height:1.5;
 }
 
 .card{
-    background:#111725;
-    border:1px solid #283248;
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:18px;
+    background:#0d1220;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:16px;
 }
 
 h2{
@@ -48,234 +66,337 @@ h2{
     font-size:19px;
 }
 
+h3{
+    margin:0 0 12px;
+}
+
 label{
     display:block;
-    color:#cbd4e4;
-    margin:12px 0 6px;
+    color:#cbd5e1;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
 }
 
 input,
 select,
 textarea{
     width:100%;
-    background:#080c15;
+    background:#080c16;
     color:#fff;
-    border:1px solid #303b52;
-    border-radius:10px;
+    border:1px solid #273148;
+    border-radius:11px;
     padding:12px;
-    font-size:15px;
     outline:none;
+    font-size:15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#8b5cf6;
 }
 
 textarea{
-    min-height:150px;
+    min-height:260px;
     resize:vertical;
+    line-height:1.55;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.grid3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+@media(max-width:700px){
+    .grid,
+    .grid3{
+        grid-template-columns:1fr;
+    }
 }
 
 button{
     border:0;
-    border-radius:10px;
+    border-radius:12px;
     padding:12px 16px;
-    margin:5px 4px 5px 0;
-    color:#fff;
-    background:#5865f2;
-    font-weight:bold;
+    color:white;
+    background:#273148;
     cursor:pointer;
+    font-weight:bold;
+    font-size:14px;
+    transition:.15s;
 }
 
 button:hover{
-    opacity:.9;
+    transform:translateY(-1px);
+    filter:brightness(1.1);
 }
 
-button.secondary{
-    background:#29344b;
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+    transform:none;
 }
 
-button.success{
-    background:#15966a;
+.primary{
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
 }
 
-button.danger{
-    background:#a7334b;
+.green{
+    background:linear-gradient(135deg,#059669,#047857);
 }
 
-.row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+.red{
+    background:linear-gradient(135deg,#dc2626,#991b1b);
 }
 
-.status{
-    margin-top:12px;
-    padding:12px;
-    min-height:44px;
-    border-radius:10px;
-    background:#0a0f19;
-    border:1px solid #202b3e;
-    color:#aeb9cd;
+.orange{
+    background:linear-gradient(135deg,#ea580c,#c2410c);
+}
+
+.blue{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
 }
 
 .small{
-    color:#8793a8;
-    font-size:13px;
-    line-height:1.5;
+    padding:9px 12px;
+    font-size:12px;
 }
 
-.progress{
+.full{
     width:100%;
-    height:12px;
-    border-radius:20px;
-    background:#070b12;
+}
+
+.row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.info{
+    background:#111827;
+    border:1px solid #263248;
+    border-radius:12px;
+    padding:12px;
+    color:#cbd5e1;
+    line-height:1.5;
+    font-size:13px;
+}
+
+.status{
+    padding:12px;
+    border-radius:12px;
+    background:#101827;
+    border:1px solid #263248;
+    color:#cbd5e1;
+    margin-top:12px;
+    white-space:pre-line;
+}
+
+.warning{
+    border-color:#7c4a16;
+    background:#21170b;
+    color:#fed7aa;
+}
+
+.success{
+    border-color:#065f46;
+    background:#06251e;
+    color:#a7f3d0;
+}
+
+.error{
+    border-color:#7f1d1d;
+    background:#260c0c;
+    color:#fecaca;
+}
+
+.wordInfo{
+    margin-top:8px;
+    font-size:12px;
+    color:#94a3b8;
+}
+
+.scene{
+    border:1px solid #273148;
+    border-radius:16px;
+    overflow:hidden;
+    margin-top:14px;
+    background:#080c16;
+}
+
+.sceneHead{
+    padding:12px 14px;
+    background:#111827;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.sceneNumber{
+    font-weight:900;
+}
+
+.sceneTime{
+    color:#a78bfa;
+    font-size:12px;
+}
+
+.sceneBody{
+    padding:14px;
+}
+
+.sceneImage{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    display:block;
+    background:
+        radial-gradient(circle at center,#26324b 0,#101827 42%,#05070c 100%);
+    border-radius:12px;
+    margin-bottom:12px;
+}
+
+.scenePrompt{
+    min-height:100px;
+}
+
+.fileName{
+    font-size:12px;
+    color:#94a3b8;
+    margin-top:7px;
+    word-break:break-all;
+}
+
+audio{
+    width:100%;
+    margin-top:10px;
+}
+
+video{
+    width:100%;
+    max-height:600px;
+    background:#000;
+    border-radius:14px;
+    margin-top:12px;
+}
+
+.canvasWrap{
+    background:#000;
+    border-radius:14px;
     overflow:hidden;
     margin-top:14px;
 }
 
-.progressBar{
-    height:100%;
-    width:0%;
-    background:#5865f2;
-    transition:.15s;
-}
-
-.scene{
-    background:#0a0f19;
-    border:1px solid #2a354a;
-    border-radius:15px;
-    padding:15px;
-    margin-top:15px;
-}
-
-.sceneHeader{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:12px;
-}
-
-.sceneTitle{
-    color:#9eafff;
-    font-weight:bold;
-    font-size:17px;
-}
-
-.sceneTime{
-    font-size:13px;
-    color:#8290a7;
-}
-
-.imageBox{
+#renderCanvas{
     width:100%;
-    aspect-ratio:16/9;
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            #263957 0,
-            #121a29 38%,
-            #05070c 80%
-        );
-    border:1px solid #2c384d;
-    border-radius:12px;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:#7d8aa0;
-    margin-bottom:12px;
-    position:relative;
-}
-
-.imageBox img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
     display:block;
+    background:#000;
 }
 
-.imageLabel{
-    position:absolute;
-    left:10px;
-    top:10px;
-    background:rgba(0,0,0,.7);
-    padding:7px 10px;
-    border-radius:8px;
-    font-size:12px;
-}
-
-.fileButton{
-    display:inline-block;
-    background:#27344c;
-    border-radius:10px;
-    padding:11px 14px;
-    font-weight:bold;
-    cursor:pointer;
-    margin:4px 4px 8px 0;
-}
-
-.fileButton:hover{
-    opacity:.9;
-}
-
-.hiddenFile{
-    display:none;
-}
-
-.scene textarea{
-    min-height:105px;
-}
-
-.audioInfo{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+.progressOuter{
+    height:14px;
+    background:#111827;
+    border-radius:999px;
+    overflow:hidden;
     margin-top:12px;
 }
 
-.infoBox{
-    background:#0a0f19;
-    border:1px solid #263248;
-    border-radius:10px;
-    padding:13px;
+#progressBar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#7c3aed,#06b6d4);
+    transition:width .1s linear;
 }
 
-.infoTitle{
-    color:#7f8ba1;
+.progressText{
+    text-align:center;
     font-size:12px;
-    margin-bottom:5px;
+    color:#94a3b8;
+    margin-top:7px;
 }
 
-.infoValue{
-    font-size:18px;
-    font-weight:bold;
+.pill{
+    display:inline-flex;
+    padding:5px 9px;
+    border-radius:999px;
+    background:#1e293b;
+    color:#cbd5e1;
+    font-size:11px;
+    margin:2px;
 }
 
-#preview{
-    width:100%;
-    background:#000;
-    border-radius:12px;
-    margin-top:18px;
-    display:none;
+hr{
+    border:0;
+    border-top:1px solid rgba(255,255,255,.08);
+    margin:18px 0;
 }
 
 .hidden{
-    display:none !important;
+    display:none!important;
 }
 
-@media(max-width:650px){
+#downloadLink{
+    display:inline-block;
+    text-decoration:none;
+    color:white;
+}
 
-    .row,
-    .audioInfo{
-        grid-template-columns:1fr;
-    }
+.muted{
+    color:#94a3b8;
+    font-size:12px;
+}
 
-    h1{
-        font-size:26px;
-    }
+textarea.script{
+    min-height:380px;
+}
 
-    .container{
-        width:95%;
-    }
+.durationBox{
+    border:1px solid #312e81;
+    background:linear-gradient(135deg,#151331,#0c1020);
+    border-radius:14px;
+    padding:14px;
+}
+
+.durationBig{
+    font-size:24px;
+    font-weight:900;
+    color:#c4b5fd;
+}
+
+.rangeInfo{
+    margin-top:5px;
+    color:#94a3b8;
+    font-size:12px;
+}
+
+.checkline{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:10px;
+    font-size:12px;
+    color:#cbd5e1;
+}
+
+.checkline input{
+    width:auto;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:11px;
+    padding:20px;
 }
 </style>
 </head>
@@ -284,283 +405,243 @@ button.danger{
 
 <div class="container">
 
-<h1>🎬 Mina Video AI V12.2</h1>
+<header>
+    <div class="logo">🎬 <span>Mina</span> Video AI</div>
+    <div class="subtitle">
+        Mystery Nacht için senaryo → görsel → TTSMaker sesi → altyazı → video
+    </div>
+</header>
 
-<div class="mainSubtitle">
-Ses süresine göre otomatik video + tam senaryo altyazısı
-</div>
-
-
-<!-- =========================================
-     AYARLAR
-========================================= -->
-
+<!-- AYARLAR -->
 <div class="card">
 
-<h2>1️⃣ Video Ayarları</h2>
+    <h2>⚙️ Video Ayarları</h2>
 
-<label>Dil</label>
+    <div class="grid">
 
-<select id="language">
-<option value="de">🇩🇪 Almanca</option>
-<option value="tr">🇹🇷 Türkçe</option>
-<option value="en">🇬🇧 İngilizce</option>
-</select>
+        <div>
+            <label>Dil</label>
+            <select id="language">
+                <option value="de" selected>🇩🇪 Almanca</option>
+                <option value="tr">🇹🇷 Türkçe</option>
+                <option value="en">🇬🇧 İngilizce</option>
+            </select>
+        </div>
 
+        <div>
+            <label>Gizemli olay</label>
+            <select id="mystery"></select>
+        </div>
 
-<div class="row">
+        <div class="durationBox">
 
-<div>
+            <label>⏱️ Senaryo Süresi</label>
 
-<label>Sahne Sayısı</label>
+            <select id="scriptDuration">
+                <option value="1">1 dakika</option>
+                <option value="2">2 dakika</option>
+                <option value="3">3 dakika</option>
+                <option value="4">4 dakika</option>
+                <option value="5">5 dakika</option>
+                <option value="6">6 dakika</option>
+                <option value="7">7 dakika</option>
+                <option value="8">8 dakika</option>
+                <option value="9">9 dakika</option>
+                <option value="10">10 dakika</option>
+                <option value="11">11 dakika</option>
+                <option value="12" selected>12 dakika</option>
+            </select>
 
-<select id="sceneCount">
+            <div class="durationBig" id="durationLabel">12:00</div>
+            <div class="rangeInfo" id="wordEstimate">
+                Yaklaşık 1.740 kelime
+            </div>
 
-<option value="4">4 Sahne</option>
-<option value="5">5 Sahne</option>
-<option value="6" selected>6 Sahne</option>
+        </div>
 
-</select>
+        <div>
+            <label>Sahne sayısı</label>
+            <select id="sceneCount">
+                <option value="4">4 sahne</option>
+                <option value="5" selected>5 sahne</option>
+                <option value="6">6 sahne</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div style="margin-top:14px">
+        <label>Görsel tarzı</label>
+
+        <select id="style">
+            <option value="cinematic">🎬 Sinematik</option>
+            <option value="fantasy">🧙 Fantastik</option>
+            <option value="scifi">🤖 Bilim Kurgu</option>
+            <option value="3d">🎨 3D Animasyon</option>
+            <option value="2d">✏️ 2D Animasyon</option>
+            <option value="dark" selected>🌑 Karanlık / Gizemli</option>
+            <option value="photo">📸 Fotogerçekçi</option>
+            <option value="action">💥 Aksiyon</option>
+            <option value="medieval">🏰 Orta Çağ</option>
+            <option value="epic">🌌 Epik</option>
+        </select>
+    </div>
+
+    <div class="info" style="margin-top:14px">
+        💡 <b>Nasıl çalışıyor?</b><br>
+        Seçtiğin dakika değerine göre Mina yaklaşık konuşma uzunluğunda
+        bir senaryo oluşturur. Daha sonra bu senaryoyu TTSMaker'a verip
+        oluşturduğun MP3/WAV/M4A dosyasını aşağıdan yüklersin.
+        Final video, TTSMaker sesinin <b>gerçek süresini</b> kullanır.
+    </div>
+
+    <button id="generateScriptBtn" class="primary full" style="margin-top:14px">
+        ✨ Senaryo Oluştur
+    </button>
 
 </div>
 
 
-<div>
-
-<label>Görsel Geçişi</label>
-
-<select id="transitionMode">
-
-<option value="scene">Sahneye göre değiştir</option>
-<option value="auto">Otomatik dağıt</option>
-
-</select>
-
-</div>
-
-</div>
-
-
-<label>Konu</label>
-
-<input
-id="topic"
-placeholder="Örn: Mary Celeste"
->
-
-
-<button onclick="createScript()">
-📝 Senaryo Oluştur
-</button>
-
-<button
-class="secondary"
-onclick="randomMystery()"
->
-🎲 Gerçek Gizem Seç
-</button>
-
-</div>
-
-
-
-<!-- =========================================
-     SENARYO
-========================================= -->
-
+<!-- SENARYO -->
 <div class="card">
 
-<h2>2️⃣ Tam Senaryo</h2>
+    <h2>📝 Senaryo</h2>
 
-<textarea
-id="script"
-placeholder="Senaryonun tamamı burada olacak..."
-></textarea>
+    <textarea
+        id="script"
+        class="script"
+        placeholder="Senaryo burada görünecek..."
+    ></textarea>
 
-<div
-id="scriptStatus"
-class="status"
->
-Henüz senaryo oluşturulmadı.
+    <div class="wordInfo" id="scriptStats">
+        0 kelime
+    </div>
+
+    <div class="row" style="margin-top:12px">
+
+        <button id="copyScriptBtn" class="blue">
+            📋 Senaryoyu Kopyala
+        </button>
+
+        <button id="clearScriptBtn">
+            🗑️ Temizle
+        </button>
+
+    </div>
+
+    <div class="info" style="margin-top:14px">
+        🎙️ <b>TTSMaker adımı:</b><br>
+        Buradaki senaryonun tamamını kopyala → TTSMaker'a yapıştır →
+        Almanca/Türkçe/İngilizce sesi oluştur → MP3 olarak indir →
+        aşağıdaki ses alanına yükle.
+    </div>
+
 </div>
 
-</div>
 
-
-
-<!-- =========================================
-     SES
-========================================= -->
-
+<!-- SES -->
 <div class="card">
 
-<h2>3️⃣ TTSMaker Ses Dosyası</h2>
+    <h2>🎙️ TTSMaker Ses Dosyası</h2>
 
-<label
-for="audioFile"
-class="fileButton"
->
-🎵 MP3 / WAV / M4A Seç
-</label>
+    <input
+        id="audioFile"
+        type="file"
+        accept="audio/*"
+    >
 
-<input
-class="hiddenFile"
-type="file"
-id="audioFile"
-accept="audio/*"
->
+    <div id="audioInfo" class="status">
+        Henüz ses dosyası yüklenmedi.
+    </div>
 
-<div
-id="audioStatus"
-class="status"
->
-Henüz ses dosyası seçilmedi.
-</div>
-
-
-<div class="audioInfo">
-
-<div class="infoBox">
-
-<div class="infoTitle">
-SES SÜRESİ
-</div>
-
-<div
-id="audioDuration"
-class="infoValue"
->
---:--
-</div>
+    <audio id="audioPreview" controls class="hidden"></audio>
 
 </div>
 
 
-<div class="infoBox">
-
-<div class="infoTitle">
-VIDEO SÜRESİ
-</div>
-
-<div
-id="videoDuration"
-class="infoValue"
->
-Sesle aynı olacak
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<!-- =========================================
-     SAHNELER
-========================================= -->
-
+<!-- SAHNELER -->
 <div class="card">
 
-<h2>4️⃣ Görseller ve Altyazılar</h2>
+    <h2>🖼️ Sahne Görselleri</h2>
 
-<p class="small">
-Her sahneye bilgisayarından gerçek bir görsel ekleyebilirsin.
-Altyazılar senaryonun tamamından otomatik oluşturulur.
-</p>
+    <div class="info">
+        Her sahne için kendi görselini yükleyebilirsin.
+        Görsel yüklemezsen Mina o sahneyi karanlık bir arka planla oluşturur.
+        <br><br>
+        <b>Not:</b> Z-Image'i şimdilik manuel kullanabilirsin.
+        Sahne promptunu kopyalayıp Z-Image'de görsel oluşturduktan sonra
+        buraya yükleyebilirsin.
+    </div>
 
-<button
-onclick="createScenes()"
->
-🎞️ Sahnelere Ayır
-</button>
-
-<div id="scenes"></div>
+    <div id="scenes"></div>
 
 </div>
 
 
-
-<!-- =========================================
-     VIDEO
-========================================= -->
-
+<!-- RENDER -->
 <div class="card">
 
-<h2>5️⃣ Videoyu Oluştur</h2>
+    <h2>🎬 Video Oluştur</h2>
 
-<p class="small">
-Video süresi seçilen sahne süresine göre değil,
-yüklediğin TTSMaker ses dosyasının gerçek süresine göre belirlenir.
-</p>
+    <div class="info">
+        <span class="pill">🎙️ Gerçek ses süresi</span>
+        <span class="pill">💬 Tam senaryo altyazısı</span>
+        <span class="pill">🖼️ Sahne görselleri</span>
+        <span class="pill">📱 WebM</span>
+    </div>
 
-<button
-class="success"
-onclick="renderVideo()"
->
-🎬 Videoyu Oluştur
-</button>
+    <button
+        id="renderBtn"
+        class="green full"
+        style="margin-top:14px"
+    >
+        🎬 Videoyu Oluştur
+    </button>
 
+    <div class="progressOuter">
+        <div id="progressBar"></div>
+    </div>
 
-<div class="progress">
+    <div id="progressText" class="progressText">
+        Hazır
+    </div>
 
-<div
-id="progressBar"
-class="progressBar"
-></div>
+    <div id="renderStatus" class="status">
+        Video oluşturulmaya hazır.
+    </div>
+
+    <div class="canvasWrap">
+        <canvas
+            id="renderCanvas"
+            width="1280"
+            height="720"
+        ></canvas>
+    </div>
+
+    <video
+        id="videoPreview"
+        controls
+        class="hidden"
+    ></video>
+
+    <div class="row" style="margin-top:12px">
+
+        <a
+            id="downloadLink"
+            class="green"
+            style="padding:12px 16px;border-radius:12px"
+            download="mystery-nacht-video.webm"
+        >
+            ⬇️ Videoyu İndir
+        </a>
+
+    </div>
 
 </div>
 
 
-<div
-id="renderStatus"
-class="status"
->
-Video henüz oluşturulmadı.
-</div>
-
-
-<video
-id="preview"
-controls
-playsinline
-></video>
-
-
-<button
-id="downloadBtn"
-class="success hidden"
-onclick="downloadVideo()"
->
-⬇️ Videoyu İndir
-</button>
-
-</div>
-
-
-<!-- =========================================
-     TEST
-========================================= -->
-
-<div class="card">
-
-<h2>🔧 Sistem Testi</h2>
-
-<button
-class="secondary"
-onclick="testSystem()"
->
-🧪 Sistemi Test Et
-</button>
-
-<div
-id="testStatus"
-class="status"
->
-Test yapılmadı.
-</div>
-
+<div class="footer">
+    Mina Video AI V12.3 • Mystery Nacht
 </div>
 
 </div>
@@ -568,452 +649,898 @@ Test yapılmadı.
 
 <script>
 
+/* =========================================================
+   MINA VIDEO AI V12.3
+========================================================= */
+
 "use strict";
 
 
-/* =====================================================
-   GLOBAL
-===================================================== */
+/* =========================================================
+   ELEMENTLER
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const languageEl = $("language");
+const mysteryEl = $("mystery");
+const scriptDurationEl = $("scriptDuration");
+const sceneCountEl = $("sceneCount");
+const styleEl = $("style");
+
+const scriptEl = $("script");
+const scenesEl = $("scenes");
+
+const audioFileEl = $("audioFile");
+const audioPreview = $("audioPreview");
+const audioInfo = $("audioInfo");
+
+const renderCanvas = $("renderCanvas");
+const ctx = renderCanvas.getContext("2d");
+
+const videoPreview = $("videoPreview");
+const downloadLink = $("downloadLink");
+
+const progressBar = $("progressBar");
+const progressText = $("progressText");
+const renderStatus = $("renderStatus");
 
 let scenes = [];
-
-let selectedAudio = null;
-
+let uploadedAudio = null;
 let audioDuration = 0;
-
-let finalBlob = null;
-
-let audioURL = null;
-
-let imageURLs = [];
+let audioBuffer = null;
+let lastVideoUrl = null;
 
 
-/* =====================================================
-   GERÇEK GİZEMLER
-===================================================== */
+/* =========================================================
+   MYSTERY DATABASE
+========================================================= */
 
-const mysteries = [
+const MYSTERIES = {
 
-{
-title:"Mary Celeste",
-year:"1872",
-text:
-"1872 yılında Atlantik Okyanusu'nda Mary Celeste adlı gemi terk edilmiş halde bulundu. Geminin yükünün ve birçok kişisel eşyanın önemli bölümü hâlâ yerindeydi. Ancak gemideki insanlar ortadan kaybolmuştu. Geminin neden terk edildiği kesin olarak açıklanamadı."
-},
+    maryCeleste: {
+        title:{
+            tr:"Mary Celeste'nin Gizemi",
+            de:"Das Rätsel der Mary Celeste",
+            en:"The Mystery of the Mary Celeste"
+        },
 
-{
-title:"Dyatlov Geçidi",
-year:"1959",
-text:
-"1959 yılında Ural Dağları'nda dokuz kişilik bir yürüyüş grubunun kampı bulundu. Çadır içeriden kesilmişti ve grup üyeleri farklı noktalarda ölü bulundu. Olayla ilgili yıllar boyunca birçok açıklama ve teori ortaya çıktı."
-},
+        facts:{
+            tr:[
+                "Mary Celeste, 1872 yılında Atlantik Okyanusu'nda mürettebatsız bulunan bir ticaret gemisiydi.",
+                "Gemi sağlam durumdaydı ve denize elverişli görünüyordu.",
+                "Gemide kişisel eşyaların ve erzakın önemli bir bölümü hâlâ bulunuyordu.",
+                "Ancak geminin kaptanı, ailesi ve mürettebatı ortada yoktu.",
+                "Geminin neden terk edildiği kesin olarak açıklanamadı.",
+                "Olaydan sonra farklı teoriler ortaya çıktı.",
+                "Bazı teoriler hava koşulları ve gemideki yükle ilgili olasılıklara odaklandı.",
+                "Bazı araştırmacılar ise mürettebatın geminin tehlikede olduğunu düşünmüş olabileceğini değerlendirdi.",
+                "Bununla birlikte kaybolan insanların kesin akıbeti bilinmiyor.",
+                "Mary Celeste olayı bugün hâlâ denizcilik tarihinin en ünlü gizemlerinden biri olarak kabul ediliyor."
+            ],
 
-{
-title:"Flannan Adaları Deniz Feneri",
-year:"1900",
-text:
-"1900 yılında İskoçya'daki Flannan Adaları deniz fenerine ulaşan ekip üç deniz feneri görevlisinin ortadan kaybolduğunu fark etti. Deniz feneri çalışır durumdaydı ancak görevlilerden hiçbir iz yoktu."
-},
+            de:[
+                "Die Mary Celeste war ein Handelsschiff, das 1872 verlassen im Atlantik gefunden wurde.",
+                "Das Schiff war weitgehend intakt und schien noch seetüchtig zu sein.",
+                "Ein großer Teil der persönlichen Gegenstände und Vorräte befand sich weiterhin an Bord.",
+                "Doch der Kapitän, seine Familie und die Besatzung waren verschwunden.",
+                "Warum das Schiff verlassen wurde, konnte nie eindeutig geklärt werden.",
+                "Nach dem Fund entstanden zahlreiche Theorien.",
+                "Einige Erklärungen konzentrieren sich auf Wetterbedingungen und die Ladung des Schiffes.",
+                "Andere Überlegungen gehen davon aus, dass die Menschen an Bord glaubten, das Schiff sei möglicherweise in Gefahr.",
+                "Das endgültige Schicksal der Menschen blieb jedoch unbekannt.",
+                "Bis heute gehört die Mary Celeste zu den berühmtesten ungelösten Rätseln der Seefahrtsgeschichte."
+            ],
 
-{
-title:"Somerton Adamı",
-year:"1948",
-text:
-"1948 yılında Avustralya'nın Adelaide kentinde kimliği bilinmeyen bir adamın cesedi bulundu. Üzerinde kimliğini belirleyecek belgeler yoktu. Olay uzun yıllar boyunca gizemini korudu."
-},
+            en:[
+                "The Mary Celeste was a merchant ship found abandoned in the Atlantic in 1872.",
+                "The ship was largely intact and appeared to remain seaworthy.",
+                "Many personal belongings and provisions were still on board.",
+                "But the captain, his family and the crew had disappeared.",
+                "No definitive explanation has ever established why the ship was abandoned.",
+                "Several theories appeared after the discovery.",
+                "Some explanations focus on weather conditions and the ship's cargo.",
+                "Other possibilities suggest that the people aboard believed the vessel might be in danger.",
+                "However, the final fate of the missing people remains unknown.",
+                "The Mary Celeste remains one of the most famous unsolved mysteries in maritime history."
+            ]
+        },
 
-{
-title:"Roanoke Kolonisi",
-year:"1590",
-text:
-"Kuzey Amerika'daki Roanoke kolonisine dönen bir grup yerleşimin tamamen boşaltılmış olduğunu gördü. Kolonistlerin nereye gittiği kesin olarak belirlenemedi."
-},
+        dyatlov: {
+            title:{
+                tr:"Dyatlov Geçidi Olayı",
+                de:"Das Rätsel des Dyatlow-Passes",
+                en:"The Dyatlov Pass Mystery"
+            },
 
-{
-title:"Wow! Sinyali",
-year:"1977",
-text:
-"1977 yılında Ohio'daki Big Ear radyo teleskobu olağanüstü güçlü ve kısa süreli bir radyo sinyali kaydetti. Sinyal daha sonra aynı şekilde tekrar tespit edilemedi."
-},
+            facts:{
+                tr:[
+                    "1959 yılında Sovyetler Birliği'nde dokuz deneyimli yürüyüşçü Ural Dağları'nda hayatını kaybetti.",
+                    "Grubun kamp alanı Dyatlov Geçidi olarak bilinen bölgede bulunuyordu.",
+                    "Çadır daha sonra içeriden kesilmiş halde bulundu.",
+                    "Bazı eşyalar çadırın içinde kalmıştı.",
+                    "İnsanların soğuk hava koşullarında aceleyle dışarı çıktığı anlaşılıyordu.",
+                    "Arama ekipleri grubun üyelerini farklı noktalarda buldu.",
+                    "Olayın ayrıntıları yıllar boyunca çeşitli teorilere yol açtı.",
+                    "Çığ, güçlü rüzgârlar ve başka doğal olaylar üzerinde duruldu.",
+                    "Bunun yanında insan kaynaklı veya başka açıklamalar da ileri sürüldü.",
+                    "Olayın kesin ayrıntıları uzun süre tartışılmaya devam etti."
+                ],
 
-{
-title:"USS Cyclops",
-year:"1918",
-text:
-"USS Cyclops adlı büyük Amerikan gemisi 1918 yılında Atlantik'te kayboldu. Gemide yüzlerce kişi vardı ve gemiden herhangi bir yardım çağrısı alınmadı."
-},
+                de:[
+                    "1959 starben neun erfahrene Wanderer im Uralgebirge der damaligen Sowjetunion.",
+                    "Das Lager der Gruppe befand sich in einem Gebiet, das heute als Dyatlow-Pass bekannt ist.",
+                    "Das Zelt wurde später von innen aufgeschnitten gefunden.",
+                    "Einige persönliche Gegenstände waren im Zelt zurückgeblieben.",
+                    "Es schien, als hätten die Menschen das Zelt unter schwierigen Bedingungen verlassen.",
+                    "Die Suchmannschaften fanden die Mitglieder der Gruppe an verschiedenen Orten.",
+                    "Der Fall führte über Jahrzehnte zu zahlreichen Theorien.",
+                    "Lawinen, starke Winde und andere natürliche Ereignisse wurden diskutiert.",
+                    "Daneben wurden auch menschliche und andere mögliche Erklärungen vorgeschlagen.",
+                    "Viele Details des Falles blieben lange umstritten."
+                ],
 
-{
-title:"Oak Island",
-year:"1795",
-text:
-"Kanada'daki Oak Island'da 18. yüzyılın sonlarından itibaren gizemli bir çukur ve olası hazine hakkında araştırmalar yapıldı. Yıllar boyunca birçok kazı gerçekleştirildi ancak gizemin tamamı çözülemedi."
-}
+                en:[
+                    "In 1959, nine experienced hikers died in the Ural Mountains of the Soviet Union.",
+                    "The group had camped in an area now known as Dyatlov Pass.",
+                    "Their tent was later found cut open from the inside.",
+                    "Some personal belongings were still inside.",
+                    "The circumstances suggested that the group had left the tent under difficult conditions.",
+                    "Search teams found the members at different locations around the area.",
+                    "The case produced many theories over the following decades.",
+                    "Avalanches, strong winds and other natural events were considered.",
+                    "Human causes and other explanations were also proposed.",
+                    "Many details of the case remained disputed for years."
+                ]
+            ]
+        },
 
+        flannan: {
+            title:{
+                tr:"Flannan Adaları Deniz Feneri",
+                de:"Das Rätsel der Leuchtturmwärter von Flannan",
+                en:"The Flannan Isles Lighthouse Mystery"
+            },
+
+            facts:{
+                tr:[
+                    "1900 yılında İskoçya açıklarındaki Flannan Adaları'ndaki deniz fenerinde üç görevli kayboldu.",
+                    "Fener daha sonra boş bulundu.",
+                    "İçeride bazı kişisel eşyalar vardı.",
+                    "Deniz fenerinin genel durumu olayın hemen anlaşılmasını zorlaştırdı.",
+                    "Üç görevlinin nereye gittiğine dair kesin bir kanıt bulunamadı.",
+                    "Arama çalışmaları çevrede yoğunlaştı.",
+                    "Deniz koşulları olayla ilgili en önemli doğal ihtimallerden biri olarak değerlendirildi.",
+                    "Büyük dalgaların kayalıklara ulaşması mümkün görünüyordu.",
+                    "Ancak olayın tam olarak nasıl gerçekleştiği kesin biçimde bilinmiyor.",
+                    "Flannan Adaları olayı bugün deniz fenerleri tarihinin en ünlü gizemlerinden biri."
+                ],
+
+                de:[
+                    "Im Jahr 1900 verschwanden drei Leuchtturmwärter auf den Flannan-Inseln vor der schottischen Küste.",
+                    "Der Leuchtturm wurde später verlassen vorgefunden.",
+                    "Einige persönliche Gegenstände befanden sich noch im Gebäude.",
+                    "Die Umstände machten es schwierig, den genauen Ablauf zu bestimmen.",
+                    "Es gab keinen eindeutigen Beweis dafür, wohin die drei Männer verschwunden waren.",
+                    "Die Suche konzentrierte sich auf die Umgebung der Inseln.",
+                    "Die rauen Meeresbedingungen wurden als eine mögliche natürliche Erklärung betrachtet.",
+                    "Hohe Wellen konnten die gefährlichen Felsen erreichen.",
+                    "Wie genau die drei Männer verschwanden, ist jedoch nicht abschließend geklärt.",
+                    "Der Fall gehört bis heute zu den bekanntesten Leuchtturm-Rätseln."
+                ],
+
+                en:[
+                    "In 1900, three lighthouse keepers disappeared from the Flannan Isles off the coast of Scotland.",
+                    "The lighthouse was later found without its keepers.",
+                    "Some personal belongings were still inside.",
+                    "The circumstances made it difficult to determine exactly what had happened.",
+                    "No definitive evidence showed where the three men had gone.",
+                    "Search efforts focused on the surrounding islands.",
+                    "The rough sea conditions were considered one possible natural explanation.",
+                    "Large waves could reach the dangerous rocks around the island.",
+                    "Yet the exact sequence of events was never conclusively established.",
+                    "The case remains one of the most famous lighthouse mysteries."
+                ]
+            ]
+        },
+
+        somerton: {
+            title:{
+                tr:"Somerton Adamı",
+                de:"Der geheimnisvolle Somerton-Mann",
+                en:"The Somerton Man Mystery"
+            },
+
+            facts:{
+                tr:[
+                    "1948 yılında Avustralya'nın Adelaide kentindeki Somerton Plajı yakınında kimliği belirsiz bir adam ölü bulundu.",
+                    "Adamın üzerinde kimliğini belirleyecek açık bir belge bulunmuyordu.",
+                    "Olay yerinde bulunan bazı eşyalar soruşturmanın önemli parçaları haline geldi.",
+                    "Kıyafetlerindeki etiketlerin bazıları çıkarılmıştı.",
+                    "Daha sonra soruşturmayı daha da gizemli hale getiren bir kâğıt parçası bulundu.",
+                    "Bu kâğıtta 'Tamamlandı' anlamına gelen bir ifade yer alıyordu.",
+                    "Kâğıdın bir kitaptan koparıldığı tespit edildi.",
+                    "Kitabın içinde dikkat çekici bir kod bulundu.",
+                    "Kodun anlamı uzun süre çözülemedi.",
+                    "Adamın kimliği ve ölümünün koşulları yıllarca gizemini korudu."
+                ],
+
+                de:[
+                    "1948 wurde nahe dem Somerton Beach in Adelaide ein unbekannter Mann tot aufgefunden.",
+                    "Bei ihm wurde kein eindeutiges Dokument gefunden, das seine Identität klären konnte.",
+                    "Mehrere Gegenstände am Fundort wurden zu wichtigen Teilen der Untersuchung.",
+                    "Einige Etiketten an seiner Kleidung waren entfernt worden.",
+                    "Später wurde ein kleines Stück Papier gefunden, das den Fall noch rätselhafter machte.",
+                    "Darauf stand ein Ausdruck, der sinngemäß mit 'vollendet' übersetzt wird.",
+                    "Das Papier stammte aus einem Buch.",
+                    "Im Buch wurde außerdem ein auffälliger Code entdeckt.",
+                    "Die Bedeutung dieses Codes blieb lange ungeklärt.",
+                    "Die Identität des Mannes und die Umstände seines Todes blieben über Jahrzehnte ein Rätsel."
+                ],
+
+                en:[
+                    "In 1948, an unidentified man was found dead near Somerton Beach in Adelaide, Australia.",
+                    "There was no clear document with him that could establish his identity.",
+                    "Several objects at the scene became important parts of the investigation.",
+                    "Some labels had been removed from his clothing.",
+                    "A small piece of paper later made the case even more mysterious.",
+                    "The paper contained an expression that can be translated as 'finished'.",
+                    "It had been torn from a book.",
+                    "A distinctive code was also discovered inside the book.",
+                    "The meaning of that code remained uncertain for many years.",
+                    "The identity of the man and the circumstances of his death remained a mystery for decades."
+                ]
+            ]
+        },
+
+        roanoke: {
+            title:{
+                tr:"Roanoke Kayıp Kolonisi",
+                de:"Das Rätsel der verlorenen Kolonie von Roanoke",
+                en:"The Lost Colony of Roanoke"
+            },
+
+            facts:{
+                tr:[
+                    "Roanoke Kolonisi, 16. yüzyılın sonunda Kuzey Amerika'da kurulan İngiliz yerleşimlerinden biriydi.",
+                    "Koloninin lideri John White, yardım almak için İngiltere'ye döndü.",
+                    "Geri dönmesi planlanandan çok daha uzun sürdü.",
+                    "White yıllar sonra Roanoke'ye döndüğünde yerleşimin büyük ölçüde terk edilmiş olduğunu gördü.",
+                    "Kolonide yaşayan insanların akıbeti açık biçimde belirlenemedi.",
+                    "Dikkat çeken bulgulardan biri yerleşimde bulunan 'CROATOAN' kelimesiydi.",
+                    "Bu kelimenin anlamı ve koloninin hareket etmiş olabileceği fikri yıllarca tartışıldı.",
+                    "Bazı açıklamalar yerli topluluklarla birleşme ihtimaline odaklandı.",
+                    "Başka teoriler açlık, hastalık ve çatışma gibi ihtimalleri ele aldı.",
+                    "Kayıp koloninin gerçek hikâyesi kesin olarak çözülemedi."
+                ],
+
+                de:[
+                    "Die Roanoke-Kolonie war eine englische Siedlung in Nordamerika am Ende des 16. Jahrhunderts.",
+                    "Ihr Leiter John White kehrte nach England zurück, um Hilfe zu holen.",
+                    "Seine Rückkehr dauerte deutlich länger als geplant.",
+                    "Als er Jahre später nach Roanoke zurückkam, war die Siedlung weitgehend verlassen.",
+                    "Das Schicksal der Bewohner konnte nicht eindeutig festgestellt werden.",
+                    "Eine der auffälligsten Spuren war das Wort 'CROATOAN'.",
+                    "Über seine Bedeutung und eine mögliche Umsiedlung wurde lange diskutiert.",
+                    "Einige Erklärungen vermuten eine Verbindung mit lokalen indigenen Gemeinschaften.",
+                    "Andere Theorien betrachten Hunger, Krankheiten oder Konflikte.",
+                    "Das endgültige Schicksal der Kolonie bleibt jedoch ungeklärt."
+                ],
+
+                en:[
+                    "The Roanoke Colony was an English settlement in North America at the end of the sixteenth century.",
+                    "Its leader, John White, returned to England to seek assistance.",
+                    "His return took much longer than expected.",
+                    "When he came back years later, the settlement was largely abandoned.",
+                    "The fate of the people who lived there could not be established with certainty.",
+                    "One of the most striking clues was the word 'CROATOAN'.",
+                    "Its meaning and the possibility of relocation were debated for generations.",
+                    "Some explanations suggest connections with local Indigenous communities.",
+                    "Other theories consider hunger, disease or conflict.",
+                    "The final fate of the colony remains unresolved."
+                ]
+            ]
+        },
+
+        wow: {
+            title:{
+                tr:"Wow! Sinyali",
+                de:"Das Geheimnis des Wow!-Signals",
+                en:"The Wow! Signal Mystery"
+            },
+
+            facts:{
+                tr:[
+                    "1977 yılında Ohio'daki Big Ear radyo teleskobu dikkat çekici bir radyo sinyali kaydetti.",
+                    "Sinyal yaklaşık 72 saniye boyunca teleskop verilerinde görüldü.",
+                    "Sinyalin gücü ve yapısı araştırmacı Jerry Ehman'ın dikkatini çekti.",
+                    "Ehman bilgisayar çıktısının üzerine 'Wow!' notunu yazdı.",
+                    "Bu ifade daha sonra olayın adı haline geldi.",
+                    "Sinyalin kaynağı uzun süre kesin biçimde belirlenemedi.",
+                    "Bazı araştırmacılar bunun dünya dışı bir teknolojiyle ilişkili olabileceğini tartıştı.",
+                    "Ancak sinyalin uzaylılardan geldiğini kanıtlayan bir bulgu bulunmadı.",
+                    "Sinyalin aynı şekilde tekrar gözlemlenmemesi de gizemi artırdı.",
+                    "Wow! Sinyali, SETI tarihinin en ünlü olaylarından biri olarak kaldı."
+                ],
+
+                de:[
+                    "1977 registrierte das Big-Ear-Radioteleskop in Ohio ein ungewöhnliches Radiosignal.",
+                    "Das Signal war ungefähr 72 Sekunden lang in den Daten sichtbar.",
+                    "Seine Stärke und Struktur fielen dem Forscher Jerry Ehman auf.",
+                    "Ehman schrieb das Wort 'Wow!' auf den Computerausdruck.",
+                    "Dieser kurze Vermerk wurde später zum Namen des Ereignisses.",
+                    "Die genaue Quelle des Signals konnte lange nicht eindeutig bestimmt werden.",
+                    "Einige Forscher diskutierten die Möglichkeit eines künstlichen Ursprungs.",
+                    "Es gibt jedoch keinen Beweis dafür, dass das Signal von einer außerirdischen Zivilisation stammte.",
+                    "Dass ein identisches Signal später nicht erneut beobachtet wurde, machte den Fall noch interessanter.",
+                    "Das Wow!-Signal bleibt eines der bekanntesten Ereignisse in der Geschichte von SETI."
+                ],
+
+                en:[
+                    "In 1977, the Big Ear radio telescope in Ohio recorded an unusual radio signal.",
+                    "The signal appeared in the telescope's data for about 72 seconds.",
+                    "Its strength and structure caught the attention of researcher Jerry Ehman.",
+                    "Ehman wrote the word 'Wow!' on the computer printout.",
+                    "That short note later became the name of the event.",
+                    "The exact source of the signal could not be identified with certainty.",
+                    "Some researchers discussed the possibility of an artificial origin.",
+                    "However, there is no proof that the signal came from an extraterrestrial civilization.",
+                    "The fact that the same signal was never clearly observed again added to the mystery.",
+                    "The Wow! Signal remains one of the most famous events in SETI history."
+                ]
+            }
+        },
+
+        cyclops: {
+            title:{
+                tr:"USS Cyclops'un Kayboluşu",
+                de:"Das Rätsel der USS Cyclops",
+                en:"The Mystery of USS Cyclops"
+            },
+
+            facts:{
+                tr:[
+                    "USS Cyclops, Birinci Dünya Savaşı döneminde görev yapan büyük bir Amerikan kömür taşıma gemisiydi.",
+                    "1918 yılında Barbados'tan ayrıldıktan sonra gemiden haber alınamadı.",
+                    "Gemide yüzlerce insan bulunuyordu.",
+                    "Gemiden herhangi bir yardım çağrısı gelmedi.",
+                    "Geminin nerede kaybolduğu kesin biçimde belirlenemedi.",
+                    "Batmasına ilişkin farklı ihtimaller yıllar boyunca tartışıldı.",
+                    "Geminin taşıdığı yük ve deniz koşulları olası açıklamalar arasında değerlendirildi.",
+                    "Alışılmadık derecede büyük dalgalar ve yapısal sorunlar da tartışıldı.",
+                    "En dikkat çekici noktalardan biri enkazın bulunamamış olmasıydı.",
+                    "USS Cyclops kayboluşu hâlâ denizcilik tarihindeki büyük gizemlerden biridir."
+                ],
+
+                de:[
+                    "Die USS Cyclops war ein großes amerikanisches Versorgungsschiff aus der Zeit des Ersten Weltkriegs.",
+                    "Nach ihrer Abfahrt aus Barbados im Jahr 1918 wurde nie wieder sicher von dem Schiff gehört.",
+                    "An Bord befanden sich mehrere hundert Menschen.",
+                    "Es wurde kein eindeutiger Notruf empfangen.",
+                    "Der genaue Ort des Verschwindens konnte nicht festgestellt werden.",
+                    "Über die mögliche Ursache wurde über viele Jahre diskutiert.",
+                    "Die Ladung und die schwierigen Meeresbedingungen wurden als mögliche Faktoren betrachtet.",
+                    "Auch ungewöhnlich hohe Wellen und strukturelle Probleme wurden diskutiert.",
+                    "Besonders auffällig war, dass kein eindeutiges Wrack gefunden wurde.",
+                    "Das Verschwinden der USS Cyclops gehört zu den großen ungelösten Rätseln der Seefahrt."
+                ],
+
+                en:[
+                    "USS Cyclops was a large American supply ship operating during the First World War.",
+                    "After leaving Barbados in 1918, the ship was never reliably heard from again.",
+                    "Several hundred people were aboard.",
+                    "No clear distress call was received.",
+                    "The exact location where the ship disappeared was never established.",
+                    "Different explanations for the loss were discussed for decades.",
+                    "The cargo and difficult sea conditions were considered possible factors.",
+                    "Unusually large waves and structural problems were also discussed.",
+                    "One of the most striking facts was the absence of a confirmed wreck.",
+                    "The disappearance of USS Cyclops remains one of the great mysteries of maritime history."
+                ]
+            ]
+        },
+
+        oak: {
+            title:{
+                tr:"Oak Island Hazinesi",
+                de:"Das Rätsel von Oak Island",
+                en:"The Oak Island Mystery"
+            },
+
+            facts:{
+                tr:[
+                    "Oak Island, Kanada'nın Nova Scotia bölgesinde bulunan küçük bir adadır.",
+                    "Ada özellikle yer altında saklı olduğu düşünülen bir hazine hikâyesiyle tanındı.",
+                    "1790'lı yıllarda yapılan kazılar, adanın gizeminin büyümesine yol açtı.",
+                    "Kazılar sırasında farklı çukur ve yapı izleri bulunduğu bildirildi.",
+                    "Yıllar boyunca birçok kişi adada kazı çalışmaları yaptı.",
+                    "Hazineyi korsanlara, tapınak şövalyelerine ve başka tarihi gruplara bağlayan teoriler ortaya çıktı.",
+                    "Ancak bu teorilerin çoğu kesin biçimde kanıtlanmış değildir.",
+                    "Ada üzerinde yapılan kazılar çeşitli mühendislik sorunlarıyla karşılaştı.",
+                    "Su baskınları ve zorlu zemin koşulları kazıları zorlaştırdı.",
+                    "Oak Island bugün hâlâ çözülmemiş hazine hikâyeleri arasında anılıyor."
+                ],
+
+                de:[
+                    "Oak Island ist eine kleine Insel in Nova Scotia, Kanada.",
+                    "Die Insel wurde vor allem durch die Geschichte eines möglicherweise verborgenen Schatzes bekannt.",
+                    "Grabungen in den 1790er Jahren machten das Rätsel berühmt.",
+                    "Bei verschiedenen Arbeiten wurden Hinweise auf Schächte und Strukturen berichtet.",
+                    "Über viele Jahre versuchten zahlreiche Menschen, die Geschichte zu lösen.",
+                    "Theorien brachten den möglichen Schatz mit Piraten, Tempelrittern und anderen historischen Gruppen in Verbindung.",
+                    "Viele dieser Theorien sind jedoch nicht eindeutig belegt.",
+                    "Die Grabungen waren außerdem mit erheblichen technischen Problemen verbunden.",
+                    "Wasser und schwierige Bodenverhältnisse erschwerten die Arbeiten.",
+                    "Oak Island bleibt eine der bekanntesten ungelösten Schatzgeschichten."
+                ],
+
+                en:[
+                    "Oak Island is a small island in Nova Scotia, Canada.",
+                    "The island became famous because of stories about a possible hidden treasure.",
+                    "Excavations in the 1790s helped create the mystery.",
+                    "Various digging projects reported shafts and unusual structures.",
+                    "Many people attempted to investigate the island over the years.",
+                    "Theories connected the possible treasure to pirates, the Knights Templar and other historical groups.",
+                    "Many of these theories have never been conclusively proven.",
+                    "The excavation efforts also faced serious engineering difficulties.",
+                    "Water and difficult ground conditions made the work extremely challenging.",
+                    "Oak Island remains one of the best-known unresolved treasure mysteries."
+                ]
+            ]
+        }
+
+    }
+};
+
+
+/* =========================================================
+   MYSTERY SELECT DOLDUR
+========================================================= */
+
+const mysteryOrder = [
+    ["maryCeleste","Mary Celeste"],
+    ["dyatlov","Dyatlov Geçidi"],
+    ["flannan","Flannan Adaları Deniz Feneri"],
+    ["somerton","Somerton Adamı"],
+    ["roanoke","Roanoke Kayıp Kolonisi"],
+    ["wow","Wow! Sinyali"],
+    ["cyclops","USS Cyclops"],
+    ["oak","Oak Island"]
 ];
 
+mysteryOrder.forEach(item => {
 
-/* =====================================================
-   RANDOM MYSTERY
-===================================================== */
+    const option = document.createElement("option");
 
-function randomMystery(){
+    option.value = item[0];
+    option.textContent = item[1];
 
-    const m =
-        mysteries[
-            Math.floor(
-                Math.random() * mysteries.length
-            )
-        ];
+    mysteryEl.appendChild(option);
 
-    document.getElementById("topic").value =
-        m.title;
+});
 
-    createScript();
+
+/* =========================================================
+   YARDIMCI FONKSİYONLAR
+========================================================= */
+
+function escapeHtml(str){
+
+    return String(str)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
 }
 
 
-/* =====================================================
-   SCRIPT TITLE
-===================================================== */
+function countWords(text){
 
-function makeTitle(m, language){
+    return String(text)
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .length;
 
-    if(language === "de"){
-
-        return "Das Rätsel von "
-        + m.title
-        + " – Was geschah wirklich?";
-
-    }
-
-    if(language === "en"){
-
-        return "The Mystery of "
-        + m.title
-        + " – What Really Happened?";
-
-    }
-
-    return m.title
-        + " Gizemi – Gerçekte Ne Oldu?";
 }
 
 
-/* =====================================================
-   CREATE SCRIPT
-===================================================== */
+function formatTime(seconds){
+
+    if(!isFinite(seconds) || seconds < 0){
+        return "00:00";
+    }
+
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60);
+
+    return String(min).padStart(2,"0")
+        + ":"
+        + String(sec).padStart(2,"0");
+
+}
+
+
+function clamp(value,min,max){
+
+    return Math.max(min,Math.min(max,value));
+
+}
+
+
+/* =========================================================
+   SÜRE / KELİME HESABI
+========================================================= */
+
+function targetWordsForMinutes(minutes){
+
+    /*
+       Ortalama yaklaşık 145 kelime/dakika.
+       Gizem videolarında sakin anlatım için
+       140-150 civarı uygundur.
+    */
+
+    return Math.round(minutes * 145);
+
+}
+
+
+function updateDurationInfo(){
+
+    const minutes = Number(scriptDurationEl.value);
+
+    $("durationLabel").textContent =
+        String(minutes).padStart(2,"0") + ":00";
+
+    const words = targetWordsForMinutes(minutes);
+
+    $("wordEstimate").textContent =
+        "Yaklaşık " +
+        words.toLocaleString("tr-TR") +
+        " kelime";
+
+}
+
+
+scriptDurationEl.addEventListener(
+    "change",
+    updateDurationInfo
+);
+
+updateDurationInfo();
+
+
+/* =========================================================
+   DİL BAZLI YARDIMCI METİNLER
+========================================================= */
+
+const templates = {
+
+de:{
+    intro:[
+        "Heute sehen wir uns einen Fall an, der bis heute viele Fragen offenlässt.",
+        "Die Geschichte beginnt mit einem Ereignis, dessen wichtigste Details bis heute nicht vollständig erklärt werden konnten.",
+        "Was zunächst wie ein gewöhnlicher Vorfall wirkte, entwickelte sich später zu einem der bekanntesten Rätsel seiner Art.",
+        "Seitdem haben Historiker, Ermittler und zahlreiche Forscher versucht, die offenen Fragen zu verstehen."
+    ],
+
+    transition:[
+        "Doch genau hier beginnt der ungewöhnliche Teil der Geschichte.",
+        "Die bekannten Fakten erzählen jedoch nur einen Teil der Geschichte.",
+        "Je genauer man die einzelnen Hinweise betrachtet, desto schwieriger wird eine eindeutige Erklärung.",
+        "Und genau diese Lücken haben im Laufe der Jahre zahlreiche Theorien entstehen lassen."
+    ],
+
+    theory:[
+        "Eine mögliche Erklärung konzentriert sich auf natürliche Ursachen und die damaligen Bedingungen.",
+        "Eine andere Möglichkeit wurde ebenfalls diskutiert, konnte aber nicht endgültig bewiesen werden.",
+        "Einige Forscher betrachten die vorhandenen Hinweise vorsichtig, weil wichtige Beweise fehlen.",
+        "Deshalb sollte man zwischen dokumentierten Fakten und später entstandenen Spekulationen unterscheiden."
+    ],
+
+    close:[
+        "Bis heute gibt es deshalb keine Antwort, die alle Fragen eindeutig erklärt.",
+        "Vielleicht liegt die Wahrheit in einer Kombination mehrerer Faktoren.",
+        "Was tatsächlich geschah, bleibt deshalb ein faszinierendes historisches Rätsel.",
+        "Und genau deshalb wird dieser Fall bis heute nicht vergessen."
+    ]
+},
+
+tr:{
+    intro:[
+        "Bugün, aradan yıllar geçmesine rağmen hâlâ birçok soruyu cevapsız bırakan bir olaya bakıyoruz.",
+        "Hikâye, başlangıçta sıradan görünen ancak daha sonra büyük bir gizeme dönüşen bir olayla başlıyor.",
+        "Olayın bilinen ayrıntıları incelendiğinde ortaya cevaplardan çok yeni sorular çıkıyor.",
+        "Yıllar boyunca araştırmacılar bu soruların cevabını bulmaya çalıştı."
+    ],
+
+    transition:[
+        "Fakat hikâyenin asıl gizemli kısmı tam olarak burada başlıyor.",
+        "Bilinen gerçekler olayın yalnızca bir bölümünü anlatıyor.",
+        "Ayrıntılara yakından bakıldığında kesin bir açıklamaya ulaşmak daha da zorlaşıyor.",
+        "Bu belirsizlik zaman içinde birçok farklı teorinin ortaya çıkmasına neden oldu."
+    ],
+
+    theory:[
+        "Olası açıklamalardan biri doğal koşullara ve dönemin şartlarına dayanıyor.",
+        "Başka bir ihtimal de yıllar boyunca tartışıldı ancak kesin biçimde kanıtlanamadı.",
+        "Bazı araştırmacılar mevcut kanıtların dikkatli değerlendirilmesi gerektiğini belirtiyor.",
+        "Bu nedenle belgelenmiş gerçeklerle sonradan ortaya çıkan teorileri birbirinden ayırmak gerekiyor."
+    ],
+
+    close:[
+        "Bu yüzden bugün bile bütün soruları tek bir cevapla açıklamak mümkün değil.",
+        "Belki de gerçek, birden fazla olayın aynı anda gerçekleşmesinde yatıyor.",
+        "Ne olduğu kesin olarak bilinmese de bu olay gizemini korumaya devam ediyor.",
+        "Belki de onu bu kadar ilginç yapan şey tam olarak cevabın hâlâ bulunamamış olması."
+    ]
+},
+
+en:{
+    intro:[
+        "Today we are looking at a case that still leaves many questions unanswered.",
+        "The story begins with an event that appeared ordinary at first but later became a famous mystery.",
+        "The known details raise more questions than answers.",
+        "For decades, researchers have tried to understand what really happened."
+    ],
+
+    transition:[
+        "But this is where the most mysterious part of the story begins.",
+        "The known facts only tell us part of the story.",
+        "The closer we look at the evidence, the harder it becomes to find one clear explanation.",
+        "That uncertainty eventually produced many different theories."
+    ],
+
+    theory:[
+        "One possible explanation focuses on natural conditions and the circumstances of the time.",
+        "Another possibility has also been discussed, although it has never been conclusively proven.",
+        "Some researchers believe the available evidence should be interpreted cautiously.",
+        "That is why documented facts should be separated from theories created later."
+    ],
+
+    close:[
+        "For that reason, there is still no single answer that explains every question.",
+        "The truth may involve several factors rather than one dramatic explanation.",
+        "Whatever happened, the mystery remains unresolved.",
+        "And perhaps the unanswered questions are exactly what make this case so fascinating."
+    ]
+
+}
+
+};
+
+
+/* =========================================================
+   SENARYO OLUŞTURMA
+========================================================= */
+
+function buildScript(language,mysteryKey,minutes){
+
+    const mystery = MYSTERIES[mysteryKey];
+
+    if(!mystery){
+        throw new Error("Gizemli olay bulunamadı.");
+    }
+
+    const facts = mystery.facts[language];
+
+    const targetWords = targetWordsForMinutes(minutes);
+
+    const parts = [];
+
+    /*
+       Başlık
+    */
+
+    parts.push(mystery.title[language] + ".");
+
+
+    /*
+       Giriş
+    */
+
+    templates[language].intro.forEach(x => parts.push(x));
+
+
+    /*
+       Temel gerçekler
+    */
+
+    facts.forEach(x => parts.push(x));
+
+
+    /*
+       Metin kısa ise kontrollü genişletme.
+       Yeni tarihsel gerçek uydurmuyoruz.
+    */
+
+    let loop = 0;
+
+    while(countWords(parts.join(" ")) < targetWords && loop < 30){
+
+        const transition =
+            templates[language].transition[
+                loop % templates[language].transition.length
+            ];
+
+        const theory =
+            templates[language].theory[
+                loop % templates[language].theory.length
+            ];
+
+        parts.push(transition);
+        parts.push(theory);
+
+        /*
+           Bilinen gerçekleri farklı sırada tekrar etmek yerine
+           araya açıklama bağlayıcıları ekliyoruz.
+        */
+
+        if(loop % 2 === 0){
+
+            const fact =
+                facts[(loop / 2) % facts.length | 0];
+
+            parts.push(fact);
+
+        }
+
+        loop++;
+
+    }
+
+
+    /*
+       Sonuç
+    */
+
+    templates[language].close.forEach(x => parts.push(x));
+
+
+    /*
+       Fazla uzun olduysa hedefe yakın bir noktadan kes.
+       Son cümleleri korumaya çalışıyoruz.
+    */
+
+    let text = parts.join(" ");
+
+    const words = text.split(/\s+/);
+
+    if(words.length > targetWords * 1.12){
+
+        const maxWords = Math.ceil(targetWords * 1.08);
+
+        text = words.slice(0,maxWords).join(" ");
+
+        if(!/[.!?]$/.test(text)){
+            text += ".";
+        }
+
+    }
+
+    return text;
+
+}
+
 
 function createScript(){
 
-    const topic =
-        document
-        .getElementById("topic")
-        .value
-        .trim();
+    const language = languageEl.value;
 
-    const language =
-        document
-        .getElementById("language")
-        .value;
+    const mysteryKey = mysteryEl.value;
 
+    const minutes = Number(scriptDurationEl.value);
 
-    if(!topic){
+    try{
 
-        alert("Önce bir konu yaz.");
-
-        return;
-    }
-
-
-    let m =
-        mysteries.find(
-            x =>
-            x.title.toLowerCase()
-            ===
-            topic.toLowerCase()
-        );
-
-
-    if(!m){
-
-        m =
-            mysteries.find(
-                x =>
-                topic
-                .toLowerCase()
-                .includes(
-                    x.title.toLowerCase()
-                )
+        const text =
+            buildScript(
+                language,
+                mysteryKey,
+                minutes
             );
 
-    }
+        scriptEl.value = text;
 
+        updateScriptStats();
 
-    if(!m){
+        generateScenes();
 
-        document
-        .getElementById("script")
-        .value =
-`Seçilen konu:
+        renderStatus.className = "status success";
 
-${topic}
+        renderStatus.textContent =
+            "✅ Senaryo oluşturuldu.\n" +
+            "Hedef süre: " +
+            minutes +
+            " dakika\n" +
+            "Kelime: " +
+            countWords(text).toLocaleString("tr-TR") +
+            "\n\n" +
+            "Şimdi TTSMaker'da bu metni sese dönüştürüp MP3 dosyasını yükleyebilirsin.";
 
-Bu V12.2 sürümünde doğrulanmamış bilgi uydurmamak için yalnızca yerel gerçek olay arşivindeki konular kullanılmaktadır.
+    }catch(error){
 
-Örnek konular:
+        renderStatus.className = "status error";
 
-Mary Celeste
-Dyatlov Geçidi
-Flannan Adaları Deniz Feneri
-Somerton Adamı
-Roanoke Kolonisi
-Wow! Sinyali
-USS Cyclops
-Oak Island`;
-
-        document
-        .getElementById("scriptStatus")
-        .innerText =
-        "⚠️ Konu arşivde bulunamadı.";
-
-        return;
-    }
-
-
-    let text = "";
-
-
-    if(language === "de"){
-
-        text =
-`Willkommen bei Mystery Nacht.
-
-Heute geht es um eines der rätselhaftesten Ereignisse der Geschichte.
-
-${m.title}.
-
-Im Jahr ${m.year} ereignete sich etwas, das bis heute Fragen aufwirft.
-
-${m.text}
-
-Die entscheidende Frage bleibt:
-
-Was geschah wirklich?
-
-Im Laufe der Jahre wurden verschiedene Erklärungen und Theorien vorgeschlagen.
-
-Doch keine einzelne Erklärung konnte alle offenen Fragen beantworten.
-
-Einige Details bleiben bis heute ungeklärt.
-
-Vielleicht liegt die Wahrheit zwischen den bekannten Fakten und den Dingen, die wir niemals erfahren werden.
-
-Das Rätsel bleibt bestehen.`;
+        renderStatus.textContent =
+            "❌ Senaryo oluşturulamadı: " +
+            error.message;
 
     }
-    else if(language === "en"){
-
-        text =
-`Welcome to Mystery Nacht.
-
-Today we are looking at one of the most mysterious events in history.
-
-${m.title}.
-
-In ${m.year}, something happened that continues to raise questions.
-
-${m.text}
-
-The central question remains:
-
-What really happened?
-
-Over the years, several explanations and theories have been proposed.
-
-But no single explanation has answered every open question.
-
-Some details remain unexplained.
-
-Perhaps the truth lies somewhere between the facts we know and the things we may never discover.
-
-The mystery remains.`;
-
-    }
-    else{
-
-        text =
-`Mystery Nacht'a hoş geldiniz.
-
-Bugün tarihin en gizemli olaylarından birine bakıyoruz.
-
-${m.title}.
-
-${m.year} yılında yaşanan bu olay bugün bile birçok soru işareti taşıyor.
-
-${m.text}
-
-Asıl soru hâlâ aynı:
-
-Gerçekte ne oldu?
-
-Yıllar boyunca olay hakkında farklı açıklamalar ve teoriler ortaya atıldı.
-
-Ancak hiçbir açıklama bütün açık soruları kesin olarak cevaplamadı.
-
-Bazı ayrıntılar bugün bile açıklanamıyor.
-
-Belki de gerçek, bildiğimiz gerçeklerle asla öğrenemeyeceğimiz şeylerin arasında saklı.
-
-Gizem hâlâ devam ediyor.`;
-
-    }
-
-
-    const title =
-        makeTitle(
-            m,
-            language
-        );
-
-
-    document
-    .getElementById("script")
-    .value =
-        title
-        + "\n\n"
-        + text;
-
-
-    document
-    .getElementById("scriptStatus")
-    .innerText =
-        "✅ Tam senaryo oluşturuldu: "
-        + m.title;
 
 }
 
 
-/* =====================================================
-   AUDIO FILE
-===================================================== */
+$("generateScriptBtn").addEventListener(
+    "click",
+    createScript
+);
 
-document
-.getElementById("audioFile")
-.addEventListener(
-    "change",
-    async function(){
 
-        const file =
-            this.files[0];
+/* =========================================================
+   SENARYO İSTATİSTİĞİ
+========================================================= */
 
-        if(!file){
+function updateScriptStats(){
 
-            selectedAudio = null;
+    const text = scriptEl.value.trim();
 
-            audioDuration = 0;
+    const words = countWords(text);
 
-            document
-            .getElementById("audioStatus")
-            .innerText =
-                "Ses dosyası seçilmedi.";
+    const chars = text.length;
+
+    $("scriptStats").textContent =
+        words.toLocaleString("tr-TR") +
+        " kelime • " +
+        chars.toLocaleString("tr-TR") +
+        " karakter";
+
+}
+
+scriptEl.addEventListener(
+    "input",
+    updateScriptStats
+);
+
+
+/* =========================================================
+   KOPYALA
+========================================================= */
+
+$("copyScriptBtn").addEventListener(
+    "click",
+    async ()=>{
+
+        const text = scriptEl.value.trim();
+
+        if(!text){
+
+            alert("Önce bir senaryo oluştur.");
 
             return;
         }
 
-
-        selectedAudio = file;
-
-
-        document
-        .getElementById("audioStatus")
-        .innerText =
-            "⏳ Ses süresi okunuyor...";
-
-
         try{
 
-            const url =
-                URL.createObjectURL(file);
+            await navigator.clipboard.writeText(text);
 
-            const audio =
-                new Audio();
+            renderStatus.className = "status success";
 
-            audio.preload =
-                "metadata";
+            renderStatus.textContent =
+                "📋 Senaryo panoya kopyalandı.";
 
-            audio.src =
-                url;
+        }catch(e){
 
+            scriptEl.select();
 
-            await new Promise(
-                (resolve,reject)=>{
+            document.execCommand("copy");
 
-                    audio.onloadedmetadata =
-                        resolve;
+            renderStatus.className = "status success";
 
-                    audio.onerror =
-                        reject;
-
-                }
-            );
-
-
-            audioDuration =
-                audio.duration;
-
-
-            URL.revokeObjectURL(url);
-
-
-            document
-            .getElementById("audioDuration")
-            .innerText =
-                formatTime(
-                    audioDuration
-                );
-
-
-            document
-            .getElementById("videoDuration")
-            .innerText =
-                formatTime(
-                    audioDuration
-                );
-
-
-            document
-            .getElementById("audioStatus")
-            .innerText =
-                "✅ Ses hazır: "
-                + file.name
-                + " | Süre: "
-                + formatTime(audioDuration);
-
-
-            /*
-               Ses değiştiğinde sahneleri
-               yeniden zamanla.
-            */
-
-            if(scenes.length){
-
-                redistributeScenes();
-
-                drawScenes();
-
-            }
-
-
-        }catch(error){
-
-            console.error(error);
-
-            document
-            .getElementById("audioStatus")
-            .innerText =
-                "❌ Ses süresi okunamadı: "
-                + error.message;
+            renderStatus.textContent =
+                "📋 Senaryo kopyalandı.";
 
         }
 
@@ -1021,1037 +1548,1248 @@ document
 );
 
 
-/* =====================================================
-   FORMAT TIME
-===================================================== */
+/* =========================================================
+   TEMİZLE
+========================================================= */
 
-function formatTime(seconds){
+$("clearScriptBtn").addEventListener(
+    "click",
+    ()=>{
 
-    if(!Number.isFinite(seconds)){
-        return "--:--";
+        scriptEl.value = "";
+
+        scenes = [];
+
+        scenesEl.innerHTML = "";
+
+        updateScriptStats();
+
+        renderStatus.className = "status";
+
+        renderStatus.textContent =
+            "Senaryo temizlendi.";
+
     }
-
-    seconds =
-        Math.max(
-            0,
-            Math.round(seconds)
-        );
+);
 
 
-    const min =
-        Math.floor(
-            seconds / 60
-        );
+/* =========================================================
+   GÖRSEL TARZI
+========================================================= */
 
-    const sec =
-        seconds % 60;
+const styleText = {
+
+    cinematic:
+        "cinematic movie still, dramatic lighting, realistic atmosphere",
+
+    fantasy:
+        "dark fantasy cinematic artwork, mysterious atmosphere",
+
+    scifi:
+        "science fiction cinematic scene, mysterious futuristic atmosphere",
+
+    "3d":
+        "high quality 3D animated cinematic scene",
+
+    "2d":
+        "detailed 2D illustrated animation style",
+
+    dark:
+        "dark mysterious cinematic atmosphere, realistic shadows, suspense",
+
+    photo:
+        "photorealistic documentary photography, cinematic lighting",
+
+    action:
+        "dynamic cinematic action scene, dramatic lighting",
+
+    medieval:
+        "historical medieval cinematic scene, detailed environment",
+
+    epic:
+        "epic cinematic scene, dramatic atmosphere, large scale"
+};
 
 
-    return String(min)
-        .padStart(2,"0")
-        + ":"
-        + String(sec)
-        .padStart(2,"0");
-}
+/* =========================================================
+   SAHNE PROMPTU
+========================================================= */
 
-
-/* =====================================================
-   GET FULL SCRIPT
-===================================================== */
-
-function getFullScript(){
-
-    return document
-        .getElementById("script")
-        .value
-        .trim();
-
-}
-
-
-/* =====================================================
-   SPLIT SCRIPT
-   Karakter yoğunluğuna göre.
-   Böylece bütün metin kullanılır.
-===================================================== */
-
-function splitTextByWeight(
-    text,
-    count
+function createScenePrompt(
+    mystery,
+    language,
+    index,
+    total
 ){
 
-    if(count <= 1){
+    const title = mystery.title[language];
 
-        return [text];
+    const style =
+        styleText[styleEl.value] ||
+        styleText.dark;
 
-    }
+    const facts =
+        mystery.facts[language];
 
+    const fact =
+        facts[index % facts.length];
 
-    /*
-       Boş satırları koruyarak
-       paragraf bazlı çalışıyoruz.
-    */
-
-    const paragraphs =
-        text
-        .split(/\n+/)
-        .map(
-            x=>x.trim()
-        )
-        .filter(
-            x=>x.length>0
-        );
-
-
-    if(!paragraphs.length){
-
-        return new Array(count)
-            .fill("");
-
-    }
-
-
-    const totalLength =
-        paragraphs
-        .reduce(
-            (sum,p)=>
-                sum+p.length,
-            0
-        );
-
-
-    const target =
-        totalLength / count;
-
-
-    const result = [];
-
-    let current = "";
-
-    let currentLength = 0;
-
-
-    for(
-        let i=0;
-        i<paragraphs.length;
-        i++
-    ){
-
-        const p =
-            paragraphs[i];
-
-
-        const remaining =
-            paragraphs.length-i;
-
-
-        const remainingSlots =
-            count-result.length;
-
-
-        /*
-           Son parçaların boş kalmasını
-           engelle.
-        */
-
-        if(
-            remaining <=
-            remainingSlots
-            &&
-            current
-        ){
-
-            result.push(
-                current.trim()
-            );
-
-            current = "";
-
-            currentLength = 0;
-
-        }
-
-
-        if(
-            current
-            &&
-            currentLength+p.length
-            >
-            target
-            &&
-            result.length < count-1
-        ){
-
-            result.push(
-                current.trim()
-            );
-
-            current = p;
-
-            currentLength =
-                p.length;
-
-        }else{
-
-            current +=
-                (current ? "\n\n" : "")
-                + p;
-
-            currentLength +=
-                p.length;
-
-        }
-
-    }
-
-
-    if(current){
-
-        result.push(
-            current.trim()
-        );
-
-    }
-
-
-    /*
-       Eksik sahneleri boş yerine
-       mevcut metinden doldur.
-    */
-
-    while(result.length < count){
-
-        result.push("");
-
-    }
-
-
-    return result;
+    return (
+        style +
+        ", documentary quality, no text, no subtitles, " +
+        "16:9 composition, atmospheric composition, " +
+        "visual representation of: " +
+        title +
+        ". " +
+        fact
+    );
 
 }
 
 
-/* =====================================================
-   CREATE SCENES
-===================================================== */
+/* =========================================================
+   SAHNE OLUŞTURMA
+========================================================= */
 
-function createScenes(){
+function generateScenes(){
 
-    const script =
-        getFullScript();
+    const text = scriptEl.value.trim();
 
+    if(!text){
 
-    if(!script){
-
-        alert(
-            "Önce senaryoyu oluştur."
-        );
+        scenesEl.innerHTML = "";
 
         return;
     }
 
-
     const count =
-        Number(
-            document
-            .getElementById("sceneCount")
-            .value
-        );
+        Number(sceneCountEl.value);
 
+    const mystery =
+        MYSTERIES[mysteryEl.value];
+
+    const language =
+        languageEl.value;
+
+    const sentences =
+        splitIntoSentences(text);
 
     const chunks =
-        splitTextByWeight(
-            script,
+        distributeSentences(
+            sentences,
             count
         );
 
+    scenes = [];
 
-    scenes =
-        chunks.map(
-            (text,index)=>({
+    for(let i=0;i<count;i++){
 
-                number:index+1,
+        const subtitle =
+            chunks[i] || "";
 
-                subtitle:text,
+        scenes.push({
 
-                image:null,
+            index:i,
 
-                start:0,
+            start:0,
 
-                end:0,
+            end:0,
 
-                duration:0
+            duration:0,
 
-            })
-        );
+            subtitle,
 
+            image:null,
 
-    redistributeScenes();
+            imageObject:null,
 
-    drawScenes();
+            prompt:
+                createScenePrompt(
+                    mystery,
+                    language,
+                    i,
+                    count
+                )
 
+        });
 
-    document
-    .getElementById("renderStatus")
-    .innerText =
-        "✅ "
-        + count
-        + " sahne oluşturuldu.";
+    }
+
+    renderSceneEditors();
 
 }
 
 
-/* =====================================================
-   DISTRIBUTE SCENES OVER AUDIO
-===================================================== */
+sceneCountEl.addEventListener(
+    "change",
+    ()=>{
+        generateScenes();
+    }
+);
 
-function redistributeScenes(){
+styleEl.addEventListener(
+    "change",
+    ()=>{
+        generateScenes();
+    }
+);
+
+languageEl.addEventListener(
+    "change",
+    ()=>{
+        /*
+           Dil değiştiğinde script varsa yeni script
+           üretmek daha doğru.
+        */
+
+        if(scriptEl.value.trim()){
+
+            generateScenes();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CÜMLE AYIRMA
+========================================================= */
+
+function splitIntoSentences(text){
+
+    const cleaned =
+        text
+        .replace(/\s+/g," ")
+        .trim();
+
+    if(!cleaned){
+        return [];
+    }
+
+    const matches =
+        cleaned.match(
+            /[^.!?]+[.!?]+|[^.!?]+$/g
+        );
+
+    return (
+        matches ||
+        [cleaned]
+    )
+    .map(x=>x.trim())
+    .filter(Boolean);
+
+}
+
+
+/* =========================================================
+   CÜMLELERİ SAHNELERE DAĞIT
+========================================================= */
+
+function distributeSentences(sentences,count){
+
+    if(!sentences.length){
+
+        return new Array(count).fill("");
+
+    }
+
+    const result =
+        new Array(count)
+        .fill("")
+        .map(()=>[]);
+
+    for(let i=0;i<sentences.length;i++){
+
+        const target =
+            Math.floor(
+                i * count / sentences.length
+            );
+
+        result[
+            Math.min(count-1,target)
+        ].push(sentences[i]);
+
+    }
+
+    return result.map(x=>x.join(" "));
+
+}
+
+
+/* =========================================================
+   SAHNE EDITÖRLERİ
+========================================================= */
+
+function renderSceneEditors(){
+
+    scenesEl.innerHTML = "";
+
+    scenes.forEach((scene,index)=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className = "scene";
+
+        div.innerHTML = `
+
+            <div class="sceneHead">
+
+                <div class="sceneNumber">
+                    🎬 SAHNE ${index+1}
+                </div>
+
+                <div
+                    class="sceneTime"
+                    id="sceneTime${index}"
+                >
+                    00:00 → 00:00
+                </div>
+
+            </div>
+
+            <div class="sceneBody">
+
+                <img
+                    id="sceneImage${index}"
+                    class="sceneImage"
+                    alt="Sahne ${index+1}"
+                >
+
+                <div class="row">
+
+                    <label
+                        for="sceneFile${index}"
+                        style="
+                            margin:0;
+                            background:#273148;
+                            padding:10px 13px;
+                            border-radius:10px;
+                            cursor:pointer;
+                        "
+                    >
+                        🖼️ Görsel Ekle
+                    </label>
+
+                    <input
+                        id="sceneFile${index}"
+                        type="file"
+                        accept="image/*"
+                        class="hidden"
+                    >
+
+                    <button
+                        class="small"
+                        data-copy="${index}"
+                    >
+                        📋 Promptu Kopyala
+                    </button>
+
+                </div>
+
+                <div
+                    id="sceneFileName${index}"
+                    class="fileName"
+                >
+                    Görsel seçilmedi.
+                </div>
+
+                <label style="margin-top:14px">
+                    🎨 Görsel Promptu
+                </label>
+
+                <textarea
+                    id="scenePrompt${index}"
+                    class="scenePrompt"
+                ></textarea>
+
+                <label style="margin-top:14px">
+                    💬 Sahne Altyazı Metni
+                </label>
+
+                <textarea
+                    id="sceneSubtitle${index}"
+                    style="min-height:130px"
+                ></textarea>
+
+            </div>
+        `;
+
+        scenesEl.appendChild(div);
+
+
+        /*
+           Prompt
+        */
+
+        const promptEl =
+            $(`scenePrompt${index}`);
+
+        promptEl.value =
+            scene.prompt;
+
+
+        /*
+           Subtitle
+        */
+
+        const subtitleEl =
+            $(`sceneSubtitle${index}`);
+
+        subtitleEl.value =
+            scene.subtitle;
+
+
+        subtitleEl.addEventListener(
+            "input",
+            ()=>{
+                scene.subtitle =
+                    subtitleEl.value;
+            }
+        );
+
+
+        promptEl.addEventListener(
+            "input",
+            ()=>{
+                scene.prompt =
+                    promptEl.value;
+            }
+        );
+
+
+        /*
+           Görsel yükleme
+        */
+
+        $(`sceneFile${index}`)
+            .addEventListener(
+                "change",
+                event=>{
+
+                    const file =
+                        event.target.files[0];
+
+                    if(!file){
+                        return;
+                    }
+
+                    const reader =
+                        new FileReader();
+
+                    reader.onload = e=>{
+
+                        scene.image =
+                            e.target.result;
+
+                        const img =
+                            $(`sceneImage${index}`);
+
+                        img.src =
+                            scene.image;
+
+                        $(`sceneFileName${index}`)
+                            .textContent =
+                            "✅ " + file.name;
+
+                        loadImageObject(scene);
+
+                    };
+
+                    reader.readAsDataURL(file);
+
+                }
+            );
+
+
+    });
+
+
+    /*
+       Prompt kopyalama
+    */
+
+    scenesEl
+        .querySelectorAll("[data-copy]")
+        .forEach(button=>{
+
+            button.addEventListener(
+                "click",
+                async ()=>{
+
+                    const index =
+                        Number(
+                            button.dataset.copy
+                        );
+
+                    try{
+
+                        await navigator.clipboard.writeText(
+                            scenes[index].prompt
+                        );
+
+                        renderStatus.className =
+                            "status success";
+
+                        renderStatus.textContent =
+                            "📋 Sahne promptu kopyalandı.";
+
+                    }catch(e){
+
+                        alert(
+                            scenes[index].prompt
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+}
+
+
+function loadImageObject(scene){
+
+    if(!scene.image){
+        scene.imageObject = null;
+        return;
+    }
+
+    const img =
+        new Image();
+
+    img.onload = ()=>{
+        scene.imageObject = img;
+    };
+
+    img.src = scene.image;
+
+}
+
+
+/* =========================================================
+   ALTYAZI CHUNK SİSTEMİ
+========================================================= */
+
+/*
+   Bu sistem V12.2'deki önemli sorunu çözüyor:
+   uzun sahne metninin sadece ilk birkaç satırının
+   gösterilmesini engelliyor.
+
+   Senaryonun tamamı küçük altyazı parçalarına bölünüyor.
+*/
+
+let subtitleTimeline = [];
+
+
+function createSubtitleTimeline(text,totalDuration){
+
+    subtitleTimeline = [];
+
+    const clean =
+        text
+        .replace(/\s+/g," ")
+        .trim();
+
+    if(!clean || !totalDuration){
+
+        return;
+
+    }
+
+    const words =
+        clean.split(/\s+/);
+
+    /*
+       Her altyazı yaklaşık 10-14 kelime.
+       Uzun metinler için daha rahat okunur.
+    */
+
+    const chunks = [];
+
+    let current = [];
+
+    for(let i=0;i<words.length;i++){
+
+        current.push(words[i]);
+
+        if(
+            current.length >= 12 ||
+            /[.!?]$/.test(words[i])
+        ){
+
+            chunks.push(
+                current.join(" ")
+            );
+
+            current = [];
+
+        }
+
+    }
+
+    if(current.length){
+
+        chunks.push(
+            current.join(" ")
+        );
+
+    }
+
+
+    /*
+       Süreyi karakter sayısına göre dağıt.
+       Böylece uzun cümleler biraz daha uzun görünür.
+    */
+
+    const weights =
+        chunks.map(
+            x=>Math.max(1,x.length)
+        );
+
+    const totalWeight =
+        weights.reduce(
+            (a,b)=>a+b,
+            0
+        );
+
+    let cursor = 0;
+
+    chunks.forEach(
+        (chunk,index)=>{
+
+            const duration =
+                totalDuration *
+                (
+                    weights[index] /
+                    totalWeight
+                );
+
+            subtitleTimeline.push({
+
+                start:cursor,
+
+                end:
+                    cursor +
+                    duration,
+
+                text:chunk
+
+            });
+
+            cursor += duration;
+
+        }
+    );
+
+}
+
+
+function getActiveSubtitle(time){
+
+    if(!subtitleTimeline.length){
+
+        return "";
+
+    }
+
+    for(
+        let i=0;
+        i<subtitleTimeline.length;
+        i++
+    ){
+
+        const item =
+            subtitleTimeline[i];
+
+        if(
+            time >= item.start &&
+            time < item.end
+        ){
+
+            return item.text;
+
+        }
+
+    }
+
+    return subtitleTimeline[
+        subtitleTimeline.length-1
+    ].text;
+
+}
+
+
+/* =========================================================
+   SES DOSYASI
+========================================================= */
+
+audioFileEl.addEventListener(
+    "change",
+    async event=>{
+
+        const file =
+            event.target.files[0];
+
+        if(!file){
+            return;
+        }
+
+        uploadedAudio = file;
+
+        audioDuration = 0;
+
+        const url =
+            URL.createObjectURL(file);
+
+        audioPreview.src = url;
+
+        audioPreview.classList.remove(
+            "hidden"
+        );
+
+        audioInfo.className =
+            "status";
+
+        audioInfo.textContent =
+            "⏳ Ses süresi okunuyor...";
+
+
+        try{
+
+            const duration =
+                await readAudioDuration(file);
+
+            audioDuration =
+                duration;
+
+            audioInfo.className =
+                "status success";
+
+            audioInfo.textContent =
+                "🎙️ Ses dosyası hazır.\n" +
+                "Gerçek ses süresi: " +
+                formatTime(duration) +
+                "\n" +
+                "Video da bu süreye göre oluşturulacak.";
+
+            updateSceneTiming();
+
+        }catch(error){
+
+            audioInfo.className =
+                "status error";
+
+            audioInfo.textContent =
+                "❌ Ses süresi okunamadı.\n" +
+                error.message;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SES SÜRESİ OKUMA
+========================================================= */
+
+function readAudioDuration(file){
+
+    return new Promise(
+        (resolve,reject)=>{
+
+            const audio =
+                document.createElement("audio");
+
+            const url =
+                URL.createObjectURL(file);
+
+            audio.preload = "metadata";
+
+            audio.onloadedmetadata = ()=>{
+
+                const duration =
+                    audio.duration;
+
+                URL.revokeObjectURL(url);
+
+                if(
+                    isFinite(duration) &&
+                    duration > 0
+                ){
+
+                    resolve(duration);
+
+                }else{
+
+                    reject(
+                        new Error(
+                            "Geçerli ses süresi bulunamadı."
+                        )
+                    );
+
+                }
+
+            };
+
+            audio.onerror = ()=>{
+
+                URL.revokeObjectURL(url);
+
+                reject(
+                    new Error(
+                        "Ses dosyası okunamadı."
+                    )
+                );
+
+            };
+
+            audio.src = url;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SES BUFFER
+========================================================= */
+
+async function decodeAudioFile(file){
+
+    const arrayBuffer =
+        await file.arrayBuffer();
+
+    const AudioCtx =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+    if(!AudioCtx){
+
+        throw new Error(
+            "Tarayıcınız Web Audio API desteklemiyor."
+        );
+
+    }
+
+    const tempContext =
+        new AudioCtx();
+
+    try{
+
+        const buffer =
+            await tempContext.decodeAudioData(
+                arrayBuffer.slice(0)
+            );
+
+        return buffer;
+
+    }finally{
+
+        try{
+            await tempContext.close();
+        }catch(e){}
+
+    }
+
+}
+
+
+/* =========================================================
+   SAHNE ZAMANLARI
+========================================================= */
+
+function updateSceneTiming(){
 
     if(!scenes.length){
         return;
     }
 
+    if(!audioDuration){
 
-    const duration =
-        audioDuration>0
-        ? audioDuration
-        : scenes.length*5;
-
+        return;
+    }
 
     /*
-       Metin uzunluklarına göre
-       zaman ağırlığı hesaplıyoruz.
+       Sahne süreleri subtitle karakter yoğunluğuna
+       göre dağıtılır.
     */
 
-    const lengths =
+    const weights =
         scenes.map(
-            s =>
-            Math.max(
-                1,
-                s.subtitle
-                .replace(/\s+/g," ")
-                .trim()
-                .length
-            )
+            scene=>
+                Math.max(
+                    20,
+                    scene.subtitle.length
+                )
         );
 
-
     const total =
-        lengths.reduce(
+        weights.reduce(
             (a,b)=>a+b,
             0
         );
 
-
-    let current=0;
-
+    let cursor = 0;
 
     scenes.forEach(
         (scene,index)=>{
 
-            const part =
-                lengths[index] / total;
-
-            const d =
-                duration * part;
-
-
-            scene.start =
-                current;
-
-            scene.duration =
-                d;
-
-            scene.end =
-                current+d;
-
-
-            current += d;
-
-        }
-    );
-
-
-    /*
-       Yuvarlama hatasını son sahneye
-       ekliyoruz.
-    */
-
-    if(scenes.length){
-
-        scenes[
-            scenes.length-1
-        ].end = duration;
-
-        scenes[
-            scenes.length-1
-        ].duration =
-            duration -
-            scenes[
-                scenes.length-1
-            ].start;
-
-    }
-
-}
-
-
-/* =====================================================
-   DRAW SCENES UI
-===================================================== */
-
-function drawScenes(){
-
-    const box =
-        document
-        .getElementById("scenes");
-
-
-    box.innerHTML = "";
-
-
-    scenes.forEach(
-        (scene,index)=>{
-
-            const div =
-                document
-                .createElement("div");
-
-
-            div.className =
-                "scene";
-
-
-            const imageHTML =
-                scene.image
-                ?
-                `
-                <img
-                    src="${scene.image}"
-                    alt="Sahne ${scene.number}"
-                >
-                <div class="imageLabel">
-                    🖼️ Görsel hazır
-                </div>
-                `
-                :
-                `
-                <div>
-                    🖼️<br><br>
-                    Bu sahneye görsel ekle
-                </div>
-                `;
-
-
-            div.innerHTML = `
-
-<div class="sceneHeader">
-
-    <div class="sceneTitle">
-        🎬 Sahne ${scene.number}
-    </div>
-
-    <div class="sceneTime">
-        ${formatTime(scene.start)}
-        →
-        ${formatTime(scene.end)}
-        (${scene.duration.toFixed(1)} sn)
-    </div>
-
-</div>
-
-
-<div
-    class="imageBox"
-    id="imageBox${index}"
->
-    ${imageHTML}
-</div>
-
-
-<label
-    for="imageInput${index}"
-    class="fileButton"
->
-    🖼️ Görsel Ekle
-</label>
-
-<input
-    id="imageInput${index}"
-    class="hiddenFile"
-    type="file"
-    accept="image/*"
-    onchange="loadSceneImage(${index},this)"
->
-
-
-<button
-    class="secondary"
-    onclick="removeSceneImage(${index})"
->
-    🗑️ Görseli Kaldır
-</button>
-
-
-<label>
-    Bu sahnede gösterilecek altyazı
-</label>
-
-<textarea
-    id="sceneText${index}"
->${escapeHTML(scene.subtitle)}</textarea>
-
-
-<label>
-    Görsel Promptu
-</label>
-
-<textarea
-    id="scenePrompt${index}"
->cinematic mysterious historical scene, ${escapeHTML(
-    scene.subtitle
-)}, dark atmosphere, realistic photography, dramatic lighting, cinematic composition, 16:9</textarea>
-
-
-<button
-    class="secondary"
-    onclick="copyPrompt(${index})"
->
-    📋 Promptu Kopyala
-</button>
-
-`;
-
-
-            box.appendChild(div);
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   LOAD IMAGE
-===================================================== */
-
-function loadSceneImage(
-    index,
-    input
-){
-
-    const file =
-        input.files[0];
-
-
-    if(!file){
-        return;
-    }
-
-
-    if(
-        !file.type.startsWith("image/")
-    ){
-
-        alert(
-            "Lütfen bir görsel dosyası seç."
-        );
-
-        return;
-    }
-
-
-    /*
-       Eski URL varsa temizle.
-    */
-
-    if(imageURLs[index]){
-
-        try{
-            URL.revokeObjectURL(
-                imageURLs[index]
-            );
-        }catch(e){}
-
-    }
-
-
-    const url =
-        URL.createObjectURL(file);
-
-
-    imageURLs[index] =
-        url;
-
-
-    /*
-       Canvas için kullanılabilmesi
-       amacıyla DataURL'a çeviriyoruz.
-    */
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function(e){
-
-            scenes[index].image =
-                e.target.result;
-
-            drawScenes();
-
-        };
-
-
-    reader.readAsDataURL(file);
-
-}
-
-
-/* =====================================================
-   REMOVE IMAGE
-===================================================== */
-
-function removeSceneImage(index){
-
-    scenes[index].image =
-        null;
-
-
-    if(imageURLs[index]){
-
-        try{
-
-            URL.revokeObjectURL(
-                imageURLs[index]
-            );
-
-        }catch(e){}
-
-        imageURLs[index]=null;
-
-    }
-
-
-    drawScenes();
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(text){
-
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;");
-
-}
-
-
-/* =====================================================
-   COPY PROMPT
-===================================================== */
-
-async function copyPrompt(index){
-
-    const el =
-        document
-        .getElementById(
-            "scenePrompt"+index
-        );
-
-
-    if(!el){
-        return;
-    }
-
-
-    try{
-
-        await navigator.clipboard
-            .writeText(
-                el.value
-            );
-
-        alert(
-            "Prompt kopyalandı."
-        );
-
-    }catch(error){
-
-        el.select();
-
-        document
-        .execCommand("copy");
-
-        alert(
-            "Prompt kopyalandı."
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   UPDATE SCENE TEXT FROM UI
-===================================================== */
-
-function syncSceneTexts(){
-
-    scenes.forEach(
-        (scene,index)=>{
-
-            const el =
-                document
-                .getElementById(
-                    "sceneText"+index
+            const duration =
+                audioDuration *
+                (
+                    weights[index] /
+                    total
                 );
 
+            scene.start =
+                cursor;
 
-            if(el){
+            scene.end =
+                cursor + duration;
 
-                scene.subtitle =
-                    el.value;
+            scene.duration =
+                duration;
+
+            cursor += duration;
+
+            const timeEl =
+                $(`sceneTime${index}`);
+
+            if(timeEl){
+
+                timeEl.textContent =
+                    formatTime(scene.start) +
+                    " → " +
+                    formatTime(scene.end);
 
             }
 
         }
     );
 
-
-    /*
-       Kullanıcı sahne metnini değiştirdiyse
-       zamanları tekrar hesapla.
-    */
-
-    redistributeScenes();
-
-}
-
-
-/* =====================================================
-   LOAD IMAGE OBJECT
-===================================================== */
-
-function loadImage(src){
-
-    return new Promise(
-        (resolve,reject)=>{
-
-            const img =
-                new Image();
-
-            img.onload =
-                ()=>resolve(img);
-
-            img.onerror =
-                ()=>reject(
-                    new Error(
-                        "Görsel yüklenemedi."
-                    )
-                );
-
-            img.src =
-                src;
-
-        }
+    createSubtitleTimeline(
+        scriptEl.value,
+        audioDuration
     );
 
 }
 
 
-/* =====================================================
-   DRAW COVER IMAGE
-===================================================== */
+/* =========================================================
+   AUDIO BUFFER + TIMING
+========================================================= */
 
-function drawCoverImage(
+async function prepareAudioBuffer(){
+
+    if(!uploadedAudio){
+
+        throw new Error(
+            "Önce TTSMaker ses dosyasını yükle."
+        );
+
+    }
+
+    audioBuffer =
+        await decodeAudioFile(
+            uploadedAudio
+        );
+
+    audioDuration =
+        audioBuffer.duration;
+
+    createSubtitleTimeline(
+        scriptEl.value,
+        audioDuration
+    );
+
+    updateSceneTiming();
+
+}
+
+
+/* =========================================================
+   SCENE BUL
+========================================================= */
+
+function getSceneAtTime(time){
+
+    if(!scenes.length){
+
+        return null;
+
+    }
+
+    for(let i=0;i<scenes.length;i++){
+
+        if(
+            time >= scenes[i].start &&
+            time < scenes[i].end
+        ){
+
+            return scenes[i];
+
+        }
+
+    }
+
+    return scenes[scenes.length-1];
+
+}
+
+
+/* =========================================================
+   IMAGE COVER DRAW
+========================================================= */
+
+function drawImageCover(
     ctx,
     img,
+    x,
+    y,
     width,
     height
 ){
 
-    const iw =
-        img.naturalWidth ||
-        img.width;
+    if(!img || !img.naturalWidth){
 
-    const ih =
-        img.naturalHeight ||
-        img.height;
-
-
-    if(!iw || !ih){
-
-        return;
+        return false;
 
     }
 
+    const iw =
+        img.naturalWidth;
+
+    const ih =
+        img.naturalHeight;
 
     const scale =
         Math.max(
-            width/iw,
-            height/ih
+            width / iw,
+            height / ih
         );
 
-
     const nw =
-        iw*scale;
+        iw * scale;
 
     const nh =
-        ih*scale;
+        ih * scale;
 
+    const dx =
+        x + (width-nw)/2;
 
-    const x =
-        (width-nw)/2;
-
-    const y =
-        (height-nh)/2;
-
+    const dy =
+        y + (height-nh)/2;
 
     ctx.drawImage(
         img,
-        x,
-        y,
+        dx,
+        dy,
         nw,
         nh
+    );
+
+    return true;
+
+}
+
+
+/* =========================================================
+   KANVAS ARKA PLAN
+========================================================= */
+
+function drawBackground(){
+
+    const w =
+        renderCanvas.width;
+
+    const h =
+        renderCanvas.height;
+
+    const gradient =
+        ctx.createRadialGradient(
+            w/2,
+            h/2,
+            50,
+            w/2,
+            h/2,
+            h
+        );
+
+    gradient.addColorStop(
+        0,
+        "#27334d"
+    );
+
+    gradient.addColorStop(
+        .45,
+        "#101827"
+    );
+
+    gradient.addColorStop(
+        1,
+        "#020306"
+    );
+
+    ctx.fillStyle =
+        gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        w,
+        h
     );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    WRAP TEXT
-===================================================== */
+========================================================= */
 
 function wrapText(
-    ctx,
     text,
-    maxWidth
+    maxWidth,
+    font
 ){
 
+    ctx.font = font;
+
     const words =
-        text
-        .replace(/\s+/g," ")
-        .trim()
-        .split(" ");
+        String(text)
+        .split(/\s+/);
 
+    const lines = [];
 
-    const lines=[];
-
-    let line="";
-
+    let line = "";
 
     for(
-        const word
-        of words
+        let i=0;
+        i<words.length;
+        i++
     ){
 
         const test =
             line
-            ? line+" "+word
-            : word;
-
-
-        const width =
-            ctx
-            .measureText(test)
-            .width;
-
+            ? line + " " + words[i]
+            : words[i];
 
         if(
-            width > maxWidth
-            &&
+            ctx.measureText(test).width >
+                maxWidth &&
             line
         ){
 
             lines.push(line);
 
-            line=word;
+            line =
+                words[i];
 
         }else{
 
-            line=test;
+            line =
+                test;
 
         }
 
     }
 
-
     if(line){
         lines.push(line);
     }
-
 
     return lines;
 
 }
 
 
-/* =====================================================
-   DRAW FRAME
-===================================================== */
+/* =========================================================
+   FRAME ÇİZ
+========================================================= */
 
-function drawFrame(
-    ctx,
-    scene,
-    sceneIndex,
-    sceneElapsed,
-    sceneDuration,
-    loadedImage
-){
+function drawFrame(time){
 
-    const W =
-        ctx.canvas.width;
+    const w =
+        renderCanvas.width;
 
-    const H =
-        ctx.canvas.height;
+    const h =
+        renderCanvas.height;
 
 
     /*
-       Background
+       Önce arka plan
     */
 
+    drawBackground();
+
+
+    /*
+       Aktif sahne
+    */
+
+    const scene =
+        getSceneAtTime(time);
+
+    if(scene){
+
+        if(scene.imageObject){
+
+            drawImageCover(
+                ctx,
+                scene.imageObject,
+                0,
+                0,
+                w,
+                h
+            );
+
+        }
+
+    }
+
+
+    /*
+       Sinematik karartma
+    */
+
+    const overlay =
+        ctx.createLinearGradient(
+            0,
+            0,
+            0,
+            h
+        );
+
+    overlay.addColorStop(
+        0,
+        "rgba(0,0,0,.18)"
+    );
+
+    overlay.addColorStop(
+        .55,
+        "rgba(0,0,0,.18)"
+    );
+
+    overlay.addColorStop(
+        1,
+        "rgba(0,0,0,.78)"
+    );
+
     ctx.fillStyle =
-        "#05070c";
+        overlay;
 
     ctx.fillRect(
         0,
         0,
-        W,
-        H
+        w,
+        h
     );
-
-
-    /*
-       Görsel
-    */
-
-    if(loadedImage){
-
-        drawCoverImage(
-            ctx,
-            loadedImage,
-            W,
-            H
-        );
-
-        /*
-           Sinematik karartma
-        */
-
-        const overlay =
-            ctx.createLinearGradient(
-                0,
-                0,
-                0,
-                H
-            );
-
-        overlay.addColorStop(
-            0,
-            "rgba(0,0,0,.35)"
-        );
-
-        overlay.addColorStop(
-            .55,
-            "rgba(0,0,0,.10)"
-        );
-
-        overlay.addColorStop(
-            1,
-            "rgba(0,0,0,.78)"
-        );
-
-        ctx.fillStyle =
-            overlay;
-
-        ctx.fillRect(
-            0,
-            0,
-            W,
-            H
-        );
-
-    }else{
-
-        const gradient =
-            ctx.createRadialGradient(
-                W/2,
-                H*.35,
-                50,
-                W/2,
-                H*.45,
-                850
-            );
-
-        gradient.addColorStop(
-            0,
-            "#304665"
-        );
-
-        gradient.addColorStop(
-            .45,
-            "#111a2a"
-        );
-
-        gradient.addColorStop(
-            1,
-            "#03050a"
-        );
-
-        ctx.fillStyle =
-            gradient;
-
-        ctx.fillRect(
-            0,
-            0,
-            W,
-            H
-        );
-
-
-        /*
-           Gizemli ay
-        */
-
-        ctx.beginPath();
-
-        ctx.arc(
-            W*.78,
-            H*.22,
-            72,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fillStyle =
-            "rgba(230,235,255,.85)";
-
-        ctx.fill();
-
-
-        /*
-           Basit sis
-        */
-
-        ctx.fillStyle =
-            "rgba(255,255,255,.035)";
-
-        ctx.fillRect(
-            0,
-            H*.55,
-            W,
-            100
-        );
-
-    }
 
 
     /*
@@ -2059,214 +2797,169 @@ function drawFrame(
     */
 
     ctx.fillStyle =
-        "rgba(0,0,0,.58)";
+        "rgba(0,0,0,.42)";
 
     ctx.fillRect(
         0,
         0,
-        W,
-        92
+        w,
+        74
     );
-
 
     ctx.fillStyle =
         "#ffffff";
 
     ctx.font =
-        "bold 38px Arial";
-
-    ctx.textAlign =
-        "left";
+        "bold 27px Arial";
 
     ctx.fillText(
         "MYSTERY NACHT",
-        38,
-        59
+        42,
+        45
     );
 
 
-    ctx.font =
-        "bold 25px Arial";
-
-    ctx.textAlign =
-        "right";
-
-    ctx.fillStyle =
-        "rgba(255,255,255,.8)";
-
-    ctx.fillText(
-        "SAHNE "+(sceneIndex+1),
-        W-38,
-        58
-    );
-
-
-    /*
-       Altyazı kutusu
-    */
-
-    const boxX=65;
-
-    const boxW=W-130;
-
-    const boxH=185;
-
-    const boxY=H-235;
-
-
-    ctx.fillStyle =
-        "rgba(0,0,0,.76)";
-
-    roundRect(
-        ctx,
-        boxX,
-        boxY,
-        boxW,
-        boxH,
-        18
-    );
-
-    ctx.fill();
-
-
-    /*
-       Subtitle
-    */
-
-    ctx.fillStyle =
-        "#ffffff";
-
-    ctx.font =
-        "bold 31px Arial";
-
-    ctx.textAlign =
-        "center";
-
-    const subtitle =
-        scene.subtitle
-        .replace(/\s+/g," ")
-        .trim();
-
-
-    const lines =
-        wrapText(
-            ctx,
-            subtitle,
-            boxW-70
-        );
-
-
-    const visibleLines =
-        lines.slice(
-            0,
-            4
-        );
-
-
-    const lineHeight=43;
-
-    const startY =
-        boxY
-        +
-        boxH/2
-        -
-        ((visibleLines.length-1)
-        *lineHeight)/2
-        +
-        11;
-
-
-    visibleLines.forEach(
-        (line,i)=>{
-
-            ctx.fillText(
-                line,
-                W/2,
-                startY+i*lineHeight
-            );
-
-        }
-    );
-
-
-    /*
-       Sahne geçiş efekti
-    */
-
-    const fade=.6;
-
-
-    let alpha=0;
-
-
-    if(sceneElapsed < fade){
-
-        alpha =
-            1-
-            sceneElapsed/fade;
-
-    }
-    else if(
-        sceneDuration-sceneElapsed
-        <
-        fade
-    ){
-
-        alpha =
-            1-
-            (
-                (sceneDuration-sceneElapsed)
-                /fade
-            );
-
-    }
-
-
-    if(alpha>0){
+    if(scene){
 
         ctx.fillStyle =
-            "rgba(0,0,0,"+
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    alpha
-                )
-            )+
-            ")";
+            "rgba(255,255,255,.72)";
 
-        ctx.fillRect(
-            0,
-            0,
-            W,
-            H
+        ctx.font =
+            "bold 17px Arial";
+
+        ctx.fillText(
+            "SCENE " +
+            (scene.index+1),
+            w-130,
+            43
         );
 
     }
+
+
+    /*
+       Aktif altyazı
+    */
+
+    const subtitle =
+        getActiveSubtitle(time);
+
+
+    if(subtitle){
+
+        const maxWidth =
+            w - 150;
+
+        const font =
+            "bold 30px Arial";
+
+        const lines =
+            wrapText(
+                subtitle,
+                maxWidth,
+                font
+            );
+
+
+        /*
+           En fazla 3-4 satır bir seferde.
+           Ancak timeline sayesinde geri kalan metin
+           sonraki zamanlarda gösterilecektir.
+        */
+
+        const visible =
+            lines.slice(0,4);
+
+        const lineHeight = 42;
+
+        const boxHeight =
+            visible.length *
+            lineHeight +
+            48;
+
+        const boxY =
+            h -
+            boxHeight -
+            52;
+
+
+        ctx.fillStyle =
+            "rgba(0,0,0,.78)";
+
+        roundRect(
+            ctx,
+            55,
+            boxY,
+            w-110,
+            boxHeight,
+            18
+        );
+
+        ctx.fill();
+
+
+        ctx.fillStyle =
+            "#ffffff";
+
+        ctx.font =
+            font;
+
+        ctx.textAlign =
+            "center";
+
+
+        visible.forEach(
+            (line,i)=>{
+
+                ctx.fillText(
+                    line,
+                    w/2,
+                    boxY +
+                    38 +
+                    i*lineHeight
+                );
+
+            }
+        );
+
+
+        ctx.textAlign =
+            "left";
+
+    }
+
+
+    /*
+       Alt küçük bilgi
+    */
+
+    ctx.fillStyle =
+        "rgba(255,255,255,.5)";
+
+    ctx.font =
+        "13px Arial";
+
+    ctx.fillText(
+        "Mystery Nacht",
+        42,
+        h-20
+    );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    ROUND RECT
-===================================================== */
+========================================================= */
 
 function roundRect(
     ctx,
     x,
     y,
-    w,
-    h,
-    r
+    width,
+    height,
+    radius
 ){
-
-    const radius =
-        Math.min(
-            r,
-            w/2,
-            h/2
-        );
-
 
     ctx.beginPath();
 
@@ -2276,33 +2969,33 @@ function roundRect(
     );
 
     ctx.arcTo(
-        x+w,
+        x+width,
         y,
-        x+w,
-        y+h,
+        x+width,
+        y+height,
         radius
     );
 
     ctx.arcTo(
-        x+w,
-        y+h,
+        x+width,
+        y+height,
         x,
-        y+h,
-        radius
-    );
-
-    ctx.arcTo(
-        x,
-        y+h,
-        x,
-        y,
+        y+height,
         radius
     );
 
     ctx.arcTo(
         x,
+        y+height,
+        x,
         y,
-        x+w,
+        radius
+    );
+
+    ctx.arcTo(
+        x,
+        y,
+        x+width,
         y,
         radius
     );
@@ -2312,102 +3005,156 @@ function roundRect(
 }
 
 
-/* =====================================================
-   RENDER VIDEO
-===================================================== */
+/* =========================================================
+   VIDEO MIME
+========================================================= */
+
+function getSupportedMime(){
+
+    const types = [
+
+        "video/webm;codecs=vp9,opus",
+
+        "video/webm;codecs=vp8,opus",
+
+        "video/webm"
+
+    ];
+
+    for(
+        const type of types
+    ){
+
+        if(
+            MediaRecorder.isTypeSupported(
+                type
+            )
+        ){
+
+            return type;
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+/* =========================================================
+   VIDEO OLUŞTUR
+========================================================= */
+
+$("renderBtn").addEventListener(
+    "click",
+    renderVideo
+);
+
 
 async function renderVideo(){
 
-    /*
-       Sync all user edits.
-    */
+    if(!scriptEl.value.trim()){
 
-    syncSceneTexts();
+        renderStatus.className =
+            "status error";
 
-
-    if(!scenes.length){
-
-        alert(
-            "Önce sahneleri oluştur."
-        );
+        renderStatus.textContent =
+            "❌ Önce senaryo oluştur.";
 
         return;
+
+    }
+
+    if(!uploadedAudio){
+
+        renderStatus.className =
+            "status error";
+
+        renderStatus.textContent =
+            "❌ Önce TTSMaker ses dosyasını yükle.";
+
+        return;
+
+    }
+
+    if(!window.MediaRecorder){
+
+        renderStatus.className =
+            "status error";
+
+        renderStatus.textContent =
+            "❌ Bu tarayıcı MediaRecorder desteklemiyor.";
+
+        return;
+
     }
 
 
-    if(!selectedAudio){
+    const mime =
+        getSupportedMime();
 
-        alert(
-            "Önce TTSMaker ses dosyanı yükle."
-        );
+    if(!mime){
+
+        renderStatus.className =
+            "status error";
+
+        renderStatus.textContent =
+            "❌ WebM video formatı desteklenmiyor.";
 
         return;
+
     }
 
 
-    if(!audioDuration){
+    const renderButton =
+        $("renderBtn");
 
-        alert(
-            "Ses süresi henüz okunamadı."
-        );
+    renderButton.disabled = true;
 
-        return;
-    }
-
-
-    const status =
-        document
-        .getElementById(
-            "renderStatus"
-        );
-
-
-    const progress =
-        document
-        .getElementById(
-            "progressBar"
-        );
-
-
-    status.innerText =
-        "⏳ Video hazırlanıyor...";
-
-
-    progress.style.width =
-        "1%";
+    renderButton.textContent =
+        "⏳ Video oluşturuluyor...";
 
 
     try{
 
+        renderStatus.className =
+            "status";
+
+        renderStatus.textContent =
+            "⏳ Ses hazırlanıyor...";
+
+
         /*
-           Scene zamanlarını
-           tekrar hesapla.
+           AudioBuffer
         */
 
-        redistributeScenes();
+        await prepareAudioBuffer();
+
+
+        if(!audioBuffer){
+
+            throw new Error(
+                "Ses buffer oluşturulamadı."
+            );
+
+        }
 
 
         /*
-           Audio context
+           AudioContext
         */
 
-        const arrayBuffer =
-            await selectedAudio
-            .arrayBuffer();
-
-
-        const AudioContextClass =
+        const AudioCtx =
             window.AudioContext ||
             window.webkitAudioContext;
 
-
         const audioContext =
-            new AudioContextClass();
+            new AudioCtx();
 
 
         if(
-            audioContext.state
-            ===
+            audioContext.state ===
             "suspended"
         ){
 
@@ -2416,214 +3163,98 @@ async function renderVideo(){
         }
 
 
-        const audioBuffer =
-            await audioContext
-            .decodeAudioData(
-                arrayBuffer
-            );
+        /*
+           Audio source
+        */
+
+        const audioSource =
+            audioContext.createBufferSource();
+
+        audioSource.buffer =
+            audioBuffer;
 
 
         /*
-           Gerçek decode süresini
-           tekrar al.
+           Destination
         */
 
-        const duration =
-            audioBuffer.duration;
+        const destination =
+            audioContext.createMediaStreamDestination();
 
 
-        audioDuration =
-            duration;
-
-
-        document
-        .getElementById(
-            "audioDuration"
-        )
-        .innerText =
-            formatTime(duration);
-
-
-        document
-        .getElementById(
-            "videoDuration"
-        )
-        .innerText =
-            formatTime(duration);
-
-
-        redistributeScenes();
+        audioSource.connect(
+            destination
+        );
 
 
         /*
-           Canvas
+           Aynı zamanda hoparlöre de bağla.
         */
 
-        const canvas =
-            document
-            .createElement(
-                "canvas"
-            );
+        const gain =
+            audioContext.createGain();
 
+        gain.gain.value = 0;
 
-        canvas.width=1280;
+        audioSource.connect(gain);
 
-        canvas.height=720;
-
-
-        const ctx =
-            canvas
-            .getContext(
-                "2d"
-            );
-
-
-        /*
-           Görselleri yükle
-        */
-
-        const loadedImages =
-            new Array(
-                scenes.length
-            )
-            .fill(null);
-
-
-        for(
-            let i=0;
-            i<scenes.length;
-            i++
-        ){
-
-            if(
-                scenes[i].image
-            ){
-
-                try{
-
-                    loadedImages[i] =
-                        await loadImage(
-                            scenes[i].image
-                        );
-
-                }catch(e){
-
-                    loadedImages[i]=null;
-
-                }
-
-            }
-
-        }
+        gain.connect(
+            audioContext.destination
+        );
 
 
         /*
            Canvas stream
         */
 
-        const videoStream =
-            canvas.captureStream(30);
+        const canvasStream =
+            renderCanvas.captureStream(30);
 
 
         /*
-           Audio stream
+           Audio track ekle
         */
 
-        const destination =
-            audioContext
-            .createMediaStreamDestination();
+        const audioTrack =
+            destination.stream
+            .getAudioTracks()[0];
 
+        if(audioTrack){
 
-        const source =
-            audioContext
-            .createBufferSource();
+            canvasStream.addTrack(
+                audioTrack
+            );
 
-
-        source.buffer =
-            audioBuffer;
-
-
-        source.connect(
-            destination
-        );
-
-
-        destination
-        .stream
-        .getAudioTracks()
-        .forEach(
-            track=>{
-                videoStream.addTrack(
-                    track
-                );
-            }
-        );
+        }
 
 
         /*
-           Recorder format
+           MediaRecorder
         */
-
-        let mimeType =
-            "";
-
-
-        if(
-            MediaRecorder
-            .isTypeSupported(
-                "video/webm;codecs=vp9,opus"
-            )
-        ){
-
-            mimeType =
-                "video/webm;codecs=vp9,opus";
-
-        }
-        else if(
-            MediaRecorder
-            .isTypeSupported(
-                "video/webm;codecs=vp8,opus"
-            )
-        ){
-
-            mimeType =
-                "video/webm;codecs=vp8,opus";
-
-        }
-        else{
-
-            mimeType =
-                "video/webm";
-
-        }
-
 
         const recorder =
             new MediaRecorder(
-                videoStream,
+                canvasStream,
                 {
-                    mimeType:
-                        mimeType,
-
-                    videoBitsPerSecond:
-                        6000000
+                    mimeType:mime,
+                    videoBitsPerSecond:6000000
                 }
             );
 
 
-        const chunks=[];
+        const chunks = [];
 
 
         recorder.ondataavailable =
-            function(e){
+            event=>{
 
                 if(
-                    e.data &&
-                    e.data.size>0
+                    event.data &&
+                    event.data.size > 0
                 ){
 
                     chunks.push(
-                        e.data
+                        event.data
                     );
 
                 }
@@ -2631,16 +3262,38 @@ async function renderVideo(){
             };
 
 
-        const stopped =
+        const recordingFinished =
             new Promise(
-                resolve=>{
+                (resolve,reject)=>{
 
-                    recorder.onstop =
-                        resolve;
+                    recorder.onstop = ()=>{
+                        resolve();
+                    };
+
+                    recorder.onerror =
+                        event=>{
+                            reject(
+                                event.error ||
+                                new Error(
+                                    "MediaRecorder hatası."
+                                )
+                            );
+                        };
 
                 }
             );
 
+
+        /*
+           İlk frame
+        */
+
+        drawFrame(0);
+
+
+        /*
+           Recorder başlat
+        */
 
         recorder.start(250);
 
@@ -2649,176 +3302,167 @@ async function renderVideo(){
            Audio başlat
         */
 
-        source.start(0);
+        const startedAt =
+            performance.now();
+
+        audioSource.start(0);
 
 
         /*
-           Render
+           Render loop
         */
-
-        const startTime =
-            performance.now();
-
 
         await new Promise(
             resolve=>{
 
-                function frame(now){
+                function frameLoop(){
 
                     const elapsed =
-                        (now-startTime)
-                        /1000;
+                        (
+                            performance.now() -
+                            startedAt
+                        ) / 1000;
 
-
-                    /*
-                       Video tam ses
-                       süresi kadar.
-                    */
-
-                    const currentTime =
-                        Math.min(
+                    const current =
+                        clamp(
                             elapsed,
-                            duration
-                        );
-
-
-                    /*
-                       Aktif sahneyi bul.
-                    */
-
-                    let activeIndex =
-                        scenes.length-1;
-
-
-                    for(
-                        let i=0;
-                        i<scenes.length;
-                        i++
-                    ){
-
-                        if(
-                            currentTime
-                            >=
-                            scenes[i].start
-                            &&
-                            currentTime
-                            <
-                            scenes[i].end
-                        ){
-
-                            activeIndex=i;
-
-                            break;
-
-                        }
-
-                    }
-
-
-                    const activeScene =
-                        scenes[
-                            activeIndex
-                        ];
-
-
-                    const sceneElapsed =
-                        Math.max(
                             0,
-                            currentTime
-                            -
-                            activeScene.start
+                            audioDuration
                         );
 
 
                     drawFrame(
-                        ctx,
-                        activeScene,
-                        activeIndex,
-                        sceneElapsed,
-                        activeScene.duration,
-                        loadedImages[
-                            activeIndex
-                        ]
+                        current
                     );
 
 
                     const percent =
-                        Math.min(
-                            99,
-                            (
-                                currentTime
-                                /
-                                duration
-                            )*100
-                        );
+                        audioDuration
+                            ? (
+                                current /
+                                audioDuration
+                            ) * 100
+                            : 0;
 
+                    progressBar.style.width =
+                        percent.toFixed(2) +
+                        "%";
 
-                    progress.style.width =
-                        percent+"%";
-
-
-                    status.innerText =
-                        "🎬 Video oluşturuluyor... "
-                        +
-                        Math.floor(percent)
-                        +
-                        "%  —  "
-                        +
-                        formatTime(currentTime)
-                        +
-                        " / "
-                        +
-                        formatTime(duration);
+                    progressText.textContent =
+                        "Video oluşturuluyor: " +
+                        percent.toFixed(0) +
+                        "% • " +
+                        formatTime(current) +
+                        " / " +
+                        formatTime(audioDuration);
 
 
                     if(
-                        elapsed
-                        <
-                        duration
+                        current >=
+                        audioDuration
                     ){
-
-                        requestAnimationFrame(
-                            frame
-                        );
-
-                    }else{
 
                         resolve();
 
+                        return;
+
                     }
+
+
+                    requestAnimationFrame(
+                        frameLoop
+                    );
 
                 }
 
-
-                requestAnimationFrame(
-                    frame
-                );
+                frameLoop();
 
             }
         );
 
 
         /*
-           Recorder durdur
+           Birkaç milisaniye bekle.
         */
 
-        recorder.stop();
+        await new Promise(
+            r=>setTimeout(r,250)
+        );
 
 
-        await stopped;
+        if(
+            recorder.state !==
+            "inactive"
+        ){
+
+            recorder.stop();
+
+        }
+
+
+        await recordingFinished;
+
+
+        /*
+           Audio stop
+        */
+
+        try{
+
+            audioSource.stop();
+
+        }catch(e){}
+
+
+        /*
+           Context kapat
+        */
+
+        try{
+
+            await audioContext.close();
+
+        }catch(e){}
 
 
         /*
            Blob
         */
 
-        finalBlob =
+        const blob =
             new Blob(
                 chunks,
                 {
-                    type:
-                        mimeType
+                    type:mime
                 }
+            );
+
+
+        if(!blob.size){
+
+            throw new Error(
+                "Video verisi oluşturulamadı."
+            );
+
+        }
+
+
+        /*
+           Önceki URL
+        */
+
+        if(lastVideoUrl){
+
+            URL.revokeObjectURL(
+                lastVideoUrl
+            );
+
+        }
+
+
+        lastVideoUrl =
+            URL.createObjectURL(
+                blob
             );
 
 
@@ -2826,277 +3470,169 @@ async function renderVideo(){
            Preview
         */
 
-        const video =
-            document
-            .getElementById(
-                "preview"
-            );
+        videoPreview.src =
+            lastVideoUrl;
 
-
-        if(video.src){
-
-            try{
-
-                URL.revokeObjectURL(
-                    video.src
-                );
-
-            }catch(e){}
-
-        }
-
-
-        video.src =
-            URL.createObjectURL(
-                finalBlob
-            );
-
-
-        video.style.display =
-            "block";
-
-
-        document
-        .getElementById(
-            "downloadBtn"
-        )
-        .classList
-        .remove(
+        videoPreview.classList.remove(
             "hidden"
         );
 
 
-        progress.style.width =
+        /*
+           Download
+        */
+
+        downloadLink.href =
+            lastVideoUrl;
+
+        downloadLink.download =
+            "mystery-nacht-" +
+            Date.now() +
+            ".webm";
+
+
+        /*
+           Son durum
+        */
+
+        progressBar.style.width =
             "100%";
 
-
-        status.innerText =
-            "✅ Video hazır! "
-            +
-            formatTime(duration)
-            +
-            " | "
-            +
-            Math.round(
-                finalBlob.size/1024
-            )
-            +
-            " KB";
+        progressText.textContent =
+            "Tamamlandı • " +
+            formatTime(audioDuration);
 
 
-        try{
+        renderStatus.className =
+            "status success";
 
-            audioContext.close();
-
-        }catch(e){}
-
+        renderStatus.textContent =
+            "✅ Video hazır!\n" +
+            "Gerçek ses/video süresi: " +
+            formatTime(audioDuration) +
+            "\n" +
+            "Altyazı parçaları: " +
+            subtitleTimeline.length +
+            "\n" +
+            "Şimdi önizleyebilir veya indirebilirsin.";
 
     }catch(error){
 
         console.error(error);
 
+        renderStatus.className =
+            "status error";
 
-        status.innerText =
-            "❌ Video oluşturma hatası: "
-            +
+        renderStatus.textContent =
+            "❌ Video oluşturulamadı.\n" +
             error.message;
 
+    }finally{
+
+        renderButton.disabled = false;
+
+        renderButton.textContent =
+            "🎬 Videoyu Oluştur";
+
     }
 
 }
 
 
-/* =====================================================
-   DOWNLOAD
-===================================================== */
+/* =========================================================
+   BAŞLANGIÇ
+========================================================= */
 
-function downloadVideo(){
+function initialize(){
 
-    if(!finalBlob){
+    /*
+       Başlangıç örnek ekranı
+    */
 
-        alert(
-            "Önce videoyu oluştur."
-        );
+    renderCanvas.width =
+        1280;
 
-        return;
-    }
+    renderCanvas.height =
+        720;
 
-
-    const url =
-        URL.createObjectURL(
-            finalBlob
-        );
-
-
-    const a =
-        document
-        .createElement("a");
-
-
-    a.href=url;
-
-
-    a.download =
-        "mina-video-"
-        +
-        Date.now()
-        +
-        ".webm";
-
-
-    document
-    .body
-    .appendChild(a);
-
-
-    a.click();
-
-
-    a.remove();
-
-
-    setTimeout(
-        ()=>{
-            URL.revokeObjectURL(
-                url
-            );
-        },
-        1500
-    );
-
-}
-
-
-/* =====================================================
-   SYSTEM TEST
-===================================================== */
-
-function testSystem(){
-
-    const status =
-        document
-        .getElementById(
-            "testStatus"
-        );
-
-
-    const canvas =
-        document
-        .createElement(
-            "canvas"
-        );
-
-
-    canvas.width=640;
-
-    canvas.height=360;
-
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-    ctx.fillStyle =
-        "#111827";
-
-    ctx.fillRect(
-        0,
-        0,
-        640,
-        360
-    );
-
+    drawBackground();
 
     ctx.fillStyle =
         "#ffffff";
 
-
     ctx.font =
-        "bold 40px Arial";
-
+        "bold 42px Arial";
 
     ctx.textAlign =
         "center";
 
-
     ctx.fillText(
-        "MINA VIDEO AI",
-        320,
-        165
+        "MYSTERY NACHT",
+        640,
+        330
     );
-
 
     ctx.font =
-        "24px Arial";
+        "20px Arial";
 
+    ctx.fillStyle =
+        "#94a3b8";
 
     ctx.fillText(
-        "Canvas + Video Test ✓",
-        320,
-        215
+        "Mina Video AI V12.3",
+        640,
+        370
     );
 
-
-    const stream =
-        canvas.captureStream(
-            30
-        );
+    ctx.textAlign =
+        "left";
 
 
-    if(stream){
+    /*
+       İlk mystery
+    */
 
-        status.innerText =
-            "✅ Canvas ve video sistemi çalışıyor.";
+    mysteryEl.value =
+        "maryCeleste";
 
-    }else{
 
-        status.innerText =
-            "❌ captureStream desteklenmiyor.";
+    /*
+       İlk boş sahneler
+    */
 
-    }
+    scenes = [];
 
 }
 
 
-/* =====================================================
-   ENTER
-===================================================== */
+initialize();
 
-document
-.getElementById("topic")
-.addEventListener(
-    "keydown",
-    function(e){
 
-        if(
-            e.key==="Enter"
-        ){
+/* =========================================================
+   KULLANICI SCRIPT DEĞİŞTİRİRSE
+========================================================= */
 
-            createScript();
-
-        }
-
+scriptEl.addEventListener(
+    "change",
+    ()=>{
+        generateScenes();
     }
 );
 
 
-/* =====================================================
-   INITIAL
-===================================================== */
+/* =========================================================
+   SAYFA KAPANIRKEN OBJECT URL TEMİZLE
+========================================================= */
 
-document
-.getElementById("sceneCount")
-.addEventListener(
-    "change",
-    function(){
+window.addEventListener(
+    "beforeunload",
+    ()=>{
 
-        if(
-            getFullScript()
-        ){
+        if(lastVideoUrl){
 
-            createScenes();
+            URL.revokeObjectURL(
+                lastVideoUrl
+            );
 
         }
 
