@@ -6,174 +6,212 @@
 <title>Mina Video AI</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-    margin:0;
-    background:#080b14;
-    color:#fff;
-    font-family:Arial,sans-serif;
+  margin:0;
+  background:
+    radial-gradient(circle at top,#18234a 0,#0b1020 42%,#05070e 100%);
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 .container{
-    width:min(900px,94%);
-    margin:auto;
-    padding:25px 0 50px;
+  width:min(900px,94%);
+  margin:auto;
+  padding:25px 0 60px;
 }
 
 h1{
-    text-align:center;
-    margin:5px 0 8px;
-    font-size:32px;
+  text-align:center;
+  font-size:34px;
+  margin:10px 0 5px;
 }
 
-.sub{
-    text-align:center;
-    color:#9fa8bd;
-    margin-bottom:25px;
+.subtitle{
+  text-align:center;
+  color:#9ca8c7;
+  margin-bottom:25px;
 }
 
-.box{
-    background:#111827;
-    border:1px solid #263147;
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:16px;
+.card{
+  background:rgba(15,22,43,.92);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 15px 45px rgba(0,0,0,.25);
 }
 
 label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:8px;
+  display:block;
+  margin:13px 0 7px;
+  font-weight:bold;
 }
 
-input,select,textarea{
-    width:100%;
-    border:1px solid #354158;
-    background:#090e19;
-    color:white;
-    border-radius:10px;
-    padding:12px;
-    font-size:15px;
-    outline:none;
+input,
+textarea,
+select{
+  width:100%;
+  background:#080d1c;
+  border:1px solid #273252;
+  color:#fff;
+  border-radius:11px;
+  padding:12px;
+  outline:none;
+  font-size:15px;
 }
 
 textarea{
-    min-height:180px;
-    resize:vertical;
+  min-height:120px;
+  resize:vertical;
 }
 
-.row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+select{
+  cursor:pointer;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
 
 button{
-    width:100%;
-    border:0;
-    border-radius:12px;
-    padding:14px;
-    margin-top:10px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    background:#2563eb;
-    color:white;
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:14px;
+  margin-top:12px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#5b5ff7,#8b5cf6);
 }
 
 button:hover{
-    filter:brightness(1.12);
+  filter:brightness(1.08);
 }
 
-button.secondary{
-    background:#1f2937;
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
 }
 
-button.green{
-    background:#16a34a;
+.secondary{
+  background:#17213c;
 }
 
-button.red{
-    background:#b91c1c;
+.success{
+  background:linear-gradient(135deg,#059669,#10b981);
+}
+
+.danger{
+  background:linear-gradient(135deg,#b91c1c,#ef4444);
 }
 
 .status{
-    padding:13px;
-    border-radius:10px;
-    background:#0b1220;
-    color:#cbd5e1;
-    margin-top:12px;
-    line-height:1.5;
+  margin-top:15px;
+  padding:13px;
+  border-radius:12px;
+  background:#090e1d;
+  border:1px solid #26304e;
+  line-height:1.5;
+  white-space:pre-wrap;
+}
+
+.progress{
+  height:9px;
+  border-radius:10px;
+  background:#080c18;
+  overflow:hidden;
+  margin-top:15px;
+}
+
+.progressBar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#5b5ff7,#c084fc);
+  transition:.3s;
 }
 
 .scene{
-    background:#0b1220;
-    border:1px solid #263147;
-    border-radius:14px;
-    padding:12px;
-    margin-top:12px;
+  margin-top:15px;
+  border:1px solid #26304e;
+  border-radius:15px;
+  overflow:hidden;
+  background:#080d1b;
 }
 
 .scene img{
-    width:100%;
-    display:block;
-    border-radius:10px;
-    margin-top:10px;
-    max-height:430px;
-    object-fit:cover;
-    background:#05070c;
+  width:100%;
+  display:block;
+  aspect-ratio:16/9;
+  object-fit:cover;
 }
 
-.scene textarea{
-    min-height:100px;
-    margin-top:8px;
+.sceneInfo{
+  padding:13px;
+}
+
+.sceneTitle{
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.scenePrompt{
+  color:#9ca8c7;
+  font-size:13px;
+  line-height:1.5;
+}
+
+video{
+  width:100%;
+  border-radius:14px;
+  background:#000;
+  display:block;
 }
 
 .small{
-    color:#94a3b8;
-    font-size:13px;
-    line-height:1.5;
+  color:#8792ad;
+  font-size:12px;
+  line-height:1.5;
 }
 
-#preview{
-    width:100%;
-    background:#000;
-    border-radius:14px;
-    display:none;
-    margin-top:15px;
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#171f3a;
+  color:#bfc9ff;
+  font-size:12px;
+  margin:3px;
 }
 
-.download{
-    display:none;
-    text-decoration:none;
-    text-align:center;
-    background:#16a34a;
-    color:#fff;
-    padding:14px;
-    border-radius:12px;
-    font-weight:bold;
-    margin-top:12px;
+.tokenBox{
+  background:#111a31;
+  border:1px solid #344064;
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+  word-break:break-all;
 }
 
-.aiBadge{
-    display:inline-block;
-    background:#172554;
-    color:#93c5fd;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:12px;
-    margin-top:8px;
+.hidden{
+  display:none;
 }
 
-@media(max-width:650px){
-    .row{
-        grid-template-columns:1fr;
-    }
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:1fr;
+  }
 
-    h1{
-        font-size:26px;
-    }
+  h1{
+    font-size:27px;
+  }
 }
 </style>
 </head>
@@ -183,234 +221,189 @@ button.red{
 <div class="container">
 
 <h1>🎬 Mina Video AI</h1>
+<div class="subtitle">
+  Mystery Nacht için yapay zekâ video oluşturucu
+</div>
 
-<div class="sub">
-Mystery Nacht Video Generator
-<br>
-<span class="aiBadge">🤖 Gerçek AI Görsel Üretimi</span>
+<div class="card">
+
+  <label>🎯 Video Konusu</label>
+
+  <input
+    id="topic"
+    placeholder="Örn: 1978'de kaybolan gizemli uçak"
+  >
+
+  <div class="grid">
+
+    <div>
+      <label>🌍 Dil</label>
+
+      <select id="language">
+        <option value="de">🇩🇪 Almanca</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="en">🇬🇧 İngilizce</option>
+      </select>
+    </div>
+
+    <div>
+      <label>🎞️ Sahne Sayısı</label>
+
+      <select id="sceneCount">
+        <option value="1">1 Sahne</option>
+        <option value="4">4 Sahne</option>
+        <option value="5">5 Sahne</option>
+        <option value="6" selected>6 Sahne</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div>
+      <label>⏱️ Sahne Süresi</label>
+
+      <select id="sceneDuration">
+        <option value="4">4 saniye</option>
+        <option value="5" selected>5 saniye</option>
+        <option value="6">6 saniye</option>
+        <option value="8">8 saniye</option>
+        <option value="10">10 saniye</option>
+      </select>
+    </div>
+
+    <div>
+      <label>🎨 Görsel Stil</label>
+
+      <select id="style">
+        <option value="cinematic">🎬 Sinematik</option>
+        <option value="fantasy">🧙 Fantastik</option>
+        <option value="scifi">🤖 Bilim Kurgu</option>
+        <option value="3d">🎨 3D Animasyon</option>
+        <option value="2d">✏️ 2D Animasyon</option>
+        <option value="dark">🌑 Karanlık/Gizemli</option>
+        <option value="photo">📸 Fotogerçekçi</option>
+        <option value="action">💥 Aksiyon</option>
+        <option value="medieval">🏰 Orta Çağ</option>
+        <option value="epic">🌌 Epik</option>
+      </select>
+    </div>
+
+  </div>
+
 </div>
 
 
-<div class="box">
+<div class="card">
 
-<label>Video konusu</label>
+  <label>📝 Senaryo</label>
 
-<input
-id="topic"
-placeholder="Örnek: Der mysteriöse Tod von Elisa Lam"
+  <textarea
+    id="script"
+    placeholder="Senaryoyu buraya yazabilir veya aşağıdaki otomatik senaryo butonunu kullanabilirsin."
+  ></textarea>
+
+  <button
+    id="scriptBtn"
+    onclick="generateScript()"
+  >
+    🧠 Otomatik Senaryo Oluştur
+  </button>
+
+</div>
+
+
+<div class="card">
+
+  <label>🔐 Pollinations Bağlantısı</label>
+
+  <div
+    id="tokenStatus"
+    class="tokenBox"
+  >
+    Kontrol ediliyor...
+  </div>
+
+  <button
+    class="secondary"
+    onclick="connectPollinations()"
+  >
+    🔑 Pollinations'a Bağlan
+  </button>
+
+  <button
+    class="secondary"
+    onclick="checkBalance()"
+  >
+    💰 Bakiye Kontrol Et
+  </button>
+
+  <div class="small" style="margin-top:10px">
+    Mina Video AI, Pollinations OAuth token'ını tarayıcıdaki
+    localStorage alanından kullanır.
+  </div>
+
+</div>
+
+
+<div class="card">
+
+  <button
+    id="generateBtn"
+    onclick="generateVideo()"
+  >
+    🚀 VİDEOYU OLUŞTUR
+  </button>
+
+  <div class="progress">
+    <div
+      id="progressBar"
+      class="progressBar"
+    ></div>
+  </div>
+
+  <div
+    id="status"
+    class="status"
+  >
+    Hazır.
+  </div>
+
+</div>
+
+
+<div
+  id="scenesBox"
+  class="card hidden"
 >
 
-<div class="row">
+  <h2>🎬 Sahneler</h2>
 
-<div>
-<label>Dil</label>
-
-<select id="language">
-
-<option value="de">
-Deutsch
-</option>
-
-<option value="tr">
-Türkçe
-</option>
-
-<option value="en">
-English
-</option>
-
-</select>
-</div>
-
-
-<div>
-<label>Sahne sayısı</label>
-
-<select id="sceneCount">
-
-<option value="1">
-1 Sahne
-</option>
-
-<option value="4">
-4 Sahne
-</option>
-
-<option value="5">
-5 Sahne
-</option>
-
-<option value="6" selected>
-6 Sahne
-</option>
-
-</select>
-</div>
+  <div id="scenes"></div>
 
 </div>
 
 
-<div class="row">
-
-<div>
-
-<label>Görsel stil</label>
-
-<select id="style">
-
-<option>
-🎬 Cinematic
-</option>
-
-<option>
-🌑 Dark Mystery
-</option>
-
-<option>
-📸 Photorealistic
-</option>
-
-<option>
-💥 Action
-</option>
-
-<option>
-🏰 Medieval
-</option>
-
-<option>
-🌌 Epic
-</option>
-
-<option>
-🤖 Science Fiction
-</option>
-
-<option>
-🧙 Fantasy
-</option>
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>Sahne süresi</label>
-
-<select id="duration">
-
-<option value="5">
-5 saniye
-</option>
-
-<option value="7" selected>
-7 saniye
-</option>
-
-<option value="10">
-10 saniye
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-
-<button onclick="createScript()">
-🧠 Senaryo Oluştur
-</button>
-
-</div>
-
-
-<div class="box">
-
-<label>Senaryo</label>
-
-<textarea
-id="script"
-placeholder="Senaryo burada oluşacak..."
-></textarea>
-
-
-<button
-class="secondary"
-onclick="makeScenes()"
+<div
+  id="videoBox"
+  class="card hidden"
 >
-🎞️ Sahnelere Ayır
-</button>
 
-</div>
+  <h2>🎥 Oluşturulan Video</h2>
 
+  <video
+    id="video"
+    controls
+    playsinline
+  ></video>
 
-<div class="box">
-
-<label>Sahneler</label>
-
-<div id="scenes"></div>
-
-</div>
-
-
-<div class="box">
-
-<button
-class="green"
-onclick="createAllAIImages()"
->
-🤖 TÜM AI GÖRSELLERİNİ OLUŞTUR
-</button>
-
-
-<button
-class="green"
-onclick="createVideo()"
->
-🎥 Videoyu Oluştur
-</button>
-
-
-<div id="status" class="status">
-Hazır.
-</div>
-
-
-<video
-id="preview"
-controls
-></video>
-
-
-<a
-id="download"
-class="download"
-download="mina-video.webm"
->
-⬇️ Videoyu İndir
-</a>
-
-</div>
-
-
-<div class="box small">
-
-<b>AI Görsel:</b><br>
-
-Mina artık Picsum kullanmıyor.
-Görseller Pollinations'ın güncel
-AI image endpoint'i üzerinden oluşturulur.
-
-<br><br>
-
-<b>Önemli:</b><br>
-
-Pollinations hesabında kullanılabilir
-Pollen/bakiye yoksa servis HTTP 402 döndürür.
-Bu durumda görsel oluşturulamaz.
+  <button
+    id="downloadBtn"
+    class="success"
+  >
+    ⬇️ VİDEOYU İNDİR
+  </button>
 
 </div>
 
@@ -419,1244 +412,1697 @@ Bu durumda görsel oluşturulamaz.
 
 <script>
 
-/* =========================================================
-   GENEL
-========================================================= */
+const CLIENT_ID = "pk_QJfK0SKE0MqAqf3I";
 
-const $ = id =>
-    document.getElementById(id);
+const REDIRECT_URI =
+  "https://savurzafer73-eng.github.io/YAPAYZEKA/";
 
+const AUTH_URL =
+  "https://enter.pollinations.ai/authorize";
 
-window.minaScenes = [];
+const TOKEN_URL =
+  "https://enter.pollinations.ai/api/oauth/token";
 
+const IMAGE_API =
+  "https://gen.pollinations.ai/image/";
 
-/* =========================================================
-   POLLINATIONS AYARLARI
-========================================================= */
+const AUDIO_API =
+  "https://gen.pollinations.ai/audio/";
 
-const POLLINATIONS_IMAGE_URL =
-    "https://gen.pollinations.ai/image/";
-
-
-const POLLINATIONS_MODEL =
-    "black-forest-labs/flux.1-schnell";
+const MAX_SEED = 2147483647;
 
 
-/*
-   Daha önce Mina OAuth sisteminde kullandığımız
-   localStorage anahtarı.
-*/
+let scenesData = [];
 
-function getPollinationsToken(){
+let audioElement = null;
 
-    return localStorage.getItem(
-        "mina_pollinations_token"
-    );
+let audioContext = null;
 
-}
+let audioDestination = null;
 
 
-/* =========================================================
-   SENARYO
-========================================================= */
+/* =========================
+   TOKEN
+========================= */
 
-function createScript(){
+function getToken(){
 
-    const topic =
-        $("topic").value.trim();
-
-    if(!topic){
-
-        alert(
-            "Önce video konusunu yaz."
-        );
-
-        return;
-    }
-
-
-    const lang =
-        $("language").value;
-
-
-    let text = "";
-
-
-    if(lang === "de"){
-
-        text =
-`Stell dir vor, du wachst mitten in der Nacht auf und bemerkst, dass etwas nicht stimmt.
-
-Das heutige Geheimnis dreht sich um ${topic}.
-
-Was zunächst wie ein gewöhnlicher Vorfall aussieht, entwickelt sich schnell zu einer Geschichte voller ungelöster Fragen.
-
-Zeugen berichten von merkwürdigen Ereignissen.
-
-Doch je genauer man die Spuren untersucht, desto mehr Widersprüche tauchen auf.
-
-Bis heute gibt es Fragen, auf die niemand eine eindeutige Antwort geben kann.
-
-Was wirklich passiert ist, bleibt eines der faszinierendsten Geheimnisse dieser Geschichte.`;
-
-    }
-
-    else if(lang === "en"){
-
-        text =
-`Imagine waking up in the middle of the night and realizing that something is terribly wrong.
-
-Today's mystery is about ${topic}.
-
-What first appears to be an ordinary incident quickly becomes a story filled with unanswered questions.
-
-Witnesses describe strange events.
-
-But the closer investigators look, the more contradictions appear.
-
-Even today, some questions remain unanswered.
-
-What really happened remains one of the most fascinating mysteries surrounding this case.`;
-
-    }
-
-    else{
-
-        text =
-`Gece yarısı uyandığınızı ve bir şeylerin hiç normal olmadığını fark ettiğinizi düşünün.
-
-Bugünkü gizemimizin konusu: ${topic}.
-
-İlk başta sıradan görünen olay, kısa süre içinde cevaplanması zor sorularla dolu bir hikâyeye dönüşüyor.
-
-Tanıklar birbirinden tuhaf olaylardan bahsediyor.
-
-Ancak izler incelendikçe daha fazla çelişki ortaya çıkıyor.
-
-Aradan yıllar geçmesine rağmen bazı sorular hâlâ cevapsız.
-
-Gerçekte ne olduğu ise bu hikâyenin en büyük gizemlerinden biri olmaya devam ediyor.`;
-
-    }
-
-
-    $("script").value =
-        text;
-
-
-    $("status").innerHTML =
-        "✅ Senaryo hazır.";
+  return localStorage.getItem(
+    "mina_pollinations_token"
+  ) || "";
 
 }
 
 
-/* =========================================================
-   SAHNELER
-========================================================= */
+/* =========================
+   STATUS
+========================= */
 
-function makeScenes(){
+function setStatus(text){
 
-    const text =
-        $("script").value.trim();
-
-
-    if(!text){
-
-        alert(
-            "Önce senaryo oluştur."
-        );
-
-        return;
-    }
-
-
-    const count =
-        Number(
-            $("sceneCount").value
-        );
-
-
-    const topic =
-        $("topic").value.trim();
-
-
-    const style =
-        $("style").value;
-
-
-    const paragraphs =
-        text
-        .split(/\n+/)
-        .map(x => x.trim())
-        .filter(Boolean);
-
-
-    window.minaScenes = [];
-
-
-    for(
-        let i=0;
-        i<count;
-        i++
-    ){
-
-        const sceneText =
-            paragraphs[
-                i % paragraphs.length
-            ];
-
-
-        const prompt =
-            buildAIPrompt(
-                topic,
-                sceneText,
-                style,
-                i
-            );
-
-
-        window.minaScenes.push({
-
-            text:
-                sceneText,
-
-            prompt:
-                prompt,
-
-            image:
-                null
-
-        });
-
-    }
-
-
-    renderScenes();
-
-
-    $("status").innerHTML =
-        `🎞️ ${count} sahne hazır.`;
+  document.getElementById("status").textContent =
+    text;
 
 }
 
 
-/* =========================================================
-   AI PROMPT
-========================================================= */
+function setProgress(value){
 
-function buildAIPrompt(
-    topic,
-    sceneText,
-    style,
-    index
-){
+  value = Math.max(
+    0,
+    Math.min(100,value)
+  );
 
-    return `
-A cinematic documentary still about "${topic}".
-
-Scene ${index + 1}:
-${sceneText}
-
-Visual style:
-${style}
-
-Create a highly detailed,
-dramatic and atmospheric image.
-
-Dark mystery documentary aesthetic,
-realistic cinematic lighting,
-natural shadows,
-deep contrast,
-professional film composition,
-photorealistic details,
-historically appropriate environment.
-
-The image must visually represent
-the scene and the subject.
-
-No captions.
-No subtitles.
-No logos.
-No watermark.
-No text.
-16:9 cinematic composition.
-`.trim();
+  document.getElementById(
+    "progressBar"
+  ).style.width = value + "%";
 
 }
 
 
-/* =========================================================
-   SAHNELERİ GÖSTER
-========================================================= */
+/* =========================
+   TOKEN DURUMU
+========================= */
 
-function renderScenes(){
+function updateTokenStatus(){
 
-    const container =
-        $("scenes");
+  const token = getToken();
 
+  const box =
+    document.getElementById("tokenStatus");
 
-    container.innerHTML =
-        "";
+  if(token){
 
+    box.textContent =
+      "✅ Pollinations bağlantısı bulundu.\n" +
+      "Token mevcut. Bakiye kontrol edilebilir.";
 
-    window.minaScenes.forEach(
-        (scene,index)=>{
+  }else{
 
-        const div =
-            document.createElement(
-                "div"
-            );
+    box.textContent =
+      "⚠️ Pollinations bağlantısı bulunamadı.\n" +
+      "Önce Pollinations'a bağlan.";
 
+  }
 
-        div.className =
-            "scene";
-
-
-        div.innerHTML = `
-
-            <b>
-            SAHNE ${index+1}
-            </b>
-
-            <textarea
-            id="sceneText${index}"
-            ></textarea>
+}
 
 
-            <label style="margin-top:10px">
-            AI Görsel Prompt
-            </label>
+/* =========================
+   OAUTH
+========================= */
 
+function connectPollinations(){
 
-            <textarea
-            id="prompt${index}"
-            style="min-height:140px"
-            ></textarea>
+  const state =
+    crypto.randomUUID();
 
+  sessionStorage.setItem(
+    "mina_oauth_state",
+    state
+  );
 
-            <button
-            class="secondary"
-            onclick="generateAIImage(${index})"
-            >
-            🤖 Bu Sahneyi AI ile Oluştur
-            </button>
+  const params =
+    new URLSearchParams({
 
+      client_id:CLIENT_ID,
 
-            <div
-            id="imageStatus${index}"
-            class="small"
-            >
-            AI görsel bekleniyor...
-            </div>
+      redirect_uri:REDIRECT_URI,
 
+      response_type:"code",
 
-            <img
-            id="img${index}"
-            style="display:none"
-            >
+      scope:"profile usage",
 
-        `;
+      state:state,
 
-
-        container.appendChild(
-            div
-        );
-
-
-        $(`sceneText${index}`).value =
-            scene.text;
-
-
-        $(`prompt${index}`).value =
-            scene.prompt;
+      code_challenge_method:"S256"
 
     });
 
-}
-
-
-/* =========================================================
-   GERÇEK AI GÖRSEL ÜRETİMİ
-========================================================= */
-
-async function generateAIImage(index){
-
-    const token =
-        getPollinationsToken();
-
-
-    const status =
-        $(
-            "imageStatus" +
-            index
-        );
-
-
-    const img =
-        $(
-            "img" +
-            index
-        );
-
-
-    const prompt =
-        $(
-            "prompt" +
-            index
-        ).value.trim();
-
-
-    if(!token){
-
-        status.innerHTML =
-            "❌ Pollinations OAuth token bulunamadı. Önce Pollinations bağlantısını yap.";
-
-        return;
-    }
-
-
-    if(!prompt){
-
-        status.innerHTML =
-            "❌ AI prompt boş.";
-
-        return;
-    }
-
-
-    status.innerHTML =
-        "🤖 AI görsel oluşturuluyor...";
-
-
-    img.style.display =
-        "none";
-
-
-    try{
-
-        const encodedPrompt =
-            encodeURIComponent(
-                prompt
-            );
-
-
-        /*
-           Her sahne için farklı seed.
-        */
-
-        const MAX_SEED =
-            2147483647;
-
-
-        const seed =
-            Math.floor(
-                (
-                    Date.now() +
-                    index * 100003
-                )
-                %
-                MAX_SEED
-            );
-
-
-        const url =
-            POLLINATIONS_IMAGE_URL +
-            encodedPrompt +
-            "?model=" +
-            encodeURIComponent(
-                POLLINATIONS_MODEL
-            ) +
-            "&width=1280" +
-            "&height=720" +
-            "&seed=" +
-            seed +
-            "&nologo=true";
-
-
-        const response =
-            await fetch(
-                url,
-                {
-                    method:"GET",
-
-                    headers:{
-                        "Authorization":
-                            "Bearer " +
-                            token
-                    }
-                }
-            );
-
-
-        if(!response.ok){
-
-            let errorText = "";
-
-            try{
-
-                errorText =
-                    await response.text();
-
-            }catch(e){
-
-                errorText =
-                    "";
-            }
-
-
-            if(response.status === 402){
-
-                throw new Error(
-                    "Pollinations hesabında yeterli Pollen/bakiye yok."
-                );
-
-            }
-
-
-            if(response.status === 401){
-
-                throw new Error(
-                    "Pollinations token geçersiz veya süresi dolmuş."
-                );
-
-            }
-
-
-            if(response.status === 429){
-
-                throw new Error(
-                    "Pollinations yoğun. Birkaç saniye sonra tekrar dene."
-                );
-
-            }
-
-
-            throw new Error(
-                "HTTP " +
-                response.status +
-                " " +
-                errorText
-            );
-
-        }
-
-
-        const blob =
-            await response.blob();
-
-
-        if(
-            !blob.type.startsWith(
-                "image/"
-            )
-        ){
-
-            throw new Error(
-                "Sunucudan geçerli görsel gelmedi."
-            );
-
-        }
-
-
-        const imageURL =
-            URL.createObjectURL(
-                blob
-            );
-
-
-        /*
-           Görselin gerçekten yüklenmesini bekle.
-        */
-
-        await new Promise(
-            (resolve,reject)=>{
-
-                img.onload =
-                    resolve;
-
-                img.onerror =
-                    reject;
-
-                img.src =
-                    imageURL;
-
-            }
-        );
-
-
-        img.style.display =
-            "block";
-
-
-        window.minaScenes[index].image =
-            imageURL;
-
-
-        status.innerHTML =
-            "✅ Gerçek AI görseli hazır.";
-
-
-    }
-    catch(error){
-
-        console.error(
-            error
-        );
-
-
-        status.innerHTML =
-            "❌ AI görsel hatası: " +
-            error.message;
-
-    }
+  window.location.href =
+    AUTH_URL + "?" + params.toString();
 
 }
 
 
-/* =========================================================
-   TÜM AI GÖRSELLERİ
-========================================================= */
+/* =========================
+   CALLBACK
+========================= */
 
-async function createAllAIImages(){
+async function handleOAuthCallback(){
 
-    if(
-        !window.minaScenes ||
-        !window.minaScenes.length
-    ){
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-        alert(
-            "Önce sahneleri oluştur."
-        );
+  const code =
+    params.get("code");
 
-        return;
+  if(!code) return;
+
+  try{
+
+    setStatus(
+      "🔐 Pollinations bağlantısı tamamlanıyor..."
+    );
+
+    /*
+      PKCE olmadan klasik örnek burada
+      doğrudan token isteyemez.
+      Eğer mevcut token zaten varsa onu koruyoruz.
+    */
+
+    const existing =
+      getToken();
+
+    if(existing){
+
+      setStatus(
+        "✅ Mevcut Pollinations bağlantısı kullanılıyor."
+      );
+
+    }else{
+
+      setStatus(
+        "⚠️ OAuth kodu alındı ancak tarayıcı tarafında " +
+        "token değişimi için PKCE verifier gerekiyor. " +
+        "Mevcut Pollinations bağlantısını kullan."
+      );
+
     }
 
+    history.replaceState(
+      {},
+      document.title,
+      REDIRECT_URI
+    );
+
+  }catch(err){
+
+    setStatus(
+      "❌ OAuth hatası: " +
+      err.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+async function checkBalance(){
+
+  const token =
+    getToken();
+
+  if(!token){
+
+    setStatus(
+      "❌ Pollinations token bulunamadı."
+    );
+
+    return;
+
+  }
+
+  try{
+
+    setStatus(
+      "💰 Bakiye kontrol ediliyor..."
+    );
+
+    const response =
+      await fetch(
+        "https://gen.pollinations.ai/api/account/balance",
+        {
+          headers:{
+            Authorization:
+              "Bearer " + token
+          }
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      throw new Error(
+        data?.error?.message ||
+        "Bakiye alınamadı."
+      );
+
+    }
+
+    setStatus(
+      "💰 Pollinations bakiyesi: " +
+      (data.balance ?? "bilinmiyor") +
+      " Pollen"
+    );
+
+  }catch(err){
+
+    setStatus(
+      "❌ Bakiye kontrol hatası:\n" +
+      err.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SAFE SEED
+========================= */
+
+function createSafeSeed(sceneNumber){
+
+  const timePart =
+    Date.now() % MAX_SEED;
+
+  const scenePart =
+    sceneNumber * 100003;
+
+  const seed =
+    (timePart + scenePart) %
+    MAX_SEED;
+
+  return Math.floor(seed);
+
+}
+
+
+/* =========================
+   STYLE
+========================= */
+
+function getStylePrompt(style){
+
+  const styles = {
+
+    cinematic:
+      "cinematic movie still, dramatic lighting, realistic composition",
+
+    fantasy:
+      "dark fantasy cinematic artwork, magical atmosphere, detailed",
+
+    scifi:
+      "science fiction cinematic scene, futuristic atmosphere, detailed",
+
+    "3d":
+      "high quality 3D animated movie style, detailed",
+
+    "2d":
+      "high quality 2D animated illustration, detailed",
+
+    dark:
+      "dark mysterious cinematic atmosphere, ominous lighting, realistic",
+
+    photo:
+      "photorealistic documentary photography, natural lighting",
+
+    action:
+      "dynamic action movie scene, dramatic lighting, cinematic",
+
+    medieval:
+      "historical medieval cinematic scene, realistic details",
+
+    epic:
+      "epic cinematic movie scene, enormous scale, dramatic atmosphere"
+
+  };
+
+  return styles[style] ||
+    styles.cinematic;
+
+}
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+function getLanguageName(){
+
+  const lang =
+    document.getElementById(
+      "language"
+    ).value;
+
+  if(lang === "de")
+    return "German";
+
+  if(lang === "en")
+    return "English";
+
+  return "Turkish";
+
+}
+
+
+/* =========================
+   SCRIPT GENERATION
+========================= */
+
+async function generateScript(){
+
+  const topic =
+    document.getElementById(
+      "topic"
+    ).value.trim();
+
+  if(!topic){
+
+    setStatus(
+      "⚠️ Önce video konusunu yaz."
+    );
+
+    return;
+
+  }
+
+  const language =
+    getLanguageName();
+
+  const count =
+    Number(
+      document.getElementById(
+        "sceneCount"
+      ).value
+    );
+
+  const btn =
+    document.getElementById(
+      "scriptBtn"
+    );
+
+  btn.disabled = true;
+
+  setStatus(
+    "🧠 Senaryo hazırlanıyor..."
+  );
+
+  try{
 
     const token =
-        getPollinationsToken();
-
+      getToken();
 
     if(!token){
 
-        $("status").innerHTML =
-            "❌ Pollinations bağlantısı bulunamadı.";
+      throw new Error(
+        "Pollinations token bulunamadı."
+      );
 
-        return;
     }
 
+    const prompt = `
+Create a YouTube mystery documentary script.
+
+Topic:
+${topic}
+
+Language:
+${language}
+
+Create exactly ${count} scenes.
+
+For each scene provide:
+SCENE 1:
+Narration:
+Visual:
+
+SCENE 2:
+Narration:
+Visual:
+
+Continue until SCENE ${count}.
+
+The narration should be natural and suitable
+for a mystery documentary.
+Do not invent facts if the topic is about
+a real historical event.
+`;
+
+    const url =
+      "https://gen.pollinations.ai/text/" +
+      encodeURIComponent(prompt) +
+      "?model=openai";
+
+    const response =
+      await fetch(
+        url,
+        {
+          headers:{
+            Authorization:
+              "Bearer " + token
+          }
+        }
+      );
+
+    const text =
+      await response.text();
+
+    if(!response.ok){
+
+      throw new Error(
+        extractError(text)
+      );
+
+    }
+
+    document.getElementById(
+      "script"
+    ).value = text;
+
+    setStatus(
+      "✅ Senaryo oluşturuldu."
+    );
+
+  }catch(err){
+
+    setStatus(
+      "❌ AI senaryo hatası:\n" +
+      err.message
+    );
+
+  }finally{
+
+    btn.disabled = false;
+
+  }
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function extractError(text){
+
+  try{
+
+    const data =
+      JSON.parse(text);
+
+    if(data?.error?.message)
+      return data.error.message;
+
+    if(data?.message)
+      return data.message;
+
+  }catch(e){}
+
+  return text ||
+    "Bilinmeyen hata";
+
+}
+
+
+/* =========================
+   SCENE PARSER
+========================= */
+
+function parseScript(text,count){
+
+  const result = [];
+
+  const regex =
+    /SCENE\s+(\d+)\s*:([\s\S]*?)(?=SCENE\s+\d+\s*:|$)/gi;
+
+  let match;
+
+  while(
+    (match = regex.exec(text))
+  ){
+
+    const number =
+      Number(match[1]);
+
+    const content =
+      match[2].trim();
+
+    let narration =
+      content;
+
+    let visual =
+      content;
+
+    const narrationMatch =
+      content.match(
+        /Narration\s*:\s*([\s\S]*?)(?=Visual\s*:|$)/i
+      );
+
+    const visualMatch =
+      content.match(
+        /Visual\s*:\s*([\s\S]*)/i
+      );
+
+    if(narrationMatch)
+      narration =
+        narrationMatch[1].trim();
+
+    if(visualMatch)
+      visual =
+        visualMatch[1].trim();
+
+    result.push({
+
+      number,
+
+      narration,
+
+      visual
+
+    });
+
+  }
+
+  /*
+    Parser formatı bulamazsa
+    senaryoyu eşit parçalara böl.
+  */
+
+  if(!result.length){
+
+    const sentences =
+      text
+        .split(/(?<=[.!?])\s+/)
+        .filter(Boolean);
+
+    const perScene =
+      Math.ceil(
+        sentences.length / count
+      );
 
     for(
-        let i=0;
-        i<window.minaScenes.length;
-        i++
+      let i=0;
+      i<count;
+      i++
     ){
 
-        $("status").innerHTML =
-            `🤖 AI görsel ${i+1}/${window.minaScenes.length} oluşturuluyor...`;
+      const part =
+        sentences.slice(
+          i * perScene,
+          (i+1) * perScene
+        ).join(" ");
 
+      result.push({
 
-        await generateAIImage(
-            i
-        );
+        number:i+1,
 
+        narration:
+          part || text,
 
-        /*
-           API'yi gereksiz yere
-           arka arkaya bombardıman
-           etmemek için bekleme.
-        */
+        visual:
+          part || text
 
-        if(
-            i <
-            window.minaScenes.length - 1
-        ){
-
-            await sleep(
-                3500
-            );
-
-        }
+      });
 
     }
 
+  }
 
-    $("status").innerHTML =
-        "🎉 Tüm AI görselleri tamamlandı.";
+  while(result.length < count){
+
+    result.push({
+
+      number:result.length+1,
+
+      narration:
+        text,
+
+      visual:
+        text
+
+    });
+
+  }
+
+  return result.slice(0,count);
 
 }
 
 
-/* =========================================================
+/* =========================
+   AI IMAGE
+========================= */
+
+async function generateImage(
+  prompt,
+  sceneNumber
+){
+
+  const token =
+    getToken();
+
+  if(!token){
+
+    throw new Error(
+      "Pollinations token bulunamadı."
+    );
+
+  }
+
+  const style =
+    document.getElementById(
+      "style"
+    ).value;
+
+  const stylePrompt =
+    getStylePrompt(style);
+
+  const finalPrompt = `
+${prompt}
+
+${stylePrompt}
+
+YouTube documentary frame.
+16:9 landscape.
+No text.
+No subtitles.
+No watermark.
+Highly detailed.
+`;
+
+  const params =
+    new URLSearchParams({
+
+      model:
+        "black-forest-labs/flux.1-schnell",
+
+      width:"1280",
+
+      height:"720",
+
+      seed:
+        String(
+          createSafeSeed(
+            sceneNumber
+          )
+        ),
+
+      nologo:"true"
+
+    });
+
+  const url =
+    IMAGE_API +
+    encodeURIComponent(
+      finalPrompt
+    ) +
+    "?" +
+    params.toString();
+
+  const response =
+    await fetch(
+      url,
+      {
+        headers:{
+          Authorization:
+            "Bearer " + token
+        }
+      }
+    );
+
+  if(!response.ok){
+
+    const text =
+      await response.text();
+
+    throw new Error(
+      "HTTP " +
+      response.status +
+      " " +
+      extractError(text)
+    );
+
+  }
+
+  const blob =
+    await response.blob();
+
+  return URL.createObjectURL(
+    blob
+  );
+
+}
+
+
+/* =========================
+   AUDIO
+========================= */
+
+async function generateAudio(
+  text
+){
+
+  const token =
+    getToken();
+
+  if(!token){
+
+    throw new Error(
+      "Pollinations token bulunamadı."
+    );
+
+  }
+
+  const language =
+    document.getElementById(
+      "language"
+    ).value;
+
+  let voice =
+    "nova";
+
+  if(language === "de")
+    voice = "nova";
+
+  if(language === "tr")
+    voice = "nova";
+
+  if(language === "en")
+    voice = "nova";
+
+  const url =
+    AUDIO_API +
+    encodeURIComponent(text) +
+    "?voice=" +
+    encodeURIComponent(voice);
+
+  const response =
+    await fetch(
+      url,
+      {
+        headers:{
+          Authorization:
+            "Bearer " + token
+        }
+      }
+    );
+
+  if(!response.ok){
+
+    const errorText =
+      await response.text();
+
+    throw new Error(
+      "AI ses hatası: HTTP " +
+      response.status +
+      " " +
+      extractError(errorText)
+    );
+
+  }
+
+  const blob =
+    await response.blob();
+
+  return URL.createObjectURL(
+    blob
+  );
+
+}
+
+
+/* =========================
+   IMAGE LOAD
+========================= */
+
+function loadImage(src){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const img =
+        new Image();
+
+      img.onload =
+        ()=>resolve(img);
+
+      img.onerror =
+        ()=>reject(
+          new Error(
+            "Görsel yüklenemedi."
+          )
+        );
+
+      img.src = src;
+
+    }
+  );
+
+}
+
+
+/* =========================
+   DRAW IMAGE
+========================= */
+
+function drawCover(
+  ctx,
+  img,
+  width,
+  height
+){
+
+  const imageRatio =
+    img.width / img.height;
+
+  const canvasRatio =
+    width / height;
+
+  let sx = 0;
+  let sy = 0;
+  let sw = img.width;
+  let sh = img.height;
+
+  if(imageRatio > canvasRatio){
+
+    sw =
+      img.height *
+      canvasRatio;
+
+    sx =
+      (img.width - sw) / 2;
+
+  }else{
+
+    sh =
+      img.width /
+      canvasRatio;
+
+    sy =
+      (img.height - sh) / 2;
+
+  }
+
+  ctx.drawImage(
+    img,
+    sx,
+    sy,
+    sw,
+    sh,
+    0,
+    0,
+    width,
+    height
+  );
+
+}
+
+
+/* =========================
+   SUBTITLE
+========================= */
+
+function drawSubtitle(
+  ctx,
+  text,
+  width,
+  height
+){
+
+  if(!text)
+    return;
+
+  const maxWidth =
+    width * .82;
+
+  ctx.font =
+    "bold 30px Arial";
+
+  const words =
+    text.split(/\s+/);
+
+  const lines = [];
+
+  let line = "";
+
+  for(const word of words){
+
+    const test =
+      line ?
+      line + " " + word :
+      word;
+
+    if(
+      ctx.measureText(test)
+        .width > maxWidth
+    ){
+
+      lines.push(line);
+
+      line = word;
+
+    }else{
+
+      line = test;
+
+    }
+
+  }
+
+  if(line)
+    lines.push(line);
+
+  const lineHeight =
+    38;
+
+  const totalHeight =
+    lines.length *
+    lineHeight;
+
+  const startY =
+    height -
+    totalHeight -
+    55;
+
+  ctx.textAlign =
+    "center";
+
+  ctx.textBaseline =
+    "top";
+
+  for(
+    let i=0;
+    i<lines.length;
+    i++
+  ){
+
+    const y =
+      startY +
+      i * lineHeight;
+
+    ctx.lineWidth = 8;
+
+    ctx.strokeStyle =
+      "rgba(0,0,0,.9)";
+
+    ctx.strokeText(
+      lines[i],
+      width/2,
+      y
+    );
+
+    ctx.fillStyle =
+      "#ffffff";
+
+    ctx.fillText(
+      lines[i],
+      width/2,
+      y
+    );
+
+  }
+
+}
+
+
+/* =========================
+   AUDIO ELEMENT
+========================= */
+
+async function prepareAudio(
+  url
+){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const audio =
+        new Audio();
+
+      audio.crossOrigin =
+        "anonymous";
+
+      audio.src =
+        url;
+
+      audio.preload =
+        "auto";
+
+      audio.onloadedmetadata =
+        ()=>{
+          resolve(audio);
+        };
+
+      audio.onerror =
+        ()=>{
+          reject(
+            new Error(
+              "Ses dosyası yüklenemedi."
+            )
+          );
+        };
+
+    }
+  );
+
+}
+
+
+/* =========================
    VIDEO
-========================================================= */
+========================= */
 
 async function createVideo(){
 
-    if(
-        !window.minaScenes ||
-        !window.minaScenes.length
-    ){
+  if(!scenesData.length){
 
-        alert(
-            "Önce sahneleri oluştur."
-        );
-
-        return;
-    }
-
-
-    /*
-       Görsel yoksa video oluşturma.
-    */
-
-    const missing =
-        window.minaScenes.filter(
-            scene =>
-                !scene.image
-        );
-
-
-    if(missing.length){
-
-        alert(
-            "Önce tüm AI görsellerini oluştur."
-        );
-
-        return;
-    }
-
-
-    $("status").innerHTML =
-        "🎥 Video oluşturuluyor...";
-
-
-    const canvas =
-        document.createElement(
-            "canvas"
-        );
-
-
-    canvas.width =
-        1280;
-
-
-    canvas.height =
-        720;
-
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-    const stream =
-        canvas.captureStream(
-            30
-        );
-
-
-    let mime =
-        "video/webm;codecs=vp9";
-
-
-    if(
-        !MediaRecorder.isTypeSupported(
-            mime
-        )
-    ){
-
-        mime =
-            "video/webm";
-
-    }
-
-
-    const recorder =
-        new MediaRecorder(
-            stream,
-            {
-                mimeType:
-                    mime,
-
-                videoBitsPerSecond:
-                    5000000
-            }
-        );
-
-
-    const chunks = [];
-
-
-    recorder.ondataavailable =
-        e => {
-
-            if(
-                e.data.size > 0
-            ){
-
-                chunks.push(
-                    e.data
-                );
-
-            }
-
-        };
-
-
-    const finished =
-        new Promise(
-            resolve => {
-
-                recorder.onstop =
-                    () => {
-
-                    const blob =
-                        new Blob(
-                            chunks,
-                            {
-                                type:
-                                    "video/webm"
-                            }
-                        );
-
-
-                    resolve(
-                        blob
-                    );
-
-                };
-
-            }
-        );
-
-
-    recorder.start();
-
-
-    const duration =
-        Number(
-            $("duration").value
-        ) *
-        1000;
-
-
-    for(
-        let i=0;
-        i<window.minaScenes.length;
-        i++
-    ){
-
-        const scene =
-            window.minaScenes[i];
-
-
-        const img =
-            document.getElementById(
-                "img" + i
-            );
-
-
-        if(
-            !img ||
-            !img.complete ||
-            img.naturalWidth === 0
-        ){
-
-            continue;
-        }
-
-
-        const start =
-            performance.now();
-
-
-        while(
-            performance.now() -
-            start <
-            duration
-        ){
-
-            drawScene(
-                ctx,
-                img,
-                scene.text,
-                i+1,
-                window.minaScenes.length
-            );
-
-
-            await sleep(
-                33
-            );
-
-        }
-
-    }
-
-
-    recorder.stop();
-
-
-    const blob =
-        await finished;
-
-
-    const url =
-        URL.createObjectURL(
-            blob
-        );
-
-
-    $("preview").src =
-        url;
-
-
-    $("preview").style.display =
-        "block";
-
-
-    const download =
-        $("download");
-
-
-    download.href =
-        url;
-
-
-    download.style.display =
-        "block";
-
-
-    $("status").innerHTML =
-        "✅ Video hazır!";
-
-}
-
-
-/* =========================================================
-   VIDEO SAHNESİ
-========================================================= */
-
-function drawScene(
-    ctx,
-    img,
-    text,
-    number,
-    total
-){
-
-    ctx.fillStyle =
-        "#000";
-
-
-    ctx.fillRect(
-        0,
-        0,
-        1280,
-        720
+    throw new Error(
+      "Video için sahne bulunamadı."
     );
 
+  }
 
-    const iw =
-        img.naturalWidth;
+  const canvas =
+    document.createElement(
+      "canvas"
+    );
 
+  canvas.width =
+    1280;
 
-    const ih =
-        img.naturalHeight;
+  canvas.height =
+    720;
 
+  const ctx =
+    canvas.getContext(
+      "2d"
+    );
 
-    const scale =
-        Math.max(
-            1280/iw,
-            720/ih
-        );
+  const stream =
+    canvas.captureStream(30);
 
+  /*
+    AudioContext oluştur.
+    AI ses bulunamazsa video yine
+    sessiz oluşturulabilir.
+  */
 
-    const w =
-        iw * scale;
+  let audioCtx = null;
+  let audioDestination = null;
 
+  try{
 
-    const h =
-        ih * scale;
+    audioCtx =
+      new AudioContext();
 
+    audioDestination =
+      audioCtx.createMediaStreamDestination();
 
-    const x =
-        (1280-w)/2;
+    const tracks =
+      audioDestination.stream
+        .getAudioTracks();
 
+    tracks.forEach(
+      track =>
+        stream.addTrack(track)
+    );
 
-    const y =
-        (720-h)/2;
+  }catch(e){
 
+    console.warn(
+      "AudioContext kullanılamadı.",
+      e
+    );
 
-    ctx.drawImage(
+  }
+
+  let mime =
+    "video/webm;codecs=vp9,opus";
+
+  if(
+    !MediaRecorder.isTypeSupported(
+      mime
+    )
+  ){
+
+    mime =
+      "video/webm;codecs=vp8,opus";
+
+  }
+
+  if(
+    !MediaRecorder.isTypeSupported(
+      mime
+    )
+  ){
+
+    mime =
+      "video/webm";
+
+  }
+
+  const recorder =
+    new MediaRecorder(
+      stream,
+      {
+        mimeType:mime,
+        videoBitsPerSecond:5000000
+      }
+    );
+
+  const chunks = [];
+
+  recorder.ondataavailable =
+    e=>{
+
+      if(e.data.size)
+        chunks.push(e.data);
+
+    };
+
+  const finished =
+    new Promise(
+      resolve=>{
+
+        recorder.onstop =
+          ()=>{
+
+            resolve(
+              new Blob(
+                chunks,
+                {
+                  type:mime
+                }
+              )
+            );
+
+          };
+
+      }
+    );
+
+  recorder.start();
+
+  const duration =
+    Number(
+      document.getElementById(
+        "sceneDuration"
+      ).value
+    ) * 1000;
+
+  for(
+    let i=0;
+    i<scenesData.length;
+    i++
+  ){
+
+    const scene =
+      scenesData[i];
+
+    const img =
+      await loadImage(
+        scene.image
+      );
+
+    const start =
+      performance.now();
+
+    while(
+      performance.now() -
+      start <
+      duration
+    ){
+
+      drawCover(
+        ctx,
         img,
-        x,
-        y,
-        w,
-        h
-    );
+        canvas.width,
+        canvas.height
+      );
 
+      /*
+        hafif sinematik karartma
+      */
 
-    const gradient =
+      const gradient =
         ctx.createLinearGradient(
-            0,
-            350,
-            0,
-            720
+          0,
+          0,
+          0,
+          canvas.height
         );
 
-
-    gradient.addColorStop(
+      gradient.addColorStop(
         0,
-        "rgba(0,0,0,0)"
-    );
+        "rgba(0,0,0,.02)"
+      );
 
-
-    gradient.addColorStop(
+      gradient.addColorStop(
         1,
-        "rgba(0,0,0,.9)"
-    );
+        "rgba(0,0,0,.45)"
+      );
 
-
-    ctx.fillStyle =
+      ctx.fillStyle =
         gradient;
 
-
-    ctx.fillRect(
+      ctx.fillRect(
         0,
-        300,
-        1280,
-        420
-    );
+        0,
+        canvas.width,
+        canvas.height
+      );
 
-
-    ctx.fillStyle =
-        "rgba(0,0,0,.58)";
-
-
-    roundRect(
+      drawSubtitle(
         ctx,
-        35,
-        30,
-        300,
-        55,
-        12
+        scene.narration,
+        canvas.width,
+        canvas.height
+      );
+
+      await new Promise(
+        requestAnimationFrame
+      );
+
+    }
+
+  }
+
+  recorder.stop();
+
+  return await finished;
+
+}
+
+
+/* =========================
+   ANA VİDEO
+========================= */
+
+async function generateVideo(){
+
+  const topic =
+    document.getElementById(
+      "topic"
+    ).value.trim();
+
+  let script =
+    document.getElementById(
+      "script"
+    ).value.trim();
+
+  if(!topic){
+
+    setStatus(
+      "⚠️ Video konusu boş."
     );
 
+    return;
 
-    ctx.fillStyle =
-        "#fff";
+  }
 
+  if(!script){
 
-    ctx.font =
-        "bold 25px Arial";
-
-
-    ctx.fillText(
-        "MYSTERY NACHT",
-        55,
-        66
+    setStatus(
+      "⚠️ Önce senaryo oluştur veya senaryo yaz."
     );
 
+    return;
+
+  }
+
+  const token =
+    getToken();
+
+  if(!token){
+
+    setStatus(
+      "❌ Pollinations bağlantısı yok.\n" +
+      "Önce Pollinations'a bağlan."
+    );
+
+    return;
+
+  }
+
+  const count =
+    Number(
+      document.getElementById(
+        "sceneCount"
+      ).value
+    );
+
+  const btn =
+    document.getElementById(
+      "generateBtn"
+    );
+
+  btn.disabled = true;
+
+  document
+    .getElementById(
+      "scenesBox"
+    )
+    .classList
+    .remove("hidden");
+
+  document.getElementById(
+    "videoBox"
+  ).classList.add("hidden");
+
+  document.getElementById(
+    "scenes"
+  ).innerHTML = "";
+
+  scenesData = [];
+
+  try{
+
+    const parsed =
+      parseScript(
+        script,
+        count
+      );
+
+    setProgress(5);
+
+    setStatus(
+      "🎬 " +
+      parsed.length +
+      " sahne hazırlanıyor..."
+    );
 
     /*
-       Altyazı
+      GÖRSELLERİ TEK TEK oluşturuyoruz.
+      Böylece Pollinations queue limitine
+      takılma ihtimali azaltılıyor.
     */
 
-    const maxWidth =
-        1080;
-
-
-    const words =
-        text.split(" ");
-
-
-    const lines = [];
-
-
-    let line = "";
-
-
-    ctx.font =
-        "bold 34px Arial";
-
-
     for(
-        const word of words
+      let i=0;
+      i<parsed.length;
+      i++
     ){
 
-        const test =
-            line
-            ? line + " " + word
-            : word;
+      const scene =
+        parsed[i];
 
+      setStatus(
+        "🖼️ Sahne " +
+        (i+1) +
+        "/" +
+        parsed.length +
+        " görseli oluşturuluyor..."
+      );
+
+      setProgress(
+        5 +
+        (
+          i /
+          parsed.length
+        ) * 60
+      );
+
+      const image =
+        await generateImage(
+          scene.visual ||
+          scene.narration,
+          i+1
+        );
+
+      scene.image =
+        image;
+
+      scenesData.push(
+        scene
+      );
+
+      const wrapper =
+        document.createElement(
+          "div"
+        );
+
+      wrapper.className =
+        "scene";
+
+      wrapper.innerHTML = `
+        <img src="${image}">
+        <div class="sceneInfo">
+          <div class="sceneTitle">
+            🎬 Sahne ${i+1}
+          </div>
+
+          <div class="scenePrompt">
+            ${escapeHtml(
+              scene.visual ||
+              scene.narration
+            )}
+          </div>
+
+          <div class="scenePrompt"
+               style="margin-top:8px;color:#fff">
+            💬 ${escapeHtml(
+              scene.narration
+            )}
+          </div>
+        </div>
+      `;
+
+      document.getElementById(
+        "scenes"
+      ).appendChild(
+        wrapper
+      );
+
+      /*
+        Queue'yu rahatlatmak için
+        sahneler arasında kısa bekleme.
+      */
+
+      if(i < parsed.length-1){
+
+        setStatus(
+          "⏳ Sıradaki sahne için bekleniyor..."
+        );
+
+        await sleep(2500);
+
+      }
+
+    }
+
+    setProgress(68);
+
+    /*
+      SES
+    */
+
+    setStatus(
+      "🔊 AI ses hazırlanıyor..."
+    );
+
+    let audioUrls = [];
+
+    try{
+
+      /*
+        Her sahnenin sesini ayrı üret.
+      */
+
+      for(
+        let i=0;
+        i<scenesData.length;
+        i++
+      ){
+
+        setStatus(
+          "🔊 AI ses: " +
+          (i+1) +
+          "/" +
+          scenesData.length
+        );
+
+        const audio =
+          await generateAudio(
+            scenesData[i].narration
+          );
+
+        scenesData[i].audio =
+          audio;
+
+        audioUrls.push(
+          audio
+        );
 
         if(
-            ctx.measureText(
-                test
-            ).width >
-            maxWidth
+          i <
+          scenesData.length-1
         ){
 
-            lines.push(
-                line
-            );
-
-
-            line =
-                word;
-
-        }else{
-
-            line =
-                test;
+          await sleep(1500);
 
         }
 
-    }
+      }
 
+    }catch(audioError){
 
-    if(line)
-        lines.push(
-            line
-        );
+      /*
+        AI ses başarısızsa bunu
+        kullanıcıya açıkça göster.
+      */
 
-
-    const lineHeight =
-        44;
-
-
-    const totalHeight =
-        lines.length *
-        lineHeight;
-
-
-    let yText =
-        670 -
-        totalHeight;
-
-
-    ctx.textAlign =
-        "center";
-
-
-    for(
-        const l of lines
-    ){
-
-        ctx.strokeStyle =
-            "rgba(0,0,0,.95)";
-
-
-        ctx.lineWidth =
-            8;
-
-
-        ctx.strokeText(
-            l,
-            640,
-            yText
-        );
-
-
-        ctx.fillStyle =
-            "#fff";
-
-
-        ctx.fillText(
-            l,
-            640,
-            yText
-        );
-
-
-        yText +=
-            lineHeight;
+      setStatus(
+        "⚠️ AI ses oluşturulamadı.\n" +
+        audioError.message +
+        "\n\n" +
+        "Görseller hazır. Video sessiz oluşturulacak."
+      );
 
     }
 
+    setProgress(75);
 
-    ctx.textAlign =
-        "left";
-
+    setStatus(
+      "🎥 Video oluşturuluyor..."
+    );
 
     /*
-       Sahne numarası
+      Şimdilik video render'ı
+      görseller + altyazılar üzerinden.
+      Gerçek AI ses kaynakları CORS
+      nedeniyle tarayıcı MediaRecorder'a
+      doğrudan bağlanamazsa video sessiz kalabilir.
     */
 
-    ctx.fillStyle =
-        "rgba(0,0,0,.6)";
+    const blob =
+      await createVideo();
 
+    setProgress(100);
 
-    roundRect(
-        ctx,
-        1110,
-        30,
-        120,
-        50,
-        12
+    const videoUrl =
+      URL.createObjectURL(
+        blob
+      );
+
+    const video =
+      document.getElementById(
+        "video"
+      );
+
+    video.src =
+      videoUrl;
+
+    video.controls =
+      true;
+
+    document.getElementById(
+      "videoBox"
+    ).classList.remove(
+      "hidden"
     );
 
+    const download =
+      document.getElementById(
+        "downloadBtn"
+      );
 
-    ctx.fillStyle =
-        "#fff";
+    download.onclick =
+      ()=>{
 
+        const a =
+          document.createElement(
+            "a"
+          );
 
-    ctx.font =
-        "bold 20px Arial";
+        a.href =
+          videoUrl;
 
+        a.download =
+          "mina-video-" +
+          Date.now() +
+          ".webm";
 
-    ctx.fillText(
-        `${number}/${total}`,
-        1140,
-        63
+        a.click();
+
+      };
+
+    setStatus(
+      "✅ VİDEO HAZIR!\n\n" +
+      "🎬 " +
+      scenesData.length +
+      " sahne\n" +
+      "📝 Altyazılar videoya işlendi.\n" +
+      "🎥 WebM hazır.\n\n" +
+      "⬇️ Aşağıdaki butondan indirebilirsin."
     );
+
+  }catch(err){
+
+    console.error(err);
+
+    setProgress(0);
+
+    setStatus(
+      "❌ VİDEO OLUŞTURULAMADI:\n\n" +
+      err.message
+    );
+
+  }finally{
+
+    btn.disabled = false;
+
+  }
 
 }
 
 
-/* =========================================================
-   YARDIMCI
-========================================================= */
+/* =========================
+   HTML ESCAPE
+========================= */
 
-function roundRect(
-    ctx,
-    x,
-    y,
-    w,
-    h,
-    r
-){
+function escapeHtml(text){
 
-    ctx.beginPath();
-
-
-    ctx.roundRect(
-        x,
-        y,
-        w,
-        h,
-        r
-    );
-
-
-    ctx.fill();
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
+
+/* =========================
+   SLEEP
+========================= */
 
 function sleep(ms){
 
-    return new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                ms
-            )
-    );
+  return new Promise(
+    resolve =>
+      setTimeout(
+        resolve,
+        ms
+      )
+  );
 
 }
+
+
+/* =========================
+   START
+========================= */
+
+window.addEventListener(
+  "load",
+  async()=>{
+
+    updateTokenStatus();
+
+    await handleOAuthCallback();
+
+  }
+);
 
 </script>
 
