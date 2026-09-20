@@ -1,167 +1,251 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI V7</title>
+<title>Mina Video AI V8</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  background:#080c16;
-  color:#fff;
-  font-family:Arial,sans-serif;
+margin:0;
+background:#080c16;
+color:#fff;
+font-family:Arial,sans-serif;
 }
+
 .container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+max-width:900px;
+margin:auto;
+padding:20px;
 }
-h1{text-align:center;margin:5px 0;font-size:30px}
-.subtitle{text-align:center;color:#94a3b8;margin-bottom:22px}
+
+h1{
+text-align:center;
+margin:5px 0;
+font-size:30px;
+}
+
+.subtitle{
+text-align:center;
+color:#94a3b8;
+margin-bottom:22px;
+}
+
 .card{
-  background:#111827;
-  border:1px solid #263247;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:16px;
+background:#111827;
+border:1px solid #263247;
+border-radius:18px;
+padding:18px;
+margin-bottom:16px;
 }
-h2{margin-top:0}
+
+h2{
+margin-top:0;
+}
+
 label{
-  display:block;
-  font-weight:bold;
-  margin:10px 0 6px;
+display:block;
+font-weight:bold;
+margin:10px 0 6px;
 }
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #34415a;
-  background:#080f1e;
-  color:#fff;
-  outline:none;
-}
+
+input,
+select,
 textarea{
-  min-height:110px;
-  resize:vertical;
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #34415a;
+background:#080f1e;
+color:#fff;
+outline:none;
 }
+
+textarea{
+min-height:110px;
+resize:vertical;
+}
+
 .row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
+
 @media(max-width:650px){
-  .row{grid-template-columns:1fr}
+.row{
+grid-template-columns:1fr;
 }
+}
+
 button{
-  border:0;
-  border-radius:11px;
-  padding:12px 16px;
-  margin:4px;
-  color:#fff;
-  background:#2563eb;
-  font-weight:bold;
-  cursor:pointer;
+border:0;
+border-radius:11px;
+padding:12px 16px;
+margin:4px;
+color:#fff;
+background:#2563eb;
+font-weight:bold;
+cursor:pointer;
 }
-button:hover{filter:brightness(1.12)}
-button.green{background:#059669}
-button.orange{background:#d97706}
-button.dark{background:#374151}
-button.red{background:#dc2626}
+
+button:hover{
+filter:brightness(1.12);
+}
+
+button.green{
+background:#059669;
+}
+
+button.orange{
+background:#d97706;
+}
+
+button.dark{
+background:#374151;
+}
+
+button.red{
+background:#dc2626;
+}
+
 button.big{
-  width:100%;
-  padding:15px;
-  font-size:17px;
-  margin:10px 0;
+width:100%;
+padding:15px;
+font-size:17px;
+margin:10px 0;
 }
+
 .scene{
-  background:#0b1220;
-  border:1px solid #29364c;
-  border-radius:15px;
-  padding:15px;
-  margin-top:15px;
+background:#0b1220;
+border:1px solid #29364c;
+border-radius:15px;
+padding:15px;
+margin-top:15px;
 }
+
 .sceneHead{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
 }
-.sceneTitle{font-size:18px;font-weight:bold}
-.sceneStatus{color:#7dd3fc;font-size:13px}
-.prompt{min-height:125px;margin-top:10px}
+
+.sceneTitle{
+font-size:18px;
+font-weight:bold;
+}
+
+.sceneStatus{
+color:#7dd3fc;
+font-size:13px;
+}
+
+.prompt{
+min-height:145px;
+margin-top:10px;
+}
+
 .preview{
-  width:100%;
-  max-height:350px;
-  object-fit:cover;
-  border-radius:12px;
-  margin-top:10px;
-  display:none;
-  background:#000;
+width:100%;
+max-height:350px;
+object-fit:cover;
+border-radius:12px;
+margin-top:10px;
+display:none;
+background:#000;
 }
+
 .small{
-  color:#94a3b8;
-  font-size:13px;
-  line-height:1.5;
+color:#94a3b8;
+font-size:13px;
+line-height:1.5;
 }
+
 .status{
-  white-space:pre-wrap;
-  background:#080f1e;
-  border:1px solid #263247;
-  border-radius:10px;
-  padding:12px;
+white-space:pre-wrap;
+background:#080f1e;
+border:1px solid #263247;
+border-radius:10px;
+padding:12px;
 }
+
 .progress{
-  width:100%;
-  height:12px;
-  border-radius:20px;
-  background:#202938;
-  overflow:hidden;
-  margin:12px 0;
+width:100%;
+height:12px;
+border-radius:20px;
+background:#202938;
+overflow:hidden;
+margin:12px 0;
 }
+
 .progressBar{
-  width:0%;
-  height:100%;
-  background:#22c55e;
-  transition:.2s;
+width:0%;
+height:100%;
+background:#22c55e;
+transition:.2s;
 }
+
 #audioInfo{
-  display:none;
-  margin-top:10px;
-  padding:10px;
-  background:#071a14;
-  border:1px solid #065f46;
-  border-radius:10px;
-  color:#a7f3d0;
+display:none;
+margin-top:10px;
+padding:10px;
+background:#071a14;
+border:1px solid #065f46;
+border-radius:10px;
+color:#a7f3d0;
 }
+
 #videoPreview{
-  width:100%;
-  max-height:500px;
-  display:none;
-  background:#000;
-  border-radius:14px;
-  margin-top:15px;
+width:100%;
+max-height:500px;
+display:none;
+background:#000;
+border-radius:14px;
+margin-top:15px;
 }
+
 #download{
-  display:none;
-  text-decoration:none;
-  text-align:center;
-  background:#16a34a;
-  color:#fff;
-  padding:14px;
-  border-radius:12px;
-  font-weight:bold;
-  margin-top:12px;
+display:none;
+text-decoration:none;
+text-align:center;
+background:#16a34a;
+color:#fff;
+padding:14px;
+border-radius:12px;
+font-weight:bold;
+margin-top:12px;
 }
+
 .badge{
-  display:inline-block;
-  background:#172554;
-  color:#93c5fd;
-  border-radius:20px;
-  padding:5px 10px;
-  font-size:12px;
+display:inline-block;
+background:#172554;
+color:#93c5fd;
+border-radius:20px;
+padding:5px 10px;
+font-size:12px;
+margin-bottom:10px;
+}
+
+.sceneText{
+margin-top:10px;
+padding:12px;
+background:#101827;
+border-radius:10px;
+border:1px solid #263247;
+line-height:1.5;
+}
+
+.keyword{
+display:inline-block;
+padding:4px 8px;
+margin:3px;
+border-radius:15px;
+background:#172554;
+color:#93c5fd;
+font-size:12px;
 }
 </style>
 </head>
@@ -170,9 +254,10 @@ button.big{
 
 <div class="container">
 
-<h1>🎬 Mina Video AI V7</h1>
+<h1>🎬 Mina Video AI V8</h1>
+
 <div class="subtitle">
-Mystery Nacht • Senaryo • Z-Image • Ses • Altyazı • Video
+Mystery Nacht • Konuya Özel Senaryo • Z-Image • Ses • Altyazı
 </div>
 
 
@@ -184,47 +269,64 @@ Mystery Nacht • Senaryo • Z-Image • Ses • Altyazı • Video
 
 <label>🎯 Video konusu</label>
 
-<textarea id="topic"
-placeholder="Örnek: 1986 yılında Almanya'da gizemli şekilde kaybolan bir adam..."></textarea>
+<textarea
+id="topic"
+placeholder="Örnek: Almanya'da 1986 yılında ortadan kaybolan bir adamın gizemli hikâyesi"></textarea>
 
 <div class="row">
 
 <div>
+
 <label>🌍 Video dili</label>
 
 <select id="language">
+
 <option value="de">🇩🇪 Almanca</option>
 <option value="tr">🇹🇷 Türkçe</option>
 <option value="en">🇬🇧 İngilizce</option>
+
 </select>
+
 </div>
 
+
 <div>
+
 <label>🎬 Sahne sayısı</label>
 
 <select id="sceneCount">
+
 <option value="4">4 Sahne</option>
 <option value="5">5 Sahne</option>
 <option value="6" selected>6 Sahne</option>
+
 </select>
+
 </div>
 
 </div>
+
 
 <div class="row">
 
 <div>
+
 <label>⏱️ Sahne süresi</label>
 
 <select id="sceneDuration">
+
 <option value="4">4 saniye</option>
 <option value="5" selected>5 saniye</option>
 <option value="6">6 saniye</option>
 <option value="8">8 saniye</option>
+
 </select>
+
 </div>
 
+
 <div>
+
 <label>🎨 Görsel tarzı</label>
 
 <select id="style">
@@ -241,48 +343,71 @@ placeholder="Örnek: 1986 yılında Almanya'da gizemli şekilde kaybolan bir ada
 <option value="epic">🌌 Epik</option>
 
 </select>
-</div>
 
 </div>
 
-<button class="big" onclick="generateScript()">
-🧠 Senaryoyu Oluştur
+</div>
+
+
+<button
+class="big"
+onclick="generateScript()">
+
+🧠 Konuya Özel Senaryoyu Oluştur
+
 </button>
 
-<div class="small">
-Seçilen dil senaryo ve otomatik altyazı dilini belirler.
+<div
+id="keywords"
+class="small">
 </div>
 
 </div>
+
 
 
 <!-- SENARYO -->
 
-<div class="card" id="scriptCard" style="display:none">
+<div
+class="card"
+id="scriptCard"
+style="display:none">
 
-<h2>📝 Otomatik Senaryo</h2>
+<h2>📝 Konuya Özel Senaryo</h2>
 
-<div class="badge" id="languageBadge"></div>
+<div
+class="badge"
+id="languageBadge">
+</div>
 
-<textarea id="script" style="min-height:260px"></textarea>
+<textarea
+id="script"
+style="min-height:300px">
+</textarea>
 
 </div>
 
 
+
 <!-- SAHNELER -->
 
-<div class="card" id="sceneCard" style="display:none">
+<div
+class="card"
+id="sceneCard"
+style="display:none">
 
-<h2>🎨 Z-Image Sahne Görselleri</h2>
+<h2>🎨 Sahne Görselleri</h2>
 
 <div class="small">
-Her sahne için farklı prompt oluşturulur.
-Z-Image promptları İngilizce tutulur; video dili bundan bağımsızdır.
+
+Her sahne artık yazdığın konuya göre ayrı oluşturulur.
+
 </div>
 
 <div id="scenes"></div>
 
 </div>
+
 
 
 <!-- SES -->
@@ -293,31 +418,39 @@ Z-Image promptları İngilizce tutulur; video dili bundan bağımsızdır.
 
 <label>MP3 / WAV / M4A</label>
 
-<input id="audioInput" type="file" accept="audio/*">
+<input
+id="audioInput"
+type="file"
+accept="audio/*">
 
 <div id="audioInfo"></div>
 
 <div class="small">
-TTSMaker'dan indirdiğin ses dosyasını seç.
-Ses video oluşturulurken WebM'in içine gömülür.
+
+TTSMaker'dan indirdiğin MP3 dosyasını seç.
+
 </div>
 
 </div>
+
 
 
 <!-- ALTYAZI -->
 
-<div class="card" id="subtitleCard" style="display:none">
+<div
+class="card"
+id="subtitleCard"
+style="display:none">
 
-<h2>🔤 Otomatik Altyazı</h2>
+<h2>🔤 Konuya Özel Altyazılar</h2>
 
-<div class="small">
-Altyazı seçilen dile göre otomatik hazırlanır.
+<textarea
+id="subtitles"
+style="min-height:240px">
+</textarea>
+
 </div>
 
-<textarea id="subtitles" style="min-height:180px"></textarea>
-
-</div>
 
 
 <!-- VIDEO -->
@@ -326,27 +459,48 @@ Altyazı seçilen dile göre otomatik hazırlanır.
 
 <h2>🎬 Video</h2>
 
-<button class="big green" onclick="makeVideo()">
+<button
+class="big green"
+onclick="makeVideo()">
+
 🎬 Videoyu Oluştur
+
 </button>
 
 <div class="progress">
-<div class="progressBar" id="progressBar"></div>
+
+<div
+class="progressBar"
+id="progressBar">
 </div>
 
-<div class="status" id="status">
+</div>
+
+<div
+class="status"
+id="status">
+
 Hazır.
+
 </div>
 
-<video id="videoPreview" controls></video>
+<video
+id="videoPreview"
+controls>
+</video>
 
-<a id="download" download="mystery-nacht-video.webm">
+<a
+id="download"
+download="mystery-nacht-video.webm">
+
 ⬇️ Videoyu İndir
+
 </a>
 
 </div>
 
 </div>
+
 
 
 <script>
@@ -356,84 +510,44 @@ Hazır.
 ===================================================== */
 
 let scenesData=[];
-let generatedVideoURL=null;
 let selectedAudio=null;
+let generatedVideoURL=null;
+
 
 
 /* =====================================================
-   DİLLER
+   DİL
 ===================================================== */
 
-const LANGUAGES={
+const LANG={
 
 de:{
 name:"🇩🇪 Almanca",
-badge:"🇩🇪 Almanca Senaryo",
-
-intro:
-"Im Jahr 1986 ereignete sich ein mysteriöser Vorfall, der bis heute viele Fragen offenlässt.",
-
-scene:[
-"Wir beginnen mit dem Ort und der geheimnisvollen Atmosphäre der Geschichte.",
-"Danach lernen wir die wichtigste Person kennen, die mit dem mysteriösen Ereignis verbunden ist.",
-"Kurz darauf taucht ein ungewöhnlicher Hinweis auf.",
-"Die Ermittlungen führen zu weiteren rätselhaften Details.",
-"Eine überraschende Entdeckung verändert die gesamte Geschichte.",
-"Am Ende bleiben Fragen offen und das Rätsel ist bis heute nicht vollständig gelöst."
-],
-
-ending:
-"Was wirklich passiert ist, bleibt bis heute ein ungelöstes Geheimnis."
+intro:"Diese Geschichte beginnt mit einem Ereignis, das bis heute viele Fragen aufwirft.",
+ending:"Doch die entscheidende Frage bleibt bis heute unbeantwortet."
 },
 
 tr:{
 name:"🇹🇷 Türkçe",
-badge:"🇹🇷 Türkçe Senaryo",
-
-intro:
-"1986 yılında yaşanan gizemli bir olay, aradan geçen yıllara rağmen birçok soruyu cevapsız bıraktı.",
-
-scene:[
-"Hikâyeye olayın geçtiği yer ve gizemli atmosferle başlıyoruz.",
-"Daha sonra gizemli olayla bağlantılı olan önemli kişiyi tanıyoruz.",
-"Kısa süre sonra sıra dışı bir ipucu ortaya çıkıyor.",
-"Araştırmalar daha da gizemli ayrıntıları ortaya çıkarıyor.",
-"Şaşırtıcı bir keşif tüm hikâyenin seyrini değiştiriyor.",
-"Sonunda birçok soru cevapsız kalıyor ve gizem tamamen çözülemiyor."
-],
-
-ending:
-"Gerçekte ne olduğu ise bugün bile çözülememiş bir sır olarak kalıyor."
+intro:"Bu hikâye, yıllar geçmesine rağmen cevaplanamayan sorularla dolu gizemli bir olayla başlıyor.",
+ending:"Fakat olayın en önemli sorusu bugün bile cevapsız kalmaya devam ediyor."
 },
 
 en:{
 name:"🇬🇧 English",
-badge:"🇬🇧 English Script",
-
-intro:
-"In 1986, a mysterious event took place and left many questions unanswered for decades.",
-
-scene:[
-"We begin with the location and the mysterious atmosphere surrounding the story.",
-"Then we meet the key person connected to the mysterious event.",
-"Soon, an unusual clue appears.",
-"The investigation reveals even more mysterious details.",
-"A shocking discovery changes the entire story.",
-"In the end, many questions remain unanswered and the mystery is never completely solved."
-],
-
-ending:
-"What really happened remains an unsolved mystery to this day."
+intro:"This story begins with a mysterious event that has left unanswered questions for years.",
+ending:"But the most important question remains unanswered to this day."
 }
 
 };
 
 
+
 /* =====================================================
-   GÖRSEL STİLLERİ
+   TARZ
 ===================================================== */
 
-const STYLE_TEXT={
+const STYLES={
 
 cinematic:
 "cinematic movie still, dramatic lighting, realistic atmosphere, high production value",
@@ -468,74 +582,357 @@ epic:
 };
 
 
+
 /* =====================================================
-   SES DOSYASI SEÇİLDİ
+   KONUYU ANALİZ ET
 ===================================================== */
 
-document.getElementById("audioInput")
-.addEventListener(
-"change",
-async function(){
+function analyzeTopic(topic){
 
-    const file=this.files[0];
+    const lower=topic.toLowerCase();
 
-    if(!file){
-        return;
+    let type="mystery";
+
+    if(
+    lower.includes("cinayet") ||
+    lower.includes("öldür") ||
+    lower.includes("katil") ||
+    lower.includes("murder") ||
+    lower.includes("killer") ||
+    lower.includes("mord")
+    ){
+        type="crime";
     }
 
-    selectedAudio=file;
-
-    const info=
-    document.getElementById("audioInfo");
-
-    try{
-
-        const url=
-        URL.createObjectURL(file);
-
-        const audio=
-        new Audio();
-
-        audio.src=url;
-
-        await new Promise(
-        (resolve,reject)=>{
-
-            audio.onloadedmetadata=
-            resolve;
-
-            audio.onerror=
-            reject;
-
-        });
-
-        const minutes=
-        Math.floor(audio.duration/60);
-
-        const seconds=
-        Math.round(audio.duration%60);
-
-        info.style.display="block";
-
-        info.textContent=
-        `🔊 Ses hazır: ${file.name} • `+
-        `${minutes}:${String(seconds).padStart(2,"0")}`;
-
-        URL.revokeObjectURL(url);
-
-    }catch(error){
-
-        info.style.display="block";
-
-        info.textContent=
-        `🔊 Ses dosyası seçildi: ${file.name}`;
-
+    else if(
+    lower.includes("kaybol") ||
+    lower.includes("kayıp") ||
+    lower.includes("lost") ||
+    lower.includes("missing") ||
+    lower.includes("verschwunden")
+    ){
+        type="disappearance";
     }
-});
+
+    else if(
+    lower.includes("gemi") ||
+    lower.includes("uçak") ||
+    lower.includes("uçuş") ||
+    lower.includes("ship") ||
+    lower.includes("plane") ||
+    lower.includes("flugzeug") ||
+    lower.includes("schiff")
+    ){
+        type="disaster";
+    }
+
+    else if(
+    lower.includes("uzay") ||
+    lower.includes("ufo") ||
+    lower.includes("uzaylı") ||
+    lower.includes("alien") ||
+    lower.includes("space") ||
+    lower.includes("weltraum")
+    ){
+        type="scifi";
+    }
+
+    else if(
+    lower.includes("hazine") ||
+    lower.includes("define") ||
+    lower.includes("treasure") ||
+    lower.includes("schatz")
+    ){
+        type="treasure";
+    }
+
+    else if(
+    lower.includes("hayalet") ||
+    lower.includes("ruh") ||
+    lower.includes("ghost") ||
+    lower.includes("spirit") ||
+    lower.includes("geist")
+    ){
+        type="paranormal";
+    }
+
+    else if(
+    lower.includes("savaş") ||
+    lower.includes("war") ||
+    lower.includes("krieg")
+    ){
+        type="war";
+    }
+
+    return {
+        type:type,
+        words:topic
+        .split(/\s+/)
+        .filter(x=>x.length>3)
+        .slice(0,12)
+    };
+}
+
 
 
 /* =====================================================
-   SENARYO
+   SENARYO SAHNELERİ
+===================================================== */
+
+function buildScenes(
+topic,
+language,
+count
+){
+
+    const a=analyzeTopic(topic);
+
+    const T={
+
+    tr:{
+
+    mystery:[
+    `Her şey ${topic} ile ilgili sıradan görünen bir olayla başladı.`,
+    `Ancak olayın ayrıntıları incelendikçe normal olmayan bazı noktalar ortaya çıktı.`,
+    `Olayla bağlantılı kişiler ve yerler araştırıldığında dikkat çekici bir ayrıntı bulundu.`,
+    `Bu ayrıntı, ${topic} hakkında bilinenleri tamamen değiştirebilecek yeni bir soru ortaya çıkardı.`,
+    `Araştırmacılar geçmişte yaşanan olayları yeniden incelemeye başladığında başka ipuçları da ortaya çıktı.`,
+    `Bugün bile ${topic} hakkında kesin olarak açıklanamayan noktalar bulunuyor.`
+    ],
+
+    crime:[
+    `Olayın merkezinde ${topic} vardı ve ilk başta bunun sıradan bir suç olduğu düşünüldü.`,
+    `Fakat olay yeri incelendiğinde bazı ayrıntılar soruşturmanın yönünü değiştirdi.`,
+    `Polisin bulduğu izler, olayın arkasında düşünüldüğünden farklı bir hikâye olabileceğini gösterdi.`,
+    `Tanıkların ifadeleri ve ortaya çıkan yeni kanıtlar soruşturmayı daha karmaşık hale getirdi.`,
+    `Bazı sorular cevaplanırken daha büyük bir soru ortaya çıktı: gerçekte ne olmuştu?`,
+    `Aradan yıllar geçmesine rağmen ${topic} hakkındaki bazı ayrıntılar hâlâ tartışılıyor.`
+    ],
+
+    disappearance:[
+    `${topic} ile ilgili en büyük soru, kişinin ya da olayın nasıl bir anda ortadan kaybolduğuydu.`,
+    `İlk araştırmalarda geride kalan izler dikkatle incelendi.`,
+    `Fakat bulunan ipuçları olayın düşündüğümüzden çok daha karmaşık olduğunu gösterdi.`,
+    `Arama ekiplerinin ulaştığı bazı ayrıntılar yeni soruların ortaya çıkmasına neden oldu.`,
+    `Zaman ilerledikçe bazı teoriler ortaya çıktı ancak hiçbiri bütün soruları açıklayamadı.`,
+    `Bugün ${topic} hâlâ gizemini tamamen koruyan olaylardan biri olarak anlatılıyor.`
+    ],
+
+    disaster:[
+    `${topic} ile ilgili olay başladığında kimse bunun böylesine büyük bir gizeme dönüşeceğini bilmiyordu.`,
+    `Olayın ilk dakikaları ve sonrasında yaşananlar yıllar boyunca araştırıldı.`,
+    `Kayıtlarda bulunan bazı ayrıntılar olayın nasıl geliştiği konusunda önemli ipuçları verdi.`,
+    `Ancak bazı bilgiler diğer açıklamalarla çelişiyordu.`,
+    `Yeni araştırmalar eski teorilerin yeniden değerlendirilmesine neden oldu.`,
+    `Bugün bile ${topic} hakkında kesin olarak açıklanamayan ayrıntılar bulunuyor.`
+    ],
+
+    scifi:[
+    `${topic} ile ilgili ilk iddia ortaya çıktığında birçok kişi buna inanmadı.`,
+    `Ancak kayıtlarda bulunan bazı görüntüler ve açıklamalar konuyu daha ilginç hale getirdi.`,
+    `Araştırmacılar olayın arkasında gerçekten ne olduğunu anlamaya çalıştı.`,
+    `Bazı ayrıntılar bilimsel açıklamalarla örtüşürken bazıları soru işareti olarak kaldı.`,
+    `Olayla ilgili yeni iddialar ortaya çıktıkça tartışma daha da büyüdü.`,
+    `${topic} hakkındaki en büyük soru ise hâlâ kesin bir cevap bekliyor.`
+    ],
+
+    treasure:[
+    `${topic} ile ilgili hikâye yıllardır anlatılan eski bir ipucuyla başladı.`,
+    `İlk işaretler araştırmacıları geçmişte kullanılan bir bölgeye yönlendirdi.`,
+    `Bulunan belgeler ve işaretler gizemin gerçek olabileceğini düşündürdü.`,
+    `Fakat arama sırasında beklenmeyen başka bir ayrıntı ortaya çıktı.`,
+    `Bu keşif, yıllardır anlatılan hikâyenin farklı bir anlam taşıyabileceğini gösterdi.`,
+    `Hazine gerçekten var mıydı, yoksa bütün hikâye yanlış anlaşılmış bir efsane miydi?`
+    ],
+
+    paranormal:[
+    `${topic} hakkında anlatılan olay ilk kez ortaya çıktığında birçok kişi bunun bir efsane olduğunu düşündü.`,
+    `Fakat olayla ilgili tanıkların anlattıkları hikâyeyi daha da gizemli hale getirdi.`,
+    `Bazı kayıtlar ve fotoğraflar uzun süre incelendi.`,
+    `Şüpheciler farklı açıklamalar ortaya koyarken olaya inananlar başka kanıtlar gösterdi.`,
+    `Yıllar boyunca olay hakkında birçok teori üretildi.`,
+    `${topic} bugün bile açıklaması konusunda tartışmaların sürdüğü gizemlerden biri.`
+    ],
+
+    war:[
+    `${topic} sırasında yaşanan olayın ayrıntıları yıllar sonra yeniden gündeme geldi.`,
+    `Döneme ait belgeler ve tanıklıklar olayın farklı yönlerini ortaya koydu.`,
+    `Bazı kayıtlar birbirleriyle çelişiyordu.`,
+    `Yeni belgeler ortaya çıktıkça olayın geçmişte düşünüldüğünden daha karmaşık olduğu anlaşıldı.`,
+    `Araştırmacılar yıllar boyunca farklı açıklamaları karşılaştırdı.`,
+    `Bugün ${topic} hakkında hâlâ cevaplanmamış bazı sorular bulunuyor.`
+    ]
+
+    },
+
+
+
+    de:{
+
+    mystery:[
+    `Alles begann mit einem scheinbar gewöhnlichen Ereignis im Zusammenhang mit ${topic}.`,
+    `Doch bei genauerer Untersuchung tauchten mehrere ungewöhnliche Details auf.`,
+    `Die Personen und Orte rund um den Fall wurden genauer untersucht.`,
+    `Dabei entstand eine neue Frage, die die bisherige Geschichte verändern könnte.`,
+    `Weitere Hinweise führten die Ermittler zu älteren Ereignissen.`,
+    `Bis heute gibt es Fragen zu ${topic}, auf die keine eindeutige Antwort gefunden wurde.`
+    ],
+
+    crime:[
+    `Im Mittelpunkt stand ${topic}, zunächst schien der Fall eindeutig.`,
+    `Doch am Tatort wurden Details entdeckt, die die Ermittlungen veränderten.`,
+    `Neue Spuren deuteten auf eine kompliziertere Geschichte hin.`,
+    `Zeugenaussagen und weitere Beweise machten den Fall immer rätselhafter.`,
+    `Während einige Fragen beantwortet wurden, entstand eine noch größere Frage.`,
+    `Bis heute werden bestimmte Details von ${topic} diskutiert.`
+    ],
+
+    disappearance:[
+    `Das größte Rätsel bei ${topic} war das plötzliche Verschwinden.`,
+    `Die Ermittler untersuchten die letzten bekannten Spuren.`,
+    `Doch einige Hinweise machten den Fall noch komplizierter.`,
+    `Weitere Entdeckungen führten zu neuen Fragen.`,
+    `Im Laufe der Jahre entstanden verschiedene Theorien.`,
+    `Bis heute konnte das Rätsel um ${topic} nicht vollständig gelöst werden.`
+    ],
+
+    disaster:[
+    `Als das Ereignis rund um ${topic} begann, ahnte niemand, wie rätselhaft die Geschichte werden würde.`,
+    `Die ersten Minuten wurden später immer wieder untersucht.`,
+    `Dokumente und Aufzeichnungen lieferten wichtige Hinweise.`,
+    `Doch einige Informationen widersprachen anderen Erklärungen.`,
+    `Neue Untersuchungen stellten ältere Theorien infrage.`,
+    `Bis heute bleiben bestimmte Details von ${topic} ungeklärt.`
+    ],
+
+    scifi:[
+    `Als die Geschichte über ${topic} erstmals bekannt wurde, glaubten viele Menschen nicht daran.`,
+    `Doch Aufzeichnungen und ungewöhnliche Bilder machten den Fall interessanter.`,
+    `Forscher versuchten herauszufinden, was wirklich passiert war.`,
+    `Einige Details konnten wissenschaftlich erklärt werden, andere blieben rätselhaft.`,
+    `Mit neuen Behauptungen wurde die Diskussion immer größer.`,
+    `Die wichtigste Frage zu ${topic} bleibt bis heute offen.`
+    ],
+
+    treasure:[
+    `Die Geschichte von ${topic} begann mit einem alten Hinweis.`,
+    `Alte Dokumente führten die Suchenden zu einem bestimmten Ort.`,
+    `Weitere Zeichen ließen die Geschichte glaubwürdiger erscheinen.`,
+    `Doch während der Suche tauchte ein unerwartetes Detail auf.`,
+    `Die Entdeckung stellte die alte Geschichte plötzlich infrage.`,
+    `Existierte der Schatz wirklich oder war alles nur eine Legende?`
+    ],
+
+    paranormal:[
+    `Die Geschichte über ${topic} wurde zunächst für eine Legende gehalten.`,
+    `Doch mehrere Zeugen beschrieben ungewöhnliche Ereignisse.`,
+    `Aufzeichnungen und Fotos wurden über Jahre untersucht.`,
+    `Skeptiker fanden andere Erklärungen, während Befürworter weitere Hinweise präsentierten.`,
+    `Im Laufe der Jahre entstanden zahlreiche Theorien.`,
+    `Bis heute wird über die wahre Erklärung von ${topic} diskutiert.`
+    ],
+
+    war:[
+    `Die Ereignisse rund um ${topic} wurden Jahre später erneut untersucht.`,
+    `Dokumente und Augenzeugenberichte zeigten neue Details.`,
+    `Einige Aufzeichnungen widersprachen sich.`,
+    `Neue Dokumente machten die Geschichte noch komplizierter.`,
+    `Forscher verglichen jahrelang verschiedene Erklärungen.`,
+    `Bis heute bleiben einige Fragen zu ${topic} offen.`
+    ]
+
+    },
+
+
+    en:{
+
+    mystery:[
+    `Everything began with an apparently ordinary event connected to ${topic}.`,
+    `But when the details were examined, several unusual clues appeared.`,
+    `The people and locations connected to the story were investigated.`,
+    `That investigation created a new question that could change the entire story.`,
+    `More clues eventually led researchers back to earlier events.`,
+    `Even today, several questions about ${topic} remain unanswered.`
+    ],
+
+    crime:[
+    `At the center of the story was ${topic}, and at first the case seemed straightforward.`,
+    `But investigators soon discovered details that changed the direction of the case.`,
+    `New evidence suggested that the story was more complicated than originally believed.`,
+    `Witness statements and additional clues made the investigation even stranger.`,
+    `As some questions were answered, an even bigger question appeared.`,
+    `Years later, important details about ${topic} are still being debated.`
+    ],
+
+    disappearance:[
+    `The biggest mystery surrounding ${topic} was the sudden disappearance.`,
+    `Investigators carefully examined the last known clues.`,
+    `But several details made the case even more complicated.`,
+    `New discoveries created additional questions.`,
+    `Over the years, several theories were proposed.`,
+    `The mystery surrounding ${topic} has never been completely solved.`
+    ],
+
+    disaster:[
+    `When the events surrounding ${topic} began, nobody expected the story to become such a mystery.`,
+    `The first moments were examined again and again.`,
+    `Documents and recordings provided important clues.`,
+    `But some information appeared to contradict other explanations.`,
+    `New investigations challenged older theories.`,
+    `Even today, several details about ${topic} remain unexplained.`
+    ],
+
+    scifi:[
+    `When the story of ${topic} first appeared, many people refused to believe it.`,
+    `But unusual recordings and images made the case impossible to ignore.`,
+    `Researchers tried to determine what had really happened.`,
+    `Some details had possible scientific explanations, while others remained mysterious.`,
+    `New claims caused the debate to grow.`,
+    `The biggest question surrounding ${topic} still has no definite answer.`
+    ],
+
+    treasure:[
+    `The story of ${topic} began with an old and mysterious clue.`,
+    `Historical documents pointed researchers toward a particular location.`,
+    `Additional signs made the old story seem more believable.`,
+    `But an unexpected discovery changed the investigation.`,
+    `The discovery suggested that the original story might have been misunderstood.`,
+    `Was the treasure real, or was the entire story only a legend?`
+    ],
+
+    paranormal:[
+    `The story of ${topic} was initially dismissed as a legend.`,
+    `But several witnesses described strange events.`,
+    `Photographs and recordings were examined for years.`,
+    `Skeptics proposed different explanations while believers pointed to other clues.`,
+    `Many theories appeared over the years.`,
+    `The true explanation behind ${topic} remains a subject of debate.`
+    ],
+
+    war:[
+    `The events surrounding ${topic} were investigated again years later.`,
+    `Documents and eyewitness accounts revealed new details.`,
+    `Some records appeared to contradict each other.`,
+    `New documents made the historical story even more complicated.`,
+    `Researchers compared different explanations for years.`,
+    `Even today, several questions about ${topic} remain unanswered.`
+    ]
+
+    }
+
+    };
+
+
+    return T[language][a.type].slice(
+    0,
+    count
+    );
+}
+
+
+
+/* =====================================================
+   SENARYO OLUŞTUR
 ===================================================== */
 
 function generateScript(){
@@ -546,174 +943,241 @@ function generateScript(){
 
     if(!topic){
 
-        alert("Önce video konusunu yaz.");
+        alert("Önce bir konu yaz.");
         return;
     }
 
+
     const language=
-    document.getElementById("language").value;
+    document.getElementById("language")
+    .value;
 
     const count=
     parseInt(
-        document.getElementById("sceneCount").value
+    document.getElementById("sceneCount")
+    .value
     );
 
-    const L=
-    LANGUAGES[language];
 
-    let script="";
+    const analysis=
+    analyzeTopic(topic);
 
-    script+=L.intro+"\n\n";
 
-    script+=
-    "Thema / Konu: "+
-    topic+
+    const scenes=
+    buildScenes(
+    topic,
+    language,
+    count
+    );
+
+
+    scenesData=[];
+
+
+    for(let i=0;i<scenes.length;i++){
+
+        scenesData.push({
+
+        index:i,
+
+        text:scenes[i],
+
+        prompt:"",
+
+        image:null,
+
+        url:null
+
+        });
+
+    }
+
+
+    const L=LANG[language];
+
+
+    let fullScript=
+    L.intro+
     "\n\n";
 
-    for(let i=0;i<count;i++){
 
-        script+=
-        `Sahne ${i+1}: `+
-        L.scene[i]+
+    scenes.forEach(
+    (text,i)=>{
+
+        fullScript+=
+        `Sahne ${i+1}\n`+
+        text+
         "\n\n";
-    }
 
-    script+=L.ending;
+    });
 
-    document.getElementById("script").value=
-    script;
 
-    document.getElementById("languageBadge").textContent=
-    L.badge;
+    fullScript+=L.ending;
 
-    document.getElementById("scriptCard").style.display=
+
+    document.getElementById("script")
+    .value=
+    fullScript;
+
+
+    document.getElementById(
+    "languageBadge"
+    ).textContent=
+    L.name;
+
+
+    document.getElementById(
+    "scriptCard"
+    ).style.display=
     "block";
 
-    document.getElementById("subtitleCard").style.display=
+
+    document.getElementById(
+    "subtitleCard"
+    ).style.display=
     "block";
 
-    document.getElementById("subtitles").value=
-    createAutomaticSubtitles(
-        language,
-        count
-    );
+
+    document.getElementById(
+    "subtitles"
+    ).value=
+    scenes.join("\n\n");
+
+
+    document.getElementById(
+    "keywords"
+    ).innerHTML=
+    "🔎 Konu analizi: "+
+    `<span class="keyword">${analysis.type}</span>`+
+    analysis.words
+    .map(
+    w=>`<span class="keyword">${escapeHTML(w)}</span>`
+    )
+    .join("");
+
 
     createScenes(
-        topic,
-        language,
-        count
+    topic,
+    language,
+    scenes
     );
+
 }
 
 
-/* =====================================================
-   OTOMATİK ALTYAZI
-===================================================== */
-
-function createAutomaticSubtitles(
-language,
-count
-){
-
-    const L=LANGUAGES[language];
-
-    let text=L.intro+"\n\n";
-
-    for(let i=0;i<count;i++){
-
-        text+=
-        L.scene[i]+"\n\n";
-    }
-
-    text+=L.ending;
-
-    return text;
-}
-
 
 /* =====================================================
-   SAHNE PROMPT
+   SAHNE PROMPTLARI
 ===================================================== */
 
 function createScenePrompt(
 topic,
+sceneText,
 index
 ){
 
     const style=
-    document.getElementById("style").value;
+    document.getElementById("style")
+    .value;
 
-    const styleDescription=
-    STYLE_TEXT[style];
 
-    const descriptions=[
+    const visualDescriptions=[
 
-    "wide establishing shot showing the mysterious location",
+    "wide establishing shot showing the exact location connected to the story",
 
-    "cinematic close-up of the main person connected to the mystery",
+    "cinematic portrait of the main person connected to the story",
 
-    "dramatic scene showing an important mysterious clue",
+    "dramatic close-up showing an important clue or object",
 
-    "investigation scene with evidence and unusual details",
+    "investigation scene with evidence, documents and surroundings",
 
-    "shocking discovery scene revealing an important secret",
+    "dramatic discovery revealing an important new detail",
 
-    "final mysterious scene with an unresolved ending"
+    "dark final scene showing the mystery remaining unresolved"
 
     ];
 
-    return `${descriptions[Math.min(index,5)]}, `+
-    `based on this story: ${topic}. `+
-    `${styleDescription}, `+
-    `German mystery documentary visual, `+
-    `realistic environment, believable people, `+
-    `atmospheric composition, dramatic lighting, `+
-    `highly detailed cinematic photography, `+
-    `16:9 landscape, no text, no subtitles, no logo, no watermark.`;
+
+    return (
+
+    visualDescriptions[
+    Math.min(index,5)
+    ]+
+
+    ", specifically related to this story: "+
+
+    topic+
+
+    ", scene context: "+
+
+    sceneText+
+
+    ", "+
+
+    STYLES[style]+
+
+    ", realistic documentary atmosphere, "+
+
+    "believable environment, "+
+
+    "detailed people, "+
+
+    "natural proportions, "+
+
+    "dramatic composition, "+
+
+    "16:9 landscape, "+
+
+    "no text, no subtitles, no logo, no watermark"
+
+    );
+
 }
 
 
+
 /* =====================================================
-   SAHNELER
+   SAHNELERİ GÖSTER
 ===================================================== */
 
 function createScenes(
 topic,
 language,
-count
+sceneTexts
 ){
 
-    scenesData=[];
+    document.getElementById(
+    "sceneCard"
+    ).style.display=
+    "block";
 
-    document.getElementById("sceneCard")
-    .style.display="block";
 
     const container=
     document.getElementById("scenes");
 
+
     container.innerHTML="";
 
-    for(let i=0;i<count;i++){
 
-        const prompt=
+    scenesData.forEach(
+    (scene,i)=>{
+
+        scene.prompt=
         createScenePrompt(
         topic,
+        scene.text,
         i
         );
 
-        scenesData.push({
-            index:i,
-            prompt:prompt,
-            image:null,
-            url:null
-        });
 
-        const scene=
+        const div=
         document.createElement("div");
 
-        scene.className="scene";
 
-        scene.innerHTML=`
+        div.className="scene";
+
+
+        div.innerHTML=`
 
         <div class="sceneHead">
 
@@ -729,23 +1193,45 @@ count
 
         </div>
 
+
+        <div class="sceneText">
+
+        <b>🔤 Altyazı:</b><br>
+
+        ${escapeHTML(scene.text)}
+
+        </div>
+
+
+        <label>
+        🎨 Z-Image Prompt
+        </label>
+
+
         <textarea
         class="prompt"
-        id="prompt${i}">${escapeHTML(prompt)}</textarea>
+        id="prompt${i}">${escapeHTML(scene.prompt)}</textarea>
+
 
         <button
         onclick="copyPrompt(${i})">
+
         📋 Promptu Kopyala
+
         </button>
+
 
         <button
         class="orange"
         onclick="openZImage(${i})">
+
         🎨 Z-Image'ı Aç
+
         </button>
 
+
         <label
-        style="display:inline-block;margin:0">
+        style="display:inline-block">
 
         <input
         type="file"
@@ -763,21 +1249,27 @@ count
         cursor:pointer;
         font-weight:bold;
         ">
+
         🖼️ Görsel Yükle
+
         </span>
 
         </label>
+
 
         <img
         id="preview${i}"
         class="preview">
 
-        </div>
         `;
 
-        container.appendChild(scene);
-    }
+
+        container.appendChild(div);
+
+    });
+
 }
+
 
 
 /* =====================================================
@@ -786,50 +1278,55 @@ count
 
 function escapeHTML(str){
 
-    return String(str)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+return String(str)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
 }
 
 
+
 /* =====================================================
-   PROMPT KOPYA
+   PROMPT KOPYALA
 ===================================================== */
 
 async function copyPrompt(index){
 
-    const text=
-    document.getElementById(
-    `prompt${index}`
-    ).value;
+const text=
+document.getElementById(
+`prompt${index}`
+).value;
 
-    scenesData[index].prompt=text;
 
-    try{
+try{
 
-        await navigator.clipboard.writeText(text);
+await navigator.clipboard.writeText(text);
 
-    }catch(e){
+}catch(e){
 
-        const el=
-        document.getElementById(
-        `prompt${index}`
-        );
+const el=
+document.getElementById(
+`prompt${index}`
+);
 
-        el.focus();
-        el.select();
+el.focus();
+el.select();
 
-        document.execCommand("copy");
-    }
+document.execCommand("copy");
 
-    setSceneStatus(
-    index,
-    "✅ Prompt kopyalandı"
-    );
 }
+
+
+setSceneStatus(
+index,
+"✅ Prompt kopyalandı"
+);
+
+}
+
 
 
 /* =====================================================
@@ -838,17 +1335,19 @@ async function copyPrompt(index){
 
 function openZImage(index){
 
-    copyPrompt(index);
+copyPrompt(index);
 
-    window.open(
-    "https://forvideo.ai/z-image",
-    "_blank"
-    );
+window.open(
+"https://forvideo.ai/z-image",
+"_blank"
+);
+
 }
 
 
+
 /* =====================================================
-   GÖRSEL
+   GÖRSEL YÜKLE
 ===================================================== */
 
 function loadSceneImage(
@@ -856,48 +1355,132 @@ event,
 index
 ){
 
-    const file=
-    event.target.files[0];
-
-    if(!file){
-        return;
-    }
-
-    const url=
-    URL.createObjectURL(file);
-
-    scenesData[index].image=file;
-    scenesData[index].url=url;
-
-    const img=
-    document.getElementById(
-    `preview${index}`
-    );
-
-    img.src=url;
-    img.style.display="block";
-
-    setSceneStatus(
-    index,
-    "✅ Görsel hazır"
-    );
-}
+const file=
+event.target.files[0];
 
 
-function setSceneStatus(
+if(!file)return;
+
+
+const url=
+URL.createObjectURL(file);
+
+
+scenesData[index].image=
+file;
+
+scenesData[index].url=
+url;
+
+
+const img=
+document.getElementById(
+`preview${index}`
+);
+
+
+img.src=url;
+
+img.style.display=
+"block";
+
+
+setSceneStatus(
 index,
-text
-){
+"✅ Görsel hazır"
+);
 
-    const el=
-    document.getElementById(
-    `sceneStatus${index}`
-    );
-
-    if(el){
-        el.textContent=text;
-    }
 }
+
+
+
+/* =====================================================
+   SES
+===================================================== */
+
+document.getElementById(
+"audioInput"
+)
+.addEventListener(
+"change",
+async function(){
+
+const file=this.files[0];
+
+if(!file)return;
+
+
+selectedAudio=file;
+
+
+const info=
+document.getElementById(
+"audioInfo"
+);
+
+
+try{
+
+const url=
+URL.createObjectURL(file);
+
+
+const audio=
+new Audio();
+
+
+audio.src=url;
+
+
+await new Promise(
+(resolve,reject)=>{
+
+audio.onloadedmetadata=
+resolve;
+
+audio.onerror=
+reject;
+
+});
+
+
+const minutes=
+Math.floor(
+audio.duration/60
+);
+
+
+const seconds=
+Math.round(
+audio.duration%60
+);
+
+
+info.style.display=
+"block";
+
+
+info.textContent=
+`🔊 Ses hazır: ${file.name} • `+
+`${minutes}:${String(seconds).padStart(2,"0")}`;
+
+
+URL.revokeObjectURL(url);
+
+
+}catch(e){
+
+info.style.display=
+"block";
+
+info.textContent=
+"🔊 Ses dosyası seçildi: "+
+file.name;
+
+}
+
+});
+
 
 
 /* =====================================================
@@ -906,25 +1489,44 @@ text
 
 function setStatus(text){
 
-    document.getElementById(
-    "status"
-    ).textContent=text;
+document.getElementById(
+"status"
+).textContent=text;
+
 }
 
 
-function setProgress(percent){
+function setProgress(value){
 
-    document.getElementById(
-    "progressBar"
-    ).style.width=
-    Math.max(
-    0,
-    Math.min(
-    100,
-    percent
-    )
-    )+"%";
+document.getElementById(
+"progressBar"
+).style.width=
+Math.max(
+0,
+Math.min(
+100,
+value
+)
+)+"%";
+
 }
+
+
+
+function setSceneStatus(
+index,
+text
+){
+
+const el=
+document.getElementById(
+`sceneStatus${index}`
+);
+
+if(el)el.textContent=text;
+
+}
+
 
 
 /* =====================================================
@@ -933,30 +1535,36 @@ function setProgress(percent){
 
 function getSupportedMime(){
 
-    const types=[
+const types=[
 
-    "video/webm;codecs=vp9,opus",
+"video/webm;codecs=vp9,opus",
 
-    "video/webm;codecs=vp8,opus",
+"video/webm;codecs=vp8,opus",
 
-    "video/webm"
+"video/webm"
 
-    ];
+];
 
-    for(
-    const type of types
-    ){
 
-        if(
-        MediaRecorder.isTypeSupported(type)
-        ){
+for(
+const type of types
+){
 
-            return type;
-        }
-    }
+if(
+MediaRecorder.isTypeSupported(type)
+){
 
-    return "";
+return type;
+
 }
+
+}
+
+
+return "";
+
+}
+
 
 
 /* =====================================================
@@ -965,24 +1573,28 @@ function getSupportedMime(){
 
 function loadImage(url){
 
-    return new Promise(
-    (resolve,reject)=>{
+return new Promise(
+(resolve,reject)=>{
 
-        const img=new Image();
+const img=
+new Image();
 
-        img.onload=
-        ()=>resolve(img);
+img.onload=
+()=>resolve(img);
 
-        img.onerror=
-        reject;
+img.onerror=
+reject;
 
-        img.src=url;
-    });
+img.src=url;
+
+});
+
 }
 
 
+
 /* =====================================================
-   FIT
+   IMAGE FIT
 ===================================================== */
 
 function fitImage(
@@ -992,36 +1604,43 @@ w,
 h
 ){
 
-    const scale=
-    Math.max(
-    w/img.width,
-    h/img.height
-    );
+const scale=
+Math.max(
+w/img.width,
+h/img.height
+);
 
-    const nw=
-    img.width*scale;
 
-    const nh=
-    img.height*scale;
+const nw=
+img.width*scale;
 
-    const x=
-    (w-nw)/2;
 
-    const y=
-    (h-nh)/2;
+const nh=
+img.height*scale;
 
-    ctx.drawImage(
-    img,
-    x,
-    y,
-    nw,
-    nh
-    );
+
+const x=
+(w-nw)/2;
+
+
+const y=
+(h-nh)/2;
+
+
+ctx.drawImage(
+img,
+x,
+y,
+nw,
+nh
+);
+
 }
 
 
+
 /* =====================================================
-   WRAP
+   TEXT WRAP
 ===================================================== */
 
 function wrapText(
@@ -1030,43 +1649,51 @@ text,
 maxWidth
 ){
 
-    const words=
-    text.split(/\s+/);
+const words=
+text.split(/\s+/);
 
-    const lines=[];
 
-    let line="";
+const lines=[];
 
-    for(
-    const word of words
-    ){
+let line="";
 
-        const test=
-        line
-        ? line+" "+word
-        : word;
 
-        if(
-        ctx.measureText(test).width>
-        maxWidth &&
-        line
-        ){
+for(
+const word of words
+){
 
-            lines.push(line);
-            line=word;
+const test=
+line
+? line+" "+word
+: word;
 
-        }else{
 
-            line=test;
-        }
-    }
+if(
+ctx.measureText(test).width>
+maxWidth &&
+line
+){
 
-    if(line){
-        lines.push(line);
-    }
+lines.push(line);
 
-    return lines;
+line=word;
+
+}else{
+
+line=test;
+
 }
+
+}
+
+
+if(line)lines.push(line);
+
+
+return lines;
+
+}
+
 
 
 /* =====================================================
@@ -1080,83 +1707,105 @@ w,
 h
 ){
 
-    if(!text.trim()){
-        return;
-    }
+if(!text)return;
 
-    ctx.save();
 
-    ctx.font=
-    "bold 30px Arial";
+ctx.save();
 
-    ctx.textAlign="center";
-    ctx.textBaseline="middle";
 
-    const lines=
-    wrapText(
-    ctx,
-    text,
-    w-120
-    ).slice(0,3);
+ctx.font=
+"bold 30px Arial";
 
-    const lineHeight=38;
 
-    const boxHeight=
-    lines.length*
-    lineHeight+28;
+ctx.textAlign=
+"center";
 
-    const y=h-85;
 
-    const x=45;
+ctx.textBaseline=
+"middle";
 
-    const bw=w-90;
 
-    const top=
-    y-boxHeight/2;
+const lines=
+wrapText(
+ctx,
+text,
+w-140
+).slice(0,3);
 
-    ctx.fillStyle=
-    "rgba(0,0,0,.78)";
 
-    ctx.beginPath();
+const lineHeight=38;
 
-    if(ctx.roundRect){
+const boxHeight=
+lines.length*
+lineHeight+
+28;
 
-        ctx.roundRect(
-        x,
-        top,
-        bw,
-        boxHeight,
-        14
-        );
 
-        ctx.fill();
+const y=
+h-85;
 
-    }else{
 
-        ctx.fillRect(
-        x,
-        top,
-        bw,
-        boxHeight
-        );
-    }
+const x=45;
 
-    ctx.fillStyle="#fff";
+const bw=
+w-90;
 
-    lines.forEach(
-    (line,i)=>{
 
-        ctx.fillText(
-        line,
-        w/2,
-        top+42+
-        i*lineHeight
-        );
+const top=
+y-boxHeight/2;
 
-    });
 
-    ctx.restore();
+ctx.fillStyle=
+"rgba(0,0,0,.82)";
+
+
+ctx.beginPath();
+
+
+if(ctx.roundRect){
+
+ctx.roundRect(
+x,
+top,
+bw,
+boxHeight,
+14
+);
+
+ctx.fill();
+
+}else{
+
+ctx.fillRect(
+x,
+top,
+bw,
+boxHeight
+);
+
 }
+
+
+ctx.fillStyle="#fff";
+
+
+lines.forEach(
+(line,i)=>{
+
+ctx.fillText(
+line,
+w/2,
+top+42+
+i*lineHeight
+);
+
+});
+
+
+ctx.restore();
+
+}
+
 
 
 /* =====================================================
@@ -1168,604 +1817,587 @@ ctx,
 index
 ){
 
-    ctx.save();
+ctx.save();
 
-    ctx.font=
-    "bold 18px Arial";
 
-    ctx.textAlign="left";
+ctx.font=
+"bold 18px Arial";
 
-    ctx.textBaseline="top";
 
-    ctx.fillStyle=
-    "rgba(0,0,0,.6)";
+ctx.textAlign="left";
 
-    ctx.fillRect(
-    20,
-    20,
-    110,
-    38
-    );
+ctx.textBaseline="top";
 
-    ctx.fillStyle="#fff";
 
-    ctx.fillText(
-    `SAHNE ${index+1}`,
-    30,
-    30
-    );
+ctx.fillStyle=
+"rgba(0,0,0,.65)";
 
-    ctx.restore();
+
+ctx.fillRect(
+20,
+20,
+110,
+38
+);
+
+
+ctx.fillStyle="#fff";
+
+
+ctx.fillText(
+`SAHNE ${index+1}`,
+30,
+30
+);
+
+
+ctx.restore();
+
 }
 
 
+
 /* =====================================================
-   VIDEO OLUŞTUR
+   VIDEO
 ===================================================== */
 
 async function makeVideo(){
 
-    if(!scenesData.length){
+if(!scenesData.length){
 
-        alert(
-        "Önce senaryoyu oluştur."
-        );
+alert(
+"Önce senaryoyu oluştur."
+);
 
-        return;
-    }
+return;
 
+}
 
-    const missing=
-    scenesData.filter(
-    s=>!s.url
-    );
 
-    if(missing.length){
+const missing=
+scenesData.filter(
+s=>!s.url
+);
 
-        alert(
-        "Eksik sahne görselleri var:\n"+
-        missing.map(
-        s=>`Sahne ${s.index+1}`
-        ).join("\n")
-        );
 
-        return;
-    }
+if(missing.length){
 
+alert(
+"Eksik sahne görselleri var:\n"+
+missing
+.map(
+s=>`Sahne ${s.index+1}`
+)
+.join("\n")
+);
 
-    if(!window.MediaRecorder){
+return;
 
-        alert(
-        "Tarayıcın MediaRecorder desteklemiyor."
-        );
+}
 
-        return;
-    }
 
+const duration=
+parseInt(
+document.getElementById(
+"sceneDuration"
+).value
+);
 
-    const duration=
-    parseInt(
-    document.getElementById(
-    "sceneDuration"
-    ).value
-    );
 
+setProgress(0);
 
-    setProgress(0);
+setStatus(
+"🎬 Video hazırlanıyor..."
+);
 
-    setStatus(
-    "🎬 Video hazırlanıyor..."
-    );
 
 
-    /* =================================================
-       CANVAS
-    ================================================= */
+/* CANVAS */
 
-    const canvas=
-    document.createElement("canvas");
+const canvas=
+document.createElement(
+"canvas"
+);
 
-    canvas.width=1280;
-    canvas.height=720;
 
-    const ctx=
-    canvas.getContext("2d");
+canvas.width=1280;
 
+canvas.height=720;
 
-    /* =================================================
-       VIDEO STREAM
-    ================================================= */
 
-    const videoStream=
-    canvas.captureStream(30);
+const ctx=
+canvas.getContext("2d");
 
 
-    /* =================================================
-       SES STREAM
-    ================================================= */
 
-    let audioContext=null;
-    let audioSource=null;
-    let audioDestination=null;
-    let audioBuffer=null;
+/* VIDEO */
 
+const stream=
+canvas.captureStream(30);
 
-    if(selectedAudio){
 
-        try{
 
-            setStatus(
-            "🔊 Ses dosyası hazırlanıyor..."
-            );
+/* AUDIO */
 
+let audioContext=null;
 
-            const arrayBuffer=
-            await selectedAudio.arrayBuffer();
+let audioSource=null;
 
+let audioDestination=null;
 
-            /*
-             * ÖNEMLİ:
-             * Dosya doğrudan AudioBuffer'a çevriliyor.
-             */
 
-            audioContext=
-            new (
-            window.AudioContext ||
-            window.webkitAudioContext
-            )();
 
+if(selectedAudio){
 
-            audioBuffer=
-            await audioContext
-            .decodeAudioData(
-            arrayBuffer.slice(0)
-            );
+try{
 
+setStatus(
+"🔊 Ses hazırlanıyor..."
+);
 
-            audioDestination=
-            audioContext
-            .createMediaStreamDestination();
 
+const buffer=
+await selectedAudio.arrayBuffer();
 
-            audioSource=
-            audioContext
-            .createBufferSource();
 
+audioContext=
+new(
+window.AudioContext ||
+window.webkitAudioContext
+)();
 
-            audioSource.buffer=
-            audioBuffer;
 
+const audioBuffer=
+await audioContext
+.decodeAudioData(
+buffer.slice(0)
+);
 
-            /*
-             * Ses hem hoparlöre,
-             * hem MediaRecorder'a gidiyor.
-             */
 
-            audioSource.connect(
-            audioDestination
-            );
+audioDestination=
+audioContext
+.createMediaStreamDestination();
 
 
-            audioSource.connect(
-            audioContext.destination
-            );
+audioSource=
+audioContext
+.createBufferSource();
 
 
-            const tracks=
-            audioDestination
-            .stream
-            .getAudioTracks();
+audioSource.buffer=
+audioBuffer;
 
 
-            tracks.forEach(
-            track=>{
-                videoStream.addTrack(track);
-            });
+audioSource.connect(
+audioDestination
+);
 
 
-        }catch(error){
+audioSource.connect(
+audioContext.destination
+);
 
-            console.error(
-            "Ses decode hatası:",
-            error
-            );
 
-            if(audioContext){
+audioDestination
+.stream
+.getAudioTracks()
+.forEach(
+track=>{
+stream.addTrack(track);
+}
+);
 
-                try{
-                    await audioContext.close();
-                }catch(e){}
 
-            }
+}catch(error){
 
-            alert(
-            "Ses dosyası okunamadı.\n\n"+
-            "MP3 veya WAV dosyası kullan."
-            );
+console.error(error);
 
-            return;
-        }
-    }
+alert(
+"Ses okunamadı. MP3 veya WAV kullan."
+);
 
+return;
 
-    /* =================================================
-       RECORDER
-    ================================================= */
+}
 
-    const mime=
-    getSupportedMime();
+}
 
 
-    if(!mime){
 
-        alert(
-        "WebM kayıt formatı desteklenmiyor."
-        );
+/* RECORDER */
 
-        return;
-    }
+const mime=
+getSupportedMime();
 
 
-    let recorder;
+if(!mime){
 
+alert(
+"Tarayıcı WebM kayıt desteklemiyor."
+);
 
-    try{
+return;
 
-        recorder=
-        new MediaRecorder(
-        videoStream,
-        {
-            mimeType:mime,
-            videoBitsPerSecond:5000000
-        }
-        );
+}
 
-    }catch(error){
 
-        alert(
-        "Video kaydedici başlatılamadı:\n"+
-        error.message
-        );
+let recorder;
 
-        return;
-    }
 
+try{
 
-    const chunks=[];
+recorder=
+new MediaRecorder(
+stream,
+{
+mimeType:mime,
+videoBitsPerSecond:5000000
+}
+);
 
+}catch(error){
 
-    recorder.ondataavailable=
-    event=>{
+alert(
+"Video kaydedici başlatılamadı."
+);
 
-        if(
-        event.data &&
-        event.data.size>0
-        ){
+return;
 
-            chunks.push(
-            event.data
-            );
-        }
-    };
+}
 
 
-    const stopped=
-    new Promise(
-    resolve=>{
+const chunks=[];
 
-        recorder.onstop=
-        resolve;
 
-    });
+recorder.ondataavailable=
+e=>{
 
+if(
+e.data &&
+e.data.size>0
+){
 
-    /* =================================================
-       KAYDI BAŞLAT
-    ================================================= */
+chunks.push(e.data);
 
-    recorder.start(250);
+}
 
+};
 
-    /*
-     * EN ÖNEMLİ DÜZELTME:
-     *
-     * Ses artık gerçekten başlatılıyor.
-     */
 
-    if(audioSource){
+const stopped=
+new Promise(
+resolve=>{
 
-        try{
+recorder.onstop=
+resolve;
 
-            if(
-            audioContext.state==="suspended"
-            ){
+});
 
-                await audioContext.resume();
-            }
 
-            audioSource.start(0);
 
-        }catch(error){
+/* KAYIT */
 
-            console.error(
-            "Audio start hatası:",
-            error
-            );
-        }
-    }
+recorder.start(250);
 
 
-    /* =================================================
-       SAHNELER
-    ================================================= */
 
-    try{
+/* AUDIO BAŞLAT */
 
-        const totalFrames=
-        scenesData.length*
-        duration*
-        30;
+if(audioSource){
 
-        let currentFrame=0;
+try{
 
+if(
+audioContext.state===
+"suspended"
+){
 
-        for(
-        let i=0;
-        i<scenesData.length;
-        i++
-        ){
+await audioContext.resume();
 
-            setStatus(
-            `🎬 Sahne ${i+1}/${scenesData.length} hazırlanıyor...`
-            );
+}
 
 
-            const img=
-            await loadImage(
-            scenesData[i].url
-            );
+audioSource.start(0);
 
 
-            const frames=
-            duration*30;
+}catch(error){
 
+console.error(
+"Ses başlatılamadı:",
+error
+);
 
-            const language=
-            document.getElementById(
-            "language"
-            ).value;
+}
 
+}
 
-            const L=
-            LANGUAGES[language];
 
 
-            for(
-            let frame=0;
-            frame<frames;
-            frame++
-            ){
+/* SAHNELER */
 
-                ctx.fillStyle="#000";
+const totalFrames=
+scenesData.length*
+duration*
+30;
 
-                ctx.fillRect(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-                );
 
+let currentFrame=0;
 
-                fitImage(
-                ctx,
-                img,
-                canvas.width,
-                canvas.height
-                );
 
+for(
+let i=0;
+i<scenesData.length;
+i++
+){
 
-                drawSceneNumber(
-                ctx,
-                i
-                );
+setStatus(
+`🎬 Sahne ${i+1}/${scenesData.length}`
+);
 
 
-                /*
-                 * Her sahnenin kendi
-                 * dilindeki otomatik altyazısı.
-                 */
+const img=
+await loadImage(
+scenesData[i].url
+);
 
-                const subtitle=
-                L.scene[i] ||
-                L.ending;
 
+const frames=
+duration*30;
 
-                drawSubtitle(
-                ctx,
-                subtitle,
-                canvas.width,
-                canvas.height
-                );
 
+for(
+let frame=0;
+frame<frames;
+frame++
+){
 
-                currentFrame++;
+ctx.fillStyle="#000";
 
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
-                setProgress(
-                currentFrame/
-                totalFrames*
-                100
-                );
 
+fitImage(
+ctx,
+img,
+canvas.width,
+canvas.height
+);
 
-                await new Promise(
-                resolve=>
-                setTimeout(
-                resolve,
-                1000/30
-                )
-                );
-            }
-        }
 
+drawSceneNumber(
+ctx,
+i
+);
 
-    }catch(error){
 
-        console.error(error);
+drawSubtitle(
+ctx,
+scenesData[i].text,
+canvas.width,
+canvas.height
+);
 
-        try{
-            recorder.stop();
-        }catch(e){}
 
-        if(audioContext){
+currentFrame++;
 
-            try{
-                await audioContext.close();
-            }catch(e){}
-        }
 
-        setStatus(
-        "❌ Video oluşturulamadı:\n"+
-        error.message
-        );
+setProgress(
+currentFrame/
+totalFrames*
+100
+);
 
-        return;
-    }
 
+await new Promise(
+resolve=>
+setTimeout(
+resolve,
+1000/30
+)
+);
 
-    /* =================================================
-       KAYDI BİTİR
-    ================================================= */
+}
 
-    setStatus(
-    "⏳ Video dosyası hazırlanıyor..."
-    );
+}
 
 
-    recorder.stop();
 
+/* SESİN BİTMESİNİ BEKLE */
 
-    await stopped;
+if(audioSource){
 
+const extra=
+audioSource.buffer.duration -
+scenesData.length*
+duration;
 
-    /* Ses kaynağını durdur */
 
-    if(audioSource){
+if(extra>0){
 
-        try{
-            audioSource.stop();
-        }catch(e){}
-    }
+setStatus(
+"🔊 Ses devam ediyor..."
+);
 
 
-    if(audioContext){
+const start=
+performance.now();
 
-        try{
-            await audioContext.close();
-        }catch(e){}
-    }
 
+const wait=
+extra*1000;
 
-    /* =================================================
-       BLOB
-    ================================================= */
 
-    const blob=
-    new Blob(
-    chunks,
-    {
-        type:mime
-    }
-    );
+while(
+performance.now()-start<
+wait
+){
 
+await new Promise(
+resolve=>
+setTimeout(
+resolve,
+100
+)
+);
 
-    if(generatedVideoURL){
+}
 
-        URL.revokeObjectURL(
-        generatedVideoURL
-        );
-    }
+}
 
+}
 
-    generatedVideoURL=
-    URL.createObjectURL(
-    blob
-    );
 
 
-    /* =================================================
-       PREVIEW
-    ================================================= */
+/* STOP */
 
-    const video=
-    document.getElementById(
-    "videoPreview"
-    );
+setStatus(
+"⏳ Video dosyası hazırlanıyor..."
+);
 
-    video.src=
-    generatedVideoURL;
 
-    video.style.display=
-    "block";
+recorder.stop();
 
 
-    /* =================================================
-       DOWNLOAD
-    ================================================= */
+await stopped;
 
-    const download=
-    document.getElementById(
-    "download"
-    );
 
-    download.href=
-    generatedVideoURL;
 
-    download.download=
-    "mystery-nacht-video.webm";
+/* AUDIO STOP */
 
-    download.style.display=
-    "block";
+if(audioSource){
 
+try{
+audioSource.stop();
+}catch(e){}
 
-    setProgress(100);
+}
 
 
-    const language=
-    document.getElementById(
-    "language"
-    ).value;
+if(audioContext){
 
+try{
+await audioContext.close();
+}catch(e){}
 
-    setStatus(
-    "✅ VIDEO HAZIR!\n\n"+
-    "🌍 Dil: "+
-    LANGUAGES[language].name+
-    "\n"+
-    "🎬 Sahne: "+
-    scenesData.length+
-    "\n"+
-    "⏱️ Görsel süre: "+
-    scenesData.length*
-    duration+
-    " saniye"+
-    "\n"+
-    "🎙️ Ses: "+
-    (
-    selectedAudio
-    ? "Videoya eklendi"
-    : "Yüklenmedi"
-    )
-    );
+}
 
 
-    video.scrollIntoView({
-    behavior:"smooth"
-    });
+
+/* BLOB */
+
+const blob=
+new Blob(
+chunks,
+{
+type:mime
+}
+);
+
+
+if(generatedVideoURL){
+
+URL.revokeObjectURL(
+generatedVideoURL
+);
+
+}
+
+
+generatedVideoURL=
+URL.createObjectURL(
+blob
+);
+
+
+
+/* PREVIEW */
+
+const video=
+document.getElementById(
+"videoPreview"
+);
+
+
+video.src=
+generatedVideoURL;
+
+
+video.style.display=
+"block";
+
+
+
+/* DOWNLOAD */
+
+const download=
+document.getElementById(
+"download"
+);
+
+
+download.href=
+generatedVideoURL;
+
+
+download.download=
+"mystery-nacht-video.webm";
+
+
+download.style.display=
+"block";
+
+
+setProgress(100);
+
+
+setStatus(
+"✅ VİDEO HAZIR!\n\n"+
+"🎬 "+
+scenesData.length+
+" sahne\n"+
+"🎙️ Ses: "+
+(
+selectedAudio
+? "Videoya eklendi"
+: "Ses yok"
+)+
+"\n"+
+"🔤 Konuya özel altyazılar hazır."
+);
+
+
+video.scrollIntoView({
+behavior:"smooth"
+});
+
 }
 
 </script>
 
 </body>
 </html>
-```
