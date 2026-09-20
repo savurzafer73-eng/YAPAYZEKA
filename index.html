@@ -656,12 +656,19 @@ async function createImage(
 ===================================================== */
 
 async function createAIaudio(
-    text
+    text,
+    language
 ){
 
     const token =
     getToken();
 
+    if(!token){
+        return {
+            url:null,
+            error:"API anahtarı yok"
+        };
+    }
 
     try{
 
@@ -669,7 +676,11 @@ async function createAIaudio(
             "🔊 AI ses dosyası oluşturuluyor..."
         );
 
-
+        /*
+         * Önce OpenAI uyumlu Pollinations TTS.
+         * Qwen TTS çok dilli olduğu için Türkçe/Almanca/İngilizce
+         * içeriklerde mevcut Fish Audio ayarından daha uygundur.
+         */
         const response =
         await fetch(
             API_URL +
@@ -691,38 +702,39 @@ async function createAIaudio(
 
                     input:text,
 
+                    voice:
+                        language === "tr"
+                        ? "alloy"
+                        : language === "de"
+                        ? "alloy"
+                        : "alloy",
+
                     response_format:"mp3"
 
                 })
             }
         );
 
-
-        if(response.status === 402){
-
-            return {
-                url:null,
-                error:"HTTP 402"
-            };
-
-        }
-
-
         if(!response.ok){
+
+            let detail = "";
+
+            try{
+                detail = await response.text();
+            }catch(e){}
 
             return {
                 url:null,
                 error:
-                "HTTP " +
-                response.status
+                    "HTTP " +
+                    response.status +
+                    (detail ? " - " + detail.slice(0,180) : "")
             };
 
         }
 
-
         const blob =
         await response.blob();
-
 
         if(!blob ||
            blob.size < 1000){
@@ -735,14 +747,18 @@ async function createAIaudio(
 
         }
 
+        /*
+         * Blob URL kullanıyoruz.
+         * Böylece <audio> elemanı ses dosyasını aynı origin'den
+         * okuyabilir ve Web Audio MediaStream'e aktarabilir.
+         */
+        const audioURL =
+        URL.createObjectURL(blob);
 
         return {
-            url:
-            URL.createObjectURL(blob),
-
+            url:audioURL,
             error:null
         };
-
 
     }catch(error){
 
@@ -755,7 +771,6 @@ async function createAIaudio(
     }
 
 }
-
 
 /* =====================================================
    IMAGE LOAD
@@ -1485,6 +1500,81 @@ function speak(
 
 
 /* =====================================================
+   TARAYICI TTS YEDEK SES
+===================================================== */
+
+let previewSpeechStarted = false;
+
+function stopBrowserSpeech(){
+    try{
+        speechSynthesis.cancel();
+    }catch(e){}
+    previewSpeechStarted = false;
+}
+
+function startBrowserSpeech(){
+    if(previewSpeechStarted) return;
+
+    const scriptData =
+        window.__minaScriptData;
+
+    if(!scriptData ||
+       !scriptData.scenes ||
+       !scriptData.scenes.length){
+        return;
+    }
+
+    previewSpeechStarted = true;
+
+    const language =
+        window.__minaLanguage || "tr";
+
+    /*
+     * AI ses WebM'ye gömülemediyse, video oynarken
+     * tarayıcının yerleşik TTS motorunu kullan.
+     */
+    (async function(){
+
+        for(
+            const scene
+            of scriptData.scenes
+        ){
+
+            if(!previewSpeechStarted)
+                break;
+
+            await speak(
+                scene.text,
+                language
+            );
+        }
+
+        previewSpeechStarted = false;
+
+    })();
+}
+
+preview.addEventListener(
+    "play",
+    function(){
+        if(!window.__minaHasEmbeddedAudio){
+            startBrowserSpeech();
+        }
+    }
+);
+
+preview.addEventListener(
+    "pause",
+    stopBrowserSpeech
+);
+
+preview.addEventListener(
+    "ended",
+    stopBrowserSpeech
+);
+
+
+/* =====================================================
    ANA FONKSİYON
 ===================================================== */
 
@@ -1533,6 +1623,9 @@ async function(){
 
     }
 
+
+    stopBrowserSpeech();
+    window.__minaHasEmbeddedAudio = false;
 
     generateBtn.disabled =
     true;
@@ -1634,8 +1727,13 @@ async function(){
 
         const audioResult =
         await createAIaudio(
-            narration
+            narration,
+            language
         );
+
+        window.__minaScriptData = script;
+        window.__minaLanguage = language;
+        window.__minaHasEmbeddedAudio = !!audioResult.url;
 
 
         let audioURL =
@@ -1735,19 +1833,12 @@ async function(){
             );
 
 
-            /* Tarayıcı sesini ayrıca oynat */
-
-            for(
-                const scene
-                of script.scenes
-            ){
-
-                await speak(
-                    scene.text,
-                    language
-                );
-
-            }
+            /*
+             * Ses WebM'ye gömülemedi.
+             * Artık TTS videonun tamamlanmasından sonra değil,
+             * kullanıcı Önizleme'yi oynattığında devreye girecek.
+             */
+            window.__minaHasEmbeddedAudio = false;
 
         }
 
