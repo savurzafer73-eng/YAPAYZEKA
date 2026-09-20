@@ -2,244 +2,2605 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Mina Video Test</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Mina Video AI</title>
+
 <style>
-body{
-    background:#080b12;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-    padding:30px;
+*{
+    box-sizing:border-box;
 }
-button{
-    padding:15px 25px;
-    border:0;
+
+body{
+    margin:0;
+    background:#070a10;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.container{
+    width:min(1000px,94%);
+    margin:auto;
+    padding:25px 0 60px;
+}
+
+h1{
+    text-align:center;
+    margin:0;
+    font-size:36px;
+}
+
+.logo{
+    text-align:center;
+    color:#8aa7ff;
+    margin:8px 0 25px;
+}
+
+.panel{
+    background:#111722;
+    border:1px solid #283448;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+h2{
+    margin-top:0;
+}
+
+label{
+    display:block;
+    margin:12px 0 7px;
+    font-weight:bold;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
     border-radius:10px;
+    border:1px solid #344157;
+    background:#080d15;
+    color:#fff;
+    font-size:15px;
+    outline:none;
+}
+
+textarea{
+    min-height:130px;
+    resize:vertical;
+}
+
+button{
+    border:0;
+    border-radius:11px;
+    padding:13px 18px;
+    margin:5px;
     background:#356df3;
     color:white;
+    font-size:15px;
     font-weight:bold;
     cursor:pointer;
 }
+
+button:hover{
+    opacity:.87;
+}
+
+.green{
+    background:#159447;
+}
+
+.gray{
+    background:#293447;
+}
+
+.red{
+    background:#b82d3f;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+@media(max-width:650px){
+    .row{
+        grid-template-columns:1fr;
+    }
+}
+
+.status{
+    background:#070a0f;
+    border:1px solid #283448;
+    border-radius:10px;
+    padding:14px;
+    white-space:pre-wrap;
+    color:#bdc9da;
+    line-height:1.5;
+}
+
+.progress{
+    height:10px;
+    width:100%;
+    background:#252e3b;
+    border-radius:20px;
+    overflow:hidden;
+    margin:15px 0;
+}
+
+.progressBar{
+    width:0%;
+    height:100%;
+    background:#4d80ff;
+    transition:.2s;
+}
+
+.scene{
+    background:#090e16;
+    border:1px solid #2a3548;
+    border-radius:15px;
+    overflow:hidden;
+    margin-top:18px;
+}
+
+.sceneHeader{
+    background:#161e2b;
+    padding:13px 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.sceneBody{
+    padding:15px;
+}
+
+.sceneImage{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    display:block;
+    border-radius:10px;
+    background:#05070b;
+}
+
+.sceneText{
+    min-height:100px;
+}
+
+.meta{
+    color:#8997aa;
+    font-size:13px;
+    margin-top:8px;
+    line-height:1.5;
+}
+
+.hidden{
+    display:none !important;
+}
+
 video{
-    width:90%;
-    max-width:700px;
-    margin-top:20px;
+    display:block;
+    width:100%;
+    max-width:850px;
+    margin:18px auto;
+    border-radius:15px;
+    background:#000;
+}
+
+.download{
+    display:inline-block;
+    background:#159447;
+    color:#fff;
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:11px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+.center{
+    text-align:center;
+}
+
+.small{
+    color:#8b98aa;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.badge{
+    padding:6px 10px;
+    background:#222d40;
+    border-radius:20px;
+    font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎬 Mina Video Motor Testi</h1>
+<div class="container">
 
-<button onclick="startTest()">
-🎥 TEST VİDEOSU OLUŞTUR
+<h1>🎬 Mina Video AI</h1>
+
+<div class="logo">
+Mystery Nacht Video Studio
+</div>
+
+
+<!-- =====================================================
+     AYARLAR
+===================================================== -->
+
+<div class="panel">
+
+<label>🎯 Video konusu</label>
+
+<input
+id="topic"
+placeholder="Örn: Almanya'da terk edilmiş bir kalenin gizemli hikâyesi"
+>
+
+<div class="row">
+
+<div>
+
+<label>🌍 Dil</label>
+
+<select id="language">
+
+<option value="de" selected>Deutsch</option>
+<option value="tr">Türkçe</option>
+<option value="en">English</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>🎬 Sahne sayısı</label>
+
+<select id="sceneCount">
+
+<option value="4">4</option>
+<option value="5" selected>5</option>
+<option value="6">6</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>🎨 Görsel stili</label>
+
+<select id="style">
+
+<option>Karanlık / Gizemli</option>
+<option>Sinematik</option>
+<option>Fotogerçekçi</option>
+<option>Orta Çağ</option>
+<option>Fantastik</option>
+<option>Bilim Kurgu</option>
+<option>Epik</option>
+<option>Aksiyon</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>⏱️ Sahne süresi</label>
+
+<select id="duration">
+
+<option value="4">4 saniye</option>
+<option value="5" selected>5 saniye</option>
+<option value="6">6 saniye</option>
+<option value="8">8 saniye</option>
+
+</select>
+
+</div>
+
+</div>
+
+<br>
+
+<button onclick="createStory()">
+✨ Senaryo Oluştur
 </button>
 
-<p id="status">Hazır</p>
+<button class="gray" onclick="createScenes()">
+🎬 Sahneleri Oluştur + Görselleri Bul
+</button>
 
-<video id="video" controls></video>
+<button class="gray" onclick="clearAll()">
+🗑️ Temizle
+</button>
 
-<br><br>
+</div>
 
-<a id="download"
-style="display:none;color:white;background:#159447;padding:14px 20px;border-radius:10px;text-decoration:none;">
-⬇️ VİDEOYU İNDİR
+
+<!-- =====================================================
+     SENARYO
+===================================================== -->
+
+<div class="panel">
+
+<label>📝 Senaryo</label>
+
+<textarea
+id="script"
+placeholder="Senaryo burada oluşacak..."
+></textarea>
+
+</div>
+
+
+<!-- =====================================================
+     SES
+===================================================== -->
+
+<div class="panel">
+
+<h2>🎤 Ses</h2>
+
+<input
+type="file"
+id="audioFile"
+accept="audio/*"
+>
+
+<div class="small">
+MP3, WAV, M4A gibi bir ses dosyası seçebilirsin.
+Ses mümkün olduğunca videonun içine aktarılır.
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SAHNELER
+===================================================== -->
+
+<div class="panel">
+
+<h2>🖼️ Otomatik Sahne Görselleri</h2>
+
+<div class="small">
+Mina her sahnenin metninden anahtar kelime çıkarır ve
+Wikimedia Commons üzerinden farklı bir görsel arar.
+</div>
+
+<div id="scenes"></div>
+
+</div>
+
+
+<!-- =====================================================
+     VİDEO
+===================================================== -->
+
+<div class="panel">
+
+<h2>🎥 Video</h2>
+
+<button
+class="green"
+onclick="createVideo()"
+>
+🎥 VİDEOYU OLUŞTUR
+</button>
+
+<div class="progress">
+<div
+id="progressBar"
+class="progressBar">
+</div>
+</div>
+
+<div
+id="status"
+class="status"
+>
+Hazır.
+</div>
+
+<video
+id="preview"
+controls
+class="hidden">
+</video>
+
+<div class="center">
+
+<a
+id="download"
+class="download hidden"
+>
+⬇️ WEBM VİDEOYU İNDİR
 </a>
+
+</div>
+
+</div>
+
+</div>
+
 
 <script>
 
-async function startTest(){
+/* =====================================================
+   DEĞİŞKENLER
+===================================================== */
 
-    const status=document.getElementById("status");
+let scenes=[];
 
-    status.textContent="Video oluşturuluyor...";
+let audioFile=null;
 
-    const canvas=document.createElement("canvas");
+let audioBuffer=null;
 
-    canvas.width=1280;
-    canvas.height=720;
+let usedImages=new Set();
 
-    const ctx=canvas.getContext("2d");
 
-    const stream=canvas.captureStream(30);
+/* =====================================================
+   YARDIMCILAR
+===================================================== */
 
-    if(!window.MediaRecorder){
+function $(id){
+    return document.getElementById(id);
+}
 
-        status.textContent=
-        "❌ Bu tarayıcı MediaRecorder desteklemiyor.";
+
+function sleep(ms){
+    return new Promise(
+        resolve=>setTimeout(resolve,ms)
+    );
+}
+
+
+function status(text){
+    $("status").textContent=text;
+}
+
+
+function progress(value){
+    $("progressBar").style.width=
+        Math.max(0,Math.min(100,value))+"%";
+}
+
+
+/* =====================================================
+   SENARYO
+===================================================== */
+
+function createStory(){
+
+    const topic=
+        $("topic").value.trim();
+
+    if(!topic){
+
+        alert("Önce video konusu yaz.");
 
         return;
     }
 
-    let type="video/webm";
+    const lang=
+        $("language").value;
 
-    if(
-        MediaRecorder.isTypeSupported(
-            "video/webm;codecs=vp9"
-        )
-    ){
-        type="video/webm;codecs=vp9";
+    let script="";
+
+    if(lang==="de"){
+
+        script=
+`[SZENE 1]
+In Deutschland beginnt eine Geschichte, die bis heute viele Fragen aufwirft. ${topic}.
+
+[SZENE 2]
+Alte Berichte erzählen von ungewöhnlichen Ereignissen. In der Nacht sollen seltsame Geräusche und geheimnisvolle Lichter beobachtet worden sein.
+
+[SZENE 3]
+Dann taucht ein rätselhafter Hinweis auf. Niemand weiß genau, woher er stammt oder warum er so lange verborgen blieb.
+
+[SZENE 4]
+Die Untersuchung führt immer tiefer in die Vergangenheit. Je mehr Details entdeckt werden, desto rätselhafter wird die Geschichte.
+
+[SZENE 5]
+Bis heute gibt es keine eindeutige Erklärung. Einige Spuren sind verschwunden, andere werfen nur neue Fragen auf.`;
+
     }
 
-    const recorder=
-        new MediaRecorder(
-            stream,
-            {mimeType:type}
+    else if(lang==="en"){
+
+        script=
+`[SCENE 1]
+In Germany begins a story that continues to raise questions. ${topic}.
+
+[SCENE 2]
+Old reports describe strange events. During the night, mysterious sounds and unusual lights were reportedly observed.
+
+[SCENE 3]
+Then a mysterious clue appears. Nobody knows exactly where it came from or why it remained hidden for so long.
+
+[SCENE 4]
+The investigation leads deeper into the past. The more details are discovered, the more mysterious the story becomes.
+
+[SCENE 5]
+Even today there is no definite explanation. Some clues have disappeared while others only create new questions.`;
+
+    }
+
+    else{
+
+        script=
+`[SAHNE 1]
+Almanya'da bugün bile birçok soru bırakan gizemli bir hikâye başlıyor. ${topic}.
+
+[SAHNE 2]
+Eski kayıtlar olağan dışı olaylardan söz ediyor. Geceleri garip sesler ve gizemli ışıklar görüldüğü anlatılıyor.
+
+[SAHNE 3]
+Sonra gizemli bir ipucu ortaya çıkıyor. Bu ipucunun nereden geldiği ve neden yıllarca saklandığı bilinmiyor.
+
+[SAHNE 4]
+Araştırma geçmişin daha derinlerine götürüyor. Yeni ayrıntılar ortaya çıktıkça hikâye daha da gizemli hâle geliyor.
+
+[SAHNE 5]
+Bugün bile kesin bir açıklama yok. Bazı izler kaybolmuş, bazıları ise yalnızca yeni sorular ortaya çıkarmış durumda.`;
+
+    }
+
+    $("script").value=script;
+
+    status(
+        "✅ Senaryo hazır.\n"+
+        "Şimdi 'Sahneleri Oluştur + Görselleri Bul' butonuna bas."
+    );
+}
+
+
+/* =====================================================
+   SAHNE AYIR
+===================================================== */
+
+function parseScenes(){
+
+    const text=
+        $("script").value.trim();
+
+    if(!text){
+        return [];
+    }
+
+    return text
+        .split(
+            /\[(?:SAHNE|SZENE|SCENE)\s*\d+\]/gi
+        )
+        .map(x=>x.trim())
+        .filter(Boolean);
+}
+
+
+/* =====================================================
+   SAHNELERİ OLUŞTUR
+===================================================== */
+
+async function createScenes(){
+
+    const parts=
+        parseScenes();
+
+    if(!parts.length){
+
+        alert(
+            "Önce Senaryo Oluştur'a bas."
         );
 
-    const chunks=[];
+        return;
+    }
 
-    recorder.ondataavailable=function(e){
+    const count=
+        parseInt(
+            $("sceneCount").value
+        );
 
-        if(e.data.size>0){
-            chunks.push(e.data);
-        }
+    scenes=[];
 
-    };
+    usedImages.clear();
 
-    recorder.onerror=function(e){
+    $("scenes").innerHTML="";
 
-        status.textContent=
-        "❌ MediaRecorder hatası";
+    for(
+        let i=0;
+        i<count;
+        i++
+    ){
 
-        console.error(e);
+        scenes.push({
 
-    };
+            text:
+                parts[i] ||
+                parts[parts.length-1],
 
-    const finished=new Promise(resolve=>{
+            image:null,
 
-        recorder.onstop=resolve;
+            blob:null,
 
-    });
+            imageURL:null,
 
-    recorder.start(100);
+            query:""
 
-    const start=Date.now();
+        });
 
-    while(Date.now()-start<5000){
+    }
 
-        const elapsed=
-            Date.now()-start;
+    renderScenes();
 
-        const sec=
-            elapsed/1000;
+    status(
+        "🔎 Görseller aranıyor...\n"+
+        "Lütfen bekle."
+    );
 
-        /* Arka plan */
+    progress(0);
 
-        const gradient=
-            ctx.createLinearGradient(
-                0,
-                0,
-                1280,
-                720
+    for(
+        let i=0;
+        i<scenes.length;
+        i++
+    ){
+
+        await findImage(i);
+
+        progress(
+            ((i+1)/scenes.length)*100
+        );
+
+        await sleep(150);
+
+    }
+
+    status(
+        "✅ Sahneler ve görseller hazır.\n"+
+        "Şimdi VİDEOYU OLUŞTUR'a basabilirsin."
+    );
+}
+
+
+/* =====================================================
+   SAHNE GÖRÜNÜMÜ
+===================================================== */
+
+function renderScenes(){
+
+    const box=
+        $("scenes");
+
+    box.innerHTML="";
+
+    scenes.forEach(
+        (scene,index)=>{
+
+            const div=
+                document.createElement("div");
+
+            div.className="scene";
+
+            div.innerHTML=`
+
+            <div class="sceneHeader">
+
+                <strong>
+                🎬 Sahne ${index+1}
+                </strong>
+
+                <span
+                id="searchStatus_${index}"
+                class="badge">
+                Bekliyor
+                </span>
+
+            </div>
+
+            <div class="sceneBody">
+
+                <img
+                id="image_${index}"
+                class="sceneImage"
+                alt="Sahne görseli"
+                >
+
+                <label>
+                📝 Sahne metni
+                </label>
+
+                <textarea
+                id="sceneText_${index}"
+                class="sceneText"
+                >${escapeHTML(scene.text)}</textarea>
+
+                <div
+                id="query_${index}"
+                class="meta">
+                Anahtar kelime bekleniyor...
+                </div>
+
+                <button
+                class="gray"
+                onclick="findImage(${index},true)"
+                >
+                🔄 Farklı Görsel Bul
+                </button>
+
+            </div>
+            `;
+
+            box.appendChild(div);
+
+            drawFallback(
+                index
             );
 
-        gradient.addColorStop(
-            0,
-            "#101b35"
+        }
+    );
+}
+
+
+/* =====================================================
+   ANAHTAR KELİME
+===================================================== */
+
+function getSearchQuery(text,index){
+
+    const t=
+        text
+        .toLowerCase()
+        .replace(/[.,!?;:()]/g," ");
+
+    let words=[];
+
+    const map={
+
+        castle:[
+            "castle",
+            "old castle",
+            "abandoned castle"
+        ],
+
+        schloss:[
+            "castle",
+            "german castle"
+        ],
+
+        burg:[
+            "castle",
+            "medieval castle"
+        ],
+
+        kale:[
+            "castle",
+            "old castle"
+        ],
+
+        forest:[
+            "dark forest",
+            "forest"
+        ],
+
+        wald:[
+            "dark forest",
+            "forest"
+        ],
+
+        orman:[
+            "dark forest",
+            "forest"
+        ],
+
+        nacht:[
+            "night",
+            "night landscape"
+        ],
+
+        night:[
+            "night",
+            "night landscape"
+        ],
+
+        gece:[
+            "night",
+            "dark night"
+        ],
+
+        mystery:[
+            "mystery",
+            "dark mysterious place"
+        ],
+
+        geheimnis:[
+            "mystery",
+            "dark mysterious place"
+        ],
+
+        gizem:[
+            "mystery",
+            "dark mysterious place"
+        ],
+
+        haus:[
+            "old house",
+            "abandoned house"
+        ],
+
+        house:[
+            "old house",
+            "abandoned house"
+        ],
+
+        ev:[
+            "old house",
+            "abandoned house"
+        ],
+
+        abandoned:[
+            "abandoned building",
+            "old building"
+        ],
+
+        verlassen:[
+            "abandoned building",
+            "old building"
+        ],
+
+        terk:[
+            "abandoned building",
+            "old building"
+        ],
+
+        kirche:[
+            "old church",
+            "gothic church"
+        ],
+
+        church:[
+            "old church",
+            "gothic church"
+        ],
+
+        kilise:[
+            "old church",
+            "gothic church"
+        ],
+
+        friedhof:[
+            "old cemetery",
+            "cemetery"
+        ],
+
+        cemetery:[
+            "old cemetery",
+            "cemetery"
+        ],
+
+        mezarlık:[
+            "old cemetery",
+            "cemetery"
+        ],
+
+        berg:[
+            "mountain",
+            "mountain landscape"
+        ],
+
+        mountain:[
+            "mountain",
+            "mountain landscape"
+        ],
+
+        dağ:[
+            "mountain",
+            "mountain landscape"
+        ],
+
+        dorf:[
+            "old village",
+            "german village"
+        ],
+
+        village:[
+            "old village",
+            "german village"
+        ],
+
+        köy:[
+            "old village",
+            "german village"
+        ],
+
+        stadt:[
+            "old city",
+            "german city"
+        ],
+
+        city:[
+            "old city",
+            "german city"
+        ],
+
+        şehir:[
+            "old city",
+            "german city"
+        ],
+
+        krieg:[
+            "war",
+            "old battlefield"
+        ],
+
+        war:[
+            "war",
+            "old battlefield"
+        ],
+
+        savaş:[
+            "war",
+            "old battlefield"
+        ],
+
+        schiff:[
+            "old ship",
+            "ship at sea"
+        ],
+
+        ship:[
+            "old ship",
+            "ship at sea"
+        ],
+
+        gemi:[
+            "old ship",
+            "ship at sea"
+        ],
+
+        meer:[
+            "sea",
+            "dark sea"
+        ],
+
+        sea:[
+            "sea",
+            "dark sea"
+        ],
+
+        deniz:[
+            "sea",
+            "dark sea"
+        ],
+
+        ufo:[
+            "ufo",
+            "night sky"
+        ],
+
+        alien:[
+            "alien",
+            "night sky"
+        ],
+
+        außerirdisch:[
+            "alien",
+            "night sky"
+        ],
+
+        uzaylı:[
+            "alien",
+            "night sky"
+        ],
+
+        space:[
+            "space",
+            "galaxy"
+        ],
+
+        raum:[
+            "space",
+            "galaxy"
+        ],
+
+        uzay:[
+            "space",
+            "galaxy"
+        ],
+
+        laboratory:[
+            "dark laboratory",
+            "old laboratory"
+        ],
+
+        labor:[
+            "dark laboratory",
+            "old laboratory"
+        ]
+
+    };
+
+    for(
+        const key in map
+    ){
+
+        if(
+            t.includes(key)
+        ){
+
+            words.push(
+                ...map[key]
+            );
+
+        }
+
+    }
+
+    if(
+        t.includes("deutschland") ||
+        t.includes("germany") ||
+        t.includes("almanya") ||
+        t.includes("german")
+    ){
+
+        words.push(
+            "Germany"
         );
 
-        gradient.addColorStop(
-            1,
-            "#03050a"
-        );
+    }
 
-        ctx.fillStyle=gradient;
+    if(!words.length){
 
-        ctx.fillRect(
+        words=[
+            "mysterious landscape",
+            "foggy landscape",
+            "dark old building"
+        ];
+
+    }
+
+    words=[
+        ...new Set(words)
+    ];
+
+    /*
+      Sahneye göre dönüşümlü
+      farklı sorgu.
+    */
+
+    return words[
+        index%words.length
+    ];
+}
+
+
+/* =====================================================
+   FALLBACK GÖRSEL
+===================================================== */
+
+function drawFallback(index){
+
+    const img=
+        $("image_"+index);
+
+    if(!img) return;
+
+    const canvas=
+        document.createElement("canvas");
+
+    canvas.width=1280;
+    canvas.height=720;
+
+    const ctx=
+        canvas.getContext("2d");
+
+    const g=
+        ctx.createLinearGradient(
             0,
             0,
             1280,
             720
         );
 
-        /* Hareketli daire */
+    g.addColorStop(
+        0,
+        "#101a30"
+    );
+
+    g.addColorStop(
+        1,
+        "#03050a"
+    );
+
+    ctx.fillStyle=g;
+
+    ctx.fillRect(
+        0,
+        0,
+        1280,
+        720
+    );
+
+    ctx.fillStyle=
+        "rgba(255,255,255,.08)";
+
+    for(
+        let i=0;
+        i<35;
+        i++
+    ){
 
         ctx.beginPath();
 
         ctx.arc(
-            640+
-            Math.sin(sec)*250,
-            360,
-            80,
+            Math.random()*1280,
+            Math.random()*720,
+            20+
+            Math.random()*100,
             0,
             Math.PI*2
         );
 
-        ctx.fillStyle="#356df3";
-
         ctx.fill();
 
-        /* Yazı */
+    }
 
-        ctx.fillStyle="white";
+    ctx.fillStyle="#fff";
 
-        ctx.font=
-            "bold 48px Arial";
+    ctx.font=
+        "bold 42px Arial";
 
-        ctx.textAlign="center";
+    ctx.textAlign="center";
 
-        ctx.fillText(
-            "MYSTERY NACHT",
-            640,
-            180
+    ctx.fillText(
+        "MYSTERY NACHT",
+        640,
+        330
+    );
+
+    ctx.font=
+        "24px Arial";
+
+    ctx.fillStyle="#9daac0";
+
+    ctx.fillText(
+        "Sahne "+(index+1),
+        640,
+        380
+    );
+
+    img.src=
+        canvas.toDataURL(
+            "image/jpeg",
+            .85
         );
 
-        ctx.font=
-            "30px Arial";
+    img.dataset.fallback="1";
+}
 
-        ctx.fillText(
-            "MINA VIDEO AI TEST",
-            640,
-            580
+
+/* =====================================================
+   WIKIMEDIA ARAMA
+===================================================== */
+
+async function searchWikimedia(query){
+
+    const api=
+        "https://commons.wikimedia.org/w/api.php"+
+        "?action=query"+
+        "&generator=search"+
+        "&gsrsearch="+
+        encodeURIComponent(
+            query+" filetype:bitmap"
+        )+
+        "&gsrnamespace=6"+
+        "&gsrlimit=25"+
+        "&prop=imageinfo"+
+        "&iiprop=url|mime|size"+
+        "&iiurlwidth=1280"+
+        "&format=json"+
+        "&origin=*";
+
+    const response=
+        await fetch(
+            api,
+            {
+                method:"GET"
+            }
         );
 
-        await new Promise(
-            r=>setTimeout(r,33)
+    if(!response.ok){
+
+        throw new Error(
+            "Wikimedia HTTP "+
+            response.status
         );
 
     }
 
-    recorder.stop();
+    const data=
+        await response.json();
 
-    await finished;
+    if(
+        !data.query ||
+        !data.query.pages
+    ){
 
-    const blob=
-        new Blob(
-            chunks,
-            {type:"video/webm"}
+        return [];
+
+    }
+
+    let pages=
+        Object.values(
+            data.query.pages
         );
 
-    if(blob.size===0){
+    pages=
+        pages.filter(
+            page=>
+                page.imageinfo &&
+                page.imageinfo[0]
+        );
 
-        status.textContent=
-        "❌ Video dosyası boş oluştu.";
+    return pages;
+}
 
-        return;
+
+/* =====================================================
+   UZAK GÖRSELİ BLOB OLARAK AL
+===================================================== */
+
+async function downloadImage(url){
+
+    /*
+      Önce fetch deniyoruz.
+    */
+
+    try{
+
+        const response=
+            await fetch(
+                url,
+                {
+                    mode:"cors"
+                }
+            );
+
+        if(response.ok){
+
+            const blob=
+                await response.blob();
+
+            if(
+                blob.type.startsWith(
+                    "image/"
+                )
+            ){
+
+                return blob;
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.log(
+            "Fetch görsel başarısız:",
+            error
+        );
+
     }
+
+    /*
+      Fetch başarısız olursa
+      Image ile deniyoruz.
+    */
+
+    return await new Promise(
+        (resolve,reject)=>{
+
+            const img=
+                new Image();
+
+            img.crossOrigin=
+                "anonymous";
+
+            img.onload=function(){
+
+                const canvas=
+                    document.createElement(
+                        "canvas"
+                    );
+
+                canvas.width=
+                    img.naturalWidth;
+
+                canvas.height=
+                    img.naturalHeight;
+
+                const ctx=
+                    canvas.getContext("2d");
+
+                try{
+
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0
+                    );
+
+                    canvas.toBlob(
+                        blob=>{
+
+                            if(blob){
+
+                                resolve(blob);
+
+                            }else{
+
+                                reject(
+                                    new Error(
+                                        "Blob oluşturulamadı"
+                                    )
+                                );
+
+                            }
+
+                        },
+                        "image/jpeg",
+                        .90
+                    );
+
+                }catch(e){
+
+                    reject(e);
+
+                }
+
+            };
+
+            img.onerror=function(){
+
+                reject(
+                    new Error(
+                        "Görsel indirilemedi"
+                    )
+                );
+
+            };
+
+            img.src=url+
+                (
+                    url.includes("?")
+                    ?"&"
+                    :"?"
+                )+
+                "mina="+Date.now();
+
+        }
+    );
+}
+
+
+/* =====================================================
+   BLOB → IMAGE
+===================================================== */
+
+async function blobToImage(blob){
 
     const url=
         URL.createObjectURL(blob);
 
-    document.getElementById("video").src=url;
+    const img=
+        new Image();
 
-    const download=
-        document.getElementById("download");
+    await new Promise(
+        (resolve,reject)=>{
 
-    download.href=url;
+            img.onload=resolve;
 
-    download.download=
-        "mina-test.webm";
+            img.onerror=reject;
 
-    download.style.display="inline-block";
+            img.src=url;
 
-    status.textContent=
-        "✅ BAŞARILI! Video oluşturuldu. Dosya boyutu: "+
-        Math.round(blob.size/1024)+
-        " KB";
+        }
+    );
+
+    img._minaURL=url;
+
+    return img;
+}
+
+
+/* =====================================================
+   SAHNE GÖRSELİ BUL
+===================================================== */
+
+async function findImage(
+    index,
+    manual=false
+){
+
+    const scene=
+        scenes[index];
+
+    if(!scene) return;
+
+    const text=
+        $("sceneText_"+index)
+        ?
+        $("sceneText_"+index).value
+        :
+        scene.text;
+
+    scene.text=text;
+
+    const query=
+        getSearchQuery(
+            text,
+            index+
+            (
+                manual
+                ?
+                Math.floor(
+                    Math.random()*10
+                )
+                :
+                0
+            )
+        );
+
+    scene.query=query;
+
+    $("query_"+index)
+        .textContent=
+        "🔎 Arama: "+query;
+
+    $("searchStatus_"+index)
+        .textContent=
+        "Aranıyor...";
+
+    try{
+
+        let results=
+            await searchWikimedia(
+                query
+            );
+
+        /*
+          Kullanılmış görselleri çıkar.
+        */
+
+        results=
+            results.filter(
+                page=>{
+
+                    const info=
+                        page.imageinfo[0];
+
+                    const url=
+                        info.thumburl ||
+                        info.url;
+
+                    return !usedImages.has(
+                        url
+                    );
+
+                }
+            );
+
+        /*
+          Uygun görsel yoksa
+          yeniden sonuç al.
+        */
+
+        if(!results.length){
+
+            const secondQuery=
+                "mysterious "+
+                query;
+
+            results=
+                await searchWikimedia(
+                    secondQuery
+                );
+
+            results=
+                results.filter(
+                    page=>{
+
+                        const info=
+                            page.imageinfo[0];
+
+                        const url=
+                            info.thumburl ||
+                            info.url;
+
+                        return !usedImages.has(
+                            url
+                        );
+
+                    }
+                );
+
+        }
+
+        if(!results.length){
+
+            throw new Error(
+                "Uygun görsel bulunamadı"
+            );
+
+        }
+
+        /*
+          İlk 10 sonuçtan rastgele seç.
+        */
+
+        const max=
+            Math.min(
+                results.length,
+                10
+            );
+
+        const selected=
+            results[
+                Math.floor(
+                    Math.random()*max
+                )
+            ];
+
+        const info=
+            selected.imageinfo[0];
+
+        const url=
+            info.thumburl ||
+            info.url;
+
+        /*
+          Önce gerçekten indir.
+        */
+
+        const blob=
+            await downloadImage(
+                url
+            );
+
+        /*
+          Blob'u yerel image yap.
+        */
+
+        const localImage=
+            await blobToImage(
+                blob
+            );
+
+        scene.blob=blob;
+
+        scene.image=
+            localImage;
+
+        scene.imageURL=
+            url;
+
+        usedImages.add(
+            url
+        );
+
+        /*
+          Ekranda göster.
+        */
+
+        const preview=
+            $("image_"+index);
+
+        preview.src=
+            localImage.src;
+
+        preview.dataset.fallback="0";
+
+        $("searchStatus_"+index)
+            .textContent=
+            "✅ Hazır";
+
+    }catch(error){
+
+        console.warn(
+            "Sahne "+(index+1)+
+            " görsel hatası:",
+            error
+        );
+
+        /*
+          Video hiçbir zaman
+          görsel yüzünden durmasın.
+        */
+
+        scene.image=null;
+
+        scene.blob=null;
+
+        $("searchStatus_"+index)
+            .textContent=
+            "⚠️ Yedek görsel";
+
+        drawFallback(index);
+
+    }
+}
+
+
+/* =====================================================
+   VİDEO GÖRSELİ
+===================================================== */
+
+function drawImageCover(
+    ctx,
+    img,
+    width,
+    height
+){
+
+    if(
+        !img ||
+        !img.naturalWidth ||
+        !img.naturalHeight
+    ){
+
+        return false;
+
+    }
+
+    const scale=
+        Math.max(
+            width/img.naturalWidth,
+            height/img.naturalHeight
+        );
+
+    const iw=
+        img.naturalWidth*
+        scale;
+
+    const ih=
+        img.naturalHeight*
+        scale;
+
+    const x=
+        (width-iw)/2;
+
+    const y=
+        (height-ih)/2;
+
+    try{
+
+        ctx.drawImage(
+            img,
+            x,
+            y,
+            iw,
+            ih
+        );
+
+        return true;
+
+    }catch(error){
+
+        console.warn(
+            "Canvas görsel hatası:",
+            error
+        );
+
+        return false;
+
+    }
+}
+
+
+/* =====================================================
+   ALTYAZI
+===================================================== */
+
+function drawSubtitle(
+    ctx,
+    text,
+    width,
+    height
+){
+
+    if(!text) return;
+
+    ctx.font=
+        "bold 30px Arial";
+
+    ctx.textAlign="center";
+
+    const maxWidth=
+        width-130;
+
+    const words=
+        text.split(/\s+/);
+
+    const lines=[];
+
+    let line="";
+
+    for(
+        const word of words
+    ){
+
+        const test=
+            line+
+            (line?" ":"")+
+            word;
+
+        if(
+            ctx.measureText(test)
+                .width
+            >
+            maxWidth
+        ){
+
+            if(line){
+                lines.push(line);
+            }
+
+            line=word;
+
+        }else{
+
+            line=test;
+
+        }
+
+    }
+
+    if(line){
+        lines.push(line);
+    }
+
+    const visible=
+        lines.slice(-3);
+
+    const lineHeight=42;
+
+    const boxHeight=
+        visible.length*
+        lineHeight+
+        36;
+
+    const y=
+        height-
+        boxHeight-
+        28;
+
+    ctx.fillStyle=
+        "rgba(0,0,0,.76)";
+
+    roundRect(
+        ctx,
+        45,
+        y,
+        width-90,
+        boxHeight,
+        15
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle="#fff";
+
+    visible.forEach(
+        (line,i)=>{
+
+            ctx.fillText(
+                line,
+                width/2,
+                y+
+                33+
+                i*lineHeight
+            );
+
+        }
+    );
+}
+
+
+/* =====================================================
+   ROUND RECT
+===================================================== */
+
+function roundRect(
+    ctx,
+    x,
+    y,
+    w,
+    h,
+    r
+){
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x+r,
+        y
+    );
+
+    ctx.arcTo(
+        x+w,
+        y,
+        x+w,
+        y+h,
+        r
+    );
+
+    ctx.arcTo(
+        x+w,
+        y+h,
+        x,
+        y+h,
+        r
+    );
+
+    ctx.arcTo(
+        x,
+        y+h,
+        x,
+        y,
+        r
+    );
+
+    ctx.arcTo(
+        x,
+        y,
+        x+w,
+        y,
+        r
+    );
+
+    ctx.closePath();
+}
+
+
+/* =====================================================
+   SES DOSYASI
+===================================================== */
+
+$("audioFile")
+.addEventListener(
+    "change",
+    async function(){
+
+        const file=
+            this.files[0];
+
+        if(!file){
+
+            audioFile=null;
+            audioBuffer=null;
+
+            return;
+        }
+
+        audioFile=file;
+
+        status(
+            "🎤 Ses dosyası okunuyor..."
+        );
+
+        try{
+
+            const arrayBuffer=
+                await file.arrayBuffer();
+
+            const AudioCtx=
+                window.AudioContext ||
+                window.webkitAudioContext;
+
+            if(!AudioCtx){
+
+                throw new Error(
+                    "AudioContext desteklenmiyor."
+                );
+
+            }
+
+            const audioCtx=
+                new AudioCtx();
+
+            audioBuffer=
+                await audioCtx.decodeAudioData(
+                    arrayBuffer.slice(0)
+                );
+
+            await audioCtx.close();
+
+            status(
+                "✅ Ses dosyası hazır.\n"+
+                "Artık video oluşturabilirsin."
+            );
+
+        }catch(error){
+
+            console.error(error);
+
+            audioBuffer=null;
+
+            status(
+                "⚠️ Ses dosyası okunamadı.\n"+
+                "Video yine oluşturulabilir."
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SES + CANVAS STREAM
+===================================================== */
+
+async function createMixedStream(
+    canvas
+){
+
+    const AudioCtx=
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+    if(
+        !AudioCtx ||
+        !audioBuffer
+    ){
+
+        return canvas.captureStream(30);
+
+    }
+
+    const audioCtx=
+        new AudioCtx();
+
+    const source=
+        audioCtx.createBufferSource();
+
+    source.buffer=
+        audioBuffer;
+
+    const destination=
+        audioCtx.createMediaStreamDestination();
+
+    source.connect(
+        destination
+    );
+
+    const canvasStream=
+        canvas.captureStream(30);
+
+    const mixedStream=
+        new MediaStream();
+
+    canvasStream
+        .getVideoTracks()
+        .forEach(
+            track=>
+                mixedStream.addTrack(track)
+        );
+
+    destination
+        .stream
+        .getAudioTracks()
+        .forEach(
+            track=>
+                mixedStream.addTrack(track)
+        );
+
+    await audioCtx.resume();
+
+    source.start(0);
+
+    mixedStream._minaAudioContext=
+        audioCtx;
+
+    return mixedStream;
+}
+
+
+/* =====================================================
+   VİDEO OLUŞTUR
+===================================================== */
+
+async function createVideo(){
+
+    if(!scenes.length){
+
+        alert(
+            "Önce Sahneleri Oluştur'a bas."
+        );
+
+        return;
+    }
+
+    if(!window.MediaRecorder){
+
+        alert(
+            "Tarayıcın MediaRecorder desteklemiyor."
+        );
+
+        return;
+    }
+
+    try{
+
+        progress(0);
+
+        status(
+            "🎥 Video hazırlanıyor...\n"+
+            "Lütfen pencereyi kapatma."
+        );
+
+        const width=1280;
+
+        const height=720;
+
+        const canvas=
+            document.createElement(
+                "canvas"
+            );
+
+        canvas.width=width;
+
+        canvas.height=height;
+
+        const ctx=
+            canvas.getContext(
+                "2d"
+            );
+
+        /*
+          Ses varsa ses + görüntü.
+          Yoksa yalnızca görüntü.
+        */
+
+        const stream=
+            await createMixedStream(
+                canvas
+            );
+
+        let recorder=null;
+
+        const formats=[
+            "video/webm;codecs=vp9,opus",
+            "video/webm;codecs=vp8,opus",
+            "video/webm"
+        ];
+
+        for(
+            const format of formats
+        ){
+
+            try{
+
+                if(
+                    MediaRecorder
+                    .isTypeSupported(format)
+                ){
+
+                    recorder=
+                        new MediaRecorder(
+                            stream,
+                            {
+                                mimeType:
+                                    format
+                            }
+                        );
+
+                    break;
+
+                }
+
+            }catch(error){
+
+                console.log(
+                    "Format denenemedi:",
+                    format
+                );
+
+            }
+
+        }
+
+        if(!recorder){
+
+            recorder=
+                new MediaRecorder(
+                    stream
+                );
+
+        }
+
+        const chunks=[];
+
+        recorder.ondataavailable=
+            event=>{
+
+                if(
+                    event.data &&
+                    event.data.size>0
+                ){
+
+                    chunks.push(
+                        event.data
+                    );
+
+                }
+
+            };
+
+        recorder.onerror=
+            event=>{
+
+                console.error(
+                    "Recorder:",
+                    event
+                );
+
+            };
+
+        const finished=
+            new Promise(
+                resolve=>{
+
+                    recorder.onstop=
+                        resolve;
+
+                }
+            );
+
+        recorder.start(100);
+
+        const seconds=
+            parseInt(
+                $("duration").value
+            );
+
+        const duration=
+            seconds*1000;
+
+        for(
+            let i=0;
+            i<scenes.length;
+            i++
+        ){
+
+            const scene=
+                scenes[i];
+
+            const start=
+                performance.now();
+
+            while(
+                performance.now()-
+                start<
+                duration
+            ){
+
+                /*
+                  Arka plan
+                */
+
+                ctx.fillStyle=
+                    "#03050a";
+
+                ctx.fillRect(
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+                /*
+                  Görsel
+                */
+
+                let drawn=false;
+
+                if(scene.image){
+
+                    drawn=
+                        drawImageCover(
+                            ctx,
+                            scene.image,
+                            width,
+                            height
+                        );
+
+                }
+
+                /*
+                  Görsel çizilemezse
+                  fallback.
+                */
+
+                if(!drawn){
+
+                    const g=
+                        ctx.createLinearGradient(
+                            0,
+                            0,
+                            width,
+                            height
+                        );
+
+                    g.addColorStop(
+                        0,
+                        "#15233d"
+                    );
+
+                    g.addColorStop(
+                        1,
+                        "#03050a"
+                    );
+
+                    ctx.fillStyle=g;
+
+                    ctx.fillRect(
+                        0,
+                        0,
+                        width,
+                        height
+                    );
+
+                    ctx.fillStyle=
+                        "rgba(255,255,255,.07)";
+
+                    ctx.beginPath();
+
+                    ctx.arc(
+                        640,
+                        340,
+                        150,
+                        0,
+                        Math.PI*2
+                    );
+
+                    ctx.fill();
+
+                }
+
+                /*
+                  Karartma
+                */
+
+                const shade=
+                    ctx.createLinearGradient(
+                        0,
+                        0,
+                        0,
+                        height
+                    );
+
+                shade.addColorStop(
+                    0,
+                    "rgba(0,0,0,.10)"
+                );
+
+                shade.addColorStop(
+                    .55,
+                    "rgba(0,0,0,.12)"
+                );
+
+                shade.addColorStop(
+                    1,
+                    "rgba(0,0,0,.78)"
+                );
+
+                ctx.fillStyle=
+                    shade;
+
+                ctx.fillRect(
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+                /*
+                  Kanal adı
+                */
+
+                ctx.fillStyle="#fff";
+
+                ctx.textAlign="left";
+
+                ctx.font=
+                    "bold 28px Arial";
+
+                ctx.fillText(
+                    "MYSTERY NACHT",
+                    45,
+                    55
+                );
+
+                /*
+                  Sahne numarası
+                */
+
+                ctx.textAlign="right";
+
+                ctx.font=
+                    "20px Arial";
+
+                ctx.fillStyle=
+                    "rgba(255,255,255,.8)";
+
+                ctx.fillText(
+                    "Sahne "+
+                    (i+1)+
+                    " / "+
+                    scenes.length,
+                    width-45,
+                    50
+                );
+
+                /*
+                  Altyazı
+                */
+
+                const text=
+                    $("sceneText_"+i)
+                    ?
+                    $("sceneText_"+i).value
+                    :
+                    scene.text;
+
+                drawSubtitle(
+                    ctx,
+                    text,
+                    width,
+                    height
+                );
+
+                const elapsed=
+                    performance.now()-
+                    start;
+
+                const total=
+                    scenes.length*
+                    duration;
+
+                const current=
+                    i*duration+
+                    elapsed;
+
+                progress(
+                    Math.min(
+                        99,
+                        current/
+                        total*
+                        100
+                    )
+                );
+
+                await sleep(33);
+
+            }
+
+        }
+
+        /*
+          Recorder kapat
+        */
+
+        recorder.stop();
+
+        await finished;
+
+        /*
+          AudioContext kapat
+        */
+
+        if(
+            stream._minaAudioContext
+        ){
+
+            try{
+
+                await
+                    stream
+                    ._minaAudioContext
+                    .close();
+
+            }catch(e){}
+
+        }
+
+        const blob=
+            new Blob(
+                chunks,
+                {
+                    type:"video/webm"
+                }
+            );
+
+        if(
+            !blob ||
+            blob.size===0
+        ){
+
+            throw new Error(
+                "Video dosyası boş oluştu."
+            );
+
+        }
+
+        const url=
+            URL.createObjectURL(
+                blob
+            );
+
+        $("preview").src=url;
+
+        $("preview")
+            .classList
+            .remove("hidden");
+
+        $("download").href=url;
+
+        $("download").download=
+            "Mina-Mystery-Nacht-"+
+            Date.now()+
+            ".webm";
+
+        $("download")
+            .classList
+            .remove("hidden");
+
+        progress(100);
+
+        status(
+            "✅ VİDEO HAZIR!\n\n"+
+            "Dosya boyutu: "+
+            Math.round(
+                blob.size/1024
+            )+
+            " KB\n\n"+
+            (
+                audioBuffer
+                ?
+                "🎤 Ses videoya eklendi."
+                :
+                "🔇 Ses dosyası kullanılmadı."
+            )+
+            "\n\n"+
+            "⬇️ Aşağıdaki butondan indirebilirsin."
+        );
+
+    }catch(error){
+
+        console.error(
+            "VİDEO HATASI:",
+            error
+        );
+
+        status(
+            "❌ Video oluşturulamadı.\n\n"+
+            error.message
+        );
+
+    }
 
 }
+
+
+/* =====================================================
+   TEMİZLE
+===================================================== */
+
+function clearAll(){
+
+    scenes=[];
+
+    usedImages.clear();
+
+    audioFile=null;
+
+    audioBuffer=null;
+
+    $("topic").value="";
+
+    $("script").value="";
+
+    $("scenes").innerHTML="";
+
+    $("preview")
+        .classList
+        .add("hidden");
+
+    $("preview").removeAttribute(
+        "src"
+    );
+
+    $("download")
+        .classList
+        .add("hidden");
+
+    $("audioFile").value="";
+
+    progress(0);
+
+    status("Hazır.");
+
+}
+
+
+/* =====================================================
+   HTML GÜVENLİĞİ
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   SAHNE METNİ DEĞİŞİNCE
+===================================================== */
+
+document.addEventListener(
+    "input",
+    function(event){
+
+        if(
+            event.target.id &&
+            event.target.id
+                .startsWith("sceneText_")
+        ){
+
+            const index=
+                parseInt(
+                    event.target.id
+                        .split("_")[1]
+                );
+
+            if(
+                scenes[index]
+            ){
+
+                scenes[index].text=
+                    event.target.value;
+
+            }
+
+        }
+
+    }
+);
 
 </script>
 
