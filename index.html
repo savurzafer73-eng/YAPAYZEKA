@@ -3,641 +3,3049 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI V12.5</title>
+<title>Mina Video AI Film Engine V5</title>
+
 <style>
 *{box-sizing:border-box}
+
 body{
- margin:0;background:#080b14;color:#fff;font-family:Arial,sans-serif
+    margin:0;
+    background:#070a10;
+    color:#f1f5f9;
+    font-family:Arial,Helvetica,sans-serif;
 }
-.wrap{max-width:900px;margin:auto;padding:18px}
-h1{text-align:center;color:#8b5cf6;margin:8px 0}
-.sub{text-align:center;color:#aaa;margin-bottom:20px}
-.box{
- background:#111827;border:1px solid #293244;border-radius:16px;
- padding:16px;margin-bottom:15px
+
+header{
+    padding:20px;
+    background:
+        radial-gradient(circle at 20% 20%,#30205e 0,#111827 35%,#070a10 75%);
+    border-bottom:1px solid #293246;
 }
-label{display:block;font-weight:bold;margin:10px 0 6px}
-select,input,textarea,button{
- width:100%;padding:12px;border-radius:10px;border:1px solid #374151;
- background:#0b1220;color:white;font-size:15px
+
+header h1{
+    margin:0;
+    font-size:27px;
 }
-textarea{min-height:210px;resize:vertical;line-height:1.5}
-button{
- cursor:pointer;background:#7c3aed;border:0;font-weight:bold;margin-top:8px
+
+header p{
+    margin:7px 0 0;
+    color:#9ca3af;
 }
-button:hover{background:#6d28d9}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.container{
+    max-width:1450px;
+    margin:auto;
+    padding:16px;
+}
+
+.panel{
+    background:#101622;
+    border:1px solid #293246;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:16px;
+}
+
 .grid{
- display:grid;grid-template-columns:repeat(2,1fr);gap:10px
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
 }
-.card{
- background:#0b1220;border:1px solid #30394c;border-radius:12px;
- padding:12px
+
+@media(max-width:950px){
+    .grid{
+        grid-template-columns:1fr;
+    }
 }
-.small{font-size:12px;color:#9ca3af}
-.counter{text-align:right;color:#a78bfa;font-weight:bold;margin-top:5px}
-.progress{
- height:10px;background:#252b38;border-radius:20px;overflow:hidden;margin-top:10px
+
+h2{
+    margin:0 0 13px;
+    font-size:19px;
 }
-.bar{height:100%;width:0;background:#8b5cf6}
-.sceneTitle{color:#c4b5fd;font-weight:bold}
-img.preview{
- width:100%;height:150px;object-fit:cover;border-radius:8px;margin-top:8px
+
+label{
+    display:block;
+    margin:9px 0 5px;
+    color:#cbd5e1;
+    font-size:13px;
 }
+
+input[type=text],
+input[type=password],
+textarea,
+select{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #303b52;
+    background:#080c14;
+    color:#fff;
+    outline:none;
+}
+
+textarea{
+    min-height:82px;
+    resize:vertical;
+}
+
+button{
+    padding:10px 14px;
+    border:0;
+    border-radius:9px;
+    background:#28344c;
+    color:#fff;
+    cursor:pointer;
+    font-weight:bold;
+    margin:4px;
+}
+
+button:hover{
+    filter:brightness(1.15);
+}
+
+button.primary{
+    background:#6d35e8;
+}
+
+button.green{
+    background:#087f5b;
+}
+
+button.orange{
+    background:#a75a00;
+}
+
+button.red{
+    background:#9d2738;
+}
+
+button.blue{
+    background:#175d9d;
+}
+
+.scene{
+    background:#0a101b;
+    border:1px solid #303b52;
+    border-radius:13px;
+    padding:14px;
+    margin-bottom:14px;
+}
+
+.sceneHead{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.sceneTitle{
+    font-size:17px;
+    font-weight:bold;
+}
+
+.sceneBadge{
+    padding:5px 9px;
+    border-radius:20px;
+    background:#1b2638;
+    color:#cbd5e1;
+    font-size:11px;
+}
+
+.sceneBadge.ok{
+    background:#063d2d;
+    color:#86efac;
+}
+
+.sceneBadge.ai{
+    background:#38205e;
+    color:#d8b4fe;
+}
+
+.preview{
+    background:#000;
+    border-radius:12px;
+    border:1px solid #303b52;
+    padding:8px;
+}
+
 canvas{
- width:100%;max-width:800px;display:block;margin:15px auto;
- background:#000;border-radius:12px
+    display:block;
+    width:100%;
+    background:#000;
+    border-radius:8px;
 }
-#status{text-align:center;color:#a78bfa;min-height:24px;margin:10px}
-.danger{color:#f87171}
-.ok{color:#4ade80}
-@media(max-width:650px){
- .row,.grid{grid-template-columns:1fr}
- .wrap{padding:10px}
+
+.status{
+    margin-top:10px;
+    padding:12px;
+    min-height:110px;
+    background:#05070b;
+    border:1px solid #303b52;
+    border-radius:10px;
+    white-space:pre-wrap;
+    font-family:Consolas,monospace;
+    font-size:12px;
+    overflow:auto;
+    max-height:300px;
+}
+
+.bigStatus{
+    text-align:center;
+    font-size:19px;
+    font-weight:bold;
+    padding:10px;
+}
+
+.progressOuter{
+    width:100%;
+    height:23px;
+    background:#05070b;
+    border:1px solid #303b52;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#7038e8,#16a579);
+    transition:width .12s linear;
+}
+
+.aiBox{
+    margin-top:10px;
+    padding:10px;
+    border-radius:9px;
+    background:#171025;
+    border:1px solid #43286b;
+    color:#d8b4fe;
+    font-size:12px;
+}
+
+.fileInfo{
+    font-size:12px;
+    margin-top:5px;
+    color:#7dd3fc;
+    word-break:break-all;
+}
+
+.audioInfo{
+    color:#86efac;
+}
+
+.download{
+    display:none;
+    padding:15px;
+    margin-top:12px;
+    background:#061e17;
+    border:1px solid #15936b;
+    border-radius:10px;
+}
+
+.download a{
+    color:#86efac;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.info{
+    color:#94a3b8;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:10px;
+}
+
+.badge{
+    padding:6px 9px;
+    border-radius:20px;
+    background:#202a3d;
+    font-size:11px;
+}
+
+.badge.ok{
+    background:#063d2d;
+    color:#86efac;
+}
+
+.badge.warn{
+    background:#493000;
+    color:#fcd34d;
 }
 </style>
 </head>
 
 <body>
-<div class="wrap">
 
-<h1>🎬 MINA VIDEO AI</h1>
-<div class="sub">V12.5 • Mystery Nacht Video Studio</div>
+<header>
+<h1>🎬 Mina Video AI Film Engine V5</h1>
+<p>AI Görsel → Sahne → Hareket → Ses → Altyazı → WEBM Film</p>
+</header>
 
-<div class="box">
-<label>🔎 Gizemli Olay</label>
-<select id="mystery"></select>
+<div class="container">
 
-<div class="row">
+<div class="panel">
+
+<h2>🎞️ Film Projesi</h2>
+
+<label>Film adı</label>
+<input id="filmName" type="text" value="Das Haus am Waldrand">
+
+<label>Hikâye</label>
+<textarea id="story">Um 23:47 Uhr erreicht Anna ein verlassenes Haus am Waldrand. Im oberen Fenster brennt plötzlich Licht. Sie hört Schritte. Die Tür öffnet sich von selbst. Dann erscheint ein Schatten.</textarea>
+
+<div style="margin-top:10px">
+
+<button class="primary" onclick="createStoryScenes()">
+🧠 HİKÂYEDEN SAHNE OLUŞTUR
+</button>
+
+<button class="green" onclick="saveProject()">
+💾 KAYDET
+</button>
+
+<button onclick="loadProject()">
+📂 YÜKLE
+</button>
+
+<button class="red" onclick="resetProject()">
+♻️ SIFIRLA
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🤖 AI Görsel Motoru</h2>
+
+<div class="grid">
+
 <div>
-<label>🌍 Dil</label>
-<select id="language">
-<option value="de">Deutsch</option>
-<option value="tr">Türkçe</option>
-<option value="en">English</option>
-</select>
+
+<label>AI görsel endpoint</label>
+
+<input
+id="aiEndpoint"
+type="text"
+value="https://gen.pollinations.ai/image/"
+>
+
+<p class="info">
+V5 AI görsel üretimi için kullanır. Servis erişim isterse manuel görsel yükleme seçeneğini kullanabilirsin.
+</p>
+
 </div>
 
 <div>
-<label>⏱️ Hedef Süre</label>
-<select id="duration">
-<option value="1">1 dakika</option>
-<option value="2">2 dakika</option>
-<option value="3">3 dakika</option>
-<option value="4">4 dakika</option>
-<option value="5">5 dakika</option>
-<option value="6">6 dakika</option>
-<option value="7">7 dakika</option>
-<option value="8">8 dakika</option>
-<option value="9">9 dakika</option>
-<option value="10">10 dakika</option>
-<option value="11">11 dakika</option>
-<option value="12" selected>12 dakika</option>
+
+<label>Model</label>
+
+<select id="aiModel">
+
+<option value="flux">
+FLUX
+</option>
+
+<option value="flux-realism">
+FLUX Realism
+</option>
+
+<option value="zimage">
+Z-Image
+</option>
+
 </select>
+
+</div>
+
+</div>
+
+<label>AI stil</label>
+
+<select id="aiStyle">
+
+<option value="cinematic realistic film still">
+Cinematic Realistic Film
+</option>
+
+<option value="dark mystery thriller">
+Dark Mystery Thriller
+</option>
+
+<option value="photorealistic cinematic">
+Photorealistic Cinematic
+</option>
+
+<option value="dark horror cinema">
+Dark Horror Cinema
+</option>
+
+</select>
+
+<div style="margin-top:10px">
+
+<button class="primary" onclick="generateAllAIImages()">
+🤖 TÜM SAHNELERİ AI ÜRET
+</button>
+
+<button class="blue" onclick="generateCurrentAI()">
+🖼️ SEÇİLİ SAHNEYİ AI ÜRET
+</button>
+
+</div>
+
+<div class="aiBox" id="aiStatus">
+AI görsel motoru hazır.
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="panel">
+
+<h2>🎥 Film Önizleme</h2>
+
+<div class="preview">
+
+<canvas
+id="canvas"
+width="1280"
+height="720">
+</canvas>
+
+</div>
+
+<div class="bigStatus" id="previewStatus">
+Hazır
+</div>
+
+<button
+class="primary"
+onclick="previewFilm()">
+▶ FİLMİ ÖNİZLE
+</button>
+
+<button onclick="stopPreview()">
+⏹ DURDUR
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🎬 Film Render</h2>
+
+<div class="bigStatus" id="renderStatus">
+Hazır
+</div>
+
+<div class="progressOuter">
+<div
+id="progress"
+class="progress">
 </div>
 </div>
 
-<div class="row">
+<div style="margin-top:10px">
+
+<button
+class="primary"
+onclick="renderFilm()">
+🎬 VİDEOYU OLUŞTUR
+</button>
+
+<button
+class="red"
+onclick="cancelRender()">
+🛑 İPTAL
+</button>
+
+</div>
+
+<div
+class="download"
+id="downloadBox">
+
 <div>
-<label>🎬 Sahne Sayısı</label>
-<select id="sceneCount">
-<option value="4">4 Sahne</option>
-<option value="5">5 Sahne</option>
-<option value="6" selected>6 Sahne</option>
-</select>
+🎉 <b>Film hazır!</b>
 </div>
 
-<div>
-<label>🎨 Stil</label>
-<select id="style">
-<option>Sinematik</option>
-<option>Karanlık/Gizemli</option>
-<option>Fotogerçekçi</option>
-<option>Fantastik</option>
-<option>Bilim Kurgu</option>
-<option>3D Animasyon</option>
-<option>2D Animasyon</option>
-<option>Aksiyon</option>
-<option>Orta Çağ</option>
-<option>Epik</option>
-</select>
-</div>
-</div>
+<br>
 
-<button onclick="generateScript()">🧠 SENARYO OLUŞTUR</button>
-</div>
+<a
+id="downloadLink"
+href="#"
+download="mina-film-v5.webm">
+⬇️ VİDEOYU KAYDET
+</a>
 
-<div class="box">
-<label>📝 Senaryo</label>
-<textarea id="script" maxlength="999"
-placeholder="Burada maksimum 999 karakterlik senaryo olacak..."></textarea>
-<div class="counter"><span id="count">0</span> / 999</div>
-
-<div class="small">
-⚠️ Bu sürümde kullanılabilir maksimum alan 999 karakterdir.
-</div>
-
-<div class="row">
-<button onclick="copyScript()">📋 Kopyala</button>
-<button onclick="clearScript()">🗑️ Temizle</button>
-</div>
-</div>
-
-<div class="box">
-<label>🎙️ TTSMaker Ses Dosyası</label>
-<input type="file" id="audioFile" accept="audio/*">
-<div id="audioInfo" class="small">Henüz ses yüklenmedi.</div>
-</div>
-
-<div class="box">
-<label>🎬 Sahneler</label>
-<div id="scenes" class="grid"></div>
-</div>
-
-<div class="box">
-<button onclick="prepareScenes()">🔄 SAHNELERİ HAZIRLA</button>
-<button onclick="renderVideo()">🎥 VİDEOYU OLUŞTUR</button>
-</div>
-
-<div id="status"></div>
-<div class="progress"><div id="bar" class="bar"></div></div>
-
-<canvas id="canvas" width="1280" height="720"></canvas>
-
-<div class="box">
-<button id="downloadBtn" style="display:none">⬇️ VİDEOYU İNDİR</button>
 </div>
 
 </div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🔧 Sistem</h2>
+
+<div class="badges">
+
+<span id="mediaBadge" class="badge">
+MediaRecorder kontrol...
+</span>
+
+<span id="canvasBadge" class="badge">
+Canvas capture kontrol...
+</span>
+
+<span id="audioBadge" class="badge">
+Audio capture kontrol...
+</span>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🎬 Film Sahneleri</h2>
+
+<div id="sceneList"></div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>📟 Motor Logu</h2>
+
+<div id="log" class="status">
+Mina Video AI Film Engine V5 başlatılıyor...
+</div>
+
+</div>
+
+</div>
+
+
+<audio
+id="sceneAudio"
+preload="auto">
+</audio>
+
 
 <script>
-const MAX=999;
 
-const M=[
-["Mary Celeste","Mary Celeste gemisi 1872'de Atlantik'te terk edilmiş halde bulundu. Gemide insanlar yoktu ancak gemi büyük ölçüde sağlamdı."],
-["Dyatlov Geçidi","1959'da dokuz dağcı Sovyetler Birliği'ndeki Ural Dağları'nda öldü. Çadırları içeriden kesilmişti ve olay uzun süre açıklanamadı."],
-["Flannan Adaları","1900 yılında İskoçya açıklarındaki deniz fenerinde görev yapan üç bekçi ortadan kayboldu. Fener çalışır durumdaydı."],
-["Somerton Adamı","1948'de Avustralya'da kimliği belirlenemeyen bir adam ölü bulundu. Cebindeki gizemli not soruşturmayı yıllarca sürdürdü."],
-["Roanoke Kolonisi","1580'lerde Amerika'daki Roanoke kolonisi ortadan kayboldu. Yerleşimde yalnızca gizemli bir kelime bulundu."],
-["Wow! Sinyali","1977'de bir radyo teleskobu uzaydan gelen olağanüstü güçlü bir sinyal yakaladı. Sinyal bir daha aynı şekilde görülmedi."],
-["USS Cyclops","1918'de USS Cyclops adlı büyük gemi Atlantik'te 300'den fazla kişiyle kayboldu. Gemiden hiçbir kesin iz bulunamadı."],
-["Oak Island","Kanada'daki Oak Island'da yüzyıllardır gizli bir hazine olduğuna inanılıyor. Çok sayıda kazı yapıldı."],
-["Bermuda Şeytan Üçgeni","Atlantik'teki bölge birçok gemi ve uçak kayboluşuyla ilişkilendirildi. Olayların bir kısmı ise normal açıklamalara sahip."],
-["Black Dahlia","1947'de Elizabeth Short Los Angeles'ta öldürülmüş halde bulundu. Cinayet yıllarca çözülemedi."],
-["Zodiac Katili","1960'larda Kaliforniya'da bir seri katil gazetelere şifreli mektuplar gönderdi. Kimliği kesin olarak belirlenemedi."],
-["DB Cooper","1971'de bir adam uçak kaçırıp para aldıktan sonra paraşütle atladı. Kendisi ve paranın büyük kısmı bulunamadı."],
-["Beale Şifreleri","Virginia'da gömülü olduğu iddia edilen bir hazineyi anlatan üç şifre ortaya çıktı. Şifrelerden yalnızca biri kısmen çözüldü."],
-["Phaistos Diski","Girit'te bulunan disk üzerindeki semboller hâlâ tartışılıyor. Yazının anlamı konusunda kesin bir uzlaşı yok."],
-["Voynich El Yazması","Yüzlerce yıldır bilinmeyen bir yazıyla yazılmış bir kitap araştırmacıları şaşırtıyor."],
-["Antikythera Mekanizması","Denizden çıkarılan antik mekanizma karmaşık dişlileriyle şaşkınlık yarattı. İşlevinin astronomik hesaplamalarla bağlantılı olduğu düşünülüyor."],
-["Nazca Çizgileri","Peru'daki devasa çizgiler ve şekiller yüzyıllardır araştırılıyor. Bazılarının amacı hâlâ tartışılıyor."],
-["Stonehenge","İngiltere'deki dev taşların nasıl ve neden yerleştirildiği uzun süre gizem olarak kaldı."],
-["Terracotta Ordusu","Çin'de imparator mezarını koruyan binlerce asker heykeli bulundu. Yapım süreci hâlâ hayranlık uyandırıyor."],
-["Kayıp Franklin Seferi","1845'te Arktik'e giden Franklin seferi iki gemiyle kayboldu. Gemilerin kalıntıları çok daha sonra bulundu."],
-["Amelia Earhart","Ünlü havacı 1937'de dünya turu sırasında kayboldu. Uçağının nerede düştüğü kesin olarak belirlenemedi."],
-["MH370","2014'te yolcu uçağı MH370 kayboldu. Geniş aramalara rağmen uçağın ana enkazı uzun süre bulunamadı."],
-["Air France 447","2009'da Rio-Paris seferi Atlantik'e düştü. Arama çalışmaları uzun sürdü ve enkaz daha sonra bulundu."],
-["Tunguska Olayı","1908'de Sibirya üzerinde dev bir patlama meydana geldi. Patlamanın bir asteroid veya kuyruklu yıldız parçasından kaynaklandığı düşünülüyor."],
-["Sodder Çocukları","1945'te bir ev yangınından sonra beş çocuğun akıbeti tartışma konusu oldu. Aile çocukların yangında ölmediğine inanıyordu."],
-["Isdal Kadını","1970'te Norveç'te kimliği belirsiz bir kadın ölü bulundu. Çok sayıda sahte kimlik ipucu vardı."],
-["Keddie Cinayetleri","1981'de Kaliforniya'da bir kulübede korkunç cinayetler işlendi. Olayın bazı yönleri yıllarca çözülemedi."],
-["Lead Masks Olayı","1966'da Brezilya'da iki adam gizemli kıyafet ve kurşun maskelerle ölü bulundu."],
-["Max Headroom Saldırısı","1987'de ABD'de iki televizyon yayını gizemli bir kişi tarafından kesildi. Fail kesin olarak belirlenemedi."],
-["Dancing Mania","Orta Çağ Avrupa'sında insanların kontrolsüz biçimde dans ettiği bildirilen olaylar kayıtlara geçti."],
-["Mary Reeser","1951'de Florida'da bir kadın evinde neredeyse tamamen yanmış halde bulundu. Olayın fiziksel açıklaması tartışıldı."],
-["Taos Hum","New Mexico'daki bazı insanların duyduğunu söylediği düşük frekanslı uğultu yıllardır araştırılıyor."],
-["Green Children of Woolpit","İngiltere'de Orta Çağ'da yeşil tenli iki çocuğun ortaya çıktığına dair tarihsel bir anlatı bulunuyor."],
-["Man in the Iron Mask","Fransa'da kimliği gizli tutulan bir mahkûm hakkındaki hikâye yüzyıllar boyunca merak uyandırdı."],
-["Kaspar Hauser","1828'de Almanya'da ortaya çıkan ve geçmişi belirsiz genç adam hakkında birçok teori geliştirildi."],
-["Tamam Shud","Somerton Adamı vakasında bulunan iki kelimelik ifade olayın en meşhur ipuçlarından biri oldu."],
-["Hinterkaifeck","1922'de Almanya'da bir çiftlikte aile üyeleri öldürüldü. Cinayet uzun süre çözülemedi."],
-["Jamison Ailesi","Bir aile 2009'da Oklahoma'da kayboldu. Kalıntılar yıllar sonra bulundu."],
-["Springfield Üçlüsü","1992'de Missouri'de üç kadın kayboldu. Olay hâlâ çözülememiş vakalar arasında."],
-["Yuba County Five","1978'de beş erkek gizemli koşullarda kayboldu. Araçları ve bazı kişisel eşyaları bulundu."],
-["Flannan Günlüğü","Deniz fenerindeki bekçilerin günlük kayıtları kayboluşla ilgili çeşitli yorumlara yol açtı."],
-["Mavi Tren Soygunu","Ünlü mücevher hırsızlığı vakalarından biri yıllarca çeşitli teorilerle anıldı."],
-["Lindbergh Kaçırılması","1932'de Charles Lindbergh'in çocuğu kaçırıldı. Olay büyük bir soruşturma başlattı."],
-["D.B. Cooper Para Notları","Cooper'ın verdiği para serisinden bazı banknotların yıllar sonra bulunması soru işaretleri doğurdu."],
-["Wow Sinyalinin Kaynağı","Sinyalin kaynağı belirlenemedi. Astronomi tarihinde en ünlü tek seferlik radyo sinyallerinden biri oldu."],
-["Kayıp Koloni","Roanoke'daki koloninin neden ortadan kaybolduğu kesin olarak bilinmiyor."],
-["Oak Island Kuyusu","Kazılar sırasında çeşitli tüneller ve yapılar bulunduğu iddia edildi."],
-["Piri Reis Haritası","1513 tarihli harita, içerdiği kıyı çizimleri nedeniyle tarihçiler tarafından incelenmiştir."],
-["Shroud of Turin","Torino Kefeni'nin kökeni ve tarihlendirilmesi uzun süredir tartışma konusu."],
-["Ölü Deniz Parşömenleri","Çölde bulunan antik parşömenler dini ve tarihsel araştırmalar için büyük önem taşıdı."],
-["Rongorongo Yazısı","Paskalya Adası'ndaki tahta tabletlerdeki semboller hâlâ tam olarak çözülebilmiş değil."],
-["Piri Reis Kaynakları","Haritanın hangi eski kaynaklardan yararlandığı konusunda farklı görüşler vardır."],
-["Kayıp Amber Odası","II. Dünya Savaşı sırasında kaybolan ünlü Amber Odası'nın akıbeti kesin değildir."],
-["Amber Room","Rusya'daki Amber Odası savaş sırasında söküldü ve kayboldu."],
-["Romanovların Akıbeti","Rus imparatorluk ailesinin ölümü ve kayıp kalıntıları uzun süre gizem konusu oldu."],
-["Anastasia Efsanesi","Romanov ailesinden Anastasia'nın kurtulduğu iddiası yıllarca popüler kaldı."],
-["Kayıp Fabergé Yumurtaları","Bazı Fabergé yumurtalarının nerede olduğu uzun süre bilinmedi."],
-["Kayıp Hazine Gemileri","Denizlerde kaybolan hazine gemileri hakkında birçok arama çalışması yapıldı."],
-["Lusitania","1915'te Lusitania torpillendi. Batışın bazı ayrıntıları uzun süre tartışıldı."],
-["Titanic Gizemleri","Titanic'in batışıyla ilgili çok sayıda teori ortaya çıktı. Enkaz 1985'te bulundu."],
-["Titanic SOS","Titanic'in son radyo mesajları felaketin en önemli belgeleri arasında yer aldı."],
-["Bismarck","Alman savaş gemisi 1941'de battı ve enkazı onlarca yıl sonra araştırıldı."],
-["Kayıp U-Boat","Bazı denizaltıların son görevleri ve kaybolma nedenleri yıllar sonra bile inceleniyor."],
-["Djatlov Radyo İddiası","Dyatlov olayında radyoaktif maddeler ve çeşitli söylentiler de gündeme getirildi."],
-["Hessdalen Işıkları","Norveç'teki vadide görülen açıklanamayan ışıklar bilimsel olarak araştırıldı."],
-["Marfa Işıkları","Texas'taki gizemli ışıklar onlarca yıldır gözlemleniyor."],
-["Brown Mountain Işıkları","ABD'deki dağ bölgesinde görülen ışıklar hakkında çok sayıda açıklama önerildi."],
-["Min Min Işıkları","Avustralya'da geceleri görüldüğü söylenen ışıklar yerel folklorun parçası."],
-["Jersey Şeytanı","New Jersey folklorunda ormanlarda yaşadığı söylenen gizemli yaratık."],
-["Mothman","Point Pleasant bölgesinde görüldüğü iddia edilen kanatlı yaratık efsanesi."],
-["Loch Ness","İskoçya'daki gölde büyük bir yaratık görüldüğü iddiaları yıllardır sürüyor."],
-["Bigfoot","Kuzey Amerika'daki ormanlarda büyük insansı yaratık görüldüğü iddiaları araştırıldı."],
-["Yeti","Himalayalar'daki Yeti efsanesi keşif hikâyeleriyle dünyaya yayıldı."],
-["Koca Ayak Fotoğrafı","Ünlü görüntülerden bazıları yıllardır tartışılıyor."],
-["Fátima Güneş Olayı","1917'de Portekiz'de binlerce kişinin gözlemlediği iddia edilen olağanüstü olay."],
-["Philadelphia Deneyi","Donanma gemisinin görünmez olduğu iddiası sonradan bir şehir efsanesi olarak değerlendirildi."],
-["Montauk Projesi","ABD'de gizli deneyler yapıldığı iddialarına dayanan modern bir komplo anlatısı."],
-["Area 51","Nevada'daki gizli askeri tesis uzun yıllar UFO hikâyeleriyle ilişkilendirildi."],
-["Roswell","1947'de New Mexico'da yaşanan olay UFO tartışmalarının en bilinen örneklerinden biri."],
-["Phoenix Lights","1997'de Arizona üzerinde çok sayıda kişinin ışıklar gördüğünü bildirdiği olay."],
-["Rendlesham Forest","1980'de İngiltere'deki askeri üs yakınında UFO görüldüğü iddia edildi."],
-["Belgian UFO Wave","1989-1990 arasında Belçika'da çok sayıda UFO gözlemi rapor edildi."],
-["Cash-Landrum","1980'de Texas'ta üç kişinin parlak bir nesne gördüğünü bildirdiği olay."],
-["Kecksburg","1965'te Pennsylvania'da gökten düşen nesne hakkında çeşitli iddialar ortaya atıldı."],
-["Varginha Olayı","1996'da Brezilya'da UFO ve yaratık görüldüğüne dair iddialar ortaya çıktı."],
-["Ariel Okulu","1994'te Zimbabwe'deki çocukların sıra dışı bir nesne gördüklerini anlattığı olay."],
-["Belgian Triangle","Belçika'daki üçgen şekilli UFO gözlemleri geniş basında yer aldı."],
-["Havana Sendromu","Diplomatların yaşadığı belirtiler konusunda farklı açıklamalar ve araştırmalar yapıldı."],
-["Wow Signal 2","Wow! sinyaline benzer ikinci bir sinyal arandı ancak kesin bir tekrar bulunamadı."],
-["Oakville Blobs","1994'te Washington'da yağmur sonrası jelatinimsi maddeler bulunduğu bildirildi."],
-["Kırmızı Yağmur","Hindistan'da görülen kırmızı yağmur bazı dönemlerde olağanüstü iddialara yol açtı."],
-["Taured Adamı","Japonya'da başka bir dünyadan gelen adam hikâyesi internette yayıldı ancak olayın doğruluğu tartışmalıdır."],
-["Philadelphia Deneyi Gemisi","USS Eldridge hakkında görünmezlik iddiaları ortaya atıldı; resmi kanıt bulunmamaktadır."],
-["Kayıp 411","ABD'deki kayıp kişi vakalarını bir araya getiren popüler bir gizem anlatısı."],
-["Bennington Üçgeni","Vermont'ta birkaç kişinin kaybolması bölge hakkında efsanelerin oluşmasına yol açtı."],
-["Kayıp Kıta Atlantis","Atlantis anlatısı antik kaynaklardan beri kayıp uygarlık hikâyelerinin en ünlülerinden biri."],
-["Piri Reis ve Antarktika","Haritanın Antarktika'yı gösterdiği iddiası popüler olsa da bilimsel yorumlar daha karmaşıktır."],
-["Nazi Altın Treni","Polonya'da saklı Nazi treni olduğu iddiası büyük hazine aramalarına yol açtı."],
-["Yamashita Hazinesi","II. Dünya Savaşı sırasında Filipinler'de gizli altın bulunduğu iddiaları."],
-["Copper Scroll","Ölü Deniz Parşömenleri arasında hazine listesi içerdiği düşünülen farklı bir metin."],
-["Crown Jewels Gizemi","Tarihte kraliyet mücevherlerinin kaybolduğu ve yeniden bulunduğu birçok olay yaşandı."],
-["Kayıp Flor de la Mar","1511'de batan Portekiz gemisinin büyük hazine taşıdığı düşünülüyor."],
-["San José Galyonu","Kolombiya açıklarında batan İspanyol gemisi büyük miktarda değerli yükle ilişkilendiriliyor."],
-["Kayıp HMS Terror","Franklin seferinin gemilerinden Terror uzun süre kayıptı."],
-["Erebus Enkazı","Franklin seferinin HMS Erebus gemisi 2014'te bulundu."],
-["Mary Celeste Kaptanı","Geminin mürettebatının neden gemiyi terk ettiği kesin olarak bilinmiyor."],
-["Kayıp Crew of Carroll A. Deering","1921'de yelkenli gemi terk edilmiş halde bulundu."],
-["Kaz II","2007'de Avustralya yakınlarında üç kişilik mürettebatı kaybolmuş bir tekne bulundu."],
-["Ourang Medan","Hakkında çok sayıda hikâye anlatılan gizemli gemi vakası."],
-["Joyita","1955'te Pasifik'te terk edilmiş halde bulunan geminin mürettebatı kayıptı."],
-["MV Joyita","Gemi batmamıştı ancak yolcuların ve mürettebatın nerede olduğu çözülemedi."],
-["Kayıp USS Scorpion","1968'de ABD denizaltısı Atlantik'te kayboldu."],
-["USS Thresher","1963'te nükleer denizaltı deniz altında kayboldu."],
-["Scorpion Enkazı","Denizaltının enkazı daha sonra bulundu ancak kazanın ayrıntıları araştırıldı."],
-["Kayıp Amelia Earhart Uçağı","Earhart'ın Lockheed Electra'sının ana enkazı kesin olarak bulunamadı."],
-["Gardner Adası","Earhart'ın Nikumaroro'ya ulaşmış olabileceği teorisi araştırmacılar tarafından incelendi."],
-["Kayıp Kaspar Hauser","Kaspar Hauser'in geçmişi ve saldırıya uğrama olayı hâlâ tarihçilerin ilgisini çekiyor."],
-["Hammersmith Hayaleti","Londra'da 1800'lerde hayalet saldırılarıyla ilgili bir panik yaşandı."],
-["Spring-Heeled Jack","Viktorya dönemi Londra'sında sıra dışı bir figürün görüldüğü iddiaları."],
-["Culpeper Hayaleti","Eski İngiliz hayalet hikâyeleri arasında yer alan tartışmalı olay."],
-["Black Monk of Pontefract","İngiltere'de bir ailenin yaşadığı iddia edilen paranormal olaylar."],
-["Enfield Olayı","1970'lerde Londra'daki bir evde paranormal olaylar yaşandığı iddia edildi."]
+/* ============================================================
+   MINA VIDEO AI FILM ENGINE V5
+   ============================================================ */
+
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
+const audio =
+document.getElementById("sceneAudio");
+
+const TOTAL_SCENES = 6;
+
+let scenes = [];
+
+let rendering = false;
+let cancelFlag = false;
+
+let previewRunning = false;
+let previewStopFlag = false;
+
+let chunks = [];
+
+let finalURL = null;
+
+const imageCache = {};
+
+
+/* ============================================================
+   DEFAULT FILM
+   ============================================================ */
+
+const defaults = [
+
+{
+title:"Ankunft am Haus",
+duration:8,
+motion:"zoomIn",
+image:null,
+audio:null,
+audioName:"",
+narration:"Um 23 Uhr 47 erreicht Anna das alte Haus am Waldrand.",
+prompt:"Anna arrives at an abandoned old house at night in a dense German forest, moonlight, mysterious atmosphere, cinematic realistic film still."
+},
+
+{
+title:"Das Licht",
+duration:8,
+motion:"panLeft",
+image:null,
+audio:null,
+audioName:"",
+narration:"Plötzlich geht im oberen Fenster ein Licht an.",
+prompt:"Abandoned house in a dark German forest, one upper window suddenly illuminated, mysterious cinematic night atmosphere, realistic film still."
+},
+
+{
+title:"Die Schritte",
+duration:8,
+motion:"zoomIn",
+image:null,
+audio:null,
+audioName:"",
+narration:"Anna hört Schritte im Inneren des Hauses.",
+prompt:"Anna standing inside an abandoned dark house, mysterious corridor, implied footsteps, deep shadows, cinematic realistic thriller film still."
+},
+
+{
+title:"Die Tür",
+duration:8,
+motion:"panRight",
+image:null,
+audio:null,
+audioName:"",
+narration:"Dann öffnet sich die Tür ganz langsam von selbst.",
+prompt:"Old wooden door slowly opening by itself in an abandoned house at midnight, cinematic lighting, realistic mystery thriller film still."
+},
+
+{
+title:"Der Schatten",
+duration:8,
+motion:"float",
+image:null,
+audio:null,
+audioName:"",
+narration:"Im Türrahmen erscheint plötzlich ein dunkler Schatten.",
+prompt:"Tall mysterious shadow figure standing in the doorway of an abandoned house, dark forest outside, cinematic realistic German mystery thriller."
+},
+
+{
+title:"Das Geheimnis",
+duration:8,
+motion:"zoomOut",
+image:null,
+audio:null,
+audioName:"",
+narration:"Anna bleibt stehen. Sie weiß noch nicht, dass dies erst der Anfang ist.",
+prompt:"Abandoned house disappearing into foggy dark forest, mysterious ending, moonlight, cinematic realistic thriller film still."
+}
+
 ];
 
-const mystery=document.getElementById("mystery");
-M.forEach((x,i)=>{
- let o=document.createElement("option");
- o.value=i;o.textContent=(i+1)+". "+x[0];
- mystery.appendChild(o);
+
+/* ============================================================
+   INIT
+   ============================================================ */
+
+function init(){
+
+scenes =
+JSON.parse(
+JSON.stringify(defaults)
+);
+
+renderScenes();
+
+checkSystem();
+
+drawPlaceholder();
+
+log("🎬 Mina Video AI Film Engine V5 hazır.");
+log("🎞️ 6 sahne oluşturuldu.");
+log("🤖 AI görsel motoru hazır.");
+
+}
+
+init();
+
+
+/* ============================================================
+   SYSTEM
+   ============================================================ */
+
+function checkSystem(){
+
+const media =
+document.getElementById("mediaBadge");
+
+const canvasBadge =
+document.getElementById("canvasBadge");
+
+const audioBadge =
+document.getElementById("audioBadge");
+
+if(window.MediaRecorder){
+
+media.textContent =
+"🎥 MediaRecorder: OK";
+
+media.className =
+"badge ok";
+
+}else{
+
+media.textContent =
+"🎥 MediaRecorder: YOK";
+
+media.className =
+"badge warn";
+
+}
+
+
+if(canvas.captureStream){
+
+canvasBadge.textContent =
+"🎞️ Canvas captureStream: OK";
+
+canvasBadge.className =
+"badge ok";
+
+}else{
+
+canvasBadge.textContent =
+"🎞️ Canvas captureStream: YOK";
+
+canvasBadge.className =
+"badge warn";
+
+}
+
+
+if(audio.captureStream){
+
+audioBadge.textContent =
+"🔊 Audio captureStream: OK";
+
+audioBadge.className =
+"badge ok";
+
+}else{
+
+audioBadge.textContent =
+"🔊 Audio captureStream: YOK";
+
+audioBadge.className =
+"badge warn";
+
+}
+
+}
+
+
+/* ============================================================
+   RENDER SCENES
+   ============================================================ */
+
+function renderScenes(){
+
+const list =
+document.getElementById("sceneList");
+
+list.innerHTML="";
+
+scenes.forEach(
+(scene,index)=>{
+
+const div =
+document.createElement("div");
+
+div.className="scene";
+
+div.innerHTML=`
+
+<div class="sceneHead">
+
+<div class="sceneTitle">
+🎬 SAHNE ${index+1} — ${esc(scene.title)}
+</div>
+
+<div>
+
+<span class="sceneBadge ${
+scene.image
+?"ok"
+:""
+}">
+${
+scene.image
+?"🖼️ Görsel hazır"
+:"🖼️ Görsel yok"
+}
+</span>
+
+<span class="sceneBadge ${
+scene.audio
+?"ok"
+:""
+}">
+${
+scene.audio
+?"🔊 Ses hazır"
+:"🔇 Ses yok"
+}
+</span>
+
+</div>
+
+</div>
+
+
+<label>Sahne adı</label>
+
+<input
+type="text"
+value="${attr(scene.title)}"
+onchange="
+updateScene(${index},'title',this.value)
+">
+
+
+<div class="grid">
+
+<div>
+
+<label>Görsel yükle</label>
+
+<input
+type="file"
+accept="image/*"
+onchange="
+loadImage(${index},this)
+">
+
+<div class="fileInfo">
+
+${
+scene.image
+?"🖼️ Görsel hazır"
+:"Henüz görsel yüklenmedi"
+}
+
+</div>
+
+</div>
+
+
+<div>
+
+<label>Ses yükle</label>
+
+<input
+type="file"
+accept="audio/*"
+onchange="
+loadAudio(${index},this)
+">
+
+<div class="fileInfo audioInfo">
+
+${
+scene.audio
+?"🔊 "+esc(scene.audioName)
+:"Henüz ses yüklenmedi"
+}
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div>
+
+<label>Hareket</label>
+
+<select
+onchange="
+updateScene(${index},'motion',this.value)
+">
+
+<option value="static"
+${scene.motion==="static"?"selected":""}>
+Sabit
+</option>
+
+<option value="zoomIn"
+${scene.motion==="zoomIn"?"selected":""}>
+Zoom In
+</option>
+
+<option value="zoomOut"
+${scene.motion==="zoomOut"?"selected":""}>
+Zoom Out
+</option>
+
+<option value="panLeft"
+${scene.motion==="panLeft"?"selected":""}>
+Pan Left
+</option>
+
+<option value="panRight"
+${scene.motion==="panRight"?"selected":""}>
+Pan Right
+</option>
+
+<option value="float"
+${scene.motion==="float"?"selected":""}>
+Cinematic Float
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Süre</label>
+
+<select
+onchange="
+updateScene(${index},'duration',Number(this.value))
+">
+
+<option value="5"
+${scene.duration===5?"selected":""}>
+5 saniye
+</option>
+
+<option value="8"
+${scene.duration===8?"selected":""}>
+8 saniye
+</option>
+
+<option value="10"
+${scene.duration===10?"selected":""}>
+10 saniye
+</option>
+
+<option value="15"
+${scene.duration===15?"selected":""}>
+15 saniye
+</option>
+
+<option value="20"
+${scene.duration===20?"selected":""}>
+20 saniye
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<label>Almanca anlatım / altyazı</label>
+
+<textarea
+onchange="
+updateScene(${index},'narration',this.value)
+">${esc(scene.narration)}</textarea>
+
+
+<label>AI görsel promptu</label>
+
+<textarea
+onchange="
+updateScene(${index},'prompt',this.value)
+">${esc(scene.prompt)}</textarea>
+
+
+<div>
+
+<button
+class="primary"
+onclick="
+generateAIImage(${index})
+">
+🤖 AI GÖRSEL ÜRET
+</button>
+
+<button
+onclick="
+testAudio(${index})
+">
+🔊 SES TEST
+</button>
+
+<button
+onclick="
+stopAudio()
+">
+⏹ SES DURDUR
+</button>
+
+</div>
+
+`;
+
+list.appendChild(div);
+
 });
 
-const script=document.getElementById("script");
-const count=document.getElementById("count");
-script.addEventListener("input",()=>{
- if(script.value.length>MAX)script.value=script.value.slice(0,MAX);
- count.textContent=script.value.length;
+}
+
+
+/* ============================================================
+   UPDATE
+   ============================================================ */
+
+function updateScene(index,key,value){
+
+scenes[index][key]=value;
+
+}
+
+
+/* ============================================================
+   IMAGE LOAD
+   ============================================================ */
+
+function loadImage(index,input){
+
+const file =
+input.files[0];
+
+if(!file)return;
+
+const reader =
+new FileReader();
+
+reader.onload=function(e){
+
+scenes[index].image =
+e.target.result;
+
+scenes[index].imageName =
+file.name;
+
+renderScenes();
+
+log(
+"🖼️ Sahne "+
+(index+1)+
+" görseli yüklendi."
+);
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* ============================================================
+   AUDIO LOAD
+   ============================================================ */
+
+function loadAudio(index,input){
+
+const file =
+input.files[0];
+
+if(!file)return;
+
+const reader =
+new FileReader();
+
+reader.onload=function(e){
+
+scenes[index].audio =
+e.target.result;
+
+scenes[index].audioName =
+file.name;
+
+renderScenes();
+
+log(
+"🔊 Sahne "+
+(index+1)+
+" sesi yüklendi: "+
+file.name
+);
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* ============================================================
+   AI IMAGE
+   ============================================================ */
+
+async function generateAIImage(index){
+
+const scene =
+scenes[index];
+
+const status =
+document.getElementById("aiStatus");
+
+const endpoint =
+document.getElementById("aiEndpoint").value.trim();
+
+const model =
+document.getElementById("aiModel").value;
+
+const style =
+document.getElementById("aiStyle").value;
+
+
+if(!scene.prompt){
+
+alert(
+"Bu sahnede AI promptu yok."
+);
+
+return;
+
+}
+
+
+status.textContent =
+"🤖 Sahne "+
+(index+1)+
+" AI görseli hazırlanıyor...";
+
+
+log(
+"🤖 AI görsel üretimi başladı → Sahne "+
+(index+1)
+);
+
+
+try{
+
+const prompt =
+scene.prompt+
+", "+
+style+
+", cinematic composition, 16:9, highly detailed, realistic.";
+
+const url =
+endpoint+
+encodeURIComponent(prompt)+
+"?model="+
+encodeURIComponent(model)+
+"&width=1280"+
+"&height=720"+
+"&nologo=true"+
+"&safe=true"+
+"&seed="+
+Math.floor(Math.random()*999999999);
+
+
+log(
+"🌐 AI isteği gönderildi."
+);
+
+
+const response =
+await fetch(url);
+
+
+if(!response.ok){
+
+throw new Error(
+"AI servis HTTP "+
+response.status
+);
+
+}
+
+
+const blob =
+await response.blob();
+
+
+if(!blob.type.startsWith("image/")){
+
+throw new Error(
+"Sunucu görsel yerine başka veri döndürdü."
+);
+
+}
+
+
+const reader =
+new FileReader();
+
+
+const dataURL =
+await new Promise(
+(resolve,reject)=>{
+
+reader.onload=()=>
+resolve(reader.result);
+
+reader.onerror=reject;
+
+reader.readAsDataURL(blob);
+
 });
 
-let audioFile=null;
-let audioDuration=0;
-let scenes=[];
-let finalBlob=null;
 
-document.getElementById("audioFile").addEventListener("change",e=>{
- audioFile=e.target.files[0];
- if(!audioFile)return;
- const a=new Audio();
- a.preload="metadata";
- a.onloadedmetadata=()=>{
-  audioDuration=a.duration;
-  document.getElementById("audioInfo").innerHTML=
-   "🎵 "+audioFile.name+" • "+formatTime(audioDuration);
- };
- a.src=URL.createObjectURL(audioFile);
+scene.image =
+dataURL;
+
+scene.imageName =
+"AI_GENERATED";
+
+
+renderScenes();
+
+
+status.textContent =
+"✅ Sahne "+
+(index+1)+
+" AI görseli hazır.";
+
+
+log(
+"✅ AI görseli hazır → Sahne "+
+(index+1)
+);
+
+
+}catch(error){
+
+status.textContent =
+"❌ AI görsel üretilemedi: "+
+error.message;
+
+
+log(
+"❌ AI hatası → Sahne "+
+(index+1)+
+": "+
+error.message
+);
+
+
+alert(
+"AI görsel üretilemedi.\n\n"+
+error.message+
+"\n\n"+
+"İstersen sahneye manuel görsel yükleyebilirsin."
+);
+
+}
+
+}
+
+
+/* ============================================================
+   CURRENT AI
+   ============================================================ */
+
+function generateCurrentAI(){
+
+generateAIImage(0);
+
+}
+
+
+/* ============================================================
+   ALL AI
+   ============================================================ */
+
+async function generateAllAIImages(){
+
+const status =
+document.getElementById("aiStatus");
+
+status.textContent =
+"🤖 Tüm sahneler hazırlanıyor...";
+
+
+for(let i=0;i<scenes.length;i++){
+
+status.textContent =
+"🤖 AI görsel "+
+(i+1)+
+" / "+
+scenes.length+
+" üretiliyor...";
+
+
+try{
+
+await generateAIImage(i);
+
+}catch(e){
+
+log(
+"⚠️ Sahne "+
+(i+1)+
+" atlandı."
+);
+
+}
+
+await sleep(700);
+
+}
+
+
+status.textContent =
+"🎉 AI sahne üretimi tamamlandı.";
+
+}
+
+
+/* ============================================================
+   STORY SCENES
+   ============================================================ */
+
+function createStoryScenes(){
+
+const story =
+document.getElementById("story")
+.value
+.trim();
+
+if(!story){
+
+alert("Önce hikâye yaz.");
+
+return;
+
+}
+
+const parts =
+story
+.split(/[.!?]+/)
+.map(x=>x.trim())
+.filter(Boolean);
+
+
+for(let i=0;i<scenes.length;i++){
+
+const text =
+parts[i] ||
+parts[parts.length-1] ||
+"";
+
+
+if(text){
+
+scenes[i].narration =
+text;
+
+scenes[i].prompt =
+createPrompt(text);
+
+}
+
+}
+
+renderScenes();
+
+log(
+"🧠 Hikâye sahnelere aktarıldı."
+);
+
+}
+
+
+function createPrompt(text){
+
+return(
+"cinematic realistic film still, "+
+"German mystery thriller, "+
+"night atmosphere, "+
+"text scene: "+
+text+
+", highly detailed, realistic lighting, "+
+"16:9 composition"
+);
+
+}
+
+
+/* ============================================================
+   AUDIO
+   ============================================================ */
+
+async function testAudio(index){
+
+const scene =
+scenes[index];
+
+if(!scene.audio){
+
+alert(
+"Sahne "+
+(index+1)+
+" için ses yüklenmemiş."
+);
+
+return;
+
+}
+
+try{
+
+audio.pause();
+
+audio.currentTime=0;
+
+audio.src =
+scene.audio;
+
+audio.load();
+
+await waitAudio();
+
+await audio.play();
+
+log(
+"🔊 Ses testi → Sahne "+
+(index+1)
+);
+
+}catch(e){
+
+log(
+"❌ Ses testi hatası: "+
+e.message
+);
+
+}
+
+}
+
+
+function stopAudio(){
+
+try{
+
+audio.pause();
+
+audio.currentTime=0;
+
+}catch(e){}
+
+}
+
+
+function waitAudio(){
+
+return new Promise(
+(resolve,reject)=>{
+
+if(audio.readyState>=2){
+
+resolve();
+
+return;
+
+}
+
+const ready=()=>{
+
+cleanup();
+
+resolve();
+
+};
+
+const error=()=>{
+
+cleanup();
+
+reject(
+new Error(
+"Ses dosyası okunamadı."
+)
+);
+
+};
+
+const cleanup=()=>{
+
+audio.removeEventListener(
+"canplay",
+ready
+);
+
+audio.removeEventListener(
+"loadeddata",
+ready
+);
+
+audio.removeEventListener(
+"error",
+error
+);
+
+};
+
+audio.addEventListener(
+"canplay",
+ready
+);
+
+audio.addEventListener(
+"loadeddata",
+ready
+);
+
+audio.addEventListener(
+"error",
+error
+);
+
 });
 
-function formatTime(s){
- if(!isFinite(s))return "--:--";
- let m=Math.floor(s/60);
- let sec=Math.floor(s%60).toString().padStart(2,"0");
- return m+":"+sec;
 }
 
-function clampText(t){
- t=(t||"").replace(/\s+/g," ").trim();
- if(t.length<=MAX)return t;
- let x=t.slice(0,MAX);
- let p=Math.max(x.lastIndexOf("."),x.lastIndexOf("!"),x.lastIndexOf("?"));
- if(p>700)x=x.slice(0,p+1);
- else{
-  let s=x.lastIndexOf(" ");
-  if(s>800)x=x.slice(0,s);
- }
- return x.slice(0,MAX).trim();
+
+/* ============================================================
+   IMAGE GET
+   ============================================================ */
+
+function getImage(scene){
+
+return new Promise(
+(resolve,reject)=>{
+
+if(!scene.image){
+
+resolve(null);
+
+return;
+
 }
 
-function generateScript(){
- const item=M[Number(mystery.value)];
- const lang=document.getElementById("language").value;
- const min=document.getElementById("duration").value;
- const style=document.getElementById("style").value;
+if(imageCache[scene.image]){
 
- let intro="",body="",end="";
+resolve(
+imageCache[scene.image]
+);
 
- if(lang==="de"){
-  intro="Heute erzählen wir einen der rätselhaftesten Fälle der Geschichte. ";
-  body=item[1]+" ";
-  end="Bis heute bleiben wichtige Fragen offen. Was wirklich geschah, wissen wir nicht. ";
- }else if(lang==="en"){
-  intro="Today we explore one of the most mysterious cases in history. ";
-  body=item[1]+" ";
-  end="Important questions remain unanswered. What really happened is still unknown. ";
- }else{
-  intro="Bugün tarihin en gizemli olaylarından birini inceliyoruz. ";
-  body=item[1]+" ";
-  end="Önemli sorular hâlâ cevapsız. Gerçekte ne olduğunu kesin olarak bilmiyoruz. ";
- }
+return;
 
- let extra=lang==="de"
- ? "Forscher haben verschiedene Erklärungen vorgeschlagen. Einige Hinweise sind bekannt, andere bleiben umstritten. Der Fall fasziniert Menschen bis heute. "
- :lang==="en"
- ? "Researchers have proposed several explanations. Some clues are known, while others remain disputed. The case still fascinates people today. "
- : "Araştırmacılar çeşitli açıklamalar ortaya koydu. Bazı ipuçları biliniyor, bazıları ise tartışmalı. Bu olay bugün bile insanları meraklandırıyor. ";
-
- let text=intro+body;
- while((text+extra+end).length<Math.min(MAX,Math.max(350,Number(min)*80))){
-  text+=extra;
- }
- text+=end;
-
- script.value=clampText(text);
- count.textContent=script.value.length;
- prepareScenes();
- setStatus("✅ "+script.value.length+" karakterlik senaryo hazır.","ok");
 }
 
-function copyScript(){
- script.select();
- document.execCommand("copy");
- setStatus("📋 Senaryo kopyalandı.","ok");
+const img =
+new Image();
+
+img.onload=function(){
+
+imageCache[scene.image]=img;
+
+resolve(img);
+
+};
+
+img.onerror=function(){
+
+reject(
+new Error(
+"Görsel yüklenemedi."
+)
+);
+
+};
+
+img.src =
+scene.image;
+
+});
+
 }
 
-function clearScript(){
- script.value="";
- count.textContent="0";
- document.getElementById("scenes").innerHTML="";
- scenes=[];
+
+/* ============================================================
+   DRAW
+   ============================================================ */
+
+function drawScene(
+scene,
+img,
+progress,
+subtitle,
+fade
+){
+
+ctx.clearRect(
+0,
+0,
+1280,
+720
+);
+
+ctx.fillStyle="#000";
+
+ctx.fillRect(
+0,
+0,
+1280,
+720
+);
+
+
+if(img){
+
+const iw =
+img.naturalWidth ||
+img.width;
+
+const ih =
+img.naturalHeight ||
+img.height;
+
+const scale =
+Math.max(
+1280/iw,
+720/ih
+);
+
+const baseW =
+iw*scale;
+
+const baseH =
+ih*scale;
+
+let zoom=1;
+
+let x =
+(1280-baseW)/2;
+
+let y =
+(720-baseH)/2;
+
+
+if(scene.motion==="zoomIn"){
+
+zoom =
+1+
+progress*.12;
+
 }
 
-function splitText(text,n){
- let words=text.trim().split(/\s+/);
- let result=[];
- let total=words.length;
- for(let i=0;i<n;i++){
-  let a=Math.floor(i*total/n);
-  let b=Math.floor((i+1)*total/n);
-  result.push(words.slice(a,b).join(" "));
- }
- return result;
+else if(scene.motion==="zoomOut"){
+
+zoom =
+1.12-
+progress*.12;
+
 }
 
-function prepareScenes(){
- let text=clampText(script.value);
- script.value=text;
- count.textContent=text.length;
+else if(scene.motion==="panLeft"){
 
- const n=Number(document.getElementById("sceneCount").value);
- const style=document.getElementById("style").value;
- const parts=splitText(text,n);
- scenes=[];
+x =
+(1280-baseW)/2-
+progress*100;
 
- const box=document.getElementById("scenes");
- box.innerHTML="";
-
- parts.forEach((p,i)=>{
-  let obj={
-   subtitle:p,
-   prompt:`${style}, mysterious cinematic scene, ${M[i%M.length][0]}, dark atmosphere, dramatic lighting, realistic details`,
-   image:null
-  };
-  scenes.push(obj);
-
-  const div=document.createElement("div");
-  div.className="card";
-  div.innerHTML=`
-   <div class="sceneTitle">🎬 SAHNE ${i+1}</div>
-   <label>📝 Altyazı</label>
-   <textarea id="sub${i}" maxlength="999">${p}</textarea>
-   <label>🖼️ Görsel</label>
-   <input type="file" accept="image/*" onchange="loadImage(${i},this)">
-   <img id="img${i}" class="preview" style="display:none">
-   <label>🤖 Görsel Promptu</label>
-   <textarea id="prompt${i}" style="min-height:90px">${obj.prompt}</textarea>
-  `;
-  box.appendChild(div);
- });
 }
 
-function loadImage(i,input){
- const file=input.files[0];
- if(!file)return;
- const reader=new FileReader();
- reader.onload=e=>{
-  scenes[i].image=e.target.result;
-  const im=document.getElementById("img"+i);
-  im.src=e.target.result;
-  im.style.display="block";
- };
- reader.readAsDataURL(file);
+else if(scene.motion==="panRight"){
+
+x =
+(1280-baseW)/2+
+progress*100;
+
 }
 
-function setStatus(t,c=""){
- const s=document.getElementById("status");
- s.textContent=t;
- s.className=c;
+else if(scene.motion==="float"){
+
+zoom=1.04;
+
+x =
+(1280-baseW)/2+
+Math.sin(progress*Math.PI*2)*25;
+
+y =
+(720-baseH)/2+
+Math.cos(progress*Math.PI*2)*12;
+
 }
 
-function drawFrame(ctx,w,h,text,img,i,total){
- ctx.fillStyle="#05070d";
- ctx.fillRect(0,0,w,h);
 
- if(img){
-  const image=new Image();
-  image.src=img;
-  if(image.complete){
-   drawCover(ctx,image,w,h);
-  }else{
-   image.onload=()=>{
-    drawCover(ctx,image,w,h);
-    drawOverlay(ctx,w,h,text,i,total);
-   };
-  }
- }else{
-  const g=ctx.createLinearGradient(0,0,w,h);
-  g.addColorStop(0,"#111827");
-  g.addColorStop(1,"#020617");
-  ctx.fillStyle=g;
-  ctx.fillRect(0,0,w,h);
- }
+const drawW =
+baseW*zoom;
 
- drawOverlay(ctx,w,h,text,i,total);
+const drawH =
+baseH*zoom;
+
+const dx =
+640+
+(x+baseW/2-640)*zoom-
+drawW/2;
+
+const dy =
+360+
+(y+baseH/2-360)*zoom-
+drawH/2;
+
+
+ctx.drawImage(
+img,
+dx,
+dy,
+drawW,
+drawH
+);
+
+}else{
+
+ctx.fillStyle="#111827";
+
+ctx.fillRect(
+0,
+0,
+1280,
+720
+);
+
+ctx.fillStyle="#64748b";
+
+ctx.font=
+"bold 30px Arial";
+
+ctx.textAlign="center";
+
+ctx.fillText(
+"GÖRSEL YOK",
+640,
+360
+);
+
 }
 
-function drawCover(ctx,img,w,h){
- const r=Math.max(w/img.width,h/img.height);
- const nw=img.width*r,nh=img.height*r;
- ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);
- ctx.fillStyle="rgba(0,0,0,.42)";
- ctx.fillRect(0,0,w,h);
+
+/* vignette */
+
+const g =
+ctx.createRadialGradient(
+640,360,100,
+640,360,720
+);
+
+g.addColorStop(
+0,
+"rgba(0,0,0,0)"
+);
+
+g.addColorStop(
+1,
+"rgba(0,0,0,.72)"
+);
+
+ctx.fillStyle=g;
+
+ctx.fillRect(
+0,
+0,
+1280,
+720
+);
+
+
+/* cinematic bars */
+
+ctx.fillStyle=
+"rgba(0,0,0,.9)";
+
+ctx.fillRect(
+0,0,1280,44
+);
+
+ctx.fillRect(
+0,676,1280,44
+);
+
+
+/* subtitle */
+
+if(subtitle){
+
+ctx.font=
+"bold 29px Arial";
+
+ctx.textAlign="center";
+
+const max=1050;
+
+const words =
+subtitle.split(" ");
+
+const lines=[];
+
+let line="";
+
+words.forEach(word=>{
+
+const test =
+line
+?line+" "+word
+:word;
+
+if(
+ctx.measureText(test).width>
+max
+){
+
+lines.push(line);
+
+line=word;
+
+}else{
+
+line=test;
+
 }
 
-function drawOverlay(ctx,w,h,text,i,total){
- ctx.fillStyle="rgba(0,0,0,.45)";
- ctx.fillRect(0,0,w,70);
+});
 
- ctx.fillStyle="#fff";
- ctx.font="bold 28px Arial";
- ctx.fillText("MYSTERY NACHT",35,45);
+if(line)lines.push(line);
 
- ctx.font="bold 22px Arial";
- ctx.fillText(`SZENE ${i+1}/${total}`,w-190,45);
+const lineHeight=38;
 
- ctx.fillStyle="rgba(0,0,0,.82)";
- ctx.fillRect(45,h-180,w-90,125);
+const startY=
+638-
+(lines.length-1)*lineHeight;
 
- ctx.fillStyle="#fff";
- ctx.font="bold 27px Arial";
+lines.forEach(
+(t,i)=>{
 
- let lines=wrapText(ctx,text,w-140);
- let y=h-140;
+const yy =
+startY+
+i*lineHeight;
 
- lines.slice(0,4).forEach(line=>{
-  ctx.fillText(line,70,y);
-  y+=34;
- });
+ctx.fillStyle=
+"rgba(0,0,0,.75)";
+
+ctx.fillRect(
+110,
+yy-31,
+1060,
+42
+);
+
+ctx.fillStyle="#fff";
+
+ctx.fillText(
+t,
+640,
+yy
+);
+
+});
+
 }
 
-function wrapText(ctx,text,max){
- const words=(text||"").split(/\s+/);
- const lines=[];
- let line="";
- words.forEach(word=>{
-  const test=line?line+" "+word:word;
-  if(ctx.measureText(test).width>max){
-   if(line)lines.push(line);
-   line=word;
-  }else line=test;
- });
- if(line)lines.push(line);
- return lines;
+
+/* fade */
+
+if(fade>0){
+
+ctx.fillStyle=
+"rgba(0,0,0,"+
+Math.min(1,fade)+
+")";
+
+ctx.fillRect(
+0,
+0,
+1280,
+720
+);
+
 }
 
-async function renderVideo(){
- if(!script.value.trim()){
-  setStatus("❌ Önce senaryo oluştur.","danger");
-  return;
- }
- if(!audioFile){
-  setStatus("❌ Önce TTSMaker ses dosyasını yükle.","danger");
-  return;
- }
- if(!audioDuration){
-  setStatus("❌ Ses süresi okunamadı.","danger");
-  return;
- }
-
- prepareScenes();
-
- const canvas=document.getElementById("canvas");
- const ctx=canvas.getContext("2d");
- const stream=canvas.captureStream(30);
-
- const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
- const dest=audioCtx.createMediaStreamDestination();
-
- const buf=await audioFile.arrayBuffer();
- const decoded=await audioCtx.decodeAudioData(buf.slice(0));
-
- const source=audioCtx.createBufferSource();
- source.buffer=decoded;
- source.connect(dest);
- source.connect(audioCtx.destination);
-
- dest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
-
- let recorder;
- try{
-  recorder=new MediaRecorder(stream,{mimeType:"video/webm;codecs=vp9,opus"});
- }catch(e){
-  recorder=new MediaRecorder(stream);
- }
-
- const chunks=[];
- recorder.ondataavailable=e=>{
-  if(e.data.size)chunks.push(e.data);
- };
-
- recorder.onstop=()=>{
-  finalBlob=new Blob(chunks,{type:"video/webm"});
-  const url=URL.createObjectURL(finalBlob);
-  const btn=document.getElementById("downloadBtn");
-  btn.style.display="block";
-  btn.onclick=()=>{
-   const a=document.createElement("a");
-   a.href=url;
-   a.download="mystery-nacht.webm";
-   a.click();
-  };
-  setProgress(100);
-  setStatus("✅ Video hazır! Ses + görüntü + altyazı işlendi.","ok");
- };
-
- await audioCtx.resume();
- recorder.start(100);
-
- const start=performance.now();
-
- function frame(now){
-  const elapsed=(now-start)/1000;
-
-  if(elapsed>=audioDuration){
-   source.stop();
-   recorder.stop();
-   audioCtx.close();
-   return;
-  }
-
-  const ratio=elapsed/audioDuration;
-  let index=Math.min(scenes.length-1,Math.floor(ratio*scenes.length));
-  let scene=splitText(script.value,scenes.length)[index]||"";
-  let image=scenes[index]?.image||null;
-
-  drawFrame(ctx,canvas.width,canvas.height,scene,image,index,scenes.length);
-
-  setProgress((elapsed/audioDuration)*100);
-  requestAnimationFrame(frame);
- }
-
- requestAnimationFrame(frame);
 }
 
-function setProgress(v){
- document.getElementById("bar").style.width=Math.max(0,Math.min(100,v))+"%";
+
+/* ============================================================
+   PLACEHOLDER
+   ============================================================ */
+
+function drawPlaceholder(){
+
+ctx.fillStyle="#05070b";
+
+ctx.fillRect(
+0,
+0,
+1280,
+720
+);
+
+ctx.fillStyle="#64748b";
+
+ctx.textAlign="center";
+
+ctx.font=
+"bold 34px Arial";
+
+ctx.fillText(
+"MINA VIDEO AI V5",
+640,
+320
+);
+
+ctx.font=
+"20px Arial";
+
+ctx.fillText(
+"AI görsel üret veya kendi görsellerini yükle",
+640,
+365
+);
+
 }
+
+
+/* ============================================================
+   PREVIEW
+   ============================================================ */
+
+async function previewFilm(){
+
+if(previewRunning)return;
+
+previewRunning=true;
+
+previewStopFlag=false;
+
+for(let i=0;i<scenes.length;i++){
+
+if(previewStopFlag)break;
+
+const scene =
+scenes[i];
+
+document.getElementById(
+"previewStatus"
+).textContent=
+"🎬 SAHNE "+
+(i+1)+
+" / "+
+scenes.length;
+
+
+let img=null;
+
+try{
+
+img=
+await getImage(scene);
+
+}catch(e){
+
+img=null;
+
+}
+
+
+if(scene.audio){
+
+try{
+
+audio.pause();
+
+audio.currentTime=0;
+
+audio.src=
+scene.audio;
+
+audio.load();
+
+await waitAudio();
+
+await audio.play();
+
+}catch(e){}
+
+}
+
+
+const start =
+performance.now();
+
+const duration =
+scene.duration*1000;
+
+
+while(!previewStopFlag){
+
+const elapsed =
+performance.now()-start;
+
+const p =
+Math.min(
+1,
+elapsed/duration
+);
+
+drawScene(
+scene,
+img,
+p,
+scene.narration,
+0
+);
+
+if(p>=1)break;
+
+await frame();
+
+}
+
+stopAudio();
+
+}
+
+
+previewRunning=false;
+
+document.getElementById(
+"previewStatus"
+).textContent=
+previewStopFlag
+?"⏹ Durduruldu"
+:"✅ Önizleme tamamlandı";
+
+}
+
+
+function stopPreview(){
+
+previewStopFlag=true;
+
+previewRunning=false;
+
+stopAudio();
+
+}
+
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+
+async function renderFilm(){
+
+if(rendering){
+
+return;
+
+}
+
+if(!window.MediaRecorder){
+
+alert(
+"MediaRecorder desteklenmiyor."
+);
+
+return;
+
+}
+
+if(!canvas.captureStream){
+
+alert(
+"Canvas captureStream desteklenmiyor."
+);
+
+return;
+
+}
+
+
+rendering=true;
+
+cancelFlag=false;
+
+chunks=[];
+
+document.getElementById(
+"downloadBox"
+).style.display="none";
+
+document.getElementById(
+"progress"
+).style.width="0%";
+
+
+log("");
+log("================================");
+log("🎬 V5 RENDER BAŞLADI");
+log("================================");
+
+
+try{
+
+const videoStream =
+canvas.captureStream(30);
+
+const audioStream =
+audio.captureStream
+?audio.captureStream()
+:null;
+
+
+const stream =
+new MediaStream();
+
+
+videoStream
+.getVideoTracks()
+.forEach(
+track=>
+stream.addTrack(track)
+);
+
+
+if(audioStream){
+
+audioStream
+.getAudioTracks()
+.forEach(
+track=>
+stream.addTrack(track)
+);
+
+}
+
+
+log(
+"🎥 Video track: "+
+stream.getVideoTracks().length
+);
+
+log(
+"🔊 Audio track: "+
+stream.getAudioTracks().length
+);
+
+
+let mime="";
+
+const types=[
+
+"video/webm;codecs=vp8,opus",
+
+"video/webm;codecs=vp8",
+
+"video/webm"
+
+];
+
+
+for(
+const type of types
+){
+
+if(
+MediaRecorder.isTypeSupported(type)
+){
+
+mime=type;
+
+break;
+
+}
+
+}
+
+
+if(!mime){
+
+throw new Error(
+"WEBM codec bulunamadı."
+);
+
+}
+
+
+log(
+"🎞️ Codec: "+
+mime
+);
+
+
+const recorder =
+new MediaRecorder(
+stream,
+{
+mimeType:mime,
+videoBitsPerSecond:2500000,
+audioBitsPerSecond:128000
+}
+);
+
+
+recorder.ondataavailable =
+function(e){
+
+if(
+e.data &&
+e.data.size>0
+){
+
+chunks.push(e.data);
+
+}
+
+};
+
+
+let recorderError=null;
+
+recorder.onerror =
+function(e){
+
+recorderError =
+e.error ||
+new Error(
+"MediaRecorder hatası."
+);
+
+};
+
+
+recorder.start(1000);
+
+log(
+"🔴 Recorder başladı."
+);
+
+
+let total=0;
+
+scenes.forEach(
+s=>
+total+=
+Number(s.duration)*1000
+);
+
+
+let elapsedTotal=0;
+
+
+for(
+let i=0;
+i<scenes.length;
+i++
+){
+
+if(cancelFlag){
+
+throw new Error(
+"Render iptal edildi."
+);
+
+}
+
+
+const scene =
+scenes[i];
+
+const duration =
+Number(scene.duration)*1000;
+
+
+document.getElementById(
+"renderStatus"
+).textContent=
+"🎬 SAHNE "+
+(i+1)+
+" / "+
+scenes.length;
+
+
+log(
+"▶ SAHNE "+
+(i+1)+
+" BAŞLADI"
+);
+
+
+let img=null;
+
+try{
+
+img=
+await getImage(scene);
+
+}catch(e){
+
+log(
+"⚠️ Görsel okunamadı."
+);
+
+}
+
+
+if(scene.audio){
+
+try{
+
+audio.pause();
+
+audio.currentTime=0;
+
+audio.src=
+scene.audio;
+
+audio.load();
+
+await waitAudio();
+
+await audio.play();
+
+log(
+"🔊 Sahne sesi başladı."
+);
+
+}catch(e){
+
+log(
+"⚠️ Ses oynatılamadı: "+
+e.message
+);
+
+}
+
+}else{
+
+stopAudio();
+
+log(
+"🔇 Sahne sesiz."
+);
+
+}
+
+
+const start =
+performance.now();
+
+let last=-1;
+
+
+while(true){
+
+if(cancelFlag){
+
+throw new Error(
+"Render iptal edildi."
+);
+
+}
+
+
+if(recorderError){
+
+throw recorderError;
+
+}
+
+
+const now =
+performance.now();
+
+const sceneElapsed =
+now-start;
+
+const p =
+Math.min(
+1,
+sceneElapsed/duration
+);
+
+
+const percent =
+Math.floor(p*100);
+
+
+if(percent!==last){
+
+last=percent;
+
+const overall =
+(
+(
+elapsedTotal+
+sceneElapsed
+)/
+total
+)*100;
+
+
+document.getElementById(
+"progress"
+).style.width=
+Math.min(
+100,
+overall
+)+"%";
+
+
+document.getElementById(
+"renderStatus"
+).textContent=
+"🎬 SAHNE "+
+(i+1)+
+" / "+
+scenes.length+
+" — %"+
+percent;
+
+}
+
+
+let fade=0;
+
+const fadeTime=500;
+
+if(sceneElapsed<fadeTime){
+
+fade=
+1-
+sceneElapsed/
+fadeTime;
+
+}
+
+if(
+sceneElapsed>
+duration-fadeTime
+){
+
+fade=
+Math.max(
+fade,
+(
+sceneElapsed-
+(duration-fadeTime)
+)/
+fadeTime
+);
+
+}
+
+
+drawScene(
+scene,
+img,
+p,
+scene.narration,
+fade
+);
+
+
+if(p>=1)break;
+
+await frame();
+
+}
+
+
+stopAudio();
+
+elapsedTotal+=duration;
+
+
+log(
+"✅ SAHNE "+
+(i+1)+
+" TAMAMLANDI"
+);
+
+
+if(
+i<
+scenes.length-1
+){
+
+log(
+"➡️ SAHNE "+
+(i+1)+
+" → SAHNE "+
+(i+2)
+);
+
+await sleep(250);
+
+}
+
+}
+
+
+stopAudio();
+
+document.getElementById(
+"renderStatus"
+).textContent=
+"📦 Video hazırlanıyor...";
+
+
+const stopped =
+new Promise(
+resolve=>
+recorder.addEventListener(
+"stop",
+resolve,
+{once:true}
+)
+);
+
+
+recorder.stop();
+
+await stopped;
+
+await sleep(500);
+
+
+if(!chunks.length){
+
+throw new Error(
+"Video verisi oluşmadı."
+);
+
+}
+
+
+const blob =
+new Blob(
+chunks,
+{
+type:"video/webm"
+}
+);
+
+
+if(blob.size<1000){
+
+throw new Error(
+"Video dosyası çok küçük."
+);
+
+}
+
+
+if(finalURL){
+
+URL.revokeObjectURL(
+finalURL
+);
+
+}
+
+
+finalURL =
+URL.createObjectURL(blob);
+
+
+const link =
+document.getElementById(
+"downloadLink"
+);
+
+link.href=finalURL;
+
+link.download=
+safeName(
+document.getElementById(
+"filmName"
+).value
+)+
+"-Mina-V5.webm";
+
+
+document.getElementById(
+"downloadBox"
+).style.display=
+"block";
+
+
+document.getElementById(
+"progress"
+).style.width=
+"100%";
+
+
+document.getElementById(
+"renderStatus"
+).textContent=
+"🎉 FİLM HAZIR";
+
+
+log(
+"================================"
+);
+
+log(
+"🎉 V5 FİLM TAMAMLANDI"
+);
+
+log(
+"📦 Boyut: "+
+bytes(blob.size)
+);
+
+log(
+"🎬 Sahne sayısı: "+
+scenes.length
+);
+
+log(
+"🔊 Audio track: "+
+stream.getAudioTracks().length
+);
+
+log(
+"================================"
+);
+
+
+showVideo(finalURL);
+
+
+}catch(error){
+
+log(
+"❌ RENDER HATASI: "+
+error.message
+);
+
+document.getElementById(
+"renderStatus"
+).textContent=
+"❌ RENDER DURDU";
+
+
+}finally{
+
+rendering=false;
+
+stopAudio();
+
+}
+
+}
+
+
+/* ============================================================
+   FINAL VIDEO
+   ============================================================ */
+
+function showVideo(url){
+
+const old =
+document.getElementById(
+"finalVideo"
+);
+
+if(old)old.remove();
+
+const video =
+document.createElement("video");
+
+video.id="finalVideo";
+
+video.controls=true;
+
+video.preload="metadata";
+
+video.style.width="100%";
+
+video.style.marginTop="12px";
+
+video.style.borderRadius="10px";
+
+video.src=url;
+
+document
+.querySelector(".preview")
+.appendChild(video);
+
+}
+
+
+/* ============================================================
+   CANCEL
+   ============================================================ */
+
+function cancelRender(){
+
+if(!rendering){
+
+log(
+"ℹ️ Aktif render yok."
+);
+
+return;
+
+}
+
+cancelFlag=true;
+
+log(
+"🛑 Render iptal ediliyor..."
+);
+
+}
+
+
+/* ============================================================
+   SAVE
+   ============================================================ */
+
+function saveProject(){
+
+try{
+
+const data={
+
+version:"V5",
+
+filmName:
+document.getElementById(
+"filmName"
+).value,
+
+story:
+document.getElementById(
+"story"
+).value,
+
+aiEndpoint:
+document.getElementById(
+"aiEndpoint"
+).value,
+
+aiModel:
+document.getElementById(
+"aiModel"
+).value,
+
+aiStyle:
+document.getElementById(
+"aiStyle"
+).value,
+
+scenes:scenes
+
+};
+
+
+localStorage.setItem(
+"minaVideoAIV5",
+JSON.stringify(data)
+);
+
+
+log(
+"💾 V5 proje kaydedildi."
+);
+
+alert(
+"Proje kaydedildi."
+);
+
+}catch(e){
+
+log(
+"❌ Kaydetme hatası: "+
+e.message
+);
+
+alert(
+"Kaydetme başarısız olabilir. Büyük görseller localStorage sınırını aşabilir."
+);
+
+}
+
+}
+
+
+/* ============================================================
+   LOAD
+   ============================================================ */
+
+function loadProject(){
+
+try{
+
+const raw =
+localStorage.getItem(
+"minaVideoAIV5"
+);
+
+if(!raw){
+
+alert(
+"Kayıtlı proje bulunamadı."
+);
+
+return;
+
+}
+
+
+const data =
+JSON.parse(raw);
+
+
+document.getElementById(
+"filmName"
+).value=
+data.filmName||"";
+
+
+document.getElementById(
+"story"
+).value=
+data.story||"";
+
+
+if(data.aiEndpoint){
+
+document.getElementById(
+"aiEndpoint"
+).value=
+data.aiEndpoint;
+
+}
+
+
+if(data.aiModel){
+
+document.getElementById(
+"aiModel"
+).value=
+data.aiModel;
+
+}
+
+
+if(data.aiStyle){
+
+document.getElementById(
+"aiStyle"
+).value=
+data.aiStyle;
+
+}
+
+
+if(
+Array.isArray(data.scenes)
+){
+
+scenes=data.scenes;
+
+}
+
+
+renderScenes();
+
+log(
+"📂 V5 proje yüklendi."
+);
+
+}catch(e){
+
+log(
+"❌ Yükleme hatası: "+
+e.message
+);
+
+}
+
+}
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+function resetProject(){
+
+if(
+!confirm(
+"V5 projesi sıfırlansın mı?"
+)
+){
+
+return;
+
+}
+
+scenes =
+JSON.parse(
+JSON.stringify(defaults)
+);
+
+document.getElementById(
+"filmName"
+).value=
+"Das Haus am Waldrand";
+
+document.getElementById(
+"story"
+).value=
+"Um 23:47 Uhr erreicht Anna ein verlassenes Haus am Waldrand. Im oberen Fenster brennt plötzlich Licht. Sie hört Schritte. Die Tür öffnet sich von selbst. Dann erscheint ein Schatten.";
+
+renderScenes();
+
+drawPlaceholder();
+
+log(
+"♻️ V5 proje sıfırlandı."
+);
+
+}
+
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function frame(){
+
+return new Promise(
+resolve=>
+requestAnimationFrame(
+resolve
+)
+);
+
+}
+
+
+function sleep(ms){
+
+return new Promise(
+resolve=>
+setTimeout(
+resolve,
+ms
+)
+);
+
+}
+
+
+function bytes(n){
+
+if(n===0)return"0 Byte";
+
+const units=[
+"Byte",
+"KB",
+"MB",
+"GB"
+];
+
+const i=
+Math.floor(
+Math.log(n)/
+Math.log(1024)
+);
+
+return(
+n/
+Math.pow(1024,i)
+).toFixed(2)
++" "+
+units[i];
+
+}
+
+
+function safeName(name){
+
+return String(name||"mina-film")
+.replace(
+/[\\\/:*?"<>|]+/g,
+""
+)
+.replace(
+/\s+/g,
+"-"
+)
+.substring(0,80);
+
+}
+
+
+function esc(v){
+
+return String(v||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function attr(v){
+
+return esc(v);
+
+}
+
+
+function log(message){
+
+const box =
+document.getElementById("log");
+
+const time =
+new Date()
+.toLocaleTimeString();
+
+box.textContent +=
+"\n["+time+"] "+
+message;
+
+box.scrollTop=
+box.scrollHeight;
+
+}
+
 </script>
+
 </body>
 </html>
