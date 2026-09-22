@@ -3,280 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI Film Engine V5</title>
+<title>Mina Video AI Film Engine V5.1</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
-    margin:0;
-    background:#070a10;
-    color:#f1f5f9;
-    font-family:Arial,Helvetica,sans-serif;
+ margin:0;
+ background:#070a10;
+ color:#f1f5f9;
+ font-family:Arial,Helvetica,sans-serif
 }
-
 header{
-    padding:20px;
-    background:
-        radial-gradient(circle at 20% 20%,#30205e 0,#111827 35%,#070a10 75%);
-    border-bottom:1px solid #293246;
+ padding:20px;
+ background:linear-gradient(135deg,#17112d,#0b1220);
+ border-bottom:1px solid #293246
 }
-
-header h1{
-    margin:0;
-    font-size:27px;
-}
-
-header p{
-    margin:7px 0 0;
-    color:#9ca3af;
-}
-
-.container{
-    max-width:1450px;
-    margin:auto;
-    padding:16px;
-}
-
+header h1{margin:0;font-size:27px}
+header p{margin:7px 0 0;color:#94a3b8}
+.container{max-width:1450px;margin:auto;padding:16px}
 .panel{
-    background:#101622;
-    border:1px solid #293246;
-    border-radius:14px;
-    padding:16px;
-    margin-bottom:16px;
+ background:#101622;
+ border:1px solid #293246;
+ border-radius:14px;
+ padding:16px;
+ margin-bottom:16px
 }
-
 .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:16px
 }
-
-@media(max-width:950px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-}
-
-h2{
-    margin:0 0 13px;
-    font-size:19px;
-}
-
+@media(max-width:950px){.grid{grid-template-columns:1fr}}
+h2{margin:0 0 13px;font-size:19px}
 label{
-    display:block;
-    margin:9px 0 5px;
-    color:#cbd5e1;
-    font-size:13px;
+ display:block;
+ margin:9px 0 5px;
+ color:#cbd5e1;
+ font-size:13px
 }
-
 input[type=text],
 input[type=password],
 textarea,
 select{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #303b52;
-    background:#080c14;
-    color:#fff;
-    outline:none;
+ width:100%;
+ padding:10px;
+ border-radius:8px;
+ border:1px solid #303b52;
+ background:#080c14;
+ color:#fff;
+ outline:none
 }
-
-textarea{
-    min-height:82px;
-    resize:vertical;
-}
-
+textarea{min-height:82px;resize:vertical}
 button{
-    padding:10px 14px;
-    border:0;
-    border-radius:9px;
-    background:#28344c;
-    color:#fff;
-    cursor:pointer;
-    font-weight:bold;
-    margin:4px;
+ padding:10px 14px;
+ border:0;
+ border-radius:9px;
+ background:#28344c;
+ color:#fff;
+ cursor:pointer;
+ font-weight:bold;
+ margin:4px
 }
-
-button:hover{
-    filter:brightness(1.15);
-}
-
-button.primary{
-    background:#6d35e8;
-}
-
-button.green{
-    background:#087f5b;
-}
-
-button.orange{
-    background:#a75a00;
-}
-
-button.red{
-    background:#9d2738;
-}
-
-button.blue{
-    background:#175d9d;
-}
-
+button:hover{filter:brightness(1.15)}
+.primary{background:#6d35e8}
+.green{background:#087f5b}
+.orange{background:#a75a00}
+.red{background:#9d2738}
+.blue{background:#175d9d}
 .scene{
-    background:#0a101b;
-    border:1px solid #303b52;
-    border-radius:13px;
-    padding:14px;
-    margin-bottom:14px;
+ background:#0a101b;
+ border:1px solid #303b52;
+ border-radius:13px;
+ padding:14px;
+ margin-bottom:14px
 }
-
 .sceneHead{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ flex-wrap:wrap
 }
-
-.sceneTitle{
-    font-size:17px;
-    font-weight:bold;
-}
-
+.sceneTitle{font-size:17px;font-weight:bold}
 .sceneBadge{
-    padding:5px 9px;
-    border-radius:20px;
-    background:#1b2638;
-    color:#cbd5e1;
-    font-size:11px;
+ padding:5px 9px;
+ border-radius:20px;
+ background:#1b2638;
+ color:#cbd5e1;
+ font-size:11px;
+ margin-left:4px
 }
-
 .sceneBadge.ok{
-    background:#063d2d;
-    color:#86efac;
+ background:#063d2d;
+ color:#86efac
 }
-
 .sceneBadge.ai{
-    background:#38205e;
-    color:#d8b4fe;
+ background:#38205e;
+ color:#d8b4fe
 }
-
 .preview{
-    background:#000;
-    border-radius:12px;
-    border:1px solid #303b52;
-    padding:8px;
+ background:#000;
+ border-radius:12px;
+ border:1px solid #303b52;
+ padding:8px
 }
-
 canvas{
-    display:block;
-    width:100%;
-    background:#000;
-    border-radius:8px;
+ display:block;
+ width:100%;
+ background:#000;
+ border-radius:8px
 }
-
 .status{
-    margin-top:10px;
-    padding:12px;
-    min-height:110px;
-    background:#05070b;
-    border:1px solid #303b52;
-    border-radius:10px;
-    white-space:pre-wrap;
-    font-family:Consolas,monospace;
-    font-size:12px;
-    overflow:auto;
-    max-height:300px;
+ margin-top:10px;
+ padding:12px;
+ min-height:110px;
+ background:#05070b;
+ border:1px solid #303b52;
+ border-radius:10px;
+ white-space:pre-wrap;
+ font-family:Consolas,monospace;
+ font-size:12px;
+ overflow:auto;
+ max-height:300px
 }
-
 .bigStatus{
-    text-align:center;
-    font-size:19px;
-    font-weight:bold;
-    padding:10px;
+ text-align:center;
+ font-size:19px;
+ font-weight:bold;
+ padding:10px
 }
-
 .progressOuter{
-    width:100%;
-    height:23px;
-    background:#05070b;
-    border:1px solid #303b52;
-    border-radius:20px;
-    overflow:hidden;
+ width:100%;
+ height:23px;
+ background:#05070b;
+ border:1px solid #303b52;
+ border-radius:20px;
+ overflow:hidden
 }
-
 .progress{
-    width:0%;
-    height:100%;
-    background:linear-gradient(90deg,#7038e8,#16a579);
-    transition:width .12s linear;
+ width:0%;
+ height:100%;
+ background:linear-gradient(90deg,#7038e8,#16a579);
+ transition:width .12s linear
 }
-
 .aiBox{
-    margin-top:10px;
-    padding:10px;
-    border-radius:9px;
-    background:#171025;
-    border:1px solid #43286b;
-    color:#d8b4fe;
-    font-size:12px;
+ margin-top:10px;
+ padding:10px;
+ border-radius:9px;
+ background:#171025;
+ border:1px solid #43286b;
+ color:#d8b4fe;
+ font-size:12px;
+ line-height:1.5
 }
-
 .fileInfo{
-    font-size:12px;
-    margin-top:5px;
-    color:#7dd3fc;
-    word-break:break-all;
+ font-size:12px;
+ margin-top:5px;
+ color:#7dd3fc;
+ word-break:break-all
 }
-
-.audioInfo{
-    color:#86efac;
-}
-
-.download{
-    display:none;
-    padding:15px;
-    margin-top:12px;
-    background:#061e17;
-    border:1px solid #15936b;
-    border-radius:10px;
-}
-
-.download a{
-    color:#86efac;
-    font-weight:bold;
-    text-decoration:none;
-}
-
+.audioInfo{color:#86efac}
 .info{
-    color:#94a3b8;
-    font-size:12px;
-    line-height:1.5;
+ color:#94a3b8;
+ font-size:12px;
+ line-height:1.5
 }
-
 .badges{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-bottom:10px;
+ display:flex;
+ flex-wrap:wrap;
+ gap:7px;
+ margin-bottom:10px
 }
-
 .badge{
-    padding:6px 9px;
-    border-radius:20px;
-    background:#202a3d;
-    font-size:11px;
+ padding:6px 9px;
+ border-radius:20px;
+ background:#202a3d;
+ font-size:11px
 }
-
 .badge.ok{
-    background:#063d2d;
-    color:#86efac;
+ background:#063d2d;
+ color:#86efac
 }
-
 .badge.warn{
-    background:#493000;
-    color:#fcd34d;
+ background:#493000;
+ color:#fcd34d
+}
+.keyBox{
+ background:#080c14;
+ border:1px solid #49376b;
+ padding:13px;
+ border-radius:10px;
+ margin-top:10px
+}
+.success{
+ color:#86efac
+}
+.error{
+ color:#fca5a5
 }
 </style>
 </head>
@@ -284,7 +207,7 @@ canvas{
 <body>
 
 <header>
-<h1>🎬 Mina Video AI Film Engine V5</h1>
+<h1>🎬 Mina Video AI Film Engine V5.1</h1>
 <p>AI Görsel → Sahne → Hareket → Ses → Altyazı → WEBM Film</p>
 </header>
 
@@ -295,18 +218,19 @@ canvas{
 <h2>🎞️ Film Projesi</h2>
 
 <label>Film adı</label>
-<input id="filmName" type="text" value="Das Haus am Waldrand">
+<input id="filmName" type="text"
+value="Das Haus am Waldrand">
 
 <label>Hikâye</label>
 <textarea id="story">Um 23:47 Uhr erreicht Anna ein verlassenes Haus am Waldrand. Im oberen Fenster brennt plötzlich Licht. Sie hört Schritte. Die Tür öffnet sich von selbst. Dann erscheint ein Schatten.</textarea>
 
-<div style="margin-top:10px">
-
-<button class="primary" onclick="createStoryScenes()">
+<button class="primary"
+onclick="createStoryScenes()">
 🧠 HİKÂYEDEN SAHNE OLUŞTUR
 </button>
 
-<button class="green" onclick="saveProject()">
+<button class="green"
+onclick="saveProject()">
 💾 KAYDET
 </button>
 
@@ -314,34 +238,57 @@ canvas{
 📂 YÜKLE
 </button>
 
-<button class="red" onclick="resetProject()">
+<button class="red"
+onclick="resetProject()">
 ♻️ SIFIRLA
 </button>
-
-</div>
 
 </div>
 
 
 <div class="panel">
 
-<h2>🤖 AI Görsel Motoru</h2>
+<h2>🤖 AI GÖRSEL MOTORU V5.1</h2>
+
+<div class="keyBox">
+
+<label>🔑 Pollinations API Key</label>
+
+<input
+id="apiKey"
+type="password"
+placeholder="API anahtarını buraya yapıştır"
+autocomplete="off">
+
+<div class="info">
+API anahtarını kodun içine yazmıyoruz.
+Bu alana yalnızca kendi anahtarını gir.
+</div>
+
+<button
+class="green"
+onclick="testAPI()">
+🔌 AI BAĞLANTISINI TEST ET
+</button>
+
+<button
+onclick="clearAPIKey()">
+🧹 ANAHTARI TEMİZLE
+</button>
+
+</div>
+
 
 <div class="grid">
 
 <div>
 
-<label>AI görsel endpoint</label>
+<label>AI Endpoint</label>
 
 <input
 id="aiEndpoint"
 type="text"
-value="https://gen.pollinations.ai/image/"
->
-
-<p class="info">
-V5 AI görsel üretimi için kullanır. Servis erişim isterse manuel görsel yükleme seçeneğini kullanabilirsin.
-</p>
+value="https://gen.pollinations.ai/image/">
 
 </div>
 
@@ -355,12 +302,12 @@ V5 AI görsel üretimi için kullanır. Servis erişim isterse manuel görsel y�
 FLUX
 </option>
 
-<option value="flux-realism">
-FLUX Realism
-</option>
-
 <option value="zimage">
 Z-Image
+</option>
+
+<option value="flux-realism">
+FLUX Realism
 </option>
 
 </select>
@@ -369,7 +316,8 @@ Z-Image
 
 </div>
 
-<label>AI stil</label>
+
+<label>AI Stil</label>
 
 <select id="aiStyle">
 
@@ -391,20 +339,25 @@ Dark Horror Cinema
 
 </select>
 
+
 <div style="margin-top:10px">
 
-<button class="primary" onclick="generateAllAIImages()">
+<button class="primary"
+onclick="generateAllAIImages()">
 🤖 TÜM SAHNELERİ AI ÜRET
 </button>
 
-<button class="blue" onclick="generateCurrentAI()">
-🖼️ SEÇİLİ SAHNEYİ AI ÜRET
+<button class="blue"
+onclick="generateCurrentAI()">
+🖼️ SAHNE 1 AI ÜRET
 </button>
 
 </div>
 
-<div class="aiBox" id="aiStatus">
-AI görsel motoru hazır.
+
+<div class="aiBox"
+id="aiStatus">
+🔌 API anahtarını girip bağlantıyı test et.
 </div>
 
 </div>
@@ -418,20 +371,19 @@ AI görsel motoru hazır.
 
 <div class="preview">
 
-<canvas
-id="canvas"
+<canvas id="canvas"
 width="1280"
 height="720">
 </canvas>
 
 </div>
 
-<div class="bigStatus" id="previewStatus">
+<div class="bigStatus"
+id="previewStatus">
 Hazır
 </div>
 
-<button
-class="primary"
+<button class="primary"
 onclick="previewFilm()">
 ▶ FİLMİ ÖNİZLE
 </button>
@@ -447,47 +399,42 @@ onclick="previewFilm()">
 
 <h2>🎬 Film Render</h2>
 
-<div class="bigStatus" id="renderStatus">
+<div class="bigStatus"
+id="renderStatus">
 Hazır
 </div>
 
 <div class="progressOuter">
-<div
-id="progress"
+<div id="progress"
 class="progress">
 </div>
 </div>
 
 <div style="margin-top:10px">
 
-<button
-class="primary"
+<button class="primary"
 onclick="renderFilm()">
 🎬 VİDEOYU OLUŞTUR
 </button>
 
-<button
-class="red"
+<button class="red"
 onclick="cancelRender()">
 🛑 İPTAL
 </button>
 
 </div>
 
-<div
-class="download"
-id="downloadBox">
+<div class="download"
+id="downloadBox"
+style="display:none;padding:15px;margin-top:12px;background:#061e17;border:1px solid #15936b;border-radius:10px">
 
-<div>
-🎉 <b>Film hazır!</b>
-</div>
+<b>🎉 Film hazır!</b>
+<br><br>
 
-<br>
-
-<a
-id="downloadLink"
+<a id="downloadLink"
 href="#"
-download="mina-film-v5.webm">
+download="mina-film-v51.webm"
+style="color:#86efac;font-weight:bold">
 ⬇️ VİDEOYU KAYDET
 </a>
 
@@ -504,16 +451,19 @@ download="mina-film-v5.webm">
 
 <div class="badges">
 
-<span id="mediaBadge" class="badge">
-MediaRecorder kontrol...
+<span id="mediaBadge"
+class="badge">
+MediaRecorder...
 </span>
 
-<span id="canvasBadge" class="badge">
-Canvas capture kontrol...
+<span id="canvasBadge"
+class="badge">
+Canvas...
 </span>
 
-<span id="audioBadge" class="badge">
-Audio capture kontrol...
+<span id="audioBadge"
+class="badge">
+Audio...
 </span>
 
 </div>
@@ -534,8 +484,9 @@ Audio capture kontrol...
 
 <h2>📟 Motor Logu</h2>
 
-<div id="log" class="status">
-Mina Video AI Film Engine V5 başlatılıyor...
+<div id="log"
+class="status">
+Mina Video AI Film Engine V5.1 başlatılıyor...
 </div>
 
 </div>
@@ -543,8 +494,7 @@ Mina Video AI Film Engine V5 başlatılıyor...
 </div>
 
 
-<audio
-id="sceneAudio"
+<audio id="sceneAudio"
 preload="auto">
 </audio>
 
@@ -552,7 +502,7 @@ preload="auto">
 <script>
 
 /* ============================================================
-   MINA VIDEO AI FILM ENGINE V5
+   MINA VIDEO AI FILM ENGINE V5.1
    ============================================================ */
 
 const canvas =
@@ -564,28 +514,20 @@ canvas.getContext("2d");
 const audio =
 document.getElementById("sceneAudio");
 
-const TOTAL_SCENES = 6;
+let scenes=[];
 
-let scenes = [];
+let rendering=false;
+let cancelFlag=false;
 
-let rendering = false;
-let cancelFlag = false;
+let previewRunning=false;
+let previewStopFlag=false;
 
-let previewRunning = false;
-let previewStopFlag = false;
+let chunks=[];
+let finalURL=null;
 
-let chunks = [];
+const imageCache={};
 
-let finalURL = null;
-
-const imageCache = {};
-
-
-/* ============================================================
-   DEFAULT FILM
-   ============================================================ */
-
-const defaults = [
+const defaults=[
 
 {
 title:"Ankunft am Haus",
@@ -657,25 +599,34 @@ prompt:"Abandoned house disappearing into foggy dark forest, mysterious ending, 
 
 
 /* ============================================================
-   INIT
-   ============================================================ */
+ INIT
+ ============================================================ */
 
 function init(){
 
-scenes =
-JSON.parse(
+scenes=JSON.parse(
 JSON.stringify(defaults)
 );
 
 renderScenes();
-
 checkSystem();
-
 drawPlaceholder();
 
-log("🎬 Mina Video AI Film Engine V5 hazır.");
-log("🎞️ 6 sahne oluşturuldu.");
-log("🤖 AI görsel motoru hazır.");
+const savedKey=
+localStorage.getItem("minaPollinationsKey");
+
+if(savedKey){
+
+document.getElementById("apiKey").value=
+savedKey;
+
+document.getElementById("aiStatus").innerHTML=
+'<span class="success">🔑 Kayıtlı API anahtarı bulundu.</span>';
+
+}
+
+log("🎬 Mina Video AI Film Engine V5.1 hazır.");
+log("🤖 Yeni AI yetkilendirme sistemi hazır.");
 
 }
 
@@ -683,73 +634,56 @@ init();
 
 
 /* ============================================================
-   SYSTEM
-   ============================================================ */
+ SYSTEM
+ ============================================================ */
 
 function checkSystem(){
 
-const media =
+const m=
 document.getElementById("mediaBadge");
 
-const canvasBadge =
+const c=
 document.getElementById("canvasBadge");
 
-const audioBadge =
+const a=
 document.getElementById("audioBadge");
+
 
 if(window.MediaRecorder){
 
-media.textContent =
-"🎥 MediaRecorder: OK";
-
-media.className =
-"badge ok";
+m.textContent="🎥 MediaRecorder: OK";
+m.className="badge ok";
 
 }else{
 
-media.textContent =
-"🎥 MediaRecorder: YOK";
-
-media.className =
-"badge warn";
+m.textContent="🎥 MediaRecorder: YOK";
+m.className="badge warn";
 
 }
 
 
 if(canvas.captureStream){
 
-canvasBadge.textContent =
-"🎞️ Canvas captureStream: OK";
-
-canvasBadge.className =
-"badge ok";
+c.textContent="🎞️ Canvas captureStream: OK";
+c.className="badge ok";
 
 }else{
 
-canvasBadge.textContent =
-"🎞️ Canvas captureStream: YOK";
-
-canvasBadge.className =
-"badge warn";
+c.textContent="🎞️ Canvas captureStream: YOK";
+c.className="badge warn";
 
 }
 
 
 if(audio.captureStream){
 
-audioBadge.textContent =
-"🔊 Audio captureStream: OK";
-
-audioBadge.className =
-"badge ok";
+a.textContent="🔊 Audio captureStream: OK";
+a.className="badge ok";
 
 }else{
 
-audioBadge.textContent =
-"🔊 Audio captureStream: YOK";
-
-audioBadge.className =
-"badge warn";
+a.textContent="🔊 Audio captureStream: YOK";
+a.className="badge warn";
 
 }
 
@@ -757,12 +691,184 @@ audioBadge.className =
 
 
 /* ============================================================
-   RENDER SCENES
-   ============================================================ */
+ API KEY
+ ============================================================ */
+
+function getAPIKey(){
+
+return document
+.getElementById("apiKey")
+.value
+.trim();
+
+}
+
+
+function clearAPIKey(){
+
+document.getElementById("apiKey").value="";
+
+localStorage.removeItem(
+"minaPollinationsKey"
+);
+
+document.getElementById(
+"aiStatus"
+).innerHTML=
+"🔑 API anahtarı temizlendi.";
+
+log("🧹 API anahtarı temizlendi.");
+
+}
+
+
+function rememberKey(){
+
+const key=getAPIKey();
+
+if(key){
+
+localStorage.setItem(
+"minaPollinationsKey",
+key
+);
+
+}
+
+}
+
+
+/* ============================================================
+ API TEST
+ ============================================================ */
+
+async function testAPI(){
+
+const key=getAPIKey();
+
+const status=
+document.getElementById("aiStatus");
+
+
+if(!key){
+
+status.innerHTML=
+'<span class="error">❌ Önce API Key gir.</span>';
+
+return;
+
+}
+
+rememberKey();
+
+status.textContent=
+"🔌 AI bağlantısı test ediliyor...";
+
+log("🔌 Pollinations API bağlantısı test ediliyor...");
+
+
+try{
+
+const endpoint=
+document
+.getElementById("aiEndpoint")
+.value
+.trim();
+
+
+const prompt=
+"cinematic dark forest at night";
+
+
+const url=
+endpoint+
+encodeURIComponent(prompt)+
+"?model="+
+encodeURIComponent(
+document.getElementById("aiModel").value
+)+
+"&width=512"+
+"&height=288"+
+"&nologo=true";
+
+
+const response=
+await fetch(
+url,
+{
+method:"GET",
+headers:{
+"Authorization":
+"Bearer "+key
+}
+}
+);
+
+
+if(!response.ok){
+
+let extra="";
+
+try{
+
+extra=
+(await response.text())
+.substring(0,300);
+
+}catch(e){}
+
+
+throw new Error(
+"HTTP "+
+response.status+
+(extra?" — "+extra:"")
+);
+
+}
+
+
+const blob=
+await response.blob();
+
+
+if(!blob.type.startsWith("image/")){
+
+throw new Error(
+"API görsel döndürmedi."
+);
+
+}
+
+
+status.innerHTML=
+'<span class="success">✅ AI bağlantısı başarılı! Görsel alındı.</span>';
+
+log("✅ Pollinations API bağlantısı başarılı.");
+
+}catch(error){
+
+status.innerHTML=
+'<span class="error">❌ API testi başarısız: '+
+esc(error.message)+
+'</span>';
+
+log(
+"❌ API TEST HATASI: "+
+error.message
+);
+
+}
+
+}
+
+
+/* ============================================================
+ SCENES
+ ============================================================ */
 
 function renderScenes(){
 
-const list =
+const list=
 document.getElementById("sceneList");
 
 list.innerHTML="";
@@ -770,7 +876,7 @@ list.innerHTML="";
 scenes.forEach(
 (scene,index)=>{
 
-const div =
+const div=
 document.createElement("div");
 
 div.className="scene";
@@ -786,27 +892,15 @@ div.innerHTML=`
 <div>
 
 <span class="sceneBadge ${
-scene.image
-?"ok"
-:""
+scene.image?"ok":""
 }">
-${
-scene.image
-?"🖼️ Görsel hazır"
-:"🖼️ Görsel yok"
-}
+${scene.image?"🖼️ Görsel hazır":"🖼️ Görsel yok"}
 </span>
 
 <span class="sceneBadge ${
-scene.audio
-?"ok"
-:""
+scene.audio?"ok":""
 }">
-${
-scene.audio
-?"🔊 Ses hazır"
-:"🔇 Ses yok"
-}
+${scene.audio?"🔊 Ses hazır":"🔇 Ses yok"}
 </span>
 
 </div>
@@ -820,7 +914,7 @@ scene.audio
 type="text"
 value="${attr(scene.title)}"
 onchange="
-updateScene(${index},'title',this.value)
+updateScene(${index),'title',this.value
 ">
 
 
@@ -884,7 +978,11 @@ scene.audio
 
 <select
 onchange="
-updateScene(${index},'motion',this.value)
+updateSceneValue(
+${index},
+'motion',
+this.value
+)
 ">
 
 <option value="static"
@@ -928,7 +1026,11 @@ Cinematic Float
 
 <select
 onchange="
-updateScene(${index},'duration',Number(this.value))
+updateSceneValue(
+${index},
+'duration',
+Number(this.value)
+)
 ">
 
 <option value="5"
@@ -967,7 +1069,11 @@ ${scene.duration===20?"selected":""}>
 
 <textarea
 onchange="
-updateScene(${index},'narration',this.value)
+updateSceneValue(
+${index},
+'narration',
+this.value
+)
 ">${esc(scene.narration)}</textarea>
 
 
@@ -975,7 +1081,11 @@ updateScene(${index},'narration',this.value)
 
 <textarea
 onchange="
-updateScene(${index},'prompt',this.value)
+updateSceneValue(
+${index},
+'prompt',
+this.value
+)
 ">${esc(scene.prompt)}</textarea>
 
 
@@ -1015,10 +1125,14 @@ list.appendChild(div);
 
 
 /* ============================================================
-   UPDATE
-   ============================================================ */
+ UPDATE
+ ============================================================ */
 
-function updateScene(index,key,value){
+function updateSceneValue(
+index,
+key,
+value
+){
 
 scenes[index][key]=value;
 
@@ -1026,25 +1140,24 @@ scenes[index][key]=value;
 
 
 /* ============================================================
-   IMAGE LOAD
-   ============================================================ */
+ IMAGE
+ ============================================================ */
 
 function loadImage(index,input){
 
-const file =
-input.files[0];
+const file=input.files[0];
 
 if(!file)return;
 
-const reader =
+const reader=
 new FileReader();
 
 reader.onload=function(e){
 
-scenes[index].image =
+scenes[index].image=
 e.target.result;
 
-scenes[index].imageName =
+scenes[index].imageName=
 file.name;
 
 renderScenes();
@@ -1063,25 +1176,24 @@ reader.readAsDataURL(file);
 
 
 /* ============================================================
-   AUDIO LOAD
-   ============================================================ */
+ AUDIO
+ ============================================================ */
 
 function loadAudio(index,input){
 
-const file =
-input.files[0];
+const file=input.files[0];
 
 if(!file)return;
 
-const reader =
+const reader=
 new FileReader();
 
 reader.onload=function(e){
 
-scenes[index].audio =
+scenes[index].audio=
 e.target.result;
 
-scenes[index].audioName =
+scenes[index].audioName=
 file.name;
 
 renderScenes();
@@ -1101,135 +1213,181 @@ reader.readAsDataURL(file);
 
 
 /* ============================================================
-   AI IMAGE
-   ============================================================ */
+ AI IMAGE
+ ============================================================ */
 
 async function generateAIImage(index){
 
-const scene =
-scenes[index];
+const key=getAPIKey();
 
-const status =
+const status=
 document.getElementById("aiStatus");
 
-const endpoint =
-document.getElementById("aiEndpoint").value.trim();
+if(!key){
 
-const model =
-document.getElementById("aiModel").value;
+status.innerHTML=
+'<span class="error">❌ API Key eksik. Önce API anahtarını gir.</span>';
 
-const style =
-document.getElementById("aiStyle").value;
-
-
-if(!scene.prompt){
-
-alert(
-"Bu sahnede AI promptu yok."
+log(
+"❌ AI üretimi durdu: API Key yok."
 );
 
 return;
 
 }
 
+rememberKey();
 
-status.textContent =
+const scene=scenes[index];
+
+const endpoint=
+document
+.getElementById("aiEndpoint")
+.value
+.trim();
+
+const model=
+document
+.getElementById("aiModel")
+.value;
+
+const style=
+document
+.getElementById("aiStyle")
+.value;
+
+
+status.textContent=
 "🤖 Sahne "+
 (index+1)+
-" AI görseli hazırlanıyor...";
+" AI görseli üretiliyor...";
 
 
 log(
-"🤖 AI görsel üretimi başladı → Sahne "+
-(index+1)
+"🤖 AI → Sahne "+
+(index+1)+
+" başladı."
 );
 
 
 try{
 
-const prompt =
+const prompt=
 scene.prompt+
 ", "+
 style+
-", cinematic composition, 16:9, highly detailed, realistic.";
+", cinematic composition, "+
+"16:9, highly detailed, realistic lighting, "+
+"professional movie still, no text, no watermark";
 
-const url =
+
+const url=
 endpoint+
 encodeURIComponent(prompt)+
 "?model="+
 encodeURIComponent(model)+
 "&width=1280"+
 "&height=720"+
-"&nologo=true"+
-"&safe=true"+
-"&seed="+
-Math.floor(Math.random()*999999999);
+"&nologo=true";
 
 
 log(
-"🌐 AI isteği gönderildi."
+"🌐 AI isteği gönderiliyor..."
 );
 
 
-const response =
-await fetch(url);
+const response=
+await fetch(
+url,
+{
+method:"GET",
+headers:{
+"Authorization":
+"Bearer "+key,
+"Accept":
+"image/*"
+}
+);
 
 
 if(!response.ok){
 
+let body="";
+
+try{
+
+body=
+(await response.text())
+.substring(0,500);
+
+}catch(e){}
+
+
+if(response.status===401){
+
 throw new Error(
-"AI servis HTTP "+
-response.status
+"HTTP 401 — API Key geçersiz veya yetkisiz."
+);
+
+}
+
+if(response.status===403){
+
+throw new Error(
+"HTTP 403 — API erişimine izin verilmedi."
+);
+
+}
+
+if(response.status===402){
+
+throw new Error(
+"HTTP 402 — kullanım/ödeme gereksinimi."
+);
+
+}
+
+throw new Error(
+"HTTP "+
+response.status+
+(body?" — "+body:"")
 );
 
 }
 
 
-const blob =
+const blob=
 await response.blob();
 
 
 if(!blob.type.startsWith("image/")){
 
 throw new Error(
-"Sunucu görsel yerine başka veri döndürdü."
+"API görsel yerine "+
+blob.type+
+" döndürdü."
 );
 
 }
 
 
-const reader =
-new FileReader();
+const dataURL=
+await blobToDataURL(blob);
 
 
-const dataURL =
-await new Promise(
-(resolve,reject)=>{
+scene.image=dataURL;
 
-reader.onload=()=>
-resolve(reader.result);
-
-reader.onerror=reject;
-
-reader.readAsDataURL(blob);
-
-});
-
-
-scene.image =
-dataURL;
-
-scene.imageName =
-"AI_GENERATED";
+scene.imageName=
+"AI_GENERATED_"+Date.now();
 
 
 renderScenes();
 
 
-status.textContent =
-"✅ Sahne "+
+status.innerHTML=
+'<span class="success">✅ Sahne '+
 (index+1)+
-" AI görseli hazır.";
+' AI görseli hazır.</span>';
 
 
 log(
@@ -1240,24 +1398,19 @@ log(
 
 }catch(error){
 
-status.textContent =
-"❌ AI görsel üretilemedi: "+
-error.message;
+status.innerHTML=
+'<span class="error">❌ Sahne '+
+(index+1)+
+' AI üretilemedi: '+
+esc(error.message)+
+'</span>';
 
 
 log(
-"❌ AI hatası → Sahne "+
+"❌ AI HATASI → Sahne "+
 (index+1)+
 ": "+
 error.message
-);
-
-
-alert(
-"AI görsel üretilemedi.\n\n"+
-error.message+
-"\n\n"+
-"İstersen sahneye manuel görsel yükleyebilirsin."
 );
 
 }
@@ -1266,8 +1419,8 @@ error.message+
 
 
 /* ============================================================
-   CURRENT AI
-   ============================================================ */
+ CURRENT
+ ============================================================ */
 
 function generateCurrentAI(){
 
@@ -1277,61 +1430,75 @@ generateAIImage(0);
 
 
 /* ============================================================
-   ALL AI
-   ============================================================ */
+ ALL
+ ============================================================ */
 
 async function generateAllAIImages(){
 
-const status =
-document.getElementById("aiStatus");
+if(!getAPIKey()){
 
-status.textContent =
-"🤖 Tüm sahneler hazırlanıyor...";
-
-
-for(let i=0;i<scenes.length;i++){
-
-status.textContent =
-"🤖 AI görsel "+
-(i+1)+
-" / "+
-scenes.length+
-" üretiliyor...";
-
-
-try{
-
-await generateAIImage(i);
-
-}catch(e){
-
-log(
-"⚠️ Sahne "+
-(i+1)+
-" atlandı."
+alert(
+"Önce Pollinations API Key gir."
 );
 
+return;
+
 }
+
+
+for(
+let i=0;
+i<scenes.length;
+i++
+){
+
+await generateAIImage(i);
 
 await sleep(700);
 
 }
 
-
-status.textContent =
-"🎉 AI sahne üretimi tamamlandı.";
+document
+.getElementById("aiStatus")
+.innerHTML=
+'<span class="success">🎉 Tüm AI sahneleri tamamlandı.</span>';
 
 }
 
 
 /* ============================================================
-   STORY SCENES
-   ============================================================ */
+ BLOB TO DATA
+ ============================================================ */
+
+function blobToDataURL(blob){
+
+return new Promise(
+(resolve,reject)=>{
+
+const reader=
+new FileReader();
+
+reader.onload=()=>
+resolve(reader.result);
+
+reader.onerror=reject;
+
+reader.readAsDataURL(blob);
+
+});
+
+}
+
+
+/* ============================================================
+ STORY
+ ============================================================ */
 
 function createStoryScenes(){
 
-const story =
-document.getElementById("story")
+const story=
+document
+.getElementById("story")
 .value
 .trim();
 
@@ -1343,28 +1510,35 @@ return;
 
 }
 
-const parts =
+const parts=
 story
 .split(/[.!?]+/)
 .map(x=>x.trim())
 .filter(Boolean);
 
 
-for(let i=0;i<scenes.length;i++){
+for(
+let i=0;
+i<scenes.length;
+i++
+){
 
-const text =
+const text=
 parts[i] ||
 parts[parts.length-1] ||
 "";
 
-
 if(text){
 
-scenes[i].narration =
-text;
+scenes[i].narration=text;
 
-scenes[i].prompt =
-createPrompt(text);
+scenes[i].prompt=
+"cinematic realistic film still, "+
+"German mystery thriller, "+
+"night atmosphere, "+
+text+
+", highly detailed, realistic lighting, "+
+"16:9 composition";
 
 }
 
@@ -1373,34 +1547,19 @@ createPrompt(text);
 renderScenes();
 
 log(
-"🧠 Hikâye sahnelere aktarıldı."
-);
-
-}
-
-
-function createPrompt(text){
-
-return(
-"cinematic realistic film still, "+
-"German mystery thriller, "+
-"night atmosphere, "+
-"text scene: "+
-text+
-", highly detailed, realistic lighting, "+
-"16:9 composition"
+"🧠 Hikâye 6 sahneye aktarıldı."
 );
 
 }
 
 
 /* ============================================================
-   AUDIO
-   ============================================================ */
+ AUDIO
+ ============================================================ */
 
 async function testAudio(index){
 
-const scene =
+const scene=
 scenes[index];
 
 if(!scene.audio){
@@ -1421,7 +1580,7 @@ audio.pause();
 
 audio.currentTime=0;
 
-audio.src =
+audio.src=
 scene.audio;
 
 audio.load();
@@ -1438,7 +1597,7 @@ log(
 }catch(e){
 
 log(
-"❌ Ses testi hatası: "+
+"❌ Ses testi: "+
 e.message
 );
 
@@ -1474,26 +1633,20 @@ return;
 }
 
 const ready=()=>{
-
 cleanup();
-
 resolve();
-
 };
 
 const error=()=>{
-
 cleanup();
-
 reject(
 new Error(
 "Ses dosyası okunamadı."
 )
 );
-
 };
 
-const cleanup=()=>{
+function cleanup(){
 
 audio.removeEventListener(
 "canplay",
@@ -1510,7 +1663,7 @@ audio.removeEventListener(
 error
 );
 
-};
+}
 
 audio.addEventListener(
 "canplay",
@@ -1533,8 +1686,8 @@ error
 
 
 /* ============================================================
-   IMAGE GET
-   ============================================================ */
+ IMAGE
+ ============================================================ */
 
 function getImage(scene){
 
@@ -1559,10 +1712,10 @@ return;
 
 }
 
-const img =
+const img=
 new Image();
 
-img.onload=function(){
+img.onload=()=>{
 
 imageCache[scene.image]=img;
 
@@ -1570,7 +1723,7 @@ resolve(img);
 
 };
 
-img.onerror=function(){
+img.onerror=()=>{
 
 reject(
 new Error(
@@ -1580,7 +1733,7 @@ new Error(
 
 };
 
-img.src =
+img.src=
 scene.image;
 
 });
@@ -1589,8 +1742,8 @@ scene.image;
 
 
 /* ============================================================
-   DRAW
-   ============================================================ */
+ DRAW
+ ============================================================ */
 
 function drawScene(
 scene,
@@ -1619,54 +1772,49 @@ ctx.fillRect(
 
 if(img){
 
-const iw =
+const iw=
 img.naturalWidth ||
 img.width;
 
-const ih =
+const ih=
 img.naturalHeight ||
 img.height;
 
-const scale =
+const scale=
 Math.max(
 1280/iw,
 720/ih
 );
 
-const baseW =
-iw*scale;
-
-const baseH =
-ih*scale;
+const baseW=iw*scale;
+const baseH=ih*scale;
 
 let zoom=1;
 
-let x =
+let x=
 (1280-baseW)/2;
 
-let y =
+let y=
 (720-baseH)/2;
 
 
 if(scene.motion==="zoomIn"){
 
-zoom =
-1+
-progress*.12;
+zoom=
+1+progress*.12;
 
 }
 
 else if(scene.motion==="zoomOut"){
 
-zoom =
-1.12-
-progress*.12;
+zoom=
+1.12-progress*.12;
 
 }
 
 else if(scene.motion==="panLeft"){
 
-x =
+x=
 (1280-baseW)/2-
 progress*100;
 
@@ -1674,7 +1822,7 @@ progress*100;
 
 else if(scene.motion==="panRight"){
 
-x =
+x=
 (1280-baseW)/2+
 progress*100;
 
@@ -1684,29 +1832,29 @@ else if(scene.motion==="float"){
 
 zoom=1.04;
 
-x =
+x=
 (1280-baseW)/2+
 Math.sin(progress*Math.PI*2)*25;
 
-y =
+y=
 (720-baseH)/2+
 Math.cos(progress*Math.PI*2)*12;
 
 }
 
 
-const drawW =
+const drawW=
 baseW*zoom;
 
-const drawH =
+const drawH=
 baseH*zoom;
 
-const dx =
+const dx=
 640+
 (x+baseW/2-640)*zoom-
 drawW/2;
 
-const dy =
+const dy=
 360+
 (y+baseH/2-360)*zoom-
 drawH/2;
@@ -1749,7 +1897,7 @@ ctx.fillText(
 
 /* vignette */
 
-const g =
+const g=
 ctx.createRadialGradient(
 640,360,100,
 640,360,720
@@ -1775,7 +1923,7 @@ ctx.fillRect(
 );
 
 
-/* cinematic bars */
+/* bars */
 
 ctx.fillStyle=
 "rgba(0,0,0,.9)";
@@ -1800,16 +1948,17 @@ ctx.textAlign="center";
 
 const max=1050;
 
-const words =
+const words=
 subtitle.split(" ");
 
 const lines=[];
 
 let line="";
 
-words.forEach(word=>{
+words.forEach(
+word=>{
 
-const test =
+const test=
 line
 ?line+" "+word
 :word;
@@ -1833,18 +1982,17 @@ line=test;
 
 if(line)lines.push(line);
 
-const lineHeight=38;
+const lh=38;
 
-const startY=
+const sy=
 638-
-(lines.length-1)*lineHeight;
+(lines.length-1)*lh;
 
 lines.forEach(
 (t,i)=>{
 
-const yy =
-startY+
-i*lineHeight;
+const yy=
+sy+i*lh;
 
 ctx.fillStyle=
 "rgba(0,0,0,.75)";
@@ -1891,8 +2039,8 @@ ctx.fillRect(
 
 
 /* ============================================================
-   PLACEHOLDER
-   ============================================================ */
+ PLACEHOLDER
+ ============================================================ */
 
 function drawPlaceholder(){
 
@@ -1913,7 +2061,7 @@ ctx.font=
 "bold 34px Arial";
 
 ctx.fillText(
-"MINA VIDEO AI V5",
+"MINA VIDEO AI V5.1",
 640,
 320
 );
@@ -1931,22 +2079,26 @@ ctx.fillText(
 
 
 /* ============================================================
-   PREVIEW
-   ============================================================ */
+ PREVIEW
+ ============================================================ */
 
 async function previewFilm(){
 
 if(previewRunning)return;
 
 previewRunning=true;
-
 previewStopFlag=false;
 
-for(let i=0;i<scenes.length;i++){
+
+for(
+let i=0;
+i<scenes.length;
+i++
+){
 
 if(previewStopFlag)break;
 
-const scene =
+const scene=
 scenes[i];
 
 document.getElementById(
@@ -1965,11 +2117,7 @@ try{
 img=
 await getImage(scene);
 
-}catch(e){
-
-img=null;
-
-}
+}catch(e){}
 
 
 if(scene.audio){
@@ -1994,19 +2142,19 @@ await audio.play();
 }
 
 
-const start =
+const start=
 performance.now();
 
-const duration =
-scene.duration*1000;
+const duration=
+Number(scene.duration)*1000;
 
 
 while(!previewStopFlag){
 
-const elapsed =
+const elapsed=
 performance.now()-start;
 
-const p =
+const p=
 Math.min(
 1,
 elapsed/duration
@@ -2055,16 +2203,12 @@ stopAudio();
 
 
 /* ============================================================
-   RENDER
-   ============================================================ */
+ RENDER
+ ============================================================ */
 
 async function renderFilm(){
 
-if(rendering){
-
-return;
-
-}
+if(rendering)return;
 
 if(!window.MediaRecorder){
 
@@ -2088,9 +2232,7 @@ return;
 
 
 rendering=true;
-
 cancelFlag=false;
-
 chunks=[];
 
 document.getElementById(
@@ -2104,22 +2246,21 @@ document.getElementById(
 
 log("");
 log("================================");
-log("🎬 V5 RENDER BAŞLADI");
+log("🎬 V5.1 RENDER BAŞLADI");
 log("================================");
 
 
 try{
 
-const videoStream =
+const videoStream=
 canvas.captureStream(30);
 
-const audioStream =
+const audioStream=
 audio.captureStream
 ?audio.captureStream()
 :null;
 
-
-const stream =
+const stream=
 new MediaStream();
 
 
@@ -2157,13 +2298,9 @@ stream.getAudioTracks().length
 let mime="";
 
 const types=[
-
 "video/webm;codecs=vp8,opus",
-
 "video/webm;codecs=vp8",
-
 "video/webm"
-
 ];
 
 
@@ -2176,7 +2313,6 @@ MediaRecorder.isTypeSupported(type)
 ){
 
 mime=type;
-
 break;
 
 }
@@ -2193,13 +2329,7 @@ throw new Error(
 }
 
 
-log(
-"🎞️ Codec: "+
-mime
-);
-
-
-const recorder =
+const recorder=
 new MediaRecorder(
 stream,
 {
@@ -2210,8 +2340,8 @@ audioBitsPerSecond:128000
 );
 
 
-recorder.ondataavailable =
-function(e){
+recorder.ondataavailable=
+e=>{
 
 if(
 e.data &&
@@ -2227,10 +2357,10 @@ chunks.push(e.data);
 
 let recorderError=null;
 
-recorder.onerror =
-function(e){
+recorder.onerror=
+e=>{
 
-recorderError =
+recorderError=
 e.error ||
 new Error(
 "MediaRecorder hatası."
@@ -2249,9 +2379,10 @@ log(
 let total=0;
 
 scenes.forEach(
-s=>
+s=>{
 total+=
-Number(s.duration)*1000
+Number(s.duration)*1000;
+}
 );
 
 
@@ -2273,10 +2404,17 @@ throw new Error(
 }
 
 
-const scene =
+if(recorderError){
+
+throw recorderError;
+
+}
+
+
+const scene=
 scenes[i];
 
-const duration =
+const duration=
 Number(scene.duration)*1000;
 
 
@@ -2347,13 +2485,13 @@ e.message
 stopAudio();
 
 log(
-"🔇 Sahne sesiz."
+"🔇 Sahne sessiz."
 );
 
 }
 
 
-const start =
+const start=
 performance.now();
 
 let last=-1;
@@ -2370,27 +2508,20 @@ throw new Error(
 }
 
 
-if(recorderError){
-
-throw recorderError;
-
-}
-
-
-const now =
+const now=
 performance.now();
 
-const sceneElapsed =
+const sceneElapsed=
 now-start;
 
-const p =
+const p=
 Math.min(
 1,
 sceneElapsed/duration
 );
 
 
-const percent =
+const percent=
 Math.floor(p*100);
 
 
@@ -2398,15 +2529,13 @@ if(percent!==last){
 
 last=percent;
 
-const overall =
-(
+const overall=
 (
 elapsedTotal+
 sceneElapsed
 )/
-total
-)*100;
-
+total*
+100;
 
 document.getElementById(
 "progress"
@@ -2415,7 +2544,6 @@ Math.min(
 100,
 overall
 )+"%";
-
 
 document.getElementById(
 "renderStatus"
@@ -2438,15 +2566,12 @@ if(sceneElapsed<fadeTime){
 
 fade=
 1-
-sceneElapsed/
-fadeTime;
+sceneElapsed/fadeTime;
 
 }
 
-if(
-sceneElapsed>
-duration-fadeTime
-){
+if(sceneElapsed>
+duration-fadeTime){
 
 fade=
 Math.max(
@@ -2510,13 +2635,8 @@ await sleep(250);
 
 stopAudio();
 
-document.getElementById(
-"renderStatus"
-).textContent=
-"📦 Video hazırlanıyor...";
 
-
-const stopped =
+const stopped=
 new Promise(
 resolve=>
 recorder.addEventListener(
@@ -2543,12 +2663,10 @@ throw new Error(
 }
 
 
-const blob =
+const blob=
 new Blob(
 chunks,
-{
-type:"video/webm"
-}
+{type:"video/webm"}
 );
 
 
@@ -2570,11 +2688,11 @@ finalURL
 }
 
 
-finalURL =
+finalURL=
 URL.createObjectURL(blob);
 
 
-const link =
+const link=
 document.getElementById(
 "downloadLink"
 );
@@ -2587,7 +2705,7 @@ document.getElementById(
 "filmName"
 ).value
 )+
-"-Mina-V5.webm";
+"-Mina-V5.1.webm";
 
 
 document.getElementById(
@@ -2608,12 +2726,10 @@ document.getElementById(
 "🎉 FİLM HAZIR";
 
 
-log(
-"================================"
-);
+log("================================");
 
 log(
-"🎉 V5 FİLM TAMAMLANDI"
+"🎉 V5.1 FİLM TAMAMLANDI"
 );
 
 log(
@@ -2622,18 +2738,11 @@ bytes(blob.size)
 );
 
 log(
-"🎬 Sahne sayısı: "+
-scenes.length
-);
-
-log(
 "🔊 Audio track: "+
 stream.getAudioTracks().length
 );
 
-log(
-"================================"
-);
+log("================================");
 
 
 showVideo(finalURL);
@@ -2664,31 +2773,29 @@ stopAudio();
 
 
 /* ============================================================
-   FINAL VIDEO
-   ============================================================ */
+ FINAL VIDEO
+ ============================================================ */
 
 function showVideo(url){
 
-const old =
+const old=
 document.getElementById(
 "finalVideo"
 );
 
 if(old)old.remove();
 
-const video =
+const video=
 document.createElement("video");
 
 video.id="finalVideo";
 
 video.controls=true;
-
+video.autoplay=false;
 video.preload="metadata";
 
 video.style.width="100%";
-
 video.style.marginTop="12px";
-
 video.style.borderRadius="10px";
 
 video.src=url;
@@ -2701,8 +2808,8 @@ document
 
 
 /* ============================================================
-   CANCEL
-   ============================================================ */
+ CANCEL
+ ============================================================ */
 
 function cancelRender(){
 
@@ -2726,8 +2833,8 @@ log(
 
 
 /* ============================================================
-   SAVE
-   ============================================================ */
+ SAVE
+ ============================================================ */
 
 function saveProject(){
 
@@ -2735,7 +2842,7 @@ try{
 
 const data={
 
-version:"V5",
+version:"V5.1",
 
 filmName:
 document.getElementById(
@@ -2768,13 +2875,13 @@ scenes:scenes
 
 
 localStorage.setItem(
-"minaVideoAIV5",
+"minaVideoAIV51",
 JSON.stringify(data)
 );
 
 
 log(
-"💾 V5 proje kaydedildi."
+"💾 V5.1 proje kaydedildi."
 );
 
 alert(
@@ -2789,7 +2896,7 @@ e.message
 );
 
 alert(
-"Kaydetme başarısız olabilir. Büyük görseller localStorage sınırını aşabilir."
+"Kaydetme başarısız olabilir. Büyük AI görselleri localStorage sınırını aşabilir."
 );
 
 }
@@ -2798,30 +2905,29 @@ alert(
 
 
 /* ============================================================
-   LOAD
-   ============================================================ */
+ LOAD
+ ============================================================ */
 
 function loadProject(){
 
 try{
 
-const raw =
+const raw=
 localStorage.getItem(
-"minaVideoAIV5"
+"minaVideoAIV51"
 );
 
 if(!raw){
 
 alert(
-"Kayıtlı proje bulunamadı."
+"Kayıtlı V5.1 proje bulunamadı."
 );
 
 return;
 
 }
 
-
-const data =
+const data=
 JSON.parse(raw);
 
 
@@ -2846,7 +2952,6 @@ data.aiEndpoint;
 
 }
 
-
 if(data.aiModel){
 
 document.getElementById(
@@ -2855,7 +2960,6 @@ document.getElementById(
 data.aiModel;
 
 }
-
 
 if(data.aiStyle){
 
@@ -2866,7 +2970,6 @@ data.aiStyle;
 
 }
 
-
 if(
 Array.isArray(data.scenes)
 ){
@@ -2875,11 +2978,10 @@ scenes=data.scenes;
 
 }
 
-
 renderScenes();
 
 log(
-"📂 V5 proje yüklendi."
+"📂 V5.1 proje yüklendi."
 );
 
 }catch(e){
@@ -2895,22 +2997,18 @@ e.message
 
 
 /* ============================================================
-   RESET
-   ============================================================ */
+ RESET
+ ============================================================ */
 
 function resetProject(){
 
 if(
 !confirm(
-"V5 projesi sıfırlansın mı?"
+"V5.1 projesi sıfırlansın mı?"
 )
-){
+)return;
 
-return;
-
-}
-
-scenes =
+scenes=
 JSON.parse(
 JSON.stringify(defaults)
 );
@@ -2926,27 +3024,24 @@ document.getElementById(
 "Um 23:47 Uhr erreicht Anna ein verlassenes Haus am Waldrand. Im oberen Fenster brennt plötzlich Licht. Sie hört Schritte. Die Tür öffnet sich von selbst. Dann erscheint ein Schatten.";
 
 renderScenes();
-
 drawPlaceholder();
 
 log(
-"♻️ V5 proje sıfırlandı."
+"♻️ V5.1 proje sıfırlandı."
 );
 
 }
 
 
 /* ============================================================
-   HELPERS
-   ============================================================ */
+ HELPERS
+ ============================================================ */
 
 function frame(){
 
 return new Promise(
 resolve=>
-requestAnimationFrame(
-resolve
-)
+requestAnimationFrame(resolve)
 );
 
 }
@@ -2956,10 +3051,7 @@ function sleep(ms){
 
 return new Promise(
 resolve=>
-setTimeout(
-resolve,
-ms
-)
+setTimeout(resolve,ms)
 );
 
 }
@@ -2994,7 +3086,9 @@ units[i];
 
 function safeName(name){
 
-return String(name||"mina-film")
+return String(
+name||"mina-film"
+)
 .replace(
 /[\\\/:*?"<>|]+/g,
 ""
@@ -3029,14 +3123,14 @@ return esc(v);
 
 function log(message){
 
-const box =
+const box=
 document.getElementById("log");
 
-const time =
+const time=
 new Date()
 .toLocaleTimeString();
 
-box.textContent +=
+box.textContent+=
 "\n["+time+"] "+
 message;
 
