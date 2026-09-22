@@ -3,288 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI V6.2</title>
+<title>Mina Video AI V6.3</title>
 
 <style>
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#090c12;
-color:#f5f5f5;
+    margin:0;
+    background:#080b12;
+    color:#eee;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 header{
-padding:18px;
-background:linear-gradient(135deg,#171b28,#0b0e15);
-border-bottom:1px solid #292f3c;
+    padding:18px;
+    background:linear-gradient(135deg,#111827,#05070c);
+    border-bottom:1px solid #293142;
 }
 
 header h1{
-margin:0;
-font-size:26px;
+    margin:0;
+    font-size:26px;
 }
 
 header p{
-margin:7px 0 0;
-color:#9ba5b7;
+    margin:6px 0 0;
+    color:#9ca3af;
 }
 
 .container{
-max-width:1250px;
-margin:auto;
-padding:18px;
+    max-width:1200px;
+    margin:auto;
+    padding:18px;
 }
 
 .panel{
-background:#121720;
-border:1px solid #293140;
-border-radius:14px;
-padding:17px;
-margin-bottom:18px;
+    background:#111722;
+    border:1px solid #293142;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:16px;
 }
 
 h2{
-margin:0 0 15px;
-font-size:19px;
+    margin-top:0;
+    font-size:19px;
 }
 
 label{
-display:block;
-font-size:14px;
-color:#b8c0cf;
-margin-bottom:7px;
+    display:block;
+    margin-top:10px;
+    margin-bottom:5px;
+    color:#cbd5e1;
 }
 
-input,
-textarea,
-select{
-width:100%;
-background:#080b11;
-border:1px solid #303848;
-border-radius:9px;
-color:#fff;
-padding:11px;
-font-family:Arial,Helvetica,sans-serif;
-outline:none;
+input,textarea,select{
+    width:100%;
+    background:#080d15;
+    color:#fff;
+    border:1px solid #334155;
+    border-radius:8px;
+    padding:10px;
+    font-size:14px;
 }
 
 textarea{
-min-height:90px;
-resize:vertical;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-border-color:#6574ff;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
+    min-height:90px;
+    resize:vertical;
 }
 
 button{
-border:0;
-border-radius:9px;
-padding:11px 15px;
-margin:4px;
-font-weight:bold;
-color:white;
-background:#4f5fff;
-cursor:pointer;
+    border:0;
+    border-radius:9px;
+    padding:11px 15px;
+    margin:5px 3px 5px 0;
+    cursor:pointer;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
 }
 
 button:hover{
-filter:brightness(1.12);
+    filter:brightness(1.15);
 }
 
-button.secondary{
-background:#28303e;
-}
+button.red{background:#b91c1c}
+button.green{background:#15803d}
+button.gray{background:#374151}
+button.gold{background:#b45309}
 
-button.green{
-background:#16885c;
-}
-
-button.orange{
-background:#a66c18;
-}
-
-button.red{
-background:#a73549;
-}
-
-.toolbar{
-display:flex;
-flex-wrap:wrap;
-gap:4px;
-margin-top:12px;
-}
-
-#status{
-margin-top:12px;
-background:#080b10;
-border-radius:8px;
-padding:12px;
-min-height:42px;
-color:#8ee0b8;
-}
-
-.progress{
-height:8px;
-background:#202632;
-border-radius:10px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.progress div{
-height:100%;
-width:0%;
-background:#5665ff;
-transition:width .2s;
-}
-
-.scenes{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
 }
 
 .scene{
-background:#0c1017;
-border:1px solid #2b3340;
-border-radius:13px;
-padding:14px;
-}
-
-.scene.active{
-border-color:#6574ff;
-box-shadow:0 0 0 1px #6574ff inset;
+    border:1px solid #334155;
+    border-radius:12px;
+    padding:14px;
+    background:#0c121d;
 }
 
 .scene h3{
-margin:0 0 12px;
+    margin-top:0;
 }
 
-.scene-number{
-display:inline-block;
-background:#505fff;
-padding:4px 8px;
-border-radius:6px;
-font-size:12px;
-margin-right:6px;
+.sceneImage{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:8px;
+    background:#05070b;
+    display:block;
+    margin-bottom:10px;
 }
 
-.scene-image{
-width:100%;
-height:220px;
-object-fit:cover;
-background:#05070b;
-border-radius:9px;
-display:block;
-margin-bottom:10px;
-}
-
-.subtitle-box{
-background:#101a17;
-border:1px solid #285844;
-padding:10px;
-border-radius:9px;
-margin:10px 0;
-}
-
-.subtitle-box strong{
-display:block;
-color:#78e0ab;
-font-size:12px;
-margin-bottom:7px;
+.status{
+    background:#05080d;
+    border:1px solid #273244;
+    padding:10px;
+    border-radius:8px;
+    min-height:42px;
+    color:#93c5fd;
+    margin-top:10px;
+    white-space:pre-wrap;
 }
 
 .viewer{
-width:100%;
-max-width:900px;
-aspect-ratio:16/9;
-background:#000;
-border-radius:12px;
-overflow:hidden;
-position:relative;
-margin:auto;
-border:1px solid #303746;
+    background:#000;
+    border-radius:14px;
+    overflow:hidden;
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    border:1px solid #334155;
 }
 
-.viewer img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
-transition:transform .7s ease;
+#viewerImage{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transform:scale(1);
+    transform-origin:center center;
+    opacity:1;
+    transition:opacity .7s ease;
 }
 
-.viewer-subtitle{
-position:absolute;
-left:5%;
-right:5%;
-bottom:7%;
-background:rgba(0,0,0,.42);
-border-radius:8px;
-padding:10px 15px;
-text-align:center;
-font-size:20px;
-font-weight:bold;
-line-height:1.4;
-text-shadow:
-2px 2px 3px #000,
--1px -1px 2px #000;
+.viewer::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(
+        ellipse at center,
+        transparent 45%,
+        rgba(0,0,0,.45) 100%
+      );
 }
 
-.viewer-info{
-text-align:center;
-color:#9ba5b7;
-margin-top:10px;
+.subtitle{
+    position:absolute;
+    left:5%;
+    right:5%;
+    bottom:7%;
+    text-align:center;
+    font-size:clamp(16px,2.3vw,30px);
+    font-weight:bold;
+    color:white;
+    text-shadow:
+      2px 2px 4px #000,
+      -1px -1px 3px #000;
+    z-index:5;
+    opacity:0;
+    transition:opacity .35s ease;
 }
 
-.sync-box{
-background:#10151f;
-border:1px solid #30394a;
-border-radius:10px;
-padding:13px;
-margin-top:14px;
+.sceneNumber{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:rgba(0,0,0,.65);
+    padding:6px 10px;
+    border-radius:7px;
+    z-index:5;
 }
 
-.sync-box strong{
-color:#7e8cff;
+.viewerControls{
+    margin-top:10px;
 }
 
 .small{
-font-size:12px;
-color:#8f99aa;
-line-height:1.5;
+    font-size:12px;
+    color:#94a3b8;
 }
 
-.voice-status{
-margin-top:8px;
-color:#8fe0bd;
-font-size:13px;
+.progress{
+    height:8px;
+    background:#1e293b;
+    border-radius:8px;
+    overflow:hidden;
+    margin-top:10px;
 }
 
-@media(max-width:850px){
-
-.grid,
-.scenes{
-grid-template-columns:1fr;
+.progressBar{
+    height:100%;
+    width:0%;
+    background:#3b82f6;
+    transition:width .2s;
 }
 
-.viewer-subtitle{
-font-size:16px;
-}
-
+@media(max-width:800px){
+    .grid{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
@@ -292,366 +226,139 @@ font-size:16px;
 <body>
 
 <header>
-<h1>🎬 Mina Video AI V6.2</h1>
-<p>Seslendirme senkronlu Almanca gizem film stüdyosu</p>
+    <h1>🎬 Mina Video AI V6.3</h1>
+    <p>Hareketli görüntü • Almanca seslendirme • Altyazı • Sinematik geçiş</p>
 </header>
 
 <div class="container">
 
+<div class="panel">
+    <h2>🎞️ Film Bilgileri</h2>
 
-<!-- =====================================================
-     PROJE
-===================================================== -->
+    <label>Film adı</label>
+    <input id="filmName" value="Das Haus am Waldrand">
+
+    <label>Hikâye</label>
+    <textarea id="story">Eine junge Frau namens Anna fährt spät in der Nacht zu einem verlassenen Haus am Waldrand. Um 23:47 Uhr sieht sie plötzlich Licht in einem Fenster im oberen Stockwerk. Niemand sollte dort sein. Dann hört sie Schritte hinter sich.</textarea>
+
+    <label>Karakter açıklaması</label>
+    <textarea id="characterPrompt">Anna, eine junge deutsche Frau, 28 Jahre alt, lange dunkelblonde Haare, braune Augen, schwarzer Mantel, realistische filmische Darstellung, gleiche Person in jeder Szene.</textarea>
+</div>
+
 
 <div class="panel">
+    <h2>🤖 AI Görsel Ayarları</h2>
 
-<h2>🎞️ Film Projesi</h2>
+    <div class="grid">
 
-<div class="grid">
+        <div>
+            <label>Model</label>
+            <select id="model">
+                <option value="flux">flux</option>
+                <option value="zimage">zimage</option>
+                <option value="klein">klein</option>
+            </select>
+        </div>
 
-<div>
+        <div>
+            <label>Görsel boyutu</label>
+            <select id="size">
+                <option value="1280x720">1280 × 720</option>
+                <option value="1024x576">1024 × 576</option>
+                <option value="960x540">960 × 540</option>
+            </select>
+        </div>
 
-<label>Film adı</label>
+        <div>
+            <label>Görsel stil</label>
+            <select id="style">
+                <option>Cinematic realistic horror film</option>
+                <option>Dark cinematic thriller</option>
+                <option>Realistic mystery movie</option>
+                <option>Dark German crime thriller</option>
+            </select>
+        </div>
 
-<input
-id="filmName"
-value="Das Haus am Waldrand"
->
+    </div>
 
+    <button class="green" onclick="generateAllImages()">🤖 TÜM SAHNELERİ AI ÜRET</button>
+    <button onclick="generateCurrentImage()">🖼️ SEÇİLİ SAHNEYİ ÜRET</button>
+
+    <div id="aiStatus" class="status">Hazır.</div>
 </div>
 
-<div>
-
-<label>Dil</label>
-
-<select id="language">
-
-<option value="de-DE">
-Deutsch
-</option>
-
-<option value="tr-TR">
-Türkçe
-</option>
-
-<option value="en-US">
-English
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-<br>
-
-<label>Hikâye</label>
-
-<textarea id="story">Anna fährt um 23:47 Uhr durch einen dunklen Wald. Am Waldrand entdeckt sie ein verlassenes Haus. Plötzlich geht im oberen Fenster ein Licht an. Im Haus hört sie Schritte. Eine dunkle Gestalt erscheint.</textarea>
-
-
-<div class="toolbar">
-
-<button onclick="createStoryScenes()">
-🔄 6 Sahneyi Hazırla
-</button>
-
-<button
-class="green"
-onclick="generateAllImages()">
-🖼️ Tüm AI Görsellerini Oluştur
-</button>
-
-<button
-class="secondary"
-onclick="saveProject()">
-💾 Kaydet
-</button>
-
-<button
-class="secondary"
-onclick="loadProject()">
-📂 Yükle
-</button>
-
-<button
-class="red"
-onclick="resetProject()">
-♻️ Sıfırla
-</button>
-
-</div>
-
-<div id="status">
-Hazır.
-</div>
-
-<div class="progress">
-<div id="progressBar"></div>
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     SENKRON SİSTEMİ
-===================================================== -->
 
 <div class="panel">
+    <h2>🎙️ Seslendirme Senkronu</h2>
 
-<h2>🎙️ Seslendirme Senkronu</h2>
+    <label>
+        <input type="checkbox" id="voiceSync" checked style="width:auto">
+        Ses bitene kadar sahne değişmesin
+    </label>
 
-<div class="sync-box">
+    <label>Seslendirme hızı</label>
+    <select id="voiceRate">
+        <option value="0.75">0.75 — Yavaş</option>
+        <option value="0.9" selected>0.90 — Sinematik</option>
+        <option value="1">1.00 — Normal</option>
+        <option value="1.1">1.10 — Hızlı</option>
+    </select>
 
-<label>
-<input
-type="checkbox"
-id="voiceSync"
-checked
-style="width:auto;margin-right:7px;"
->
-<strong>
-Seslendirme bitene kadar sahneyi değiştirme
-</strong>
-</label>
-
-<p class="small">
-Bu ayar tüm yeni videolarda varsayılan olarak açıktır.
-Film oynatılırken sistem seslendirme tamamlanana kadar
-bekler ve ardından otomatik olarak sonraki sahneye geçer.
-</p>
-
+    <p class="small">
+        Seslendirme tamamlanır → 0.5 saniye beklenir → sonraki sahne başlar.
+    </p>
 </div>
 
-<div class="sync-box">
-
-<label>
-Seslendirme hızı
-</label>
-
-<select id="voiceRate">
-
-<option value="0.75">
-0.75 — Yavaş
-</option>
-
-<option value="0.85">
-0.85
-</option>
-
-<option value="0.90" selected>
-0.90 — Sinematik
-</option>
-
-<option value="1.00">
-1.00 — Normal
-</option>
-
-<option value="1.10">
-1.10
-</option>
-
-</select>
-
-</div>
-
-<div
-id="voiceStatus"
-class="voice-status">
-Ses sistemi hazır.
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     AI
-===================================================== -->
 
 <div class="panel">
-
-<h2>🤖 AI Görsel Ayarları</h2>
-
-<div class="grid">
-
-<div>
-
-<label>AI Model</label>
-
-<select id="aiModel">
-
-<option value="flux">
-FLUX
-</option>
-
-<option value="zimage">
-ZImage
-</option>
-
-<option value="klein">
-Klein
-</option>
-
-</select>
-
+    <h2>🎬 Sahneler</h2>
+    <div id="scenes" class="grid"></div>
 </div>
 
-<div>
-
-<label>Görsel boyutu</label>
-
-<select id="imageSize">
-
-<option value="1280x720">
-1280 × 720
-</option>
-
-<option value="1024x576">
-1024 × 576
-</option>
-
-<option value="960x540">
-960 × 540
-</option>
-
-<option value="768x432">
-768 × 432
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-<br>
-
-<label>Görsel stili</label>
-
-<select id="style">
-
-<option value="cinematic dark mystery film">
-Cinematic Dark Mystery Film
-</option>
-
-<option value="realistic cinematic">
-Realistic Cinematic
-</option>
-
-<option value="dark horror thriller">
-Dark Horror Thriller
-</option>
-
-<option value="photorealistic night scene">
-Photorealistic Night Scene
-</option>
-
-</select>
-
-</div>
-
-
-<!-- =====================================================
-     SAHNELER
-===================================================== -->
 
 <div class="panel">
+    <h2>▶️ Film Önizleme</h2>
 
-<h2>🎬 Sahne Listesi</h2>
+    <div class="viewer">
 
-<div
-id="scenes"
-class="scenes">
+        <img id="viewerImage">
+
+        <div id="sceneNumber" class="sceneNumber">
+            Hazır
+        </div>
+
+        <div id="subtitle" class="subtitle"></div>
+
+    </div>
+
+    <div class="viewerControls">
+        <button class="green" onclick="startFilm()">▶ FİLMİ BAŞLAT</button>
+        <button class="gray" onclick="pauseFilm()">⏸ DURAKLAT</button>
+        <button class="red" onclick="stopFilm()">⏹ DURDUR</button>
+        <button onclick="previousScene()">⏮ ÖNCEKİ</button>
+        <button onclick="nextSceneManual()">⏭ SONRAKİ</button>
+    </div>
+
+    <div class="progress">
+        <div id="progressBar" class="progressBar"></div>
+    </div>
+
+    <div id="playStatus" class="status">
+        Film hazır.
+    </div>
 </div>
 
-</div>
-
-
-<!-- =====================================================
-     VIEWER
-===================================================== -->
 
 <div class="panel">
+    <h2>💾 Proje</h2>
 
-<h2>▶️ Film Önizleme</h2>
+    <button class="green" onclick="saveProject()">💾 PROJEYİ KAYDET</button>
+    <button onclick="loadProject()">📂 PROJEYİ YÜKLE</button>
+    <button class="red" onclick="resetProject()">🗑 SIFIRLA</button>
 
-<div class="viewer">
-
-<img
-id="viewerImage"
-src=""
-alt=""
->
-
-<div
-id="viewerSubtitle"
-class="viewer-subtitle">
-Altyazı
-</div>
-
-</div>
-
-<div
-id="viewerInfo"
-class="viewer-info">
-Sahne 1 / 6
-</div>
-
-
-<div
-class="toolbar"
-style="justify-content:center">
-
-<button
-class="secondary"
-onclick="previousScene()">
-◀ Önceki
-</button>
-
-<button
-onclick="playCurrentScene()">
-▶ Sahneyi Oynat
-</button>
-
-<button
-class="green"
-onclick="playFilm()">
-🎬 Filmi Oynat
-</button>
-
-<button
-class="orange"
-onclick="stopFilm()">
-⏹ Durdur
-</button>
-
-<button
-class="secondary"
-onclick="nextScene()">
-Sonraki ▶
-</button>
-
-</div>
-
-
-<div
-class="toolbar"
-style="justify-content:center">
-
-<button
-onclick="speakCurrentScene()">
-🔊 Seslendir
-</button>
-
-<button
-class="red"
-onclick="stopSpeech()">
-🔇 Sesi Durdur
-</button>
-
-</div>
-
+    <div id="projectStatus" class="status">
+        Proje hazır.
+    </div>
 </div>
 
 </div>
@@ -660,1836 +367,1288 @@ onclick="stopSpeech()">
 <script>
 
 /* =========================================================
-   MINA VIDEO AI V6.2
-   KALICI SESLENDİRME SENKRONU
-========================================================= */
+   MINA VIDEO AI V6.3
+   ========================================================= */
 
+const AI_BASE = "https://gen.pollinations.ai/image/";
 
-const AI_BASE =
-"https://gen.pollinations.ai/image/";
+let scenes = [];
+let currentScene = 0;
+let filmPlaying = false;
+let paused = false;
+let speechUtterance = null;
+let sceneTimer = null;
+let motionFrame = null;
+let sceneStartTime = 0;
 
 
 /* =========================================================
    SABİT SAHNELER
-========================================================= */
+   ========================================================= */
 
 const FIXED_SCENES = [
 
 {
-title:"Die Fahrt",
-
-subtitle:
-"Es war 23 Uhr 47. Anna fuhr allein durch den dunklen Wald. Seit Minuten war kein anderes Auto zu sehen.",
-
-prompt:
-"A young German woman named Anna driving alone through a dark forest at 23:47, mysterious road, night, cinematic thriller atmosphere, realistic, headlights, fog, dark blue tones"
+title:"23:47 Uhr",
+prompt:"Anna fährt nachts mit einem alten Auto durch einen dunklen Wald. Nebel liegt über der Straße. In der Ferne steht ein verlassenes Haus. Cinematic realistic horror film, moonlight, dark atmosphere, dramatic composition.",
+narration:"Es war 23 Uhr 47, als Anna das Haus am Waldrand endlich erreichte."
 },
 
 {
-title:"Das alte Haus",
-
-subtitle:
-"Nach einer Weile entdeckte Anna ein altes verlassenes Haus am Waldrand. Es wirkte, als wäre dort seit Jahren niemand gewesen.",
-
-prompt:
-"Anna standing in front of an abandoned old house at the edge of a dark forest, broken windows, mysterious atmosphere, fog, cinematic German mystery thriller, realistic night photography"
-},
-
-{
-title:"Das Fenster",
-
-subtitle:
-"Plötzlich ging im oberen Fenster ein Licht an. Anna blieb stehen. Sie wusste genau, dass das Haus keinen Strom haben sollte.",
-
-prompt:
-"An old abandoned house in a dark forest, one single upper window suddenly glowing with warm light, Anna watching from outside, mysterious fog, cinematic thriller, realistic"
+title:"Das Licht",
+prompt:"Anna steht vor einem verlassenen alten Haus am Waldrand. Ein einziges Fenster im oberen Stockwerk leuchtet plötzlich. Anna schaut erschrocken nach oben. Cinematic realistic thriller, night, fog, dramatic lighting.",
+narration:"Das Haus sollte seit Jahren leer stehen. Doch plötzlich ging oben ein Licht an."
 },
 
 {
 title:"Die Schritte",
-
-subtitle:
-"Anna öffnete vorsichtig die Tür. Im Haus war es vollkommen still. Dann hörte sie plötzlich langsame Schritte über ihrem Kopf.",
-
-prompt:
-"Anna cautiously entering an abandoned dark house, old wooden interior, staircase, darkness, mysterious shadows, cinematic horror thriller, realistic film still"
+prompt:"Anna steht vor dem alten Haus. Hinter ihr liegt ein dunkler Wald. Sie hört Schritte und dreht sich langsam um. Niemand ist zu sehen. Cinematic suspense horror, realistic woman, deep shadows, fog.",
+narration:"Dann hörte sie Schritte hinter sich. Langsam. Schwer. Immer näher."
 },
 
 {
 title:"Die Tür",
-
-subtitle:
-"Anna ging langsam den dunklen Flur entlang. Am Ende begann eine alte Tür ganz von allein, sich langsam zu öffnen.",
-
-prompt:
-"Anna walking slowly through a dark abandoned hallway, an old wooden door opening by itself at the end of the corridor, terrifying mysterious atmosphere, cinematic realistic thriller"
+prompt:"Die alte Haustür öffnet sich von selbst. Anna steht einige Meter entfernt und blickt voller Angst hinein. Dunkler Flur, schwaches Licht, Nebel, cinematic realistic horror movie.",
+narration:"Bevor Anna reagieren konnte, öffnete sich die alte Haustür ganz von allein."
 },
 
 {
-title:"Die Gestalt",
+title:"Der Schatten",
+prompt:"A dark human silhouette appears at the end of a long abandoned hallway. Anna stands near the entrance, terrified. Strong cinematic shadows, realistic horror thriller, dark blue night lighting.",
+narration:"Am Ende des Flurs erschien plötzlich ein Schatten. Er bewegte sich nicht."
+},
 
-subtitle:
-"Am Ende des Flurs erschien eine dunkle Gestalt. Anna konnte kein Gesicht erkennen. Dann flüsterte eine Stimme leise ihren Namen.",
-
-prompt:
-"A mysterious dark human silhouette standing at the end of an abandoned hallway, face completely hidden in darkness, Anna frightened in foreground, cinematic supernatural mystery thriller, realistic"
+{
+title:"Die Wahrheit",
+prompt:"Anna runs away from the abandoned house through the dark forest at night. Behind her, the upper window is still glowing. Cinematic realistic mystery thriller, fog, moonlight, dramatic final shot.",
+narration:"Anna rannte zurück zum Auto. Als sie sich noch einmal umdrehte, war das Licht verschwunden."
 }
 
 ];
 
 
 /* =========================================================
-   DEĞİŞKENLER
-========================================================= */
-
-let scenes = [];
-
-let currentScene = 0;
-
-let filmPlaying = false;
-
-let filmTimer = null;
-
-let speechUtterance = null;
-
-let speechStartedAt = 0;
-
-
-/* =========================================================
-   DURUM
-========================================================= */
-
-function status(text){
-
-const el =
-document.getElementById("status");
-
-if(el){
-
-el.textContent = text;
-
-}
-
-}
-
-
-function voiceStatus(text){
-
-const el =
-document.getElementById("voiceStatus");
-
-if(el){
-
-el.textContent = text;
-
-}
-
-}
-
-
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
-
-function escapeHTML(text){
-
-return String(text || "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================================================
    SAHNELERİ OLUŞTUR
-========================================================= */
+   ========================================================= */
 
-function createStoryScenes(){
+function createScenes(){
 
-stopFilm();
+    scenes = FIXED_SCENES.map((s,i)=>({
 
-stopSpeech();
+        id:i+1,
 
-scenes = [];
+        title:s.title,
 
-for(let i=0;i<FIXED_SCENES.length;i++){
+        prompt:s.prompt,
 
-const base =
-FIXED_SCENES[i];
+        narration:s.narration,
 
-scenes.push({
+        image:"",
 
-id:i+1,
+        audio:"",
 
-title:base.title,
+        motion:["zoomIn","panLeft","zoomOut","panRight","float","zoomIn"][i],
 
-narration:base.subtitle,
+        duration:6
 
-prompt:base.prompt,
+    }));
 
-image:"",
-
-imageName:"",
-
-audio:"",
-
-audioName:"",
-
-motion:"zoom-in",
-
-duration:6
-
-});
-
-}
-
-currentScene = 0;
-
-renderScenes();
-
-updateViewer();
-
-status(
-"✅ 6 sahne hazırlandı. Her sahnenin altyazısı ayrı."
-);
-
-voiceStatus(
-"🎙️ Ses senkron sistemi aktif."
-);
-
+    renderScenes();
 }
 
 
 /* =========================================================
-   SAHNE ÇİZ
-========================================================= */
+   SAHNELERİ EKRANA YAZ
+   ========================================================= */
 
 function renderScenes(){
 
-const container =
-document.getElementById("scenes");
+    const container=document.getElementById("scenes");
 
-container.innerHTML = "";
+    container.innerHTML="";
 
-scenes.forEach(function(scene,index){
+    scenes.forEach((scene,i)=>{
 
-const card =
-document.createElement("div");
+        const div=document.createElement("div");
 
-card.className =
-"scene";
+        div.className="scene";
 
-if(index === currentScene){
+        div.innerHTML=`
 
-card.classList.add("active");
+            <h3>🎬 Sahne ${i+1} — ${escapeHtml(scene.title)}</h3>
+
+            <img
+                id="preview-${i}"
+                class="sceneImage"
+                ${scene.image ? `src="${scene.image}"` : ""}
+            >
+
+            <label>Sahne başlığı</label>
+
+            <input
+                value="${escapeAttr(scene.title)}"
+                onchange="updateScene(${i},'title',this.value)"
+            >
+
+            <label>Almanca seslendirme / altyazı</label>
+
+            <textarea
+                onchange="updateScene(${i},'narration',this.value)"
+            >${escapeHtml(scene.narration)}</textarea>
+
+            <label>AI görsel promptu</label>
+
+            <textarea
+                onchange="updateScene(${i},'prompt',this.value)"
+            >${escapeHtml(scene.prompt)}</textarea>
+
+            <div class="grid">
+
+                <div>
+
+                    <label>Kamera hareketi</label>
+
+                    <select onchange="updateScene(${i},'motion',this.value)">
+
+                        <option value="zoomIn" ${scene.motion==="zoomIn"?"selected":""}>
+                            🔍 Yavaş Zoom In
+                        </option>
+
+                        <option value="zoomOut" ${scene.motion==="zoomOut"?"selected":""}>
+                            🔎 Yavaş Zoom Out
+                        </option>
+
+                        <option value="panLeft" ${scene.motion==="panLeft"?"selected":""}>
+                            ⬅ Kamera Sola
+                        </option>
+
+                        <option value="panRight" ${scene.motion==="panRight"?"selected":""}>
+                            ➡ Kamera Sağa
+                        </option>
+
+                        <option value="float" ${scene.motion==="float"?"selected":""}>
+                            🎥 Hafif Kamera Hareketi
+                        </option>
+
+                        <option value="static" ${scene.motion==="static"?"selected":""}>
+                            ⏸ Sabit
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Minimum süre</label>
+
+                    <select onchange="updateScene(${i},'duration',this.value)">
+
+                        <option value="4" ${scene.duration==4?"selected":""}>4 sn</option>
+                        <option value="6" ${scene.duration==6?"selected":""}>6 sn</option>
+                        <option value="8" ${scene.duration==8?"selected":""}>8 sn</option>
+                        <option value="10" ${scene.duration==10?"selected":""}>10 sn</option>
+                        <option value="15" ${scene.duration==15?"selected":""}>15 sn</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <label>Gerçek ses dosyası (MP3/WAV/OGG)</label>
+
+            <input
+                type="file"
+                accept="audio/*"
+                onchange="loadSceneAudio(${i},this.files[0])"
+            >
+
+            <label>Görseli elle yükle</label>
+
+            <input
+                type="file"
+                accept="image/*"
+                onchange="loadSceneImage(${i},this.files[0])"
+            >
+
+        `;
+
+        container.appendChild(div);
+
+    });
+}
+
+
+/* =========================================================
+   GÜVENLİ HTML
+   ========================================================= */
+
+function escapeHtml(str){
+
+    return String(str || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
-card.innerHTML = `
+function escapeAttr(str){
 
-<h3>
-
-<span class="scene-number">
-SAHNE ${index+1}
-</span>
-
-${escapeHTML(scene.title)}
-
-</h3>
-
-<label>
-🖼️ Sahne görseli
-</label>
-
-<img
-id="sceneImage${index}"
-class="scene-image"
-src="${scene.image || ""}"
-alt=""
->
-
-<input
-type="file"
-accept="image/*"
-onchange="uploadImage(event,${index})"
->
-
-<br>
-
-<button
-onclick="generateImage(${index})">
-🤖 AI Görsel Oluştur
-</button>
-
-
-<div class="subtitle-box">
-
-<strong>
-🔒 BU SAHNENİN ALTYAZISI
-</strong>
-
-<textarea
-id="subtitle${index}"
-onchange="changeSubtitle(${index},this.value)"
->${escapeHTML(scene.narration)}</textarea>
-
-</div>
-
-
-<label>
-🎥 AI Görsel Promptu
-</label>
-
-<textarea
-onchange="changePrompt(${index},this.value)"
->${escapeHTML(scene.prompt)}</textarea>
-
-
-<div class="grid">
-
-<div>
-
-<label>
-Hareket
-</label>
-
-<select
-onchange="changeMotion(${index},this.value)"
->
-
-<option
-value="static"
-${scene.motion==="static"?"selected":""}>
-Sabit
-</option>
-
-<option
-value="zoom-in"
-${scene.motion==="zoom-in"?"selected":""}>
-Yaklaş
-</option>
-
-<option
-value="zoom-out"
-${scene.motion==="zoom-out"?"selected":""}>
-Uzaklaş
-</option>
-
-<option
-value="pan-left"
-${scene.motion==="pan-left"?"selected":""}>
-Sola Kaydır
-</option>
-
-<option
-value="pan-right"
-${scene.motion==="pan-right"?"selected":""}>
-Sağa Kaydır
-</option>
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>
-Minimum süre
-</label>
-
-<select
-onchange="changeDuration(${index},this.value)"
->
-
-<option
-value="4"
-${scene.duration==4?"selected":""}>
-4 sn
-</option>
-
-<option
-value="6"
-${scene.duration==6?"selected":""}>
-6 sn
-</option>
-
-<option
-value="8"
-${scene.duration==8?"selected":""}>
-8 sn
-</option>
-
-<option
-value="10"
-${scene.duration==10?"selected":""}>
-10 sn
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-
-<p class="small">
-
-🎙️ Film oynatılırken gerçek süreyi
-seslendirme belirler.
-
-Ses bitmeden sonraki sahne başlamaz.
-
-</p>
-
-
-<label>
-🔊 İstersen ses dosyası yükle
-</label>
-
-<input
-type="file"
-accept="audio/*"
-onchange="uploadAudio(event,${index})"
->
-
-<p class="small">
-
-${scene.audioName
-?"Ses: "+escapeHTML(scene.audioName)
-:"Ses dosyası seçilmedi."}
-
-</p>
-
-`;
-
-container.appendChild(card);
-
-});
+    return escapeHtml(str);
 
 }
 
 
 /* =========================================================
-   ALTYAZI
-========================================================= */
+   SAHNE GÜNCELLE
+   ========================================================= */
 
-function changeSubtitle(index,value){
+function updateScene(index,key,value){
 
-if(!scenes[index]) return;
+    if(key==="duration"){
+        value=Number(value);
+    }
 
-scenes[index].narration =
-value;
-
-if(currentScene === index){
-
-updateViewer();
-
-}
-
-}
-
-
-/* =========================================================
-   PROMPT
-========================================================= */
-
-function changePrompt(index,value){
-
-if(!scenes[index]) return;
-
-scenes[index].prompt =
-value;
-
-}
-
-
-/* =========================================================
-   HAREKET
-========================================================= */
-
-function changeMotion(index,value){
-
-if(!scenes[index]) return;
-
-scenes[index].motion =
-value;
-
-if(currentScene === index){
-
-applyMotion();
-
-}
-
-}
-
-
-/* =========================================================
-   MİNİMUM SÜRE
-========================================================= */
-
-function changeDuration(index,value){
-
-if(!scenes[index]) return;
-
-scenes[index].duration =
-Number(value);
+    scenes[index][key]=value;
 
 }
 
 
 /* =========================================================
    GÖRSEL YÜKLE
-========================================================= */
+   ========================================================= */
 
-function uploadImage(event,index){
+function loadSceneImage(index,file){
 
-const file =
-event.target.files[0];
+    if(!file)return;
 
-if(!file) return;
+    const reader=new FileReader();
 
-const reader =
-new FileReader();
+    reader.onload=function(e){
 
-reader.onload = function(){
+        scenes[index].image=e.target.result;
 
-scenes[index].image =
-reader.result;
+        const img=document.getElementById("preview-"+index);
 
-scenes[index].imageName =
-file.name;
+        if(img){
+            img.src=e.target.result;
+        }
 
-const img =
-document.getElementById(
-"sceneImage"+index
-);
+        setAIStatus("Sahne "+(index+1)+" görseli yüklendi.");
 
-if(img){
+    };
 
-img.src =
-reader.result;
-
-}
-
-if(currentScene === index){
-
-updateViewer();
-
-}
-
-status(
-"✅ Sahne "+
-(index+1)+
-" görseli yüklendi."
-);
-
-};
-
-reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
 }
 
 
 /* =========================================================
-   SES DOSYASI
-========================================================= */
+   SES YÜKLE
+   ========================================================= */
 
-function uploadAudio(event,index){
+function loadSceneAudio(index,file){
 
-const file =
-event.target.files[0];
+    if(!file)return;
 
-if(!file) return;
+    const reader=new FileReader();
 
-const reader =
-new FileReader();
+    reader.onload=function(e){
 
-reader.onload = function(){
+        scenes[index].audio=e.target.result;
 
-scenes[index].audio =
-reader.result;
+        setAIStatus(
+            "Sahne "+(index+1)+" ses dosyası yüklendi."
+        );
 
-scenes[index].audioName =
-file.name;
+    };
 
-renderScenes();
+    reader.readAsDataURL(file);
 
-status(
-"🔊 Sahne "+
-(index+1)+
-" ses dosyası yüklendi."
-);
+}
 
-};
 
-reader.readAsDataURL(file);
+/* =========================================================
+   PROMPT OLUŞTUR
+   ========================================================= */
+
+function buildPrompt(scene){
+
+    const character=document.getElementById("characterPrompt").value;
+
+    const style=document.getElementById("style").value;
+
+    return [
+
+        character,
+
+        scene.prompt,
+
+        style,
+
+        "16:9 cinematic composition",
+
+        "high detail",
+
+        "realistic lighting",
+
+        "consistent character appearance",
+
+        "movie still",
+
+        "no text",
+
+        "no subtitles"
+
+    ].join(", ");
 
 }
 
 
 /* =========================================================
    AI URL
-========================================================= */
+   ========================================================= */
 
-function makeAIUrl(prompt){
+function buildAIUrl(prompt){
 
-const size =
-document.getElementById(
-"imageSize"
-).value;
+    const model=document.getElementById("model").value;
 
-const parts =
-size.split("x");
+    const size=document.getElementById("size").value;
 
-const width =
-parts[0];
+    const parts=size.split("x");
 
-const height =
-parts[1];
+    const width=parts[0];
 
-const model =
-document.getElementById(
-"aiModel"
-).value;
+    const height=parts[1];
 
-const style =
-document.getElementById(
-"style"
-).value;
+    const seed=Math.floor(Math.random()*999999999);
 
-const finalPrompt =
-prompt+
-", "+
-style+
-", high quality cinematic film still, 16:9";
-
-
-return AI_BASE+
-encodeURIComponent(finalPrompt)+
-"?model="+
-encodeURIComponent(model)+
-"&width="+
-width+
-"&height="+
-height+
-"&nologo=true"+
-"&enhance=true"+
-"&safe=true"+
-"&seed="+
-Math.floor(Math.random()*999999);
+    return AI_BASE
+        + encodeURIComponent(prompt)
+        + "?model="+encodeURIComponent(model)
+        + "&width="+width
+        + "&height="+height
+        + "&nologo=true"
+        + "&enhance=true"
+        + "&safe=true"
+        + "&seed="+seed;
 
 }
 
 
 /* =========================================================
-   TEK AI GÖRSEL
-========================================================= */
+   AI GÖRSEL ÜRET
+   ========================================================= */
 
 async function generateImage(index){
 
-if(!scenes[index]) return;
+    const scene=scenes[index];
 
-status(
-"⏳ Sahne "+
-(index+1)+
-" AI görseli oluşturuluyor..."
-);
+    setAIStatus(
+        "⏳ Sahne "+(index+1)+" AI tarafından oluşturuluyor..."
+    );
 
-try{
+    try{
 
-const url =
-makeAIUrl(
-scenes[index].prompt
-);
+        const prompt=buildPrompt(scene);
 
-const response =
-await fetch(url);
+        const url=buildAIUrl(prompt);
 
-if(!response.ok){
+        const response=await fetch(url);
 
-throw new Error(
-"HTTP "+
-response.status
-);
+        if(!response.ok){
 
-}
+            throw new Error(
+                "AI servis HTTP "+response.status
+            );
 
-const blob =
-await response.blob();
+        }
 
-if(!blob.type.startsWith("image/")){
+        const blob=await response.blob();
 
-throw new Error(
-"Görsel verisi alınamadı."
-);
+        const reader=new FileReader();
 
-}
+        const data=await new Promise((resolve,reject)=>{
 
-const reader =
-new FileReader();
+            reader.onload=()=>resolve(reader.result);
 
-reader.onload =
-function(){
+            reader.onerror=reject;
 
-scenes[index].image =
-reader.result;
+            reader.readAsDataURL(blob);
 
-scenes[index].imageName =
-"AI_Sahne_"+(index+1)+".png";
+        });
 
-const img =
-document.getElementById(
-"sceneImage"+index
-);
+        scene.image=data;
 
-if(img){
+        const img=document.getElementById("preview-"+index);
 
-img.src =
-reader.result;
+        if(img){
+            img.src=data;
+        }
 
-}
+        setAIStatus(
+            "✅ Sahne "+(index+1)+" görseli hazır."
+        );
 
-if(currentScene === index){
+    }catch(error){
 
-updateViewer();
+        console.error(error);
+
+        setAIStatus(
+            "❌ Sahne "+(index+1)+" görsel üretilemedi.\n"+
+            error.message
+        );
+
+    }
 
 }
 
-status(
-"✅ Sahne "+
-(index+1)+
-" AI görseli hazır."
-);
 
-};
+/* =========================================================
+   SEÇİLİ GÖRSEL
+   ========================================================= */
 
-reader.readAsDataURL(blob);
+async function generateCurrentImage(){
 
-}
-catch(error){
-
-console.error(error);
-
-status(
-"❌ Sahne "+
-(index+1)+
-" oluşturulamadı: "+
-error.message
-);
-
-}
+    await generateImage(currentScene);
 
 }
 
 
 /* =========================================================
    TÜM GÖRSELLER
-========================================================= */
+   ========================================================= */
 
 async function generateAllImages(){
 
-if(scenes.length !== 6){
+    for(let i=0;i<scenes.length;i++){
 
-createStoryScenes();
+        await generateImage(i);
 
-}
+    }
 
-const progress =
-document.getElementById(
-"progressBar"
-);
-
-for(let i=0;i<scenes.length;i++){
-
-progress.style.width =
-Math.round(
-(i/scenes.length)*100
-)+"%";
-
-await generateImage(i);
-
-await new Promise(
-resolve =>
-setTimeout(resolve,500)
-);
-
-}
-
-progress.style.width =
-"100%";
-
-status(
-"🎉 6 AI görseli tamamlandı."
-);
+    setAIStatus(
+        "🎉 Tüm sahnelerin AI görselleri tamamlandı."
+    );
 
 }
 
 
 /* =========================================================
-   VIEWER
-========================================================= */
+   STATUS
+   ========================================================= */
 
-function updateViewer(){
+function setAIStatus(text){
 
-if(!scenes.length) return;
-
-const scene =
-scenes[currentScene];
-
-const img =
-document.getElementById(
-"viewerImage"
-);
-
-const subtitle =
-document.getElementById(
-"viewerSubtitle"
-);
-
-const info =
-document.getElementById(
-"viewerInfo"
-);
-
-
-if(scene.image){
-
-img.src =
-scene.image;
-
-}
-else{
-
-img.removeAttribute("src");
-
-}
-
-
-subtitle.textContent =
-scene.narration;
-
-
-info.textContent =
-"Sahne "+
-(currentScene+1)+
-" / "+
-scenes.length+
-" — "+
-scene.title;
-
-
-applyMotion();
-
-updateActiveScene();
+    document.getElementById("aiStatus").textContent=text;
 
 }
 
 
 /* =========================================================
-   AKTİF SAHNE
-========================================================= */
+   SESLENDİRME SESİ BUL
+   ========================================================= */
 
-function updateActiveScene(){
+function getGermanVoice(){
 
-const cards =
-document.querySelectorAll(
-".scene"
-);
+    const voices=speechSynthesis.getVoices();
 
-cards.forEach(function(card,index){
+    let voice=voices.find(v=>
+        v.lang &&
+        v.lang.toLowerCase().startsWith("de")
+    );
 
-if(index === currentScene){
-
-card.classList.add("active");
-
-}
-else{
-
-card.classList.remove("active");
+    return voice || null;
 
 }
 
-});
+speechSynthesis.onvoiceschanged=function(){
+
+    getGermanVoice();
+
+};
+
+
+/* =========================================================
+   HAREKET ANİMASYONU
+   ========================================================= */
+
+function animateSceneMotion(index){
+
+    cancelAnimationFrame(motionFrame);
+
+    const img=document.getElementById("viewerImage");
+
+    const scene=scenes[index];
+
+    if(!img)return;
+
+    const duration=Math.max(
+        4000,
+        Number(scene.duration)*1000
+    );
+
+    sceneStartTime=performance.now();
+
+    function frame(now){
+
+        const elapsed=now-sceneStartTime;
+
+        const t=Math.min(
+            elapsed/duration,
+            1
+        );
+
+        let scale=1;
+
+        let x=0;
+
+        let y=0;
+
+        switch(scene.motion){
+
+            case "zoomIn":
+
+                scale=1+0.10*t;
+
+                x=0;
+
+                y=0;
+
+                break;
+
+            case "zoomOut":
+
+                scale=1.10-0.10*t;
+
+                x=0;
+
+                y=0;
+
+                break;
+
+            case "panLeft":
+
+                scale=1.10;
+
+                x=5-10*t;
+
+                y=0;
+
+                break;
+
+            case "panRight":
+
+                scale=1.10;
+
+                x=-5+10*t;
+
+                y=0;
+
+                break;
+
+            case "float":
+
+                scale=1.06;
+
+                x=Math.sin(t*Math.PI*2)*1.5;
+
+                y=Math.sin(t*Math.PI)*1.2;
+
+                break;
+
+            case "static":
+
+                scale=1;
+
+                x=0;
+
+                y=0;
+
+                break;
+
+        }
+
+        img.style.transform=
+            "translate("+x+"%,"+y+"%) scale("+scale+")";
+
+        if(filmPlaying && !paused){
+
+            motionFrame=requestAnimationFrame(frame);
+
+        }
+
+    }
+
+    motionFrame=requestAnimationFrame(frame);
 
 }
 
 
 /* =========================================================
-   HAREKET
-========================================================= */
+   SAHNE GÖSTER
+   ========================================================= */
 
-function applyMotion(){
+function showScene(index){
 
-const img =
-document.getElementById(
-"viewerImage"
-);
+    if(index<0)index=0;
 
-if(!img || !scenes[currentScene])
-return;
+    if(index>=scenes.length){
+        index=scenes.length-1;
+    }
 
-const motion =
-scenes[currentScene].motion;
+    currentScene=index;
 
+    const scene=scenes[index];
 
-if(motion === "zoom-in"){
+    const img=document.getElementById("viewerImage");
 
-img.style.transform =
-"scale(1.10) translate(0,0)";
+    const subtitle=document.getElementById("subtitle");
 
-}
+    const number=document.getElementById("sceneNumber");
 
-else if(motion === "zoom-out"){
+    img.style.opacity="0";
 
-img.style.transform =
-"scale(1) translate(0,0)";
+    setTimeout(()=>{
 
-}
+        if(scene.image){
 
-else if(motion === "pan-left"){
+            img.src=scene.image;
 
-img.style.transform =
-"scale(1.07) translate(-3%,0)";
+        }else{
 
-}
+            img.removeAttribute("src");
 
-else if(motion === "pan-right"){
+        }
 
-img.style.transform =
-"scale(1.07) translate(3%,0)";
+        img.style.transform="scale(1)";
 
-}
+        img.style.opacity="1";
 
-else{
+        subtitle.textContent=scene.narration || "";
 
-img.style.transform =
-"scale(1) translate(0,0)";
+        subtitle.style.opacity=
+            scene.narration ? "1" : "0";
 
-}
+        number.textContent=
+            "Sahne "+(index+1)+" / "+scenes.length;
+
+        animateSceneMotion(index);
+
+    },250);
 
 }
 
 
 /* =========================================================
-   SONRAKİ SAHNE
-========================================================= */
+   SESLENDİRMEYİ DURDUR
+   ========================================================= */
 
-function nextScene(){
+function stopSpeech(){
 
-if(!scenes.length)
-return;
+    try{
 
-stopSpeech();
+        speechSynthesis.cancel();
 
-currentScene++;
+    }catch(e){}
 
-if(currentScene >= scenes.length){
-
-currentScene = 0;
+    speechUtterance=null;
 
 }
 
-updateViewer();
+
+/* =========================================================
+   SENKRONLU SAHNE OYNAT
+   ========================================================= */
+
+function playSynchronizedScene(){
+
+    if(!filmPlaying)return;
+
+    if(currentScene>=scenes.length){
+
+        finishFilm();
+
+        return;
+
+    }
+
+    paused=false;
+
+    clearTimeout(sceneTimer);
+
+    stopSpeech();
+
+    const scene=scenes[currentScene];
+
+    showScene(currentScene);
+
+    document.getElementById("playStatus").textContent=
+        "🎬 Sahne "+(currentScene+1)+
+        " oynuyor — seslendirme bekleniyor...";
+
+    const sync=document.getElementById("voiceSync").checked;
+
+    const rate=
+        Number(document.getElementById("voiceRate").value);
+
+    updateProgress();
+
+    if(
+        sync &&
+        "speechSynthesis" in window &&
+        scene.narration
+    ){
+
+        speechUtterance=
+            new SpeechSynthesisUtterance(
+                scene.narration
+            );
+
+        speechUtterance.lang="de-DE";
+
+        speechUtterance.rate=rate;
+
+        speechUtterance.pitch=1;
+
+        const germanVoice=getGermanVoice();
+
+        if(germanVoice){
+
+            speechUtterance.voice=germanVoice;
+
+        }
+
+        speechUtterance.onstart=function(){
+
+            document.getElementById("playStatus").textContent=
+                "🎙️ Sahne "+(currentScene+1)+
+                " seslendiriliyor...";
+
+        };
+
+        speechUtterance.onend=function(){
+
+            if(!filmPlaying)return;
+
+            if(paused)return;
+
+            document.getElementById("playStatus").textContent=
+                "✅ Ses tamamlandı. Sonraki sahne hazırlanıyor...";
+
+            sceneTimer=setTimeout(()=>{
+
+                if(!filmPlaying)return;
+
+                currentScene++;
+
+                if(currentScene<scenes.length){
+
+                    playSynchronizedScene();
+
+                }else{
+
+                    finishFilm();
+
+                }
+
+            },500);
+
+        };
+
+        speechUtterance.onerror=function(){
+
+            if(!filmPlaying)return;
+
+            document.getElementById("playStatus").textContent=
+                "⚠️ Seslendirme kullanılamadı. Süreye göre devam ediliyor.";
+
+            fallbackSceneTimer(scene);
+
+        };
+
+        try{
+
+            speechSynthesis.speak(
+                speechUtterance
+            );
+
+        }catch(e){
+
+            fallbackSceneTimer(scene);
+
+        }
+
+    }else{
+
+        fallbackSceneTimer(scene);
+
+    }
+
+}
+
+
+/* =========================================================
+   SES YOKSA SÜREYE GÖRE DEVAM
+   ========================================================= */
+
+function fallbackSceneTimer(scene){
+
+    if(!filmPlaying)return;
+
+    const duration=
+        Math.max(
+            2,
+            Number(scene.duration) || 6
+        )*1000;
+
+    document.getElementById("playStatus").textContent=
+        "🎬 Sahne "+(currentScene+1)+
+        " oynuyor...";
+
+    sceneTimer=setTimeout(()=>{
+
+        if(!filmPlaying)return;
+
+        currentScene++;
+
+        if(currentScene<scenes.length){
+
+            playSynchronizedScene();
+
+        }else{
+
+            finishFilm();
+
+        }
+
+    },duration);
+
+}
+
+
+/* =========================================================
+   FİLMİ BAŞLAT
+   ========================================================= */
+
+function startFilm(){
+
+    stopSpeech();
+
+    clearTimeout(sceneTimer);
+
+    cancelAnimationFrame(motionFrame);
+
+    filmPlaying=true;
+
+    paused=false;
+
+    currentScene=0;
+
+    document.getElementById("playStatus").textContent=
+        "🎬 Film başlıyor...";
+
+    playSynchronizedScene();
+
+}
+
+
+/* =========================================================
+   DURAKLAT
+   ========================================================= */
+
+function pauseFilm(){
+
+    if(!filmPlaying)return;
+
+    paused=true;
+
+    try{
+
+        speechSynthesis.pause();
+
+    }catch(e){}
+
+    cancelAnimationFrame(motionFrame);
+
+    clearTimeout(sceneTimer);
+
+    document.getElementById("playStatus").textContent=
+        "⏸ Film duraklatıldı.";
+
+}
+
+
+/* =========================================================
+   DEVAM ET
+   ========================================================= */
+
+function resumeFilm(){
+
+    if(!filmPlaying)return;
+
+    paused=false;
+
+    try{
+
+        if(speechSynthesis.paused){
+
+            speechSynthesis.resume();
+
+            animateSceneMotion(currentScene);
+
+            return;
+
+        }
+
+    }catch(e){}
+
+    playSynchronizedScene();
+
+}
+
+
+/* =========================================================
+   DURDUR
+   ========================================================= */
+
+function stopFilm(){
+
+    filmPlaying=false;
+
+    paused=false;
+
+    clearTimeout(sceneTimer);
+
+    cancelAnimationFrame(motionFrame);
+
+    stopSpeech();
+
+    currentScene=0;
+
+    document.getElementById("playStatus").textContent=
+        "⏹ Film durduruldu.";
+
+    document.getElementById("progressBar").style.width="0%";
+
+    const subtitle=
+        document.getElementById("subtitle");
+
+    subtitle.style.opacity="0";
+
+}
+
+
+/* =========================================================
+   SONRAKİ SAHNE MANUEL
+   ========================================================= */
+
+function nextSceneManual(){
+
+    clearTimeout(sceneTimer);
+
+    stopSpeech();
+
+    if(currentScene<scenes.length-1){
+
+        currentScene++;
+
+        if(filmPlaying){
+
+            playSynchronizedScene();
+
+        }else{
+
+            showScene(currentScene);
+
+        }
+
+    }
 
 }
 
 
 /* =========================================================
    ÖNCEKİ SAHNE
-========================================================= */
+   ========================================================= */
 
 function previousScene(){
 
-if(!scenes.length)
-return;
+    clearTimeout(sceneTimer);
 
-stopSpeech();
+    stopSpeech();
 
-currentScene--;
+    if(currentScene>0){
 
-if(currentScene < 0){
+        currentScene--;
 
-currentScene =
-scenes.length-1;
+    }
 
-}
+    if(filmPlaying){
 
-updateViewer();
+        playSynchronizedScene();
 
-}
+    }else{
 
+        showScene(currentScene);
 
-/* =========================================================
-   TEK SAHNE
-========================================================= */
-
-function playCurrentScene(){
-
-if(!scenes.length)
-return;
-
-stopFilm();
-
-stopSpeech();
-
-updateViewer();
-
-speakCurrentScene();
+    }
 
 }
 
 
 /* =========================================================
-   FİLM BAŞLAT
-========================================================= */
+   FİLM BİTTİ
+   ========================================================= */
 
-function playFilm(){
+function finishFilm(){
 
-if(!scenes.length){
+    filmPlaying=false;
 
-status(
-"Önce 6 sahneyi hazırlayın."
-);
+    paused=false;
 
-return;
+    clearTimeout(sceneTimer);
 
-}
+    cancelAnimationFrame(motionFrame);
 
-stopFilm();
+    stopSpeech();
 
-currentScene = 0;
+    document.getElementById("playStatus").textContent=
+        "🎬 Film tamamlandı.";
 
-filmPlaying = true;
-
-status(
-"🎬 Film başladı. Seslendirme bitene kadar sahne değişmeyecek."
-);
-
-playFilmScene();
+    document.getElementById("progressBar").style.width=
+        "100%";
 
 }
 
 
 /* =========================================================
-   FİLM SAHNESİ
-========================================================= */
+   PROGRESS
+   ========================================================= */
 
-function playFilmScene(){
+function updateProgress(){
 
-if(!filmPlaying)
-return;
+    const percent=
+        ((currentScene)/scenes.length)*100;
 
-
-if(currentScene >= scenes.length){
-
-filmPlaying = false;
-
-currentScene = 0;
-
-updateViewer();
-
-status(
-"🎉 Film önizlemesi tamamlandı."
-);
-
-return;
-
-}
-
-
-updateViewer();
-
-status(
-"🎬 Sahne "+
-(currentScene+1)+
-" oynuyor..."
-);
-
-
-/*
-   EN ÖNEMLİ KISIM:
-
-   Seslendirme başladıktan sonra
-   SAHNE SÜRESİ SETTIMEOUT İLE
-   SABİT OLARAK BELİRLENMİYOR.
-
-   onend olayı bekleniyor.
-*/
-
-if(
-document.getElementById("voiceSync").checked
-){
-
-playSynchronizedScene();
-
-}
-else{
-
-playFixedDurationScene();
-
-}
-
-}
-
-
-/* =========================================================
-   SES SENKRONLU SAHNE
-========================================================= */
-
-function playSynchronizedScene(){
-
-stopSpeech();
-
-
-if(!("speechSynthesis" in window)){
-
-voiceStatus(
-"⚠️ Tarayıcı seslendirmeyi desteklemiyor. Minimum süre kullanılıyor."
-);
-
-playFixedDurationScene();
-
-return;
-
-}
-
-
-const text =
-scenes[currentScene].narration;
-
-if(!text){
-
-goToNextFilmScene();
-
-return;
-
-}
-
-
-speechUtterance =
-new SpeechSynthesisUtterance(text);
-
-
-speechUtterance.lang =
-document.getElementById(
-"language"
-).value ||
-"de-DE";
-
-
-speechUtterance.rate =
-Number(
-document.getElementById(
-"voiceRate"
-).value
-) || 0.90;
-
-
-speechUtterance.pitch = 1;
-
-
-const voices =
-window.speechSynthesis.getVoices();
-
-
-let selected = null;
-
-
-/*
-   Önce Almanca ses ara.
-*/
-
-if(
-speechUtterance.lang
-.toLowerCase()
-.indexOf("de") === 0
-){
-
-selected =
-voices.find(function(v){
-
-return v.lang &&
-v.lang.toLowerCase()
-.indexOf("de") === 0;
-
-});
-
-}
-
-
-/*
-   Dil eşleşmesi.
-*/
-
-if(!selected){
-
-selected =
-voices.find(function(v){
-
-return v.lang ===
-speechUtterance.lang;
-
-});
-
-}
-
-
-/*
-   Ses bulunursa kullan.
-*/
-
-if(selected){
-
-speechUtterance.voice =
-selected;
-
-}
-
-
-/*
-   SES BAŞLADI
-*/
-
-speechUtterance.onstart =
-function(){
-
-speechStartedAt =
-Date.now();
-
-voiceStatus(
-"🎙️ Sahne "+
-(currentScene+1)+
-" seslendiriliyor..."
-);
-
-};
-
-
-/*
-   SES BİTTİĞİNDE
-   SONRAKİ SAHNEYE GEÇ.
-*/
-
-speechUtterance.onend =
-function(){
-
-if(!filmPlaying)
-return;
-
-
-const elapsed =
-((Date.now()-
-speechStartedAt)/1000)
-.toFixed(1);
-
-
-voiceStatus(
-"✅ Sahne "+
-(currentScene+1)+
-" seslendirmesi bitti ("+
-elapsed+
-" sn)."
-);
-
-
-/*
-   Çok kısa bir sinematik
-   bekleme.
-*/
-
-filmTimer =
-setTimeout(function(){
-
-goToNextFilmScene();
-
-},500);
-
-};
-
-
-/*
-   HATA DURUMU
-*/
-
-speechUtterance.onerror =
-function(event){
-
-if(!filmPlaying)
-return;
-
-
-console.log(
-"Speech error:",
-event
-);
-
-voiceStatus(
-"⚠️ Seslendirme hatası. Minimum süre kullanılıyor."
-);
-
-
-filmTimer =
-setTimeout(function(){
-
-goToNextFilmScene();
-
-},Number(
-scenes[currentScene].duration
-)*1000);
-
-};
-
-
-window.speechSynthesis.speak(
-speechUtterance
-);
-
-}
-
-
-/* =========================================================
-   SABİT SÜRE MODU
-========================================================= */
-
-function playFixedDurationScene(){
-
-const seconds =
-Number(
-scenes[currentScene].duration
-) || 6;
-
-
-voiceStatus(
-"⏱️ Sabit süre: "+
-seconds+
-" saniye."
-);
-
-
-filmTimer =
-setTimeout(function(){
-
-if(!filmPlaying)
-return;
-
-goToNextFilmScene();
-
-},seconds*1000);
-
-}
-
-
-/* =========================================================
-   SONRAKİ FİLM SAHNESİ
-========================================================= */
-
-function goToNextFilmScene(){
-
-if(!filmPlaying)
-return;
-
-
-if(filmTimer){
-
-clearTimeout(
-filmTimer
-);
-
-filmTimer = null;
-
-}
-
-
-stopSpeech();
-
-
-currentScene++;
-
-
-if(currentScene >= scenes.length){
-
-filmPlaying = false;
-
-currentScene = 0;
-
-updateViewer();
-
-status(
-"🎉 Film tamamlandı."
-);
-
-voiceStatus(
-"🎬 Film bitti."
-);
-
-return;
-
-}
-
-
-playFilmScene();
-
-}
-
-
-/* =========================================================
-   FİLM DURDUR
-========================================================= */
-
-function stopFilm(){
-
-filmPlaying = false;
-
-
-if(filmTimer){
-
-clearTimeout(
-filmTimer
-);
-
-filmTimer = null;
-
-}
-
-
-stopSpeech();
-
-voiceStatus(
-"⏹ Film durduruldu."
-);
-
-}
-
-
-/* =========================================================
-   TEK SESLENDİRME
-========================================================= */
-
-function speakCurrentScene(){
-
-if(!scenes.length)
-return;
-
-
-if(!("speechSynthesis" in window)){
-
-voiceStatus(
-"⚠️ Bu tarayıcı seslendirmeyi desteklemiyor."
-);
-
-return;
-
-}
-
-
-stopSpeech();
-
-
-const text =
-scenes[currentScene].narration;
-
-
-if(!text)
-return;
-
-
-speechUtterance =
-new SpeechSynthesisUtterance(text);
-
-
-speechUtterance.lang =
-document.getElementById(
-"language"
-).value ||
-"de-DE";
-
-
-speechUtterance.rate =
-Number(
-document.getElementById(
-"voiceRate"
-).value
-) || 0.90;
-
-
-speechUtterance.pitch = 1;
-
-
-const voices =
-window.speechSynthesis.getVoices();
-
-
-let selected =
-voices.find(function(v){
-
-return v.lang &&
-v.lang.toLowerCase()
-.indexOf(
-speechUtterance.lang
-.substring(0,2)
-.toLowerCase()
-) === 0;
-
-});
-
-
-if(selected){
-
-speechUtterance.voice =
-selected;
-
-}
-
-
-speechUtterance.onstart =
-function(){
-
-voiceStatus(
-"🎙️ Sahne "+
-(currentScene+1)+
-" seslendiriliyor..."
-);
-
-};
-
-
-speechUtterance.onend =
-function(){
-
-voiceStatus(
-"✅ Seslendirme tamamlandı."
-);
-
-};
-
-
-window.speechSynthesis.speak(
-speechUtterance
-);
-
-}
-
-
-/* =========================================================
-   SES DURDUR
-========================================================= */
-
-function stopSpeech(){
-
-if(
-"speechSynthesis"
-in window
-){
-
-window.speechSynthesis.cancel();
-
-}
-
-speechUtterance = null;
+    document.getElementById("progressBar")
+        .style.width=percent+"%";
 
 }
 
 
 /* =========================================================
    KAYDET
-========================================================= */
+   ========================================================= */
 
 function saveProject(){
 
-try{
+    try{
 
-const project = {
+        const data={
 
-version:"V6.2",
+            filmName:
+                document.getElementById("filmName").value,
 
-filmName:
-document.getElementById(
-"filmName"
-).value,
+            story:
+                document.getElementById("story").value,
 
-language:
-document.getElementById(
-"language"
-).value,
+            characterPrompt:
+                document.getElementById("characterPrompt").value,
 
-story:
-document.getElementById(
-"story"
-).value,
+            model:
+                document.getElementById("model").value,
 
-aiModel:
-document.getElementById(
-"aiModel"
-).value,
+            size:
+                document.getElementById("size").value,
 
-imageSize:
-document.getElementById(
-"imageSize"
-).value,
+            style:
+                document.getElementById("style").value,
 
-style:
-document.getElementById(
-"style"
-).value,
+            voiceSync:
+                document.getElementById("voiceSync").checked,
 
-voiceSync:
-document.getElementById(
-"voiceSync"
-).checked,
+            voiceRate:
+                document.getElementById("voiceRate").value,
 
-voiceRate:
-document.getElementById(
-"voiceRate"
-).value,
+            scenes:scenes
 
-scenes:scenes
+        };
 
-};
+        localStorage.setItem(
+            "minaVideoAIV63",
+            JSON.stringify(data)
+        );
 
+        document.getElementById("projectStatus").textContent=
+            "✅ Proje kaydedildi.";
 
-localStorage.setItem(
-"minaVideoAIV62",
-JSON.stringify(project)
-);
+    }catch(error){
 
+        document.getElementById("projectStatus").textContent=
+            "❌ Kaydetme hatası: "+error.message;
 
-status(
-"💾 V6.2 projesi kaydedildi."
-);
-
-}
-catch(error){
-
-status(
-"❌ Kaydetme hatası: "+
-error.message
-);
-
-}
+    }
 
 }
 
 
 /* =========================================================
    YÜKLE
-========================================================= */
+   ========================================================= */
 
 function loadProject(){
 
-try{
+    try{
 
-const data =
-localStorage.getItem(
-"minaVideoAIV62"
-);
+        const raw=
+            localStorage.getItem("minaVideoAIV63");
 
+        if(!raw){
 
-if(!data){
+            document.getElementById("projectStatus").textContent=
+                "Henüz kayıtlı proje yok.";
 
-status(
-"ℹ️ Kayıtlı V6.2 projesi yok."
-);
+            return;
 
-return;
+        }
 
-}
+        const data=JSON.parse(raw);
 
+        document.getElementById("filmName").value=
+            data.filmName || "";
 
-const project =
-JSON.parse(data);
+        document.getElementById("story").value=
+            data.story || "";
 
+        document.getElementById("characterPrompt").value=
+            data.characterPrompt || "";
 
-document.getElementById(
-"filmName"
-).value =
-project.filmName ||
-"Das Haus am Waldrand";
+        document.getElementById("model").value=
+            data.model || "flux";
 
+        document.getElementById("size").value=
+            data.size || "1280x720";
 
-document.getElementById(
-"language"
-).value =
-project.language ||
-"de-DE";
+        document.getElementById("style").value=
+            data.style || "Cinematic realistic horror film";
 
+        document.getElementById("voiceSync").checked=
+            data.voiceSync !== false;
 
-document.getElementById(
-"story"
-).value =
-project.story ||
-"";
+        document.getElementById("voiceRate").value=
+            data.voiceRate || "0.9";
 
+        scenes=data.scenes || [];
 
-document.getElementById(
-"aiModel"
-).value =
-project.aiModel ||
-"flux";
+        renderScenes();
 
+        document.getElementById("projectStatus").textContent=
+            "✅ Proje yüklendi.";
 
-document.getElementById(
-"imageSize"
-).value =
-project.imageSize ||
-"1280x720";
+    }catch(error){
 
+        document.getElementById("projectStatus").textContent=
+            "❌ Yükleme hatası: "+error.message;
 
-document.getElementById(
-"style"
-).value =
-project.style ||
-"cinematic dark mystery film";
-
-
-document.getElementById(
-"voiceSync"
-).checked =
-project.voiceSync !== false;
-
-
-document.getElementById(
-"voiceRate"
-).value =
-project.voiceRate ||
-"0.90";
-
-
-scenes =
-Array.isArray(project.scenes)
-? project.scenes
-: [];
-
-
-currentScene = 0;
-
-
-renderScenes();
-
-updateViewer();
-
-
-status(
-"📂 V6.2 projesi yüklendi."
-);
-
-}
-catch(error){
-
-status(
-"❌ Yükleme hatası: "+
-error.message
-);
-
-}
+    }
 
 }
 
 
 /* =========================================================
    SIFIRLA
-========================================================= */
+   ========================================================= */
 
 function resetProject(){
 
-const answer =
-confirm(
-"V6.2 projesi sıfırlansın mı?"
-);
+    if(!confirm(
+        "Proje tamamen sıfırlansın mı?"
+    ))return;
 
+    localStorage.removeItem(
+        "minaVideoAIV63"
+    );
 
-if(!answer)
-return;
+    stopFilm();
 
+    document.getElementById("filmName").value=
+        "Das Haus am Waldrand";
 
-stopFilm();
+    document.getElementById("story").value=
+        "Eine junge Frau namens Anna fährt spät in der Nacht zu einem verlassenen Haus am Waldrand. Um 23:47 Uhr sieht sie plötzlich Licht in einem Fenster im oberen Stockwerk. Niemand sollte dort sein. Dann hört sie Schritte hinter sich.";
 
-stopSpeech();
+    document.getElementById("characterPrompt").value=
+        "Anna, eine junge deutsche Frau, 28 Jahre alt, lange dunkelblonde Haare, braune Augen, schwarzer Mantel, realistische filmische Darstellung, gleiche Person in jeder Szene.";
 
+    document.getElementById("voiceSync").checked=true;
 
-localStorage.removeItem(
-"minaVideoAIV62"
-);
+    document.getElementById("voiceRate").value="0.9";
 
+    createScenes();
 
-createStoryScenes();
-
-
-status(
-"♻️ V6.2 sıfırlandı."
-);
+    document.getElementById("projectStatus").textContent=
+        "✅ Proje sıfırlandı.";
 
 }
 
 
 /* =========================================================
    SAYFA AÇILIŞI
-========================================================= */
+   ========================================================= */
 
-window.addEventListener(
-"load",
-function(){
+function init(){
 
-createStoryScenes();
+    createScenes();
 
+    if("speechSynthesis" in window){
 
-/*
-   Chrome ses listesini bazen
-   sayfa açıldıktan sonra getirir.
-*/
+        speechSynthesis.getVoices();
 
-if(
-"speechSynthesis"
-in window
-){
+    }
 
-window.speechSynthesis
-.getVoices();
-
-}
-
-});
-
-
-/* =========================================================
-   SES LİSTESİ DEĞİŞİRSE
-========================================================= */
-
-if(
-"speechSynthesis"
-in window
-){
-
-window.speechSynthesis
-.onvoiceschanged =
-function(){
-
-voiceStatus(
-"🎙️ Sesler hazır. Ses senkronu aktif."
-);
-
-};
+    showScene(0);
 
 }
 
 
 /* =========================================================
-   SAYFADAN ÇIKARKEN
-========================================================= */
+   KLAVYE
+   ========================================================= */
 
-window.addEventListener(
-"beforeunload",
-function(){
+document.addEventListener("keydown",function(e){
 
-stopFilm();
+    if(e.code==="Space"){
 
-stopSpeech();
+        e.preventDefault();
+
+        if(!filmPlaying){
+
+            startFilm();
+
+        }else if(paused){
+
+            resumeFilm();
+
+        }else{
+
+            pauseFilm();
+
+        }
+
+    }
 
 });
 
+
+/* =========================================================
+   BAŞLAT
+   ========================================================= */
+
+window.onload=init;
 
 </script>
 
