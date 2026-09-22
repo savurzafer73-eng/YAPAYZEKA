@@ -3,39 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI — Mystery Nacht</title>
+<title>Mina Video AI V3 — Mystery Nacht</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
-  background:#080b12;
-  color:#eee;
+  background:#070a10;
+  color:#f2f4f8;
   font-family:Arial,Helvetica,sans-serif;
 }
+
 .container{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   padding:20px;
 }
+
 h1{
-  margin:0 0 8px;
+  margin:0 0 6px;
   font-size:30px;
 }
+
 h2{
   margin-top:0;
 }
+
 .sub{
   color:#9da8ba;
   margin-bottom:20px;
 }
+
 .card{
   background:#111722;
-  border:1px solid #283244;
+  border:1px solid #293447;
   border-radius:14px;
   padding:18px;
   margin-bottom:18px;
 }
+
 input,textarea,select{
   width:100%;
   background:#080d15;
@@ -46,10 +53,12 @@ input,textarea,select{
   margin-top:6px;
   margin-bottom:12px;
 }
+
 textarea{
-  min-height:100px;
+  min-height:105px;
   resize:vertical;
 }
+
 button{
   border:0;
   border-radius:9px;
@@ -60,59 +69,99 @@ button{
   background:#263449;
   color:#fff;
 }
+
 button:hover{
-  background:#344763;
+  background:#384b67;
 }
+
 .primary{
   background:#7657ff;
 }
+
 .primary:hover{
   background:#8b70ff;
 }
+
 .green{
   background:#176b48;
 }
+
 .red{
   background:#7b2631;
 }
+
 .orange{
   background:#8a5b19;
 }
+
 .scene{
   border:1px solid #303b4d;
   border-radius:12px;
-  padding:15px;
+  padding:16px;
   margin:15px 0;
   background:#0c121c;
 }
+
 .scene h3{
-  margin-top:0;
+  margin-top:10px;
 }
+
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
+
 @media(max-width:800px){
-  .grid{grid-template-columns:1fr}
+  .grid{
+    grid-template-columns:1fr;
+  }
 }
+
 label{
   color:#aeb9ca;
   font-size:13px;
 }
+
 .status{
   background:#05080d;
   border:1px solid #273143;
   padding:12px;
   border-radius:9px;
-  white-space:pre-wrap;
   min-height:45px;
+  white-space:pre-wrap;
   color:#9fe7b8;
 }
+
+.badge{
+  display:inline-block;
+  background:#202b3c;
+  border-radius:20px;
+  padding:6px 10px;
+  font-size:12px;
+  color:#c2ccda;
+}
+
+.small{
+  font-size:12px;
+  color:#8d99aa;
+  line-height:1.5;
+}
+
+.durationBox{
+  background:#081b14;
+  border:1px solid #1e6547;
+  color:#9ff0c2;
+  padding:9px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
 .previewWrap{
   display:flex;
   justify-content:center;
 }
+
 canvas{
   width:100%;
   max-width:960px;
@@ -121,18 +170,7 @@ canvas{
   border-radius:12px;
   border:1px solid #30394a;
 }
-.badge{
-  display:inline-block;
-  background:#202b3c;
-  border-radius:20px;
-  padding:6px 10px;
-  font-size:12px;
-  color:#b9c5d6;
-}
-.small{
-  font-size:12px;
-  color:#8d99aa;
-}
+
 .progress{
   width:100%;
   height:12px;
@@ -141,17 +179,38 @@ canvas{
   overflow:hidden;
   margin:10px 0;
 }
+
 .progressBar{
   height:100%;
   width:0%;
   background:#7657ff;
 }
+
 audio{
   width:100%;
   margin-top:8px;
 }
-.hidden{
-  display:none;
+
+.totalBox{
+  background:#0b1220;
+  border:1px solid #35445d;
+  border-radius:10px;
+  padding:14px;
+  margin-top:10px;
+}
+
+.totalBig{
+  font-size:24px;
+  font-weight:bold;
+  color:#fff;
+}
+
+.ok{
+  color:#8ff0b2;
+}
+
+.warn{
+  color:#ffd37a;
 }
 </style>
 </head>
@@ -160,112 +219,215 @@ audio{
 
 <div class="container">
 
-<h1>🎬 Mina Video AI</h1>
+<h1>🎬 Mina Video AI V3</h1>
+
 <div class="sub">
-Mystery Nacht — Almanca Gizemli ve Gerçek Olaylar Film Stüdyosu
+Mystery Nacht — 5 Dakikalık Almanca Gizem Filmleri
 </div>
+
+<!-- FİLM AYARLARI -->
 
 <div class="card">
 
 <h2>🎥 Film Ayarları</h2>
 
 <label>Film adı</label>
-<input id="filmName" value="Das Haus am Waldrand">
+
+<input
+id="filmName"
+value="Das Haus am Waldrand"
+>
 
 <label>Dil</label>
+
 <select id="language">
 <option value="de-DE">Deutsch</option>
 </select>
 
 <label>Hikâye</label>
+
 <textarea id="story">Anna kommt um 23:47 Uhr an einem verlassenen Haus am Waldrand an. Im oberen Fenster geht plötzlich Licht an. Hinter einer verschlossenen Tür hört sie Schritte. Die Tür öffnet sich von selbst. Ein Schatten erscheint. Anna erkennt, dass sie nicht allein ist.</textarea>
 
-<button class="primary" onclick="createScenes()">🎬 6 SAHNE OLUŞTUR</button>
+<button class="primary" onclick="createScenes()">
+🎬 30 SAHNE OLUŞTUR
+</button>
 
-<button onclick="saveProject()">💾 PROJEYİ KAYDET</button>
+<button onclick="saveProject()">
+💾 PROJEYİ KAYDET
+</button>
 
-<button onclick="loadProject()">📂 PROJEYİ YÜKLE</button>
+<button onclick="loadProject()">
+📂 PROJEYİ YÜKLE
+</button>
 
-<button class="red" onclick="resetProject()">🗑️ SIFIRLA</button>
+<button class="red" onclick="resetProject()">
+🗑️ SIFIRLA
+</button>
+
+<div class="totalBox">
+
+<div>Toplam film süresi</div>
+
+<div
+id="totalDuration"
+class="totalBig"
+>
+00:00
+</div>
+
+<div
+id="sceneCountInfo"
+class="small"
+>
+0 sahne
+</div>
 
 </div>
+
+</div>
+
+
+<!-- SES -->
 
 <div class="card">
 
 <h2>🎙️ Ses Sistemi</h2>
 
 <p class="small">
-ElevenLabs'tan oluşturduğun Almanca MP3/WAV dosyalarını sahnelere yükle.
-API anahtarını bu HTML dosyasına yazmıyoruz.
+
+Her sahneye ElevenLabs'tan oluşturduğun
+Almanca MP3/WAV dosyasını yükle.
+
+<strong>
+Ses dosyasının gerçek süresi otomatik ölçülür.
+</strong>
+
+Sonrasında:
+
+<br>
+🎙️ Ses süresi = 🎬 Sahne süresi = 📝 Altyazı süresi
+
 </p>
 
-<button class="green" onclick="testBrowserVoice()">
+<button
+class="green"
+onclick="testBrowserVoice()"
+>
 🔊 TARAYICI SESİNİ TEST ET
 </button>
 
-<button onclick="stopBrowserVoice()">
+<button
+onclick="stopBrowserVoice()"
+>
 ⏹️ SESİ DURDUR
 </button>
 
-<div id="voiceStatus" class="status">
+<div
+id="voiceStatus"
+class="status"
+>
 Ses sistemi hazır.
 </div>
 
 </div>
 
+
+<!-- SAHNELER -->
+
 <div class="card">
 
-<h2>🎬 Sahne Listesi</h2>
+<h2>🎬 30 Sahne</h2>
+
+<p class="small">
+Önce sahne görselini yükle. Sonra ElevenLabs sesini yükle.
+Ses yüklendiğinde süre otomatik olarak değişecektir.
+</p>
 
 <div id="scenes"></div>
 
 </div>
+
+
+<!-- ÖNİZLEME -->
 
 <div class="card">
 
 <h2>🎞️ Film Önizleme</h2>
 
 <div class="previewWrap">
-<canvas id="canvas" width="1280" height="720"></canvas>
+
+<canvas
+id="canvas"
+width="1280"
+height="720"
+></canvas>
+
 </div>
 
 <br>
 
-<button class="primary" onclick="playFilm()">
+<button
+class="primary"
+onclick="playFilm()"
+>
 ▶️ FİLMİ ÖNİZLE
 </button>
 
-<button onclick="pauseFilm()">
+<button
+onclick="pauseFilm()"
+>
 ⏸️ DURAKLAT
 </button>
 
-<button onclick="stopFilm()">
+<button
+onclick="stopFilm()"
+>
 ⏹️ DURDUR
 </button>
 
 </div>
 
+
+<!-- WEBM -->
+
 <div class="card">
 
-<h2>🎥 WEBM VIDEO</h2>
+<h2>🎥 WEBM VİDEO</h2>
 
 <p class="small">
-Sahne sesleri yüklenmişse kayıt sırasında Web Audio üzerinden videoya bağlanır.
+
+Video oluşturulurken sahnelerin gerçek ses dosyaları
+Web Audio üzerinden kayda bağlanır.
+
 </p>
 
-<button class="primary" onclick="renderVideo()">
+<button
+class="primary"
+onclick="renderVideo()"
+>
 🎥 WEBM VİDEO OLUŞTUR
 </button>
 
-<button class="red" onclick="cancelRender()">
+<button
+class="red"
+onclick="cancelRender()"
+>
 ❌ RENDER İPTAL
 </button>
 
 <div class="progress">
-<div id="progressBar" class="progressBar"></div>
+
+<div
+id="progressBar"
+class="progressBar"
+></div>
+
 </div>
 
-<div id="renderStatus" class="status">
+<div
+id="renderStatus"
+class="status"
+>
 Video hazır değil.
 </div>
 
@@ -273,83 +435,241 @@ Video hazır değil.
 
 </div>
 
+
+<!-- DURUM -->
+
 <div class="card">
 
 <h2>📋 Durum</h2>
 
-<div id="status" class="status">
-Mina Video AI hazır.
+<div
+id="status"
+class="status"
+>
+Mina Video AI V3 hazır.
 </div>
 
 </div>
 
 </div>
+
 
 <script>
 
-const DEFAULT_SCENES = [
+const DEFAULT_SCENES=[
 
 {
 title:"Die Ankunft",
-duration:7,
-narration:
-"Es war 23:47 Uhr. Anna stand allein vor dem alten Haus am Waldrand. Niemand wusste, dass sie hier war.",
-prompt:
-"cinematic German mystery thriller, abandoned old house at forest edge at night, young woman Anna standing outside, cold moonlight, realistic, dark atmosphere, cinematic lighting, 16:9",
+narration:"Es war 23:47 Uhr. Anna stand allein vor dem alten Haus am Waldrand. Niemand wusste, dass sie hier war.",
+prompt:"cinematic German mystery thriller, abandoned old house at forest edge at night, young woman Anna standing outside, cold moonlight, realistic, cinematic lighting, dark atmosphere, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Der Weg zum Haus",
+narration:"Der schmale Weg führte tief in den Wald. Hinter Anna wurde es immer stiller.",
+prompt:"young woman walking alone through dark German forest at night toward abandoned house, cinematic mystery thriller, realistic moonlight, atmospheric fog, 16:9",
+motion:"pan"
+},
+
+{
+title:"Das alte Haus",
+narration:"Das Haus war größer, als Anna erwartet hatte. Die Fenster waren dunkel und leer.",
+prompt:"large abandoned German mansion at edge of forest at night, broken windows, mysterious atmosphere, realistic cinematic thriller, moonlight, 16:9",
 motion:"zoom"
 },
 
 {
 title:"Das Fenster",
-duration:7,
-narration:
-"Anna sah nach oben. Plötzlich ging im oberen Fenster ein schwaches Licht an. Doch das Haus war seit Jahren verlassen.",
-prompt:
-"cinematic abandoned German house at night, upper floor window suddenly glowing, young woman looking upward, dark forest, realistic thriller atmosphere, cinematic lighting, 16:9",
+narration:"Anna sah nach oben. Plötzlich ging im oberen Fenster ein schwaches Licht an.",
+prompt:"abandoned house at night, upper floor window suddenly glowing, young woman looking upward, dark forest, cinematic realistic thriller, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Niemand sollte hier sein",
+narration:"Anna wusste, dass das Haus seit Jahren leer stand. Trotzdem brannte dort oben ein Licht.",
+prompt:"terrified young woman outside abandoned house, glowing upper window, dark forest, supernatural mystery, cinematic realism, 16:9",
+motion:"pan"
+},
+
+{
+title:"Die Eingangstür",
+narration:"Langsam ging Anna zur Eingangstür. Jeder ihrer Schritte klang im stillen Wald viel zu laut.",
+prompt:"young woman approaching old wooden entrance door of abandoned house at night, cinematic German mystery, realistic, dark forest, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die Türklinke",
+narration:"Ihre Hand zitterte, als sie die alte Türklinke berührte.",
+prompt:"close-up of trembling woman's hand touching old rusty door handle, abandoned house, cinematic thriller, realistic, dark lighting, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die Tür öffnet sich",
+narration:"Bevor Anna die Tür öffnen konnte, bewegte sie sich ganz von allein.",
+prompt:"old wooden door opening by itself inside abandoned house, terrified young woman, supernatural mystery thriller, cinematic realistic lighting, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Der Flur",
+narration:"Hinter der Tür lag ein langer, dunkler Flur. Irgendwo im Haus tropfte Wasser.",
+prompt:"long dark hallway inside abandoned German house, old wooden floor, dripping water, cinematic horror mystery, realistic, 16:9",
+motion:"pan"
+},
+
+{
+title:"Der erste Schritt",
+narration:"Anna machte einen Schritt hinein. Hinter ihr fiel die Tür langsam ins Schloss.",
+prompt:"young woman entering abandoned house, old door closing behind her, dark hallway, cinematic mystery thriller, realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Das Geräusch",
+narration:"Dann hörte sie ein Geräusch aus dem oberen Stockwerk.",
+prompt:"young woman standing in dark abandoned hallway listening to mysterious sound upstairs, cinematic thriller, realistic shadows, 16:9",
 motion:"pan"
 },
 
 {
 title:"Die Schritte",
-duration:7,
-narration:
-"Aus dem Inneren des Hauses hörte Anna plötzlich Schritte. Langsam. Schwer. Jemand kam näher.",
-prompt:
-"dark abandoned house interior, old wooden hallway, mysterious footsteps, terrified young woman Anna near locked door, cinematic horror thriller, realistic, shadows, 16:9",
+narration:"Es waren Schritte. Langsam. Schwer. Und sie kamen näher.",
+prompt:"dark staircase inside abandoned house, mysterious footsteps approaching, frightened young woman, cinematic horror thriller, realistic, 16:9",
 motion:"zoom"
 },
 
 {
-title:"Die Tür",
-duration:7,
-narration:
-"Anna legte ihre Hand auf die Türklinke. Bevor sie die Tür öffnen konnte, bewegte sie sich ganz von allein.",
-prompt:
-"old wooden door opening by itself inside abandoned house, terrified young woman Anna, dark hallway, supernatural mystery, cinematic realistic thriller, dramatic shadows, 16:9",
+title:"Die Treppe",
+narration:"Anna blickte zur Treppe. Niemand war zu sehen.",
+prompt:"old wooden staircase in abandoned mansion, terrified woman looking upward, empty dark hallway, cinematic mystery, realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Das obere Stockwerk",
+narration:"Trotz ihrer Angst ging Anna langsam die Treppe hinauf.",
+prompt:"young woman slowly climbing old wooden staircase in abandoned house, dark mysterious atmosphere, cinematic realistic thriller, 16:9",
 motion:"pan"
 },
 
 {
+title:"Der lange Gang",
+narration:"Oben führte ein langer Gang zu mehreren verschlossenen Türen.",
+prompt:"long corridor upstairs in abandoned German mansion, several old closed doors, dark cinematic mystery, realistic, 16:9",
+motion:"pan"
+},
+
+{
+title:"Die erste Tür",
+narration:"Hinter der ersten Tür war nichts zu hören.",
+prompt:"old closed wooden door inside abandoned mansion, mysterious hallway, cinematic thriller lighting, realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die zweite Tür",
+narration:"Hinter der zweiten Tür hörte Anna plötzlich ein leises Kratzen.",
+prompt:"old wooden door with mysterious scratching sound from behind, frightened woman nearby, cinematic horror mystery, realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Das Kratzen",
+narration:"Das Geräusch wurde lauter. Anna legte ihr Ohr an die Tür.",
+prompt:"young woman listening against old wooden door, mysterious scratching from inside, dark abandoned house, cinematic realistic thriller, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die Stimme",
+narration:"Dann hörte sie eine Stimme. Eine Stimme, die ihren Namen flüsterte.",
+prompt:"terrified young woman hearing mysterious whisper from behind door, dark abandoned mansion, supernatural thriller, cinematic realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Anna",
+narration:"Anna erstarrte. Niemand außer ihr kannte ihren Namen.",
+prompt:"terrified young woman frozen in dark hallway after hearing her name, abandoned house, supernatural mystery, cinematic realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die offene Tür",
+narration:"Plötzlich öffnete sich die Tür einen Spalt.",
+prompt:"old wooden door slowly opening by itself, dark room behind it, terrified young woman, cinematic supernatural thriller, realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Der leere Raum",
+narration:"Der Raum dahinter war leer. Nur ein alter Spiegel stand an der Wand.",
+prompt:"empty abandoned room with antique mirror on wall, young woman standing at doorway, dark supernatural mystery, cinematic realistic, 16:9",
+motion:"pan"
+},
+
+{
+title:"Der Spiegel",
+narration:"Anna ging näher an den Spiegel heran. Ihr eigenes Spiegelbild sah sie an.",
+prompt:"young woman standing before antique mirror in abandoned room, mysterious reflection, cinematic German thriller, realistic dark atmosphere, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die Bewegung",
+narration:"Doch dann bewegte sich etwas hinter ihrer Schulter.",
+prompt:"antique mirror showing mysterious dark movement behind young woman, abandoned house, supernatural thriller, cinematic realistic lighting, 16:9",
+motion:"zoom"
+},
+
+{
 title:"Der Schatten",
-duration:7,
-narration:
-"Hinter der Tür war niemand. Doch an der Wand bewegte sich plötzlich ein langer dunkler Schatten.",
-prompt:
-"long mysterious human-like shadow moving across wall of abandoned house, young woman Anna terrified, supernatural German mystery thriller, cinematic lighting, realistic, 16:9",
+narration:"Anna drehte sich um. Hinter ihr war niemand.",
+prompt:"terrified young woman turning around in empty abandoned room, no one behind her, cinematic mystery thriller, realistic, 16:9",
+motion:"pan"
+},
+
+{
+title:"Noch einmal",
+narration:"Sie sah wieder in den Spiegel. Jetzt stand dort eine dunkle Gestalt direkt hinter ihr.",
+prompt:"antique mirror revealing dark human silhouette directly behind terrified woman, supernatural mystery, cinematic realistic horror, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die Gestalt",
+narration:"Anna konnte sich nicht bewegen. Die Gestalt im Spiegel kam näher.",
+prompt:"dark mysterious human silhouette approaching woman in antique mirror, terrified Anna, supernatural cinematic thriller, realistic, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Das Licht",
+narration:"Plötzlich ging das Licht im ganzen Haus aus.",
+prompt:"abandoned mansion suddenly going completely dark, terrified woman, supernatural mystery thriller, cinematic realistic darkness, 16:9",
+motion:"zoom"
+},
+
+{
+title:"Die Schritte hinter ihr",
+narration:"Im Dunkeln hörte Anna wieder Schritte. Dieses Mal direkt hinter ihr.",
+prompt:"terrified woman standing in complete darkness inside abandoned house, mysterious footsteps directly behind her, cinematic thriller, realistic, 16:9",
 motion:"zoom"
 },
 
 {
 title:"Das Geheimnis",
-duration:8,
-narration:
-"Anna drehte sich langsam um. Hinter ihr stand niemand. Aber im Spiegel sah sie eine Gestalt direkt hinter ihrer Schulter.",
-prompt:
-"terrified young woman Anna inside abandoned house, antique mirror showing mysterious dark figure standing behind her, supernatural mystery thriller, cinematic realistic lighting, extremely atmospheric, 16:9",
+narration:"Anna drehte sich langsam um. Und in diesem Moment verstand sie, warum niemand dieses Haus betreten durfte.",
+prompt:"terrified young woman turning around inside abandoned mansion, mysterious dark figure behind her, supernatural mystery climax, cinematic realistic, 16:9",
 motion:"zoom"
 }
 
 ];
+
 
 let scenes=[];
 let currentScene=0;
@@ -357,1099 +677,1863 @@ let filmPlaying=false;
 let filmTimer=null;
 let renderCancelled=false;
 
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
+
+/* -------------------------
+   YARDIMCI
+------------------------- */
 
 function log(text){
-  document.getElementById("status").textContent=text;
+
+document.getElementById("status").textContent=text;
+
 }
 
 function voiceLog(text){
-  document.getElementById("voiceStatus").textContent=text;
+
+document.getElementById("voiceStatus").textContent=text;
+
 }
 
 function renderLog(text){
-  document.getElementById("renderStatus").textContent=text;
-}
 
-function createScenes(){
-
-  scenes=DEFAULT_SCENES.map((s,i)=>({
-
-    id:i+1,
-    title:s.title,
-    duration:s.duration,
-    narration:s.narration,
-    prompt:s.prompt,
-    motion:s.motion,
-    image:null,
-    imageURL:null,
-    audio:null,
-    audioURL:null
-
-  }));
-
-  renderScenes();
-
-  log("✅ 6 sahne oluşturuldu.\n\nİlk olarak Sahne 1'e görsel ve ElevenLabs MP3/WAV yükleyebilirsin.");
-
-}
-
-function renderScenes(){
-
-  const box=document.getElementById("scenes");
-
-  box.innerHTML="";
-
-  scenes.forEach((scene,index)=>{
-
-    const div=document.createElement("div");
-
-    div.className="scene";
-
-    div.innerHTML=`
-
-      <span class="badge">SAHNE ${index+1}</span>
-
-      <h3>🎬 ${scene.title}</h3>
-
-      <div class="grid">
-
-        <div>
-
-          <label>Sahne başlığı</label>
-
-          <input
-            value="${escapeHTML(scene.title)}"
-            onchange="updateScene(${index},'title',this.value)"
-          >
-
-        </div>
-
-        <div>
-
-          <label>Süre — saniye</label>
-
-          <input
-            type="number"
-            min="2"
-            max="120"
-            value="${scene.duration}"
-            onchange="updateScene(${index},'duration',this.value)"
-          >
-
-        </div>
-
-      </div>
-
-      <label>🎙️ Almanca seslendirme metni</label>
-
-      <textarea
-        onchange="updateScene(${index},'narration',this.value)"
-      >${escapeHTML(scene.narration)}</textarea>
-
-      <label>🖼️ Görsel üretim promptu</label>
-
-      <textarea
-        onchange="updateScene(${index},'prompt',this.value)"
-      >${escapeHTML(scene.prompt)}</textarea>
-
-      <div class="grid">
-
-        <div>
-
-          <label>🎥 Kamera hareketi</label>
-
-          <select onchange="updateScene(${index},'motion',this.value)">
-
-            <option value="static" ${scene.motion==="static"?"selected":""}>
-              Sabit
-            </option>
-
-            <option value="zoom" ${scene.motion==="zoom"?"selected":""}>
-              Yavaş Zoom
-            </option>
-
-            <option value="pan" ${scene.motion==="pan"?"selected":""}>
-              Pan
-            </option>
-
-          </select>
-
-        </div>
-
-        <div>
-
-          <label>🖼️ Sahne görseli</label>
-
-          <input
-            type="file"
-            accept="image/*"
-            onchange="loadImage(${index},this)"
-          >
-
-        </div>
-
-      </div>
-
-      <label>🎙️ ElevenLabs ses dosyası</label>
-
-      <input
-        type="file"
-        accept="audio/mpeg,audio/mp3,audio/wav,audio/ogg"
-        onchange="loadAudio(${index},this)"
-      >
-
-      <div id="sceneInfo${index}" class="small">
-        ${scene.imageURL?"🖼️ Görsel yüklendi.":"🖼️ Görsel yok."}
-        ${scene.audioURL?" | 🔊 Ses yüklendi.":" | 🔇 Ses yok."}
-      </div>
-
-      <div class="grid">
-
-        <button
-          class="green"
-          onclick="playScene(${index})"
-        >
-          ▶️ BU SAHNE
-        </button>
-
-        <button
-          onclick="drawScene(${index},0)"
-        >
-          👁️ GÖRÜNTÜLE
-        </button>
-
-      </div>
-
-      <audio
-        id="audio${index}"
-        controls
-        ${scene.audioURL?"":"style='display:none'"}
-      ></audio>
-
-    `;
-
-    box.appendChild(div);
-
-    if(scene.audioURL){
-
-      const audio=document.getElementById("audio"+index);
-
-      audio.src=scene.audioURL;
-
-    }
-
-  });
+document.getElementById("renderStatus").textContent=text;
 
 }
 
 function escapeHTML(str){
 
-  return String(str)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
+return String(str)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;");
 
 }
+
+
+/* -------------------------
+   SAHNELER
+------------------------- */
+
+function createScenes(){
+
+scenes=DEFAULT_SCENES.map((s,i)=>({
+
+id:i+1,
+title:s.title,
+duration:10,
+audioDuration:0,
+narration:s.narration,
+prompt:s.prompt,
+motion:s.motion,
+image:null,
+imageURL:null,
+audio:null,
+audioURL:null
+
+}));
+
+renderScenes();
+
+updateTotalDuration();
+
+log(
+"✅ 30 sahne oluşturuldu.\n"+
+"🎙️ Her sahnenin gerçek süresini ses dosyası belirleyecek."
+);
+
+}
+
+
+function renderScenes(){
+
+const box=document.getElementById("scenes");
+
+box.innerHTML="";
+
+
+scenes.forEach((scene,index)=>{
+
+const div=document.createElement("div");
+
+div.className="scene";
+
+
+let durationText=
+scene.audioDuration>0
+?
+"🎙️ Ses süresi: "+
+scene.audioDuration.toFixed(2)+
+" saniye — süre sese kilitlendi."
+:
+"⏱️ Ses yüklenmedi — geçici süre: "+
+scene.duration+
+" saniye";
+
+
+div.innerHTML=`
+
+<span class="badge">
+SAHNE ${index+1} / ${scenes.length}
+</span>
+
+<h3>🎬 ${escapeHTML(scene.title)}</h3>
+
+<div class="durationBox">
+${durationText}
+</div>
+
+<div class="grid">
+
+<div>
+
+<label>Sahne başlığı</label>
+
+<input
+value="${escapeHTML(scene.title)}"
+onchange="updateScene(${index},'title',this.value)"
+>
+
+</div>
+
+<div>
+
+<label>Ses yoksa geçici süre</label>
+
+<input
+type="number"
+min="1"
+max="120"
+value="${scene.duration}"
+onchange="updateScene(${index},'duration',this.value)"
+>
+
+</div>
+
+</div>
+
+
+<label>🎙️ Almanca seslendirme metni</label>
+
+<textarea
+onchange="updateScene(${index},'narration',this.value)"
+>${escapeHTML(scene.narration)}</textarea>
+
+
+<label>🖼️ Görsel promptu</label>
+
+<textarea
+onchange="updateScene(${index},'prompt',this.value)"
+>${escapeHTML(scene.prompt)}</textarea>
+
+
+<div class="grid">
+
+<div>
+
+<label>🎥 Kamera hareketi</label>
+
+<select
+onchange="updateScene(${index},'motion',this.value)"
+>
+
+<option value="static"
+${scene.motion==="static"?"selected":""}>
+Sabit
+</option>
+
+<option value="zoom"
+${scene.motion==="zoom"?"selected":""}>
+Yavaş Zoom
+</option>
+
+<option value="pan"
+${scene.motion==="pan"?"selected":""}>
+Pan
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>🖼️ Görsel yükle</label>
+
+<input
+type="file"
+accept="image/*"
+onchange="loadImage(${index},this)"
+>
+
+</div>
+
+</div>
+
+
+<label>🎙️ ElevenLabs MP3 / WAV</label>
+
+<input
+type="file"
+accept="audio/mpeg,audio/mp3,audio/wav,audio/ogg"
+onchange="loadAudio(${index},this)"
+>
+
+
+<div class="small">
+
+${scene.imageURL
+?"🖼️ Görsel hazır."
+:"🖼️ Görsel yok."
+}
+
+&nbsp;&nbsp;
+
+${scene.audioURL
+?"🔊 Ses hazır."
+:"🔇 Ses yok."
+}
+
+</div>
+
+
+<div class="grid">
+
+<button
+class="green"
+onclick="playScene(${index})"
+>
+▶️ BU SAHNE
+</button>
+
+<button
+onclick="drawScene(${index},0)"
+>
+👁️ GÖRÜNTÜLE
+</button>
+
+</div>
+
+
+<audio
+id="audio${index}"
+controls
+${scene.audioURL?"":"style='display:none'"}
+></audio>
+
+`;
+
+box.appendChild(div);
+
+
+if(scene.audioURL){
+
+const audio=
+document.getElementById("audio"+index);
+
+audio.src=scene.audioURL;
+
+}
+
+});
+
+
+updateTotalDuration();
+
+}
+
+
+/* -------------------------
+   SAHNE GÜNCELLE
+------------------------- */
 
 function updateScene(index,key,value){
 
-  if(key==="duration"){
-    value=parseFloat(value)||7;
-  }
+if(key==="duration"){
 
-  scenes[index][key]=value;
+value=parseFloat(value)||10;
 
 }
+
+scenes[index][key]=value;
+
+updateTotalDuration();
+
+}
+
+
+/* -------------------------
+   GÖRSEL
+------------------------- */
 
 function loadImage(index,input){
 
-  const file=input.files[0];
+const file=input.files[0];
 
-  if(!file)return;
+if(!file)return;
 
-  const reader=new FileReader();
 
-  reader.onload=e=>{
+const reader=new FileReader();
 
-    scenes[index].image=e.target.result;
-    scenes[index].imageURL=e.target.result;
+reader.onload=e=>{
 
-    renderScenes();
+scenes[index].image=e.target.result;
 
-    log("🖼️ Sahne "+(index+1)+" görseli yüklendi.");
+scenes[index].imageURL=e.target.result;
 
-  };
+renderScenes();
 
-  reader.readAsDataURL(file);
+log(
+"🖼️ Sahne "+
+(index+1)+
+" görseli yüklendi."
+);
+
+};
+
+reader.readAsDataURL(file);
 
 }
+
+
+/* -------------------------
+   SES
+------------------------- */
 
 function loadAudio(index,input){
 
-  const file=input.files[0];
+const file=input.files[0];
 
-  if(!file)return;
+if(!file)return;
 
-  const reader=new FileReader();
 
-  reader.onload=e=>{
+const reader=new FileReader();
 
-    scenes[index].audio=e.target.result;
-    scenes[index].audioURL=e.target.result;
 
-    const audio=new Audio();
+reader.onload=e=>{
 
-    audio.src=e.target.result;
+const data=e.target.result;
 
-    audio.addEventListener("loadedmetadata",()=>{
+scenes[index].audio=data;
 
-      if(audio.duration && isFinite(audio.duration)){
+scenes[index].audioURL=data;
 
-        scenes[index].duration=Math.max(
-          scenes[index].duration,
-          audio.duration
-        );
 
-      }
+const audio=new Audio();
 
-      renderScenes();
+audio.preload="metadata";
 
-      log(
-        "🔊 Sahne "+(index+1)+
-        " ses dosyası yüklendi.\n"+
-        "Süre: "+audio.duration.toFixed(2)+" saniye"
-      );
+audio.src=data;
 
-    });
 
-    audio.load();
+audio.addEventListener(
+"loadedmetadata",
+()=>{
 
-  };
+if(
+isFinite(audio.duration) &&
+audio.duration>0
+){
 
-  reader.readAsDataURL(file);
+scenes[index].audioDuration=
+audio.duration;
+
+/*
+ANA KURAL:
+
+SES SÜRESİ
+=
+SAHNE SÜRESİ
+*/
+
+scenes[index].duration=
+audio.duration;
 
 }
+
+renderScenes();
+
+updateTotalDuration();
+
+log(
+"🔊 Sahne "+
+(index+1)+
+" sesi hazır.\n"+
+"Ses süresi: "+
+audio.duration.toFixed(2)+
+" saniye\n"+
+"🎬 Sahne süresi otomatik olarak sese kilitlendi.\n"+
+"📝 Altyazı da aynı süre boyunca gösterilecek."
+);
+
+},
+{once:true}
+);
+
+
+audio.addEventListener(
+"error",
+()=>{
+
+log(
+"❌ Ses dosyası okunamadı."
+);
+
+},
+{once:true}
+);
+
+audio.load();
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* -------------------------
+   TOPLAM SÜRE
+------------------------- */
+
+function updateTotalDuration(){
+
+let total=0;
+
+scenes.forEach(scene=>{
+
+total+=
+scene.audioDuration>0
+?
+scene.audioDuration
+:
+parseFloat(scene.duration)||0;
+
+});
+
+
+const minutes=
+Math.floor(total/60);
+
+const seconds=
+Math.floor(total%60);
+
+const mm=
+String(minutes).padStart(2,"0");
+
+const ss=
+String(seconds).padStart(2,"0");
+
+
+document.getElementById(
+"totalDuration"
+).textContent=
+mm+":"+ss;
+
+
+document.getElementById(
+"sceneCountInfo"
+).textContent=
+scenes.length+
+" sahne • "+
+total.toFixed(1)+
+" saniye";
+
+}
+
+
+/* -------------------------
+   CANVAS
+------------------------- */
+
+const canvas=
+document.getElementById("canvas");
+
+const ctx=
+canvas.getContext("2d");
+
 
 function drawScene(index,progress){
 
-  const scene=scenes[index];
+if(!scenes[index])return;
 
-  ctx.fillStyle="#000";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+const scene=scenes[index];
 
-  if(scene.imageURL){
 
-    const img=new Image();
+ctx.fillStyle="#000";
 
-    img.onload=()=>{
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
-      drawImageMotion(img,scene,progress);
 
-      drawSubtitle(scene);
+if(scene.imageURL){
 
-    };
+const img=new Image();
 
-    img.src=scene.imageURL;
+img.onload=()=>{
 
-  }else{
+drawImageMotion(
+img,
+scene,
+progress
+);
 
-    drawPlaceholder(scene);
+drawSubtitle(scene);
 
-    drawSubtitle(scene);
+};
 
-  }
+img.src=scene.imageURL;
+
+}else{
+
+drawPlaceholder(scene);
+
+drawSubtitle(scene);
+
+}
 
 }
 
-function drawImageMotion(img,scene,progress){
 
-  const cw=canvas.width;
-  const ch=canvas.height;
+/* -------------------------
+   GÖRSEL HAREKETİ
+------------------------- */
 
-  const iw=img.width;
-  const ih=img.height;
+function drawImageMotion(
+img,
+scene,
+progress
+){
 
-  const scale=Math.max(cw/iw,ch/ih);
+const cw=canvas.width;
+const ch=canvas.height;
 
-  let zoom=1;
+const iw=img.width;
+const ih=img.height;
 
-  let x=0;
-  let y=0;
+const scale=
+Math.max(
+cw/iw,
+ch/ih
+);
 
-  if(scene.motion==="zoom"){
 
-    zoom=1+progress*0.10;
+let zoom=1;
+let x=0;
+let y=0;
 
-  }
 
-  if(scene.motion==="pan"){
+if(scene.motion==="zoom"){
 
-    zoom=1.08;
-
-    x=-progress*70;
-
-  }
-
-  const w=iw*scale*zoom;
-  const h=ih*scale*zoom;
-
-  x+=(cw-w)/2;
-  y+=(ch-h)/2;
-
-  ctx.save();
-
-  ctx.drawImage(img,x,y,w,h);
-
-  ctx.restore();
-
-  const grad=ctx.createLinearGradient(0,0,0,ch);
-
-  grad.addColorStop(0,"rgba(0,0,0,.15)");
-  grad.addColorStop(.65,"rgba(0,0,0,.05)");
-  grad.addColorStop(1,"rgba(0,0,0,.65)");
-
-  ctx.fillStyle=grad;
-  ctx.fillRect(0,0,cw,ch);
+zoom=
+1+
+(progress*0.10);
 
 }
+
+
+if(scene.motion==="pan"){
+
+zoom=1.08;
+
+x=
+-progress*70;
+
+}
+
+
+const w=
+iw*
+scale*
+zoom;
+
+const h=
+ih*
+scale*
+zoom;
+
+
+x+=(cw-w)/2;
+y+=(ch-h)/2;
+
+
+ctx.save();
+
+ctx.drawImage(
+img,
+x,
+y,
+w,
+h
+);
+
+ctx.restore();
+
+
+const grad=
+ctx.createLinearGradient(
+0,
+0,
+0,
+ch
+);
+
+grad.addColorStop(
+0,
+"rgba(0,0,0,.15)"
+);
+
+grad.addColorStop(
+.65,
+"rgba(0,0,0,.05)"
+);
+
+grad.addColorStop(
+1,
+"rgba(0,0,0,.65)"
+);
+
+ctx.fillStyle=grad;
+
+ctx.fillRect(
+0,
+0,
+cw,
+ch
+);
+
+}
+
+
+/* -------------------------
+   PLACEHOLDER
+------------------------- */
 
 function drawPlaceholder(scene){
 
-  ctx.fillStyle="#111827";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#111827";
 
-  ctx.fillStyle="#8b95a7";
-  ctx.textAlign="center";
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
-  ctx.font="38px Arial";
+ctx.fillStyle="#8b95a7";
 
-  ctx.fillText(
-    "🖼️ Görsel yüklenmedi",
-    canvas.width/2,
-    canvas.height/2-20
-  );
+ctx.textAlign="center";
 
-  ctx.font="24px Arial";
+ctx.font="38px Arial";
 
-  ctx.fillText(
-    scene.title,
-    canvas.width/2,
-    canvas.height/2+30
-  );
+ctx.fillText(
+"🖼️ Görsel yüklenmedi",
+canvas.width/2,
+canvas.height/2-20
+);
+
+ctx.font="24px Arial";
+
+ctx.fillText(
+scene.title,
+canvas.width/2,
+canvas.height/2+30
+);
 
 }
+
+
+/* -------------------------
+   ALTYAZI
+------------------------- */
 
 function drawSubtitle(scene){
 
-  const text=scene.narration || "";
+const text=
+scene.narration || "";
 
-  if(!text)return;
+if(!text)return;
 
-  ctx.save();
 
-  ctx.font="bold 27px Arial";
-  ctx.textAlign="center";
+ctx.save();
 
-  const maxWidth=1050;
+ctx.font=
+"bold 27px Arial";
 
-  const words=text.split(" ");
+ctx.textAlign="center";
 
-  let lines=[];
-  let line="";
 
-  for(const word of words){
+const maxWidth=1050;
 
-    const test=line ? line+" "+word : word;
+const words=
+text.split(" ");
 
-    if(ctx.measureText(test).width>maxWidth){
+let lines=[];
+let line="";
 
-      lines.push(line);
-      line=word;
 
-    }else{
+for(
+const word of words
+){
 
-      line=test;
+const test=
+line
+?
+line+" "+word
+:
+word;
 
-    }
 
-  }
+if(
+ctx.measureText(test).width>
+maxWidth
+){
 
-  if(line)lines.push(line);
+lines.push(line);
 
-  const lineHeight=34;
-  const boxHeight=lines.length*lineHeight+30;
+line=word;
 
-  ctx.fillStyle="rgba(0,0,0,.68)";
+}else{
 
-  ctx.fillRect(
-    80,
-    canvas.height-boxHeight-45,
-    canvas.width-160,
-    boxHeight
-  );
-
-  ctx.fillStyle="#fff";
-
-  lines.forEach((l,i)=>{
-
-    ctx.fillText(
-      l,
-      canvas.width/2,
-      canvas.height-boxHeight+lineHeight*i+5
-    );
-
-  });
-
-  ctx.restore();
+line=test;
 
 }
+
+}
+
+
+if(line){
+
+lines.push(line);
+
+}
+
+
+const lineHeight=34;
+
+const boxHeight=
+lines.length*
+lineHeight+
+30;
+
+
+ctx.fillStyle=
+"rgba(0,0,0,.70)";
+
+
+ctx.fillRect(
+80,
+canvas.height-boxHeight-45,
+canvas.width-160,
+boxHeight
+);
+
+
+ctx.fillStyle="#fff";
+
+
+lines.forEach(
+(l,i)=>{
+
+ctx.fillText(
+l,
+canvas.width/2,
+canvas.height-
+boxHeight+
+lineHeight*i+
+5
+);
+
+}
+);
+
+
+ctx.restore();
+
+}
+
+
+/* -------------------------
+   TEK SAHNE
+------------------------- */
 
 function playScene(index){
 
-  stopFilm();
+stopFilm();
 
-  currentScene=index;
+currentScene=index;
 
-  let scene=scenes[index];
+const scene=scenes[index];
 
-  drawScene(index,0);
+drawScene(
+index,
+0
+);
 
-  if(scene.audioURL){
 
-    const audio=new Audio(scene.audioURL);
+let audio=null;
 
-    audio.volume=1;
 
-    audio.play().catch(()=>{});
+if(scene.audioURL){
 
-    voiceLog(
-      "🔊 Sahne "+(index+1)+
-      " ElevenLabs ses dosyası oynatılıyor."
-    );
+audio=
+new Audio(
+scene.audioURL
+);
 
-  }else{
+audio.volume=1;
 
-    voiceLog(
-      "🔇 Sahne "+(index+1)+
-      " için ses dosyası yüklenmemiş."
-    );
+audio.play().catch(
+()=>{}
+);
 
-  }
+voiceLog(
+"🔊 Sahne "+
+(index+1)+
+" gerçek ses ile oynatılıyor."
+);
 
-  const start=performance.now();
+}else{
 
-  function animate(now){
-
-    const elapsed=(now-start)/1000;
-
-    const progress=Math.min(
-      1,
-      elapsed/scene.duration
-    );
-
-    drawScene(index,progress);
-
-    if(progress<1){
-
-      filmTimer=requestAnimationFrame(animate);
-
-    }
-
-  }
-
-  filmTimer=requestAnimationFrame(animate);
+voiceLog(
+"🔇 Sahne "+
+(index+1)+
+" için ses yok."
+);
 
 }
+
+
+const start=
+performance.now();
+
+
+function animate(now){
+
+const elapsed=
+(now-start)/1000;
+
+
+const duration=
+parseFloat(scene.duration) ||
+10;
+
+
+const progress=
+Math.min(
+1,
+elapsed/duration
+);
+
+
+drawScene(
+index,
+progress
+);
+
+
+if(progress<1){
+
+filmTimer=
+requestAnimationFrame(
+animate
+);
+
+}else{
+
+if(audio){
+
+try{
+audio.pause();
+}catch(e){}
+
+}
+
+}
+
+}
+
+
+filmTimer=
+requestAnimationFrame(
+animate
+);
+
+}
+
+
+/* -------------------------
+   FİLM ÖNİZLEME
+------------------------- */
 
 function playFilm(){
 
-  if(!scenes.length){
+if(!scenes.length){
 
-    createScenes();
-
-  }
-
-  stopFilm();
-
-  filmPlaying=true;
-
-  currentScene=0;
-
-  playFilmScene();
+createScenes();
 
 }
+
+
+stopFilm();
+
+filmPlaying=true;
+
+currentScene=0;
+
+playFilmScene();
+
+}
+
 
 function playFilmScene(){
 
-  if(!filmPlaying)return;
+if(!filmPlaying)return;
 
-  if(currentScene>=scenes.length){
 
-    filmPlaying=false;
+if(
+currentScene>=
+scenes.length
+){
 
-    log("✅ Film önizlemesi tamamlandı.");
+filmPlaying=false;
 
-    return;
+log(
+"✅ Film önizlemesi tamamlandı."
+);
 
-  }
-
-  const index=currentScene;
-  const scene=scenes[index];
-
-  const start=performance.now();
-
-  let audio=null;
-
-  if(scene.audioURL){
-
-    audio=new Audio(scene.audioURL);
-    audio.volume=1;
-
-    audio.play().catch(()=>{});
-
-  }
-
-  voiceLog(
-    "🎙️ Sahne "+(index+1)+
-    " / "+scenes.length
-  );
-
-  function animate(now){
-
-    if(!filmPlaying)return;
-
-    const elapsed=(now-start)/1000;
-
-    const progress=Math.min(
-      1,
-      elapsed/scene.duration
-    );
-
-    drawScene(index,progress);
-
-    if(progress<1){
-
-      filmTimer=requestAnimationFrame(animate);
-
-    }else{
-
-      if(audio){
-
-        try{
-          audio.pause();
-        }catch(e){}
-
-      }
-
-      currentScene++;
-
-      setTimeout(
-        playFilmScene,
-        100
-      );
-
-    }
-
-  }
-
-  filmTimer=requestAnimationFrame(animate);
+return;
 
 }
+
+
+const index=
+currentScene;
+
+const scene=
+scenes[index];
+
+
+const duration=
+parseFloat(scene.duration) ||
+10;
+
+
+const start=
+performance.now();
+
+
+let audio=null;
+
+
+if(scene.audioURL){
+
+audio=
+new Audio(
+scene.audioURL
+);
+
+audio.volume=1;
+
+audio.play().catch(
+()=>{}
+);
+
+}
+
+
+voiceLog(
+"🎙️ Sahne "+
+(index+1)+
+" / "+
+scenes.length+
+" oynatılıyor."
+);
+
+
+function animate(now){
+
+if(!filmPlaying)return;
+
+
+const elapsed=
+(now-start)/1000;
+
+
+const progress=
+Math.min(
+1,
+elapsed/duration
+);
+
+
+drawScene(
+index,
+progress
+);
+
+
+if(progress<1){
+
+filmTimer=
+requestAnimationFrame(
+animate
+);
+
+}else{
+
+if(audio){
+
+try{
+audio.pause();
+}catch(e){}
+
+}
+
+currentScene++;
+
+setTimeout(
+playFilmScene,
+80
+);
+
+}
+
+}
+
+
+filmTimer=
+requestAnimationFrame(
+animate
+);
+
+}
+
+
+/* -------------------------
+   DURDUR
+------------------------- */
 
 function pauseFilm(){
 
-  filmPlaying=false;
+filmPlaying=false;
 
-  if(filmTimer){
+if(filmTimer){
 
-    cancelAnimationFrame(filmTimer);
-
-  }
-
-  log("⏸️ Film duraklatıldı.");
+cancelAnimationFrame(
+filmTimer
+);
 
 }
+
+log(
+"⏸️ Film duraklatıldı."
+);
+
+}
+
 
 function stopFilm(){
 
-  filmPlaying=false;
+filmPlaying=false;
 
-  if(filmTimer){
+if(filmTimer){
 
-    cancelAnimationFrame(filmTimer);
-
-  }
+cancelAnimationFrame(
+filmTimer
+);
 
 }
+
+}
+
+
+/* -------------------------
+   TARAYICI SES
+------------------------- */
 
 function testBrowserVoice(){
 
-  if(!("speechSynthesis" in window)){
+if(
+!("speechSynthesis" in window)
+){
 
-    voiceLog("❌ Tarayıcı ses sistemi desteklenmiyor.");
+voiceLog(
+"❌ Tarayıcı ses sistemi desteklenmiyor."
+);
 
-    return;
-
-  }
-
-  speechSynthesis.cancel();
-
-  const text=
-    "Dies ist ein deutscher Sprachtest für Mystery Nacht.";
-
-  const u=new SpeechSynthesisUtterance(text);
-
-  u.lang="de-DE";
-  u.rate=.9;
-  u.pitch=1;
-
-  u.onstart=()=>{
-    voiceLog("🔊 Tarayıcı Almanca sesi başladı.");
-  };
-
-  u.onend=()=>{
-    voiceLog("✅ Ses testi tamamlandı.");
-  };
-
-  u.onerror=e=>{
-    voiceLog("❌ Ses hatası: "+e.error);
-  };
-
-  speechSynthesis.speak(u);
+return;
 
 }
+
+
+speechSynthesis.cancel();
+
+
+const u=
+new SpeechSynthesisUtterance(
+"Dies ist ein deutscher Sprachtest für Mystery Nacht."
+);
+
+
+u.lang="de-DE";
+u.rate=.9;
+u.pitch=1;
+
+
+u.onstart=()=>{
+
+voiceLog(
+"🔊 Almanca tarayıcı sesi başladı."
+);
+
+};
+
+
+u.onend=()=>{
+
+voiceLog(
+"✅ Ses testi tamamlandı."
+);
+
+};
+
+
+u.onerror=e=>{
+
+voiceLog(
+"❌ Ses hatası: "+
+e.error
+);
+
+};
+
+
+speechSynthesis.speak(u);
+
+}
+
 
 function stopBrowserVoice(){
 
-  speechSynthesis.cancel();
+speechSynthesis.cancel();
 
-  voiceLog("⏹️ Ses durduruldu.");
+voiceLog(
+"⏹️ Ses durduruldu."
+);
 
 }
+
+
+/* -------------------------
+   WEBM RENDER
+------------------------- */
 
 async function renderVideo(){
 
-  if(!scenes.length){
+if(!scenes.length){
 
-    alert("Önce 🎬 6 SAHNE OLUŞTUR butonuna bas.");
+alert(
+"Önce 30 sahne oluştur."
+);
 
-    return;
-
-  }
-
-  renderCancelled=false;
-
-  document.getElementById("downloadArea").innerHTML="";
-
-  renderLog("🎥 Video hazırlanıyor...");
-
-  setProgress(0);
-
-  const stream=canvas.captureStream(30);
-
-  let audioContext=null;
-  let destination=null;
-  let audioSources=[];
-
-  try{
-
-    audioContext=new (
-      window.AudioContext ||
-      window.webkitAudioContext
-    )();
-
-    destination=
-      audioContext.createMediaStreamDestination();
-
-    const combined=new MediaStream();
-
-    stream.getVideoTracks().forEach(track=>{
-      combined.addTrack(track);
-    });
-
-    destination.stream.getAudioTracks().forEach(track=>{
-      combined.addTrack(track);
-    });
-
-    const recorder=new MediaRecorder(
-      combined,
-      {
-        mimeType:"video/webm;codecs=vp8,opus",
-        videoBitsPerSecond:6000000,
-        audioBitsPerSecond:192000
-      }
-    );
-
-    const chunks=[];
-
-    recorder.ondataavailable=e=>{
-
-      if(e.data && e.data.size){
-
-        chunks.push(e.data);
-
-      }
-
-    };
-
-    const stopped=new Promise(resolve=>{
-
-      recorder.onstop=resolve;
-
-    });
-
-    recorder.start(500);
-
-    for(let i=0;i<scenes.length;i++){
-
-      if(renderCancelled)break;
-
-      const scene=scenes[i];
-
-      renderLog(
-        "🎬 Sahne "+(i+1)+
-        "/"+scenes.length+
-        " hazırlanıyor..."
-      );
-
-      let audio=null;
-      let source=null;
-
-      if(scene.audioURL){
-
-        audio=new Audio(scene.audioURL);
-        audio.preload="auto";
-        audio.crossOrigin="anonymous";
-
-        await new Promise(resolve=>{
-
-          audio.addEventListener(
-            "canplaythrough",
-            resolve,
-            {once:true}
-          );
-
-          audio.addEventListener(
-            "error",
-            resolve,
-            {once:true}
-          );
-
-          audio.load();
-
-        });
-
-        try{
-
-          source=
-            audioContext.createMediaElementSource(audio);
-
-          source.connect(destination);
-
-          audioSources.push({
-            audio,
-            source
-          });
-
-        }catch(e){
-
-          console.warn(e);
-
-        }
-
-      }
-
-      if(audioContext.state==="suspended"){
-
-        await audioContext.resume();
-
-      }
-
-      const start=performance.now();
-
-      if(audio){
-
-        try{
-          await audio.play();
-        }catch(e){
-
-          console.warn(e);
-
-        }
-
-      }
-
-      await new Promise(resolve=>{
-
-        function frame(now){
-
-          if(renderCancelled){
-
-            resolve();
-            return;
-
-          }
-
-          const elapsed=(now-start)/1000;
-
-          const progress=Math.min(
-            1,
-            elapsed/scene.duration
-          );
-
-          drawScene(i,progress);
-
-          const totalProgress=
-            (i+progress)/scenes.length;
-
-          setProgress(totalProgress*100);
-
-          if(progress<1){
-
-            requestAnimationFrame(frame);
-
-          }else{
-
-            if(audio){
-
-              try{
-                audio.pause();
-                audio.currentTime=0;
-              }catch(e){}
-
-            }
-
-            resolve();
-
-          }
-
-        }
-
-        requestAnimationFrame(frame);
-
-      });
-
-    }
-
-    if(recorder.state!=="inactive"){
-
-      recorder.stop();
-
-    }
-
-    await stopped;
-
-    if(audioContext){
-
-      try{
-        await audioContext.close();
-      }catch(e){}
-    }
-
-    if(renderCancelled){
-
-      renderLog("❌ Render iptal edildi.");
-
-      setProgress(0);
-
-      return;
-
-    }
-
-    const blob=new Blob(
-      chunks,
-      {type:"video/webm"}
-    );
-
-    const url=URL.createObjectURL(blob);
-
-    const sizeMB=
-      (blob.size/1024/1024).toFixed(2);
-
-    document.getElementById("downloadArea").innerHTML=`
-
-      <div class="card">
-
-        <strong>✅ WEBM hazır!</strong>
-
-        <p class="small">
-          Boyut: ${sizeMB} MB
-        </p>
-
-        <a
-          href="${url}"
-          download="Mystery_Nacht.webm"
-        >
-          <button class="green">
-            ⬇️ WEBM VİDEOYU İNDİR
-          </button>
-        </a>
-
-        <video
-          controls
-          style="width:100%;margin-top:12px;border-radius:10px"
-          src="${url}"
-        ></video>
-
-      </div>
-
-    `;
-
-    renderLog(
-      "✅ WEBM oluşturuldu.\n"+
-      "Ses dosyaları varsa Web Audio üzerinden kayda bağlandı."
-    );
-
-    setProgress(100);
-
-  }catch(error){
-
-    console.error(error);
-
-    renderLog(
-      "❌ RENDER HATASI:\n"+
-      error.message
-    );
-
-  }
+return;
 
 }
+
+
+renderCancelled=false;
+
+document.getElementById(
+"downloadArea"
+).innerHTML="";
+
+
+renderLog(
+"🎥 Video hazırlanıyor..."
+);
+
+
+setProgress(0);
+
+
+const stream=
+canvas.captureStream(30);
+
+
+let audioContext=null;
+let destination=null;
+
+
+try{
+
+audioContext=
+new(
+window.AudioContext ||
+window.webkitAudioContext
+)();
+
+
+destination=
+audioContext
+.createMediaStreamDestination();
+
+
+const combined=
+new MediaStream();
+
+
+stream
+.getVideoTracks()
+.forEach(
+track=>{
+combined.addTrack(track);
+}
+);
+
+
+destination
+.stream
+.getAudioTracks()
+.forEach(
+track=>{
+combined.addTrack(track);
+}
+);
+
+
+const recorder=
+new MediaRecorder(
+combined,
+{
+mimeType:
+"video/webm;codecs=vp8,opus",
+
+videoBitsPerSecond:
+6000000,
+
+audioBitsPerSecond:
+192000
+}
+);
+
+
+const chunks=[];
+
+
+recorder.ondataavailable=
+e=>{
+
+if(
+e.data &&
+e.data.size
+){
+
+chunks.push(e.data);
+
+}
+
+};
+
+
+const stopped=
+new Promise(
+resolve=>{
+
+recorder.onstop=
+resolve;
+
+}
+);
+
+
+recorder.start(500);
+
+
+/* SAHNELER */
+
+for(
+let i=0;
+i<scenes.length;
+i++
+){
+
+if(renderCancelled)
+break;
+
+
+const scene=
+scenes[i];
+
+
+const duration=
+parseFloat(scene.duration) ||
+10;
+
+
+renderLog(
+"🎬 Sahne "+
+(i+1)+
+" / "+
+scenes.length+
+"\n"+
+"⏱️ "+
+duration.toFixed(2)+
+" saniye"
+);
+
+
+let audio=null;
+let source=null;
+
+
+if(scene.audioURL){
+
+audio=
+new Audio(
+scene.audioURL
+);
+
+audio.preload="auto";
+audio.crossOrigin="anonymous";
+
+
+await new Promise(
+resolve=>{
+
+let done=false;
+
+function finish(){
+
+if(done)return;
+
+done=true;
+
+resolve();
+
+}
+
+audio.addEventListener(
+"canplaythrough",
+finish,
+{once:true}
+);
+
+audio.addEventListener(
+"error",
+finish,
+{once:true}
+);
+
+audio.load();
+
+setTimeout(
+finish,
+3000
+);
+
+}
+);
+
+
+try{
+
+source=
+audioContext
+.createMediaElementSource(
+audio
+);
+
+source.connect(
+destination
+);
+
+}catch(e){
+
+console.warn(
+"Audio source:",
+e
+);
+
+}
+
+}
+
+
+if(
+audioContext.state===
+"suspended"
+){
+
+await audioContext.resume();
+
+}
+
+
+if(audio){
+
+try{
+
+await audio.play();
+
+}catch(e){
+
+console.warn(e);
+
+}
+
+}
+
+
+const start=
+performance.now();
+
+
+await new Promise(
+resolve=>{
+
+function frame(now){
+
+if(renderCancelled){
+
+resolve();
+
+return;
+
+}
+
+
+const elapsed=
+(now-start)/1000;
+
+
+const progress=
+Math.min(
+1,
+elapsed/duration
+);
+
+
+drawScene(
+i,
+progress
+);
+
+
+setProgress(
+(
+(i+progress)/
+scenes.length
+)*100
+);
+
+
+if(progress<1){
+
+requestAnimationFrame(
+frame
+);
+
+}else{
+
+if(audio){
+
+try{
+
+audio.pause();
+
+audio.currentTime=0;
+
+}catch(e){}
+
+}
+
+resolve();
+
+}
+
+}
+
+
+requestAnimationFrame(
+frame
+);
+
+}
+);
+
+}
+
+
+if(
+recorder.state!=="inactive"
+){
+
+recorder.stop();
+
+}
+
+
+await stopped;
+
+
+try{
+
+await audioContext.close();
+
+}catch(e){}
+
+
+if(renderCancelled){
+
+renderLog(
+"❌ Render iptal edildi."
+);
+
+setProgress(0);
+
+return;
+
+}
+
+
+const blob=
+new Blob(
+chunks,
+{
+type:"video/webm"
+}
+);
+
+
+const url=
+URL.createObjectURL(
+blob
+);
+
+
+const sizeMB=
+(
+blob.size/
+1024/
+1024
+).toFixed(2);
+
+
+document.getElementById(
+"downloadArea"
+).innerHTML=`
+
+<div class="card">
+
+<strong>
+✅ WEBM HAZIR!
+</strong>
+
+<p class="small">
+Boyut: ${sizeMB} MB
+</p>
+
+<a
+href="${url}"
+download="Mystery_Nacht_5_Dakika.webm"
+>
+
+<button class="green">
+⬇️ WEBM VİDEOYU İNDİR
+</button>
+
+</a>
+
+<video
+controls
+style="
+width:100%;
+margin-top:12px;
+border-radius:10px;
+"
+src="${url}"
+></video>
+
+</div>
+
+`;
+
+
+renderLog(
+"✅ WEBM tamamlandı.\n"+
+"Ses dosyaları kayda bağlandı."
+);
+
+
+setProgress(100);
+
+
+}catch(error){
+
+console.error(error);
+
+renderLog(
+"❌ RENDER HATASI:\n"+
+error.message
+);
+
+}
+
+}
+
+
+/* -------------------------
+   RENDER İPTAL
+------------------------- */
 
 function cancelRender(){
 
-  renderCancelled=true;
+renderCancelled=true;
 
-  renderLog("⏳ Render iptal ediliyor...");
+renderLog(
+"⏳ Render iptal ediliyor..."
+);
 
 }
+
+
+/* -------------------------
+   PROGRESS
+------------------------- */
 
 function setProgress(value){
 
-  document.getElementById("progressBar")
-    .style.width=
-    Math.max(0,Math.min(100,value))+"%";
+document
+.getElementById(
+"progressBar"
+)
+.style.width=
+Math.max(
+0,
+Math.min(
+100,
+value
+)
+)+"%";
 
 }
+
+
+/* -------------------------
+   KAYDET
+------------------------- */
 
 function saveProject(){
 
-  try{
+try{
 
-    const data={
-      filmName:document.getElementById("filmName").value,
-      language:document.getElementById("language").value,
-      story:document.getElementById("story").value,
-      scenes:scenes.map(s=>({
-        id:s.id,
-        title:s.title,
-        duration:s.duration,
-        narration:s.narration,
-        prompt:s.prompt,
-        motion:s.motion,
-        image:s.image,
-        imageURL:s.imageURL,
-        audio:s.audio,
-        audioURL:s.audioURL
-      }))
-    };
+const data={
 
-    localStorage.setItem(
-      "minaVideoAI_MysteryNacht_V2",
-      JSON.stringify(data)
-    );
+filmName:
+document.getElementById(
+"filmName"
+).value,
 
-    log(
-      "💾 Proje kaydedildi.\n"+
-      "Not: Büyük ses/görsel dosyaları tarayıcı depolama sınırına takılabilir."
-    );
+language:
+document.getElementById(
+"language"
+).value,
 
-  }catch(e){
+story:
+document.getElementById(
+"story"
+).value,
 
-    log(
-      "❌ Kaydetme hatası: "+
-      e.message
-    );
+scenes:scenes.map(
+s=>({
 
-  }
+id:s.id,
+title:s.title,
+duration:s.duration,
+audioDuration:s.audioDuration,
+narration:s.narration,
+prompt:s.prompt,
+motion:s.motion,
+image:s.image,
+imageURL:s.imageURL,
+audio:s.audio,
+audioURL:s.audioURL
+
+})
+)
+
+};
+
+
+localStorage.setItem(
+"minaVideoAI_V3",
+JSON.stringify(data)
+);
+
+
+log(
+"💾 Proje kaydedildi."
+);
+
+
+}catch(e){
+
+log(
+"❌ Kaydetme hatası:\n"+
+e.message
+);
 
 }
+
+}
+
+
+/* -------------------------
+   YÜKLE
+------------------------- */
 
 function loadProject(){
 
-  try{
+try{
 
-    const raw=
-      localStorage.getItem(
-        "minaVideoAI_MysteryNacht_V2"
-      );
+const raw=
+localStorage.getItem(
+"minaVideoAI_V3"
+);
 
-    if(!raw){
 
-      log("ℹ️ Kayıtlı proje bulunamadı.");
+if(!raw){
 
-      return;
+log(
+"ℹ️ Kayıtlı proje bulunamadı."
+);
 
-    }
-
-    const data=JSON.parse(raw);
-
-    document.getElementById("filmName").value=
-      data.filmName || "Das Haus am Waldrand";
-
-    document.getElementById("language").value=
-      data.language || "de-DE";
-
-    document.getElementById("story").value=
-      data.story || "";
-
-    scenes=data.scenes || [];
-
-    renderScenes();
-
-    log("✅ Proje yüklendi.");
-
-  }catch(e){
-
-    log(
-      "❌ Proje yükleme hatası: "+
-      e.message
-    );
-
-  }
+return;
 
 }
+
+
+const data=
+JSON.parse(raw);
+
+
+document.getElementById(
+"filmName"
+).value=
+data.filmName ||
+"Das Haus am Waldrand";
+
+
+document.getElementById(
+"language"
+).value=
+data.language ||
+"de-DE";
+
+
+document.getElementById(
+"story"
+).value=
+data.story ||
+"";
+
+
+scenes=
+data.scenes ||
+[];
+
+
+renderScenes();
+
+updateTotalDuration();
+
+
+log(
+"✅ Proje yüklendi."
+);
+
+
+}catch(e){
+
+log(
+"❌ Yükleme hatası:\n"+
+e.message
+);
+
+}
+
+}
+
+
+/* -------------------------
+   SIFIRLA
+------------------------- */
 
 function resetProject(){
 
-  if(!confirm(
-    "Tüm sahne ayarları silinsin mi?"
-  ))return;
+if(
+!confirm(
+"Tüm proje silinsin mi?"
+)
+)return;
 
-  localStorage.removeItem(
-    "minaVideoAI_MysteryNacht_V2"
-  );
 
-  scenes=[];
+localStorage.removeItem(
+"minaVideoAI_V3"
+);
 
-  document.getElementById("scenes").innerHTML="";
 
-  ctx.fillStyle="#000";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+scenes=[];
 
-  log("🗑️ Proje sıfırlandı.");
+
+document.getElementById(
+"scenes"
+).innerHTML="";
+
+
+ctx.fillStyle="#000";
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+updateTotalDuration();
+
+
+log(
+"🗑️ Proje sıfırlandı."
+);
 
 }
 
-window.addEventListener("load",()=>{
 
-  createScenes();
+/* -------------------------
+   BAŞLANGIÇ
+------------------------- */
 
-  drawScene(0,0);
+window.addEventListener(
+"load",
+()=>{
 
-});
+createScenes();
+
+drawScene(
+0,
+0
+);
+
+}
+);
 
 </script>
 
