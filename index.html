@@ -1028,40 +1028,88 @@ function createStoryScenes(){
     const story=$("story").value.trim();
 
     if(!story){
-
         alert("Önce hikâyeyi yaz.");
         return;
     }
 
-    const parts=[
-        "Die Ankunft",
-        "Das geheimnisvolle Haus",
-        "Das seltsame Licht",
-        "Die Schritte",
-        "Die geöffnete Tür",
-        "Der Schatten"
+    const scenesData = [
+
+        {
+            title:"23:47 – Der Wald",
+            narration:
+            "Es war 23 Uhr 47. Anna fuhr allein durch den dunklen Wald. Seit Minuten war kein anderes Auto zu sehen.",
+            prompt:
+            "Anna driving alone through a dark German forest at 23:47 at night, empty wet road, dense trees, fog, mysterious atmosphere."
+        },
+
+        {
+            title:"Das Haus",
+            narration:
+            "Nach einer Weile entdeckte Anna ein altes verlassenes Haus am Waldrand. Es wirkte, als wäre dort seit Jahren niemand gewesen.",
+            prompt:
+            "Anna standing in front of an abandoned old German house at the edge of a forest at night, broken windows, old wooden facade, fog, cinematic mystery."
+        },
+
+        {
+            title:"Das Licht",
+            narration:
+            "Plötzlich ging im oberen Fenster ein Licht an. Anna blieb stehen. Sie wusste genau, dass das Haus keinen Strom haben sollte.",
+            prompt:
+            "One upstairs window of an abandoned German house suddenly glowing with warm light, Anna watching from outside, dark forest, fog, cinematic suspense."
+        },
+
+        {
+            title:"Die Schritte",
+            narration:
+            "Anna öffnete vorsichtig die Tür. Im Haus war es vollkommen still. Dann hörte sie plötzlich langsame Schritte über ihrem Kopf.",
+            prompt:
+            "Anna inside an abandoned German house, dark hallway, wooden floor, flashlight, mysterious footsteps coming from upstairs, cinematic thriller."
+        },
+
+        {
+            title:"Die Tür",
+            narration:
+            "Anna ging langsam den dunklen Flur entlang. Am Ende begann eine alte Tür ganz von allein, sich langsam zu öffnen.",
+            prompt:
+            "Long dark corridor inside an abandoned German house, old wooden door slowly opening by itself, Anna standing frightened in the foreground, dramatic shadows."
+        },
+
+        {
+            title:"Der Schatten",
+            narration:
+            "Am Ende des Flurs erschien eine dunkle Gestalt. Anna konnte kein Gesicht erkennen. Dann hörte sie eine Stimme, die leise ihren Namen flüsterte.",
+            prompt:
+            "Tall mysterious human-like shadow standing at the end of a dark corridor, Anna frozen in fear, subtle moonlight, fog, cinematic German mystery thriller."
+        }
+
     ];
 
     scenes.forEach((s,i)=>{
 
-        s.title=parts[i];
+        s.title=scenesData[i].title;
+
+        s.narration=scenesData[i].narration;
 
         s.prompt=
-            "Scene "+(i+1)+" from the mystery story. "+
+            scenesData[i].prompt+
+            "\n\n"+
             story+
-            ". Cinematic German mystery thriller scene.";
+            "\n\n"+
+            "Cinematic German mystery thriller, photorealistic, "
+            +"same Anna character, consistent face, hairstyle and clothing.";
 
-        s.narration=
-            i===0 ?
-            "Die Geschichte begann in einer dunklen Nacht." :
-            story;
     });
 
     renderScenes();
 
-    logAI("📝 Hikâye 6 sahneye bölündü.");
-}
+    currentScene=0;
 
+    selectScene(0);
+
+    logAI(
+        "✅ Hikâye 6 ayrı sahneye ve 6 ayrı Almanca altyazıya bölündü."
+    );
+}
 
 /* =========================================================
    DEFAULT MYSTERY
