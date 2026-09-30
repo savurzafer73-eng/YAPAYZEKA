@@ -348,6 +348,76 @@ canvas{
 
 .checkRow input{width:auto}
 
+.subtitleToggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:12px;
+  padding:12px 14px;
+  border:1px solid #38455a;
+  border-radius:12px;
+  background:linear-gradient(180deg,#111827,#0b1019);
+  cursor:pointer;
+  user-select:none;
+}
+
+.subtitleToggle .toggleText{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.subtitleToggle .toggleTitle{
+  font-weight:800;
+  color:#fff;
+  font-size:13px;
+}
+
+.subtitleToggle .toggleHint{
+  color:#8f9bad;
+  font-size:11px;
+}
+
+.subtitleToggle button{
+  border:0;
+  border-radius:999px;
+  padding:7px 12px;
+  min-width:96px;
+  font-weight:800;
+  cursor:pointer;
+  background:#263142;
+  color:#dbe5f2;
+}
+
+.subtitleToggle.on{
+  border-color:#5c7c9e;
+}
+
+.subtitleToggle.on button{
+  background:#2d8a5b;
+  color:#fff;
+}
+
+.subtitleToggle input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.scene .previewBox{
+  background:#000;
+  aspect-ratio:16/9;
+  overflow:hidden;
+}
+
+.scene .previewBox img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
 .characterGrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -618,11 +688,14 @@ Karakter otomatik modda.
 
 </div>
 
-<div class="checkRow">
-<input id="subtitles" type="checkbox">
-<label for="subtitles" style="margin:0;">
-Altyazıları videoya ekle
-</label>
+<div class="subtitleToggle" id="subtitleToggle" role="button" tabindex="0"
+     aria-pressed="false" onclick="toggleSubtitles()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSubtitles();}">
+  <div class="toggleText">
+    <div class="toggleTitle">🎬 Altyazı</div>
+    <div class="toggleHint">Videoya Almanca altyazı ekle / çıkar</div>
+  </div>
+  <button type="button" id="subtitleToggleButton" tabindex="-1">KAPALI</button>
+  <input id="subtitles" type="checkbox">
 </div>
 
 <div class="checkRow">
@@ -1245,7 +1318,7 @@ function characterPrompt(){
   }
 
   p.push(
-    "Maintain consistent facial identity, hairstyle, body proportions and clothing across all scenes."
+    "CHARACTER CONSISTENCY IS MANDATORY: preserve the exact same facial identity, age, hairstyle, hair color, eye color, body proportions and recognizable appearance across every scene. Do not redesign, replace or duplicate the main character."
   );
 
   return p.join(" ");
@@ -1551,7 +1624,25 @@ function buildPrompt(text,index){
     "COMPOSITION: "+
     shot.composition+". "+
 
+    "ONE SINGLE LARGE CINEMATIC IMAGE. "+
+
+    "ONE SINGLE CONTINUOUS SCENE. "+
+
+    "ONE PRIMARY VISUAL EVENT. "+
+
+    "ONE MAIN SUBJECT OR ONE CLEAR GROUP OF SUBJECTS. "+
+
+    "NO COLLAGE. NO SPLIT SCREEN. NO MULTI-PANEL. NO GRID. "+
+
+    "NO MONTAGE. NO STORYBOARD. NO CONTACT SHEET. "+
+
+    "NO MULTIPLE SMALL IMAGES. NO DUPLICATE SUBJECTS. "+
+
+    "NO PICTURE-IN-PICTURE. NO COMPOSITE LAYOUT. "+
+
     "16:9 LANDSCAPE FULL-SCREEN COMPOSITION. "+
+
+    "Fill the entire frame with one continuous environment. "+
 
     "Keep the main subject and all important facial features comfortably inside the central safe area. "+
 
@@ -1753,7 +1844,7 @@ function createScenes(){
     status(
       "✅ "+
       scenes.length+
-      " SAHNE OLUŞTURULDU."
+      " SAHNE OLUŞTURULDU. Her sahne tek büyük 16:9 görsel mantığıyla hazır."
     );
 
     log(
@@ -2403,8 +2494,7 @@ async function testPiper(){
               100;
 
             setTTSProgress(percent);
-          }
-        }
+          }       }
       );
 
     var blob=
@@ -3460,6 +3550,42 @@ function roundRect(
    SUBTITLE
    ========================================================= */
 
+function syncSubtitleToggle(){
+
+  var input=$("subtitles");
+  var box=$("subtitleToggle");
+  var button=$("subtitleToggleButton");
+
+  if(!input||!box||!button){
+    return;
+  }
+
+  var on=!!input.checked;
+
+  box.classList.toggle("on",on);
+  box.setAttribute("aria-pressed",String(on));
+  button.textContent=on ? "AÇIK" : "KAPALI";
+}
+
+function toggleSubtitles(){
+
+  var input=$("subtitles");
+
+  if(!input){
+    return;
+  }
+
+  input.checked=!input.checked;
+
+  syncSubtitleToggle();
+
+  status(
+    input.checked
+      ? "🎬 Altyazılar AÇIK."
+      : "🎬 Altyazılar KAPALI."
+  );
+}
+
 function drawSubtitle(
   ctx,
   text,
@@ -3467,7 +3593,7 @@ function drawSubtitle(
   H
 ){
 
-  if(!$("subtitles").checked){
+  if(!$("subtitles")||!$("subtitles").checked){
     return;
   }
 
@@ -3478,58 +3604,36 @@ function drawSubtitle(
   ctx.save();
 
   var maxWidth=W*.82;
-
-  var fontSize=
-    Math.max(
-      18,
-      Math.round(W*.028)
-    );
-
+  var fontSize=Math.max(16,Math.round(W*.028));
+  var minFont=14;
+  var maxLines=4;
   var lines=[];
 
-  /*
-    Font küçülterek maksimum 3 satıra
-    mümkün olduğunca tam metin sığdır.
-  */
-
-  while(fontSize>=18){
+  while(fontSize>=minFont){
 
     ctx.font=
-      "bold "+
+      "700 "+
       fontSize+
-      "px Arial";
+      "px Arial, sans-serif";
 
     lines=[];
 
-    var words=
-      normalize(text)
-      .split(/\s+/);
-
+    var words=normalize(text).split(/\s+/);
     var current="";
 
-    for(
-      var i=0;
-      i<words.length;
-      i++
-    ){
+    for(var i=0;i<words.length;i++){
 
       var test=
         current
-        ?current+" "+words[i]
-        :words[i];
+          ? current+" "+words[i]
+          : words[i];
 
-      if(
-        ctx.measureText(test).width<=maxWidth
-      ){
-
+      if(ctx.measureText(test).width<=maxWidth){
         current=test;
-
       }else{
-
         if(current){
           lines.push(current);
         }
-
         current=words[i];
       }
     }
@@ -3538,52 +3642,71 @@ function drawSubtitle(
       lines.push(current);
     }
 
-    if(lines.length<=3){
+    if(lines.length<=maxLines){
       break;
     }
 
     fontSize-=2;
   }
 
-  if(lines.length>3){
+  /* Çok uzun metinlerde bile yazıyı kaybetmemek için
+     daha küçük puntoyla yeniden sar. */
+  if(lines.length>maxLines){
 
-    /*
-      Son çare:
-      metni 3 satıra sıkıştır.
-    */
+    fontSize=minFont;
+    ctx.font=
+      "700 "+
+      fontSize+
+      "px Arial, sans-serif";
 
-    lines=[
-      lines[0],
-      lines.slice(
-        1,
-        lines.length-1
-      ).join(" "),
-      lines[lines.length-1]
-    ];
+    lines=[];
+    var words2=normalize(text).split(/\s+/);
+    var current2="";
+
+    for(var j=0;j<words2.length;j++){
+
+      var test2=
+        current2
+          ? current2+" "+words2[j]
+          : words2[j];
+
+      if(
+        ctx.measureText(test2).width<=maxWidth
+      ){
+        current2=test2;
+      }else{
+        if(current2){
+          lines.push(current2);
+        }
+        current2=words2[j];
+      }
+    }
+
+    if(current2){
+      lines.push(current2);
+    }
   }
 
-  var lineHeight=
-    fontSize*1.25;
-
+  var lineHeight=fontSize*1.22;
+  var paddingX=22;
+  var paddingY=16;
   var boxHeight=
-    lines.length*
-    lineHeight+
-    30;
+    lines.length*lineHeight+
+    paddingY*2;
 
   var boxWidth=
     Math.min(
-      W*.88,
-      maxWidth+60
+      W*.90,
+      maxWidth+paddingX*2
     );
 
   var boxX=
     (W-boxWidth)/2;
 
   var boxY=
-    H-boxHeight-35;
+    H-boxHeight-30;
 
-  ctx.fillStyle=
-    "rgba(0,0,0,.72)";
+  ctx.fillStyle="rgba(0,0,0,.76)";
 
   roundRect(
     ctx,
@@ -3591,32 +3714,34 @@ function drawSubtitle(
     boxY,
     boxWidth,
     boxHeight,
-    12
+    14
   );
 
   ctx.fill();
 
-  ctx.fillStyle="#fff";
+  ctx.font=
+    "700 "+
+    fontSize+
+    "px Arial, sans-serif";
 
-  for(
-    var j=0;
-    j<lines.length;
-    j++
-  ){
+  ctx.fillStyle="#fff";
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+
+  for(var k=0;k<lines.length;k++){
 
     ctx.fillText(
-      lines[j],
+      lines[k],
       W/2,
       boxY+
-      15+
+      paddingY+
       lineHeight/2+
-      j*lineHeight
+      k*lineHeight
     );
   }
 
   ctx.restore();
 }
-
 
 /* =========================================================
    AUDIO DECODING
@@ -4486,10 +4611,11 @@ $("charClothing").addEventListener(
 );
 
 syncCharacterUI();
+syncSubtitleToggle();
 resizeCanvas();
 
 status(
-  "🟢 Mina Video AI V51.12.3 hazır."
+  "🟢 Mina Video AI V51.12.3 hazır. Altyazı varsayılan olarak KAPALI."
 );
 
 </script>
