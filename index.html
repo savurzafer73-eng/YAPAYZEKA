@@ -120,34 +120,32 @@ button.purple{background:#7c3aed}
 }
 
 /* =========================================================
-   SAHNE PANELİ
-   SAĞ TARAFTA KÜÇÜK VE KAYDIRILABİLİR
+   SAHNELER — YATAY VE KAYDIRILABİLİR
 ========================================================= */
 
 #scenes{
-  width:360px;
-  max-width:360px;
-  margin-left:auto;
-  margin-bottom:18px;
+  width:100%;
+  max-width:100%;
+  margin:0 0 18px;
   padding:10px;
   background:#07101f;
   border:1px solid #334155;
   border-radius:14px;
 
   display:flex;
-  flex-direction:column;
-  gap:10px;
+  flex-direction:row;
+  align-items:flex-start;
+  gap:12px;
 
-  max-height:78vh;
-  overflow-y:auto;
-  overflow-x:hidden;
+  overflow-x:auto;
+  overflow-y:hidden;
 
   scrollbar-width:thin;
   contain:layout paint;
 }
 
 #scenes::-webkit-scrollbar{
-  width:7px;
+  height:7px;
 }
 
 #scenes::-webkit-scrollbar-thumb{
@@ -165,6 +163,8 @@ button.purple{background:#7c3aed}
 
 .scene{
   width:100%;
+  flex:0 0 360px;
+  width:360px;
   border:1px solid #334155;
   background:#0b1220;
   border-radius:12px;
@@ -287,38 +287,6 @@ button.purple{background:#7c3aed}
   font-size:10px;
 }
 
-/* =========================================================
-   GALLERY
-========================================================= */
-
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
-.gallery-item{
-  background:#020617;
-  border:1px solid #334155;
-  border-radius:10px;
-  overflow:hidden;
-  cursor:pointer;
-}
-
-.gallery-item:hover{border-color:#60a5fa}
-
-.gallery-thumb{
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  display:block;
-}
-
-.gallery-caption{
-  padding:7px;
-  font-size:12px;
-}
-
 .identity{
   background:#052e16;
   border:1px solid #166534;
@@ -375,15 +343,18 @@ canvas{display:none}
     grid-template-columns:repeat(2,1fr);
   }
 
-  .gallery{
-    grid-template-columns:repeat(2,1fr);
-  }
-
   #scenes{
     width:100%;
     max-width:100%;
     margin-left:0;
     max-height:none;
+    overflow-x:auto;
+    overflow-y:hidden;
+  }
+
+  #scenes .scene{
+    flex:0 0 320px;
+    width:320px;
   }
 }
 
@@ -396,6 +367,11 @@ canvas{display:none}
 
   #scenes{
     width:100%;
+  }
+
+  #scenes .scene{
+    flex:0 0 300px;
+    width:300px;
   }
 }
 </style>
@@ -595,19 +571,6 @@ Ana karakter henüz analiz edilmedi.
 
 <div class="small">
 Logo görüntünün sağ üst köşesine otomatik yerleştirilir.
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>🖼️ 4. Sahne Galerisi</h2>
-
-<div id="sceneGallery" class="gallery">
-<div class="gallery-item">
-<div class="gallery-caption">Henüz sahne yok.</div>
-</div>
 </div>
 
 </div>
@@ -1511,7 +1474,6 @@ function makeScene(sceneText,index){
 
 /* =========================================================
    CREATE SCENES
-   DONMA YOK — PARÇALI OLUŞTURMA
 ========================================================= */
 
 async function createScenes(){
@@ -1587,8 +1549,6 @@ async function createScenes(){
 
     await renderScenes();
 
-    renderGallery();
-
     status(
       "✅ "+
       scenes.length+
@@ -1617,7 +1577,6 @@ function addScene(){
   );
 
   renderScenes();
-  renderGallery();
 
   status(
     "➕ Yeni sahne eklendi.\n"+
@@ -1741,7 +1700,6 @@ function uploadSceneImage(index,input){
         scene.imageObject=img;
 
         renderScenes();
-        renderGallery();
 
         status("⚠️ 16:9 crop yapılamadı; orijinal görsel kullanılıyor.");
 
@@ -1758,7 +1716,6 @@ function uploadSceneImage(index,input){
         scene.imageObject=croppedImg;
 
         renderScenes();
-        renderGallery();
 
         status(
           "🟢 Sahne "+(index+1)+" hazır.\n"+
@@ -1775,7 +1732,6 @@ function uploadSceneImage(index,input){
         scene.imageObject=img;
 
         renderScenes();
-        renderGallery();
       };
 
       croppedImg.src=croppedURL;
@@ -1790,76 +1746,6 @@ function uploadSceneImage(index,input){
   };
 
   img.src=originalURL;
-}
-
-
-/* =========================================================
-   GALLERY
-========================================================= */
-
-function renderGallery(){
-
-  var gallery=$("sceneGallery");
-
-  if(!scenes.length){
-
-    gallery.innerHTML=
-      '<div class="gallery-item">'+
-      '<div class="gallery-caption">Henüz sahne yok.</div>'+
-      '</div>';
-
-    return;
-  }
-
-  var html="";
-
-  for(var i=0;i<scenes.length;i++){
-
-    var s=scenes[i];
-
-    html+=
-      '<div class="gallery-item" onclick="goToScene('+i+')">';
-
-    if(s.imageURL){
-
-      html+=
-        '<img class="gallery-thumb" src="'+
-        escapeAttr(s.imageURL)+
-        '" alt="Sahne '+(i+1)+'">';
-
-    }
-    else{
-
-      html+=
-        '<div class="gallery-thumb scene-placeholder">🖼️</div>';
-    }
-
-    html+=
-      '<div class="gallery-caption">🎬 Sahne '+(i+1);
-
-    if(s.imageURL)
-      html+='<br><span style="color:#86efac">🟢 16:9 hazır</span>';
-    else
-      html+='<br><span style="color:#64748b">Görsel yok</span>';
-
-    html+='</div></div>';
-  }
-
-  gallery.innerHTML=html;
-}
-
-
-function goToScene(index){
-
-  var el=$("sceneCard"+index);
-
-  if(el){
-
-    el.scrollIntoView({
-      behavior:"smooth",
-      block:"nearest"
-    });
-  }
 }
 
 
@@ -2028,7 +1914,6 @@ function buildSceneHTML(i){
 
 /* =========================================================
    SAHNELERİ PARÇALI RENDER ET
-   Büyük HTML tek seferde DOM'a basılmıyor.
 ========================================================= */
 
 async function renderScenes(){
