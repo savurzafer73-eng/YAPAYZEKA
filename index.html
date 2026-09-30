@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mina Video AI V51.12.3 — GeldStory Studio</title>
+<title>Mina Video AI V51.12.4 — GeldStory Studio</title>
 
 <style>
 *{box-sizing:border-box}
@@ -252,7 +252,7 @@ select:focus{
 .previewBox img{
   width:100%;
   height:100%;
-  object-fit:contain;
+  object-fit:cover;
   display:block;
 }
 
@@ -475,10 +475,10 @@ canvas{
 <div class="app">
 
 <div class="header">
-<h1>🎬 Mina Video AI V51.12.3</h1>
+<h1>🎬 Mina Video AI V51.12.4</h1>
 <p>GeldStory Studio — German Documentary Video Creator</p>
 <div class="badge">
-Piper TTS • WAV • Smart Scenes • Character Director • 16:9 • 21:9 • 2.39:1
+Piper TTS • WAV • Smart Scenes • Character Director • Clean 16:9 Render
 </div>
 </div>
 
@@ -648,11 +648,9 @@ Karakter otomatik modda.
 <div>
 <label>Format</label>
 <select id="format">
-<option value="16:9">16:9 YouTube — 1280×720</option>
-<option value="21:9">21:9 Ultra Wide — 2560×1080</option>
-<option value="2.39:1">2.39:1 CinemaScope — 2560×1071</option>
-<option value="9:16">9:16 Shorts — 720×1280</option>
-<option value="1:1">1:1 Kare — 1080×1080</option>
+<option value="16:9">16:9 YouTube</option>
+<option value="9:16">9:16 Shorts</option>
+<option value="1:1">1:1</option>
 </select>
 </div>
 
@@ -668,7 +666,7 @@ Karakter otomatik modda.
 <div>
 <label>Görsel motoru</label>
 <select id="imageMode">
-<option value="zimage">Z-IMAGE FAST</option>
+<option value="zimage">Z-IMAGE FAST — TEK GÖRSEL</option>
 <option value="realistic">REALISTIC</option>
 <option value="flux">FLUX FAST</option>
 </select>
@@ -1575,107 +1573,87 @@ function getShot(index){
    PROMPT
    ========================================================= */
 
+function zImageSingleFrameBlock(){
+  return "GENERATE EXACTLY ONE LARGE IMAGE. ONE SINGLE CONTINUOUS REAL-WORLD SCENE. ONE CAMERA VIEW. ONE MOMENT IN TIME. ONE PRIMARY VISUAL EVENT. ONE MAIN SUBJECT OR ONE CLEAR GROUP. ONE SINGLE COHERENT PHOTOGRAPHIC COMPOSITION. DO NOT CREATE A COLLAGE. DO NOT CREATE A GRID. DO NOT CREATE A CONTACT SHEET. DO NOT CREATE A STORYBOARD. DO NOT CREATE A MONTAGE. DO NOT CREATE PANELS. DO NOT CREATE A SPLIT SCREEN. DO NOT CREATE MULTIPLE VIEWS. DO NOT CREATE MULTIPLE SCENES. DO NOT CREATE MULTIPLE MOMENTS. DO NOT CREATE MULTIPLE SMALL IMAGES. DO NOT CREATE THUMBNAILS. DO NOT DUPLICATE PEOPLE OR SUBJECTS. DO NOT CREATE PICTURE-IN-PICTURE. DO NOT CREATE A COMPOSITE LAYOUT. FILL THE ENTIRE FRAME WITH ONE CONTINUOUS ENVIRONMENT. 16:9 LANDSCAPE. FULL FRAME. EDGE-TO-EDGE CINEMATIC IMAGE. KEEP THE MAIN SUBJECT AND FACE COMFORTABLY INSIDE THE CENTRAL SAFE AREA. NO BLACK BORDERS. ";
+}
+
+function cleanPromptValue(value,fallback){
+  var v=String(value==null?"":value).trim();
+  if(!v || v.toLowerCase()==="undefined" || v.toLowerCase()==="null") return fallback;
+  return v;
+}
+
 function buildPrompt(text,index){
 
   var a=analyzeScene(text);
   var shot=getShot(index);
+  var mode=$("imageMode") ? $("imageMode").value : "zimage";
 
-  var mode=
-    $("imageMode")
-      ? $("imageMode").value
-      : "zimage";
+  /*
+    Z-Image FIX:
+    Prompt deliberately kept short and visual.
+    Long repeated negative instructions can make some
+    image models interpret the request as a layout/collage.
+  */
+  if(mode==="zimage"){
+    return [
+      "ONE SINGLE PHOTOREALISTIC CINEMATIC DOCUMENTARY PHOTOGRAPH.",
+      "ONE IMAGE ONLY.",
+      characterPrompt(),
+      "ONE CONTINUOUS REAL-WORLD SCENE.",
+      "ONE MOMENT IN TIME.",
+      "ONE CAMERA VIEW.",
+      "ONE COHERENT COMPOSITION.",
+      "MAIN EVENT: "+a.event+".",
+      "LOCATION: "+a.location+".",
+      "ENVIRONMENT: "+a.environmentDetails+".",
+      "PROPS: "+a.props+".",
+      "BACKGROUND: "+a.background+".",
+      "EMOTION: "+a.emotion+".",
+      "PERIOD: "+a.period+".",
+      "LIGHTING: "+a.lighting+".",
+      "CAMERA: "+shot.camera+".",
+      "LENS: "+shot.lens+".",
+      "16:9 LANDSCAPE, FULL FRAME, EDGE TO EDGE.",
+      "SUBJECT FULLY VISIBLE WITH GENEROUS SAFE SPACE AROUND THE SUBJECT.",
+      "NATURAL REALISTIC PERSPECTIVE, REALISTIC SKIN, BELIEVABLE ANATOMY, AUTHENTIC CLOTHING, REALISTIC MATERIALS.",
+      "DO NOT MAKE A COLLAGE, GRID, CONTACT SHEET, STORYBOARD, MONTAGE, SPLIT SCREEN, MULTI-PANEL IMAGE, OR MULTIPLE SMALL PICTURES.",
+      "DO NOT DUPLICATE THE PERSON OR THE SCENE.",
+      "DO NOT DIVIDE THE IMAGE INTO SECTIONS.",
+      "NO TEXT, NO LETTERS, NO WORDS, NO NUMBERS, NO LOGOS, NO WATERMARKS.",
+      "VISUAL ONLY."
+    ].join(" ");
+  }
 
   var prompt=
     "Photorealistic cinematic documentary photograph. "+
-
     characterPrompt()+" "+
-
-    "MAIN VISUAL EVENT: "+
-    a.event+". "+
-
-    "LOCATION: "+
-    a.location+". "+
-
-    "ENVIRONMENT: "+
-    a.environmentDetails+". "+
-
-    "PROPS: "+
-    a.props+". "+
-
-    "BACKGROUND: "+
-    a.background+". "+
-
-    "SPATIAL RELATIONSHIP: "+
-    a.spatial+". "+
-
-    "EMOTION: "+
-    a.emotion+". "+
-
-    "PERIOD: "+
-    a.period+". "+
-
-    "LIGHTING: "+
-    a.lighting+". "+
-
-    "CAMERA: "+
-    shot.camera+". "+
-
-    "LENS: "+
-    shot.lens+". "+
-
-    "COMPOSITION: "+
-    shot.composition+". "+
-
-    "ONE SINGLE LARGE CINEMATIC IMAGE. "+
-
-    "ONE SINGLE CONTINUOUS SCENE. "+
-
-    "ONE PRIMARY VISUAL EVENT. "+
-
-    "ONE MAIN SUBJECT OR ONE CLEAR GROUP OF SUBJECTS. "+
-
-    "NO COLLAGE. NO SPLIT SCREEN. NO MULTI-PANEL. NO GRID. "+
-
-    "NO MONTAGE. NO STORYBOARD. NO CONTACT SHEET. "+
-
+    "MAIN VISUAL EVENT: "+a.event+". "+
+    "LOCATION: "+a.location+". "+
+    "ENVIRONMENT: "+a.environmentDetails+". "+
+    "PROPS: "+a.props+". "+
+    "BACKGROUND: "+a.background+". "+
+    "SPATIAL RELATIONSHIP: "+a.spatial+". "+
+    "EMOTION: "+a.emotion+". "+
+    "PERIOD: "+a.period+". "+
+    "LIGHTING: "+a.lighting+". "+
+    "CAMERA: "+shot.camera+". "+
+    "LENS: "+shot.lens+". "+
+    "COMPOSITION: "+shot.composition+". "+
+    "ONE SINGLE LARGE CINEMATIC IMAGE. ONE SINGLE CONTINUOUS SCENE. "+
+    "ONE COHERENT COMPOSITION. 16:9 LANDSCAPE FULL FRAME. "+
+    "NO COLLAGE. NO GRID. NO CONTACT SHEET. NO STORYBOARD. NO SPLIT SCREEN. "+
     "NO MULTIPLE SMALL IMAGES. NO DUPLICATE SUBJECTS. "+
-
-    "NO PICTURE-IN-PICTURE. NO COMPOSITE LAYOUT. "+
-
-    formatPromptText()+" "+
-
-    "Fill the entire frame with one continuous environment. "+
-
-    "Keep the main subject and all important facial features comfortably inside the central safe area. "+
-
-    "Do not place important details near the top, bottom, left or right edges. "+
-
-    "Use the complete requested frame width and height without black borders. "+
-
-    "Wide cinematic environmental framing with generous space on both left and right sides when using an ultra-wide format. "+
-
-    "Realistic skin texture, believable anatomy, authentic clothing, realistic materials, natural perspective, professional documentary photography, cinematic composition, realistic colors. ";
-
-  if(mode==="zimage"){
-    prompt+=
-      "Z-IMAGE FAST. Concise direct photographic description. ";
-  }
+    "NO TEXT. NO LETTERS. NO WORDS. NO LOGOS. NO WATERMARKS. VISUAL ONLY. ";
 
   if(mode==="flux"){
-    prompt+=
-      "FLUX FAST. Strong subject separation and environmental storytelling. ";
+    prompt+="FLUX FAST. Strong subject separation and environmental storytelling.";
+  }else{
+    prompt+="Premium realistic photography, natural lens rendering, authentic documentary realism.";
   }
-
-  if(mode==="realistic"){
-    prompt+=
-      "Premium realistic photography, natural lens rendering, authentic documentary realism. ";
-  }
-
-  prompt+=noTextBlock()+".";
 
   return prompt;
 }
-
 
 /* =========================================================
    SCENE CREATION — FIXED
@@ -1782,11 +1760,7 @@ function createScenes(){
         );
 
         prompt=
-          "Photorealistic cinematic documentary scene. "+
-          formatPromptText()+". "+
-          "Main subject clearly visible. "+
-          "Wide safe framing. "+
-          "No black borders. "+
+          "Photorealistic cinematic documentary photograph. ONE SINGLE LARGE IMAGE. ONE SINGLE CONTINUOUS SCENE. ONE CAMERA VIEW. ONE PRIMARY VISUAL EVENT. 16:9 LANDSCAPE FULL FRAME. Main subject clearly visible with generous safe margins. NO COLLAGE. NO GRID. NO CONTACT SHEET. NO STORYBOARD. NO MULTIPLE SMALL IMAGES. NO DUPLICATE SUBJECTS. NO BLACK BORDERS. "+
           noTextBlock()+".";
       }
 
@@ -1846,7 +1820,7 @@ function createScenes(){
     status(
       "✅ "+
       scenes.length+
-      " SAHNE OLUŞTURULDU. Seçilen format: "+$("format").value+". Ultra Wide seçeneklerinde sağ ve sol alanlar özellikle geniş tutulur."
+      " SAHNE OLUŞTURULDU. Her sahne tek büyük 16:9 görsel mantığıyla hazır."
     );
 
     log(
@@ -1932,15 +1906,6 @@ function motionOptions(selected){
   }
 
   return html;
-}
-
-function previewAspectRatio(){
-  var f=$("format") ? $("format").value : "16:9";
-  if(f==="21:9") return "21 / 9";
-  if(f==="2.39:1") return "2.39 / 1";
-  if(f==="9:16") return "9 / 16";
-  if(f==="1:1") return "1 / 1";
-  return "16 / 9";
 }
 
 function renderScenes(){
@@ -2057,6 +2022,10 @@ function renderScenes(){
 
       '<button class="btn small" onclick="copyPrompt('+i+')">'+
       '📋 Prompt Kopyala'+
+      '</button>'+
+
+      '<button class="btn small primary" onclick="copyZImagePrompt('+i+')">'+
+      '🖼️ Z-IMAGE TEK GÖRSEL'+
       '</button>'+
 
       '<button class="btn small" onclick="generateImagePlaceholder('+i+')">'+
@@ -2190,6 +2159,27 @@ async function copyPrompt(index){
     alert(
       scenes[index].prompt
     );
+  }
+}
+
+async function copyZImagePrompt(index){
+
+  if(!scenes[index]) return;
+
+  var originalMode=$("imageMode") ? $("imageMode").value : "zimage";
+  var prompt;
+
+  try{
+    prompt=buildPrompt(scenes[index].text,index);
+  }catch(e){
+    prompt=scenes[index].prompt;
+  }
+
+  try{
+    await navigator.clipboard.writeText(prompt);
+    status("🖼️ Z-Image TEK GÖRSEL promptu kopyalandı. ForVideo Z-Image'de 16:9 seç ve sadece bir kez Generate'e bas.");
+  }catch(error){
+    alert(prompt);
   }
 }
 
@@ -3245,55 +3235,28 @@ async function generateAllVoices(){
    CANVAS
    ========================================================= */
 
-function formatPromptText(){
-
-  var format=$("format") ? $("format").value : "16:9";
-
-  if(format==="21:9"){
-    return
-      "21:9 ULTRA-WIDE LANDSCAPE CINEMATIC COMPOSITION, 2560x1080, CinemaScope-style framing, very wide horizontal environment, expanded visual space on both left and right sides, subject comfortably framed inside the center safe area, full environment visible, no cropping";
-  }
-
-  if(format==="2.39:1"){
-    return
-      "2.39:1 CINEMASCOPE ULTRA-WIDE LANDSCAPE COMPOSITION, 2560x1071, anamorphic cinema framing, very wide horizontal environment, generous space on both left and right sides, subject comfortably framed inside the center safe area, full environment visible, no cropping";
-  }
-
-  if(format==="9:16"){
-    return
-      "9:16 VERTICAL FULL-SCREEN COMPOSITION, 720x1280, portrait framing, full subject visible, no cropping";
-  }
-
-  if(format==="1:1"){
-    return
-      "1:1 SQUARE FULL-SCREEN COMPOSITION, 1080x1080, balanced centered framing, no cropping";
-  }
-
-  return
-    "16:9 LANDSCAPE FULL-SCREEN COMPOSITION, 1280x720, wide cinematic framing, no cropping";
-}
-
 function getCanvasSize(){
 
   var format=$("format").value;
 
-  if(format==="21:9"){
-    return{width:2560,height:1080};
-  }
-
-  if(format==="2.39:1"){
-    return{width:2560,height:1071};
-  }
-
   if(format==="9:16"){
-    return{width:720,height:1280};
+    return{
+      width:720,
+      height:1280
+    };
   }
 
   if(format==="1:1"){
-    return{width:1080,height:1080};
+    return{
+      width:1080,
+      height:1080
+    };
   }
 
-  return{width:1280,height:720};
+  return{
+    width:1280,
+    height:720
+  };
 }
 
 function resizeCanvas(){
@@ -4550,11 +4513,7 @@ Was damals wie ein kleiner persönlicher Traum aussah, sollte später zu einem w
 
 $("format").addEventListener(
   "change",
-  function(){
-    resizeCanvas();
-    renderScenes();
-    status("🎬 Format: "+this.value+" — Ultra Wide ise sahneler daha geniş kadrajla hazırlanır.");
-  }
+  resizeCanvas
 );
 
 $("defaultMotion").addEventListener(
@@ -4657,7 +4616,7 @@ syncSubtitleToggle();
 resizeCanvas();
 
 status(
-  "🟢 Mina Video AI V51.12.3 hazır. Altyazı varsayılan olarak KAPALI."
+  "🟢 Mina Video AI V51.12.4 hazır. Altyazı varsayılan olarak KAPALI."
 );
 
 </script>
