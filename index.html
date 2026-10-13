@@ -5,42 +5,596 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mina Video AI</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#edf2ff;font:15px system-ui,sans-serif}.wrap{max-width:1000px;margin:auto;padding:20px}h1{margin:0;color:#a99cff}p,.hint{color:#a9b7d4;font-size:13px}.grid{display:grid;grid-template-columns:350px 1fr;gap:16px}.panel{background:#141e34;border:1px solid #2d3b5c;border-radius:16px;padding:17px}label{display:block;margin:13px 0 6px;font-size:13px}input,select,textarea{width:100%;padding:10px;border-radius:9px;border:1px solid #394969;background:#0c1426;color:white}textarea{min-height:105px}.btn{display:block;width:100%;padding:12px;margin-top:9px;border:0;border-radius:9px;background:#8374fa;color:white;font-weight:bold;cursor:pointer}.secondary{background:#253552}.upload{padding:18px;border:1px dashed #7581aa;border-radius:12px;text-align:center;cursor:pointer}.upload input{margin-top:10px}.ratios{display:flex;gap:8px}.ratios button{flex:1;padding:10px;background:#25324c;color:white;border:1px solid #475777;border-radius:9px;cursor:pointer}.ratios button.active{border-color:#a99cff;background:#39315e}.preview{margin:auto;width:100%;max-width:640px;aspect-ratio:16/9;background:#080d18;display:grid;place-items:center;overflow:hidden;border-radius:10px}.preview.vertical{max-width:310px;aspect-ratio:9/16}.preview img{width:100%;height:100%;object-fit:contain}.status{padding:12px;margin-top:12px;border-radius:9px;background:#0b1425;color:#cbd8f2;font-size:13px;overflow-wrap:anywhere}.warning{color:#ffe1a4;font-size:12px;line-height:1.6;margin-top:14px}@media(max-width:760px){.grid{grid-template-columns:1fr}.wrap{padding:12px}}
+:root{
+  --bg:#10101b;--panel:#1b1b2b;--line:#34344a;
+  --text:#f6f5ff;--muted:#b8b8ce;--mint:#68f0c0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,sans-serif
+}
+header{
+  padding:22px 16px;text-align:center;
+  background:#171727;border-bottom:1px solid var(--line)
+}
+h1{margin:0;color:var(--mint);font-size:28px}
+header p{margin:8px 0 0;color:var(--muted);font-size:14px}
+main{
+  max-width:1100px;margin:auto;padding:18px;
+  display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px
+}
+.panel{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:15px;padding:16px;min-width:0
+}
+h2{font-size:17px;margin:0 0 14px}
+label{display:block;font-size:13px;color:var(--muted);margin:13px 0 7px}
+input,select,button{
+  width:100%;padding:11px;border-radius:9px;
+  border:1px solid var(--line);font-size:14px
+}
+input,select{background:#11111e;color:var(--text)}
+input[type=range]{padding:0;accent-color:var(--mint)}
+input[type=file]{font-size:12px}
+button{
+  background:#292940;color:var(--text);cursor:pointer;
+  font-weight:bold;transition:.15s
+}
+button:hover{border-color:var(--mint)}
+button.primary{background:var(--mint);color:#10251e;border:0}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:8px}
+.row>*{flex:1;min-width:0}
+.ratio.active{background:var(--mint);color:#10251e;border-color:var(--mint)}
+.checkrow{display:flex;align-items:center;gap:9px}
+.checkrow input{width:auto}
+.checkrow label{margin:0}
+.note{
+  margin-top:15px;padding:12px;border-radius:9px;
+  background:#292439;color:#f1d6ff;font-size:12px;line-height:1.6
+}
+.preview-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#status{font-size:12px;color:var(--mint)}
+.canvas-wrap{
+  background:#080810;border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;text-align:center;margin-top:12px
+}
+canvas{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+#progress{height:5px;background:#303044;border-radius:8px;margin-top:12px;overflow:hidden}
+#bar{height:100%;width:0;background:var(--mint)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:12px 20px 24px}
+@media(max-width:760px){
+  main{grid-template-columns:1fr;padding:10px}
+  header{padding:18px 10px}
+  h1{font-size:24px}
+  canvas{max-height:65vh}
+}
 </style>
 </head>
-<body><div class="wrap">
-<h1>🎬 Mina Video AI</h1><p>Fotoğraftan video • GitHub Pages sürümü</p>
-<div class="grid"><section class="panel">
-<h3>1. Fotoğraf ve hareket</h3>
-<div class="upload">📷 Fotoğraf seç<input type="file" id="photo" accept="image/*"></div>
-<label>Hareket türü</label><select id="motion"><option value="walks naturally toward the camera">Yürüme</option><option value="raises one hand and waves hello">Elini kaldırıp selam verme</option><option value="gently turns the head to the left and right">Başını çevirme</option><option value="moves naturally as if speaking">Konuşma hareketi</option><option value="performs a gentle full-body dance">Hafif dans</option></select>
-<label>Ek talimat</label><textarea id="extra" placeholder="Örn. üç adım atsın, sonra sağ elini kaldırsın..."></textarea>
-<label>Video oranı</label><div class="ratios"><button class="active" data-ratio="wide">16:9 YouTube</button><button data-ratio="tall">9:16 Shorts</button></div>
-<label>Süre: <span id="durText">5</span> saniye</label><input id="duration" type="range" min="3" max="10" value="5">
-<label>Hareket yoğunluğu: <span id="strengthText">50</span>%</label><input id="strength" type="range" min="10" max="100" value="50">
-<button class="btn" id="makePrompt">Hareket promptunu hazırla</button><label>İngilizce prompt</label><textarea id="prompt">A realistic full-body character walks naturally toward the camera. Preserve the person's identity, face, hairstyle and clothing. Natural anatomy, smooth realistic motion, stable background, no flicker or extra limbs.</textarea>
-<button class="btn secondary" id="copy">Promptu kopyala</button>
-<div class="warning">Not: Bu HTML kendi başına yapay zekâ modeli çalıştırmaz. Gerçek vücut hareketi için aşağıdaki çevrim içi model demosunu kullan. Ücretsiz erişim ve kotalar değişebilir.</div>
-</section><section class="panel">
-<h3>2. Önizleme ve video</h3><div id="preview" class="preview"><span id="empty">Fotoğraf yükleyince burada görünecek</span><img id="image" hidden></div>
-<div class="status" id="status">Henüz fotoğraf seçilmedi.</div>
-<label>Gerçek yapay zekâ animasyonu</label>
-<a class="btn" href="https://huggingface.co/spaces/multimodalart/wan2-1-fast" target="_blank" rel="noopener">Wan 2.1 Fast demosunu aç ↗</a>
-<a class="btn secondary" href="https://huggingface.co/spaces/KlingTeam/LivePortrait" target="_blank" rel="noopener">LivePortrait demosunu aç ↗</a>
-<p class="hint">Model sayfasında fotoğrafı yeniden yükle ve oluşturduğun promptu yapıştır. Fotoğrafın bu sayfadan otomatik gönderilmez.</p>
-<hr style="border-color:#2d3b5c;margin:20px 0">
-<h3>3. Basit kamera efektli video</h3><p class="hint">Bu işlem fotoğrafa yaklaşma efekti ekler; karakterin yürümesini veya kolunu hareket ettirmesini sağlamaz.</p>
-<button class="btn" id="create">Kamera efektli video oluştur</button><button class="btn secondary" id="save" disabled>Videoyu kaydet (.webm)</button><div class="status" id="videoStatus">Video bekleniyor.</div>
-</section></div><p class="hint" style="text-align:center">Mina Video AI • Tek dosyalı prototip</p></div>
+<body>
+<header>
+  <h1>✦ Mina Video AI</h1>
+  <p>Fotoğraftan basit hareket simülasyonu · Ücretsiz · API anahtarsız</p>
+</header>
+
+<main>
+<section class="panel">
+  <h2>🎬 Video ayarları</h2>
+
+  <label for="photo">Karakter fotoğrafı yükle</label>
+  <input id="photo" type="file" accept="image/*">
+
+  <label>Video formatı</label>
+  <div class="row">
+    <button class="ratio active" data-ratio="landscape">16:9 Yatay</button>
+    <button class="ratio" data-ratio="portrait">9:16 Dikey</button>
+  </div>
+
+  <label for="motion">Hareket türü</label>
+  <select id="motion">
+    <option value="wave">El sallama</option>
+    <option value="walk">Yürüme simülasyonu</option>
+    <option value="head">Baş hareketi</option>
+    <option value="dance">Dans</option>
+    <option value="custom">Serbest hareket</option>
+  </select>
+
+  <label for="duration">Video süresi: <b id="durationVal">5</b> saniye</label>
+  <input id="duration" type="range" min="3" max="15" value="5">
+
+  <label for="intensity">Hareket şiddeti: <b id="intensityVal">60</b>%</label>
+  <input id="intensity" type="range" min="10" max="100" value="60">
+
+  <label for="scale">Fotoğraf büyüklüğü: <b id="scaleVal">100</b>%</label>
+  <input id="scale" type="range" min="60" max="140" value="100">
+
+  <div class="checkrow" style="margin-top:16px">
+    <input id="showSkeleton" type="checkbox" checked>
+    <label for="showSkeleton">Eklem çizgilerini göster</label>
+  </div>
+
+  <div class="checkrow" style="margin-top:12px">
+    <input id="showLabels" type="checkbox">
+    <label for="showLabels">Eklem noktalarını göster</label>
+  </div>
+
+  <div class="note">
+    <b>Önemli bilgi:</b> Bu uygulama gerçekçi AI video üretmez.
+    Fotoğrafın üzerine basit eklem çizgileriyle hareket simülasyonu
+    ekler. Fotoğraftaki kişinin gerçek bedenini algılamaz veya
+    görüntüsünü yapay zekâyla yeniden oluşturmaz.
+  </div>
+</section>
+
+<section class="panel">
+  <div class="preview-title">
+    <h2>👁️ Video önizleme</h2>
+    <span id="status">Hazır</span>
+  </div>
+
+  <div class="canvas-wrap">
+    <canvas id="canvas" width="1280" height="720"></canvas>
+  </div>
+
+  <div id="progress"><div id="bar"></div></div>
+
+  <div class="actions">
+    <button id="play" class="primary">▶ Hareketi başlat</button>
+    <button id="stop">■ Durdur</button>
+    <button id="record" class="primary">● WebM video kaydet</button>
+    <button id="download" disabled>⬇ Son videoyu indir</button>
+  </div>
+
+  <p class="small">
+    Video, tarayıcının desteklediği WebM formatında kaydedilir.
+    Kayıt sırasında bu sekmeyi açık tut. Bazı tarayıcılar WebM
+    kayıt özelliğini desteklemeyebilir.
+  </p>
+</section>
+</main>
+
+<footer>Mina Video AI · Tek dosya · Fotoğraflar sunucuya gönderilmez</footer>
+
 <script>
-(()=>{const $=id=>document.getElementById(id);let src='',ratio='wide',videoURL='';
-$('photo').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(!f.type.startsWith('image/'))return;$('image').src=src=URL.createObjectURL(f);$('image').hidden=false;$('empty').hidden=true;$('status').textContent=f.name+' yüklendi.'});
-document.querySelectorAll('[data-ratio]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-ratio]').forEach(x=>x.classList.remove('active'));b.classList.add('active');ratio=b.dataset.ratio;$('preview').className='preview '+(ratio==='tall'?'vertical':'')});
-$('duration').oninput=e=>$('durText').textContent=e.target.value;$('strength').oninput=e=>$('strengthText').textContent=e.target.value;
-$('makePrompt').onclick=()=>{$('prompt').value='Create a '+$('duration').value+'-second realistic image-to-video animation. The person '+$('motion').value+'. '+$('extra').value+' Preserve exact identity, face, hairstyle, clothing and body proportions. Natural realistic full-body motion, smooth movement, stable background, consistent lighting, no flicker, no extra limbs. Motion intensity '+$('strength').value+'%. Aspect ratio '+(ratio==='wide'?'16:9 landscape':'9:16 portrait')+'.';$('status').textContent='Prompt hazır. Kopyalayıp model sayfasına yapıştır.'};
-$('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('prompt').value);$('status').textContent='Prompt kopyalandı.'}catch(e){$('prompt').select();$('status').textContent='Metni seçtim; Ctrl+C ile kopyala.'}};
-$('create').onclick=()=>{const im=$('image');if(!src||!im.naturalWidth){$('videoStatus').textContent='Önce fotoğraf yükle.';return}if(!HTMLCanvasElement.prototype.captureStream||!window.MediaRecorder){$('videoStatus').textContent='Tarayıcı video kaydını desteklemiyor.';return}
-$('create').disabled=true;$('videoStatus').textContent='Video hazırlanıyor…';try{const sec=+$('duration').value,w=ratio==='wide'?1280:720,h=ratio==='wide'?720:1280,c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d'),stream=c.captureStream(24),mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp8')?'video/webm;codecs=vp8':'video/webm',rec=new MediaRecorder(stream,{mimeType:mime}),chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};const done=new Promise(resolve=>rec.onstop=resolve);const start=performance.now();rec.start(200);function draw(now){const t=Math.min(1,(now-start)/(sec*1000)),fit=Math.min(w/im.naturalWidth,h/im.naturalHeight),s=1+t*.12*(+$('strength').value/50),dw=im.naturalWidth*fit*s,dh=im.naturalHeight*fit*s;x.fillStyle='#080d18';x.fillRect(0,0,w,h);x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);if(t<1)requestAnimationFrame(draw);else rec.stop()}requestAnimationFrame(draw);done.then(()=>{stream.getTracks().forEach(t=>t.stop());const blob=new Blob(chunks,{type:mime});if(videoURL)URL.revokeObjectURL(videoURL);videoURL=URL.createObjectURL(blob);$('save').disabled=false;$('videoStatus').textContent='Hazır: '+(blob.size/1048576).toFixed(2)+' MB. Bu yalnızca kamera zoom efektidir.';$('create').disabled=false})}catch(e){$('videoStatus').textContent='Hata: '+e.message;$('create').disabled=false}};
-$('save').onclick=()=>{if(!videoURL)return;const a=document.createElement('a');a.href=videoURL;a.download='mina-video-'+ratio+'.webm';a.click()};
+(() => {
+"use strict";
+
+const $ = id => document.getElementById(id);
+const canvas = $("canvas");
+const ctx = canvas.getContext("2d");
+
+let photo = null;
+let ratio = "landscape";
+let startTime = 0;
+let running = false;
+let raf = 0;
+let recorder = null;
+let chunks = [];
+let videoURL = "";
+let recording = false;
+let recordingTimer = null;
+let lastProgress = 0;
+
+const WIDE = [1280, 720];
+const TALL = [720, 1280];
+
+function setStatus(text){
+  $("status").textContent = text;
+}
+
+function setRatio(next){
+  ratio = next;
+  const dims = ratio === "landscape" ? WIDE : TALL;
+  canvas.width = dims[0];
+  canvas.height = dims[1];
+
+  document.querySelectorAll(".ratio").forEach(button => {
+    button.classList.toggle("active", button.dataset.ratio === ratio);
+  });
+
+  draw(performance.now());
+}
+
+document.querySelectorAll(".ratio").forEach(button => {
+  button.addEventListener("click", () => setRatio(button.dataset.ratio));
+});
+
+$("photo").addEventListener("change", event => {
+  const file = event.target.files && event.target.files[0];
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")){
+    setStatus("Bir görsel dosyası seç");
+    return;
+  }
+
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+
+  img.onload = () => {
+    photo = img;
+    draw(performance.now());
+    setStatus("Fotoğraf yüklendi");
+    URL.revokeObjectURL(url);
+  };
+
+  img.onerror = () => {
+    URL.revokeObjectURL(url);
+    setStatus("Fotoğraf açılamadı");
+  };
+
+  img.src = url;
+});
+
+$("duration").addEventListener("input", () => {
+  $("durationVal").textContent = $("duration").value;
+});
+
+$("intensity").addEventListener("input", () => {
+  $("intensityVal").textContent = $("intensity").value;
+});
+
+$("scale").addEventListener("input", () => {
+  $("scaleVal").textContent = $("scale").value;
+});
+
+["motion","intensity","scale","showSkeleton","showLabels"].forEach(id => {
+  $(id).addEventListener("input", () => {
+    if(!running) draw(performance.now());
+  });
+});
+
+function drawBackground(){
+  const w = canvas.width;
+  const h = canvas.height;
+
+  ctx.fillStyle = "#11111e";
+  ctx.fillRect(0,0,w,h);
+
+  if(!photo) {
+    ctx.fillStyle = "#b9b9ce";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = "bold 30px Arial";
+    ctx.fillText("Mina Video AI",w/2,h/2-25);
+    ctx.font = "18px Arial";
+    ctx.fillText("Fotoğraf yükleyerek başla",w/2,h/2+18);
+    return;
+  }
+
+  const scale = Number($("scale").value)/100;
+  const fit = Math.min(w/photo.width,h/photo.height)*scale;
+  const dw = photo.width*fit;
+  const dh = photo.height*fit;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0,0,w,h);
+  ctx.clip();
+  ctx.drawImage(photo,(w-dw)/2,(h-dh)/2,dw,dh);
+  ctx.restore();
+}
+
+function line(a,b,color,width){
+  ctx.beginPath();
+  ctx.moveTo(a.x,a.y);
+  ctx.lineTo(b.x,b.y);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.stroke();
+}
+
+function joint(p,r,color){
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,r,0,Math.PI*2);
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawSkeleton(t){
+  const w = canvas.width, h = canvas.height;
+  const amp = Number($("intensity").value)/100;
+  const mode = $("motion").value;
+  const s = Math.min(w,h);
+  const x = w/2;
+  const base = h*0.20;
+  const u = s*0.22;
+  const bob = mode==="walk" || mode==="dance" ? Math.sin(t*7)*u*0.025*amp : 0;
+  const sway = Math.sin(t*2.5)*u*0.045*amp;
+
+  const headX = x + sway*0.4 + (mode==="head" ? Math.sin(t*2.2)*u*0.07*amp : 0);
+  const headY = base + bob;
+  const headR = u*0.12;
+
+  const neck = {x:headX,y:headY+headR*1.25};
+  const shoulderY = headY+headR*2.1;
+  const hipY = h*0.59+bob;
+  const shoulderW = u*0.43;
+  const hipW = u*0.25;
+
+  const leftShoulder = {x:x-shoulderW+sway*0.2,y:shoulderY};
+  const rightShoulder = {x:x+shoulderW+sway*0.2,y:shoulderY};
+  const leftHip = {x:x-hipW+sway*0.15,y:hipY};
+  const rightHip = {x:x+hipW+sway*0.15,y:hipY};
+  const pelvis = {x:x+sway*0.15,y:hipY};
+
+  const armLen = u*0.52;
+  let leftElbow, rightElbow, leftHand, rightHand;
+
+  if(mode==="wave" || mode==="dance"){
+    const wave = Math.sin(t*5)*amp;
+    rightElbow = {
+      x:rightShoulder.x+armLen*0.55,
+      y:shoulderY-armLen*(0.65+0.15*wave)
+    };
+    rightHand = {
+      x:rightElbow.x+armLen*(0.20+0.10*Math.sin(t*7)*amp),
+      y:rightElbow.y-armLen*(0.65+0.20*Math.sin(t*8)*amp)
+    };
+  } else if(mode==="walk"){
+    rightElbow = {x:rightShoulder.x+armLen*0.55*Math.sin(t*5)*amp,
+      y:shoulderY+armLen*0.4};
+    rightHand = {x:rightElbow.x+armLen*0.65*Math.sin(t*5)*amp,
+      y:rightElbow.y+armLen*0.7};
+  } else {
+    rightElbow = {x:rightShoulder.x+armLen*0.45,y:shoulderY+armLen*0.65};
+    rightHand = {x:rightElbow.x+armLen*0.30,y:rightElbow.y+armLen*0.65};
+  }
+
+  if(mode==="walk" || mode==="dance"){
+    leftElbow = {x:leftShoulder.x-armLen*0.45*Math.sin(t*5)*amp,
+      y:shoulderY+armLen*0.4};
+    leftHand = {x:leftElbow.x-armLen*0.65*Math.sin(t*5)*amp,
+      y:leftElbow.y+armLen*0.7};
+  } else {
+    leftElbow = {x:leftShoulder.x-armLen*0.35,y:shoulderY+armLen*0.55};
+    leftHand = {x:leftElbow.x-armLen*0.25,y:leftElbow.y+armLen*0.65};
+  }
+
+  const legLen = h*0.17;
+  let leftKnee, rightKnee, leftFoot, rightFoot;
+
+  if(mode==="walk" || mode==="dance"){
+    const swing = Math.sin(t*5)*amp;
+    leftKnee = {x:leftHip.x+legLen*0.20*swing,y:hipY+legLen*0.53};
+    rightKnee = {x:rightHip.x-legLen*0.20*swing,y:hipY+legLen*0.53};
+    leftFoot = {x:leftKnee.x+legLen*0.25*swing,y:leftKnee.y+legLen*0.45};
+    rightFoot = {x:rightKnee.x-legLen*0.25*swing,y:rightKnee.y+legLen*0.45};
+  } else {
+    leftKnee = {x:leftHip.x-u*0.03,y:hipY+legLen*0.55};
+    rightKnee = {x:rightHip.x+u*0.03,y:hipY+legLen*0.55};
+    leftFoot = {x:leftKnee.x-u*0.05,y:leftKnee.y+legLen*0.45};
+    rightFoot = {x:rightKnee.x+u*0.05,y:rightKnee.y+legLen*0.45};
+  }
+
+  const pts = [
+    neck,leftShoulder,rightShoulder,leftElbow,rightElbow,
+    leftHand,rightHand,pelvis,leftHip,rightHip,leftKnee,
+    rightKnee,leftFoot,rightFoot
+  ];
+
+  // Keep the overlay within the canvas edges.
+  const pad = s*0.04;
+  pts.forEach(p => {
+    p.x = Math.max(pad,Math.min(w-pad,p.x));
+    p.y = Math.max(pad,Math.min(h-pad,p.y));
+  });
+
+  const color = "#68f0c0";
+  const lw = Math.max(3,s*0.006);
+
+  ctx.save();
+  ctx.globalAlpha = 0.95;
+
+  // Torso and neck
+  line(neck,pelvis,color,lw);
+  line(leftShoulder,rightShoulder,color,lw);
+  line(leftHip,rightHip,color,lw);
+
+  // Arms
+  line(leftShoulder,leftElbow,color,lw);
+  line(leftElbow,leftHand,color,lw);
+  line(rightShoulder,rightElbow,color,lw);
+  line(rightElbow,rightHand,color,lw);
+
+  // Legs
+  line(leftHip,leftKnee,color,lw);
+  line(leftKnee,leftFoot,color,lw);
+  line(rightHip,rightKnee,color,lw);
+  line(rightKnee,rightFoot,color,lw);
+
+  // Head
+  ctx.beginPath();
+  ctx.ellipse(headX,headY,headR,headR*1.15,
+    mode==="head" ? Math.sin(t*2)*0.18*amp : 0,0,Math.PI*2);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lw;
+  ctx.stroke();
+
+  if($("showLabels").checked){
+    pts.forEach(p => joint(p,Math.max(4,s*0.008),"#ffcf70"));
+    joint({x:headX,y:headY},Math.max(4,s*0.008),"#ffcf70");
+  }
+
+  ctx.restore();
+}
+
+function draw(now){
+  const t = running ? (now-startTime)/1000 : now/1000;
+  drawBackground();
+  if($("showSkeleton").checked) drawSkeleton(t);
+}
+
+function animate(now){
+  if(!running) return;
+  draw(now);
+
+  const elapsed = (now-startTime)/1000;
+  const duration = Number($("duration").value);
+  const pct = Math.min(100,elapsed/duration*100);
+
+  if(pct-lastProgress >= 1 || pct===100){
+    $("bar").style.width = pct+"%";
+    lastProgress = pct;
+  }
+
+  if(recording && elapsed>=duration){
+    stopRecording();
+    return;
+  }
+
+  raf = requestAnimationFrame(animate);
+}
+
+function startAnimation(){
+  if(running) return;
+  running = true;
+  startTime = performance.now();
+  lastProgress = 0;
+  $("bar").style.width = "0%";
+  $("play").disabled = true;
+  setStatus(recording ? "Video kaydediliyor…" : "Hareket oynatılıyor");
+  raf = requestAnimationFrame(animate);
+}
+
+function stopAnimation(){
+  running = false;
+  cancelAnimationFrame(raf);
+  $("play").disabled = false;
+  draw(performance.now());
+  if(!recording) setStatus("Durduruldu");
+}
+
+$("play").addEventListener("click", () => {
+  if(!running) startAnimation();
+});
+
+$("stop").addEventListener("click", () => {
+  if(recording){
+    stopRecording();
+  } else {
+    stopAnimation();
+  }
+});
+
+function getWebMMime(){
+  if(!window.MediaRecorder) return "";
+  const types = [
+    "video/webm;codecs=vp9",
+    "video/webm;codecs=vp8",
+    "video/webm"
+  ];
+  return types.find(type => MediaRecorder.isTypeSupported(type)) || "";
+}
+
+function startRecording(){
+  if(!canvas.captureStream || !window.MediaRecorder){
+    setStatus("Bu tarayıcı video kaydını desteklemiyor");
+    return;
+  }
+
+  const mime = getWebMMime();
+  if(!mime){
+    setStatus("WebM kayıt biçimi desteklenmiyor");
+    return;
+  }
+
+  if(videoURL){
+    URL.revokeObjectURL(videoURL);
+    videoURL = "";
+  }
+
+  chunks = [];
+  let stream;
+
+  try{
+    stream = canvas.captureStream(30);
+    recorder = new MediaRecorder(stream,{mimeType:mime});
+  }catch(error){
+    setStatus("Kayıt başlatılamadı");
+    return;
+  }
+
+  recorder.ondataavailable = event => {
+    if(event.data && event.data.size>0) chunks.push(event.data);
+  };
+
+  recorder.onerror = () => {
+    recording = false;
+    stopAnimation();
+    setStatus("Kayıt sırasında hata oluştu");
+  };
+
+  recorder.onstop = () => {
+    stream.getTracks().forEach(track => track.stop());
+    recording = false;
+    stopAnimation();
+
+    if(chunks.length===0){
+      setStatus("Video verisi oluşturulamadı");
+      return;
+    }
+
+    const blob = new Blob(chunks,{type:mime});
+    videoURL = URL.createObjectURL(blob);
+    $("download").disabled = false;
+    setStatus("Video hazır · İndirebilirsin");
+    $("record").disabled = false;
+    $("record").textContent = "● Yeniden kaydet";
+  };
+
+  recording = true;
+  $("record").disabled = true;
+  $("download").disabled = true;
+  $("record").textContent = "Kaydediliyor…";
+  setStatus("Video kaydediliyor…");
+
+  recorder.start(250);
+  startAnimation();
+
+  recordingTimer = setTimeout(() => {
+    if(recording) stopRecording();
+  },Number($("duration").value)*1000+200);
+}
+
+function stopRecording(){
+  if(recordingTimer){
+    clearTimeout(recordingTimer);
+    recordingTimer = null;
+  }
+
+  if(recorder && recorder.state!=="inactive"){
+    recorder.stop();
+  } else {
+    recording = false;
+    stopAnimation();
+  }
+}
+
+$("record").addEventListener("click",startRecording);
+
+$("download").addEventListener("click",() => {
+  if(!videoURL) return;
+  const a = document.createElement("a");
+  a.href = videoURL;
+  a.download = "mina-video-"+Date.now()+".webm";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+});
+
+window.addEventListener("beforeunload",() => {
+  if(videoURL) URL.revokeObjectURL(videoURL);
+});
+
+setRatio("landscape");
+draw(performance.now());
 })();
-</script></body></html>
+</script>
+</body>
+</html>
