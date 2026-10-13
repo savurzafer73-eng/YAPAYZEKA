@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -5,158 +6,109 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mina Video AI</title>
 <style>
-:root{
-  --bg:#10101b;--panel:#1b1b2b;--line:#34344a;
-  --text:#f6f5ff;--muted:#b8b8ce;--mint:#68f0c0;
-}
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,sans-serif
-}
-header{
-  padding:22px 16px;text-align:center;
-  background:#171727;border-bottom:1px solid var(--line)
-}
-h1{margin:0;color:var(--mint);font-size:28px}
-header p{margin:8px 0 0;color:var(--muted);font-size:14px}
-main{
-  max-width:1100px;margin:auto;padding:18px;
-  display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px
-}
-.panel{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;padding:16px;min-width:0
-}
+body{margin:0;background:#10101b;color:#f5f5ff;font:15px Arial,sans-serif}
+header{text-align:center;padding:20px;background:#19192a;border-bottom:1px solid #35354a}
+h1{margin:0;color:#68f0c0}
+header p{color:#bbbcd0;font-size:13px}
+main{max-width:1050px;margin:auto;padding:15px;display:grid;grid-template-columns:300px 1fr;gap:15px}
+.panel{background:#1c1c2d;border:1px solid #35354a;border-radius:14px;padding:15px;min-width:0}
 h2{font-size:17px;margin:0 0 14px}
-label{display:block;font-size:13px;color:var(--muted);margin:13px 0 7px}
-input,select,button{
-  width:100%;padding:11px;border-radius:9px;
-  border:1px solid var(--line);font-size:14px
-}
-input,select{background:#11111e;color:var(--text)}
-input[type=range]{padding:0;accent-color:var(--mint)}
+label{display:block;color:#c4c4d8;font-size:13px;margin:14px 0 7px}
+input,select,button{width:100%;padding:11px;border-radius:8px;border:1px solid #40405a;background:#11111e;color:white}
+input[type=range]{padding:0;accent-color:#68f0c0}
 input[type=file]{font-size:12px}
-button{
-  background:#292940;color:var(--text);cursor:pointer;
-  font-weight:bold;transition:.15s
-}
-button:hover{border-color:var(--mint)}
-button.primary{background:var(--mint);color:#10251e;border:0}
-button:disabled{opacity:.45;cursor:not-allowed}
+button{cursor:pointer;font-weight:bold;background:#292940}
+button:hover{border-color:#68f0c0}
+button.primary{background:#68f0c0;color:#10251d;border:0}
+button:disabled{opacity:.5;cursor:not-allowed}
 .row{display:flex;gap:8px}
 .row>*{flex:1;min-width:0}
-.ratio.active{background:var(--mint);color:#10251e;border-color:var(--mint)}
-.checkrow{display:flex;align-items:center;gap:9px}
-.checkrow input{width:auto}
-.checkrow label{margin:0}
-.note{
-  margin-top:15px;padding:12px;border-radius:9px;
-  background:#292439;color:#f1d6ff;font-size:12px;line-height:1.6
-}
-.preview-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
-#status{font-size:12px;color:var(--mint)}
-.canvas-wrap{
-  background:#080810;border:1px solid var(--line);
-  border-radius:12px;overflow:hidden;text-align:center;margin-top:12px
-}
-canvas{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
-.small{font-size:12px;color:var(--muted);line-height:1.6}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-#progress{height:5px;background:#303044;border-radius:8px;margin-top:12px;overflow:hidden}
-#bar{height:100%;width:0;background:var(--mint)}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:12px 20px 24px}
-@media(max-width:760px){
-  main{grid-template-columns:1fr;padding:10px}
-  header{padding:18px 10px}
-  h1{font-size:24px}
-  canvas{max-height:65vh}
-}
+.ratio.active{background:#68f0c0;color:#10251d}
+.check{display:flex;align-items:center;gap:8px;margin-top:12px}
+.check input{width:auto}
+.check label{margin:0}
+.note{font-size:12px;line-height:1.6;color:#f1d8ff;background:#2b2540;padding:11px;border-radius:8px;margin-top:16px}
+.previewHead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#status{font-size:12px;color:#68f0c0}
+#canvas{display:block;width:100%;height:auto;max-height:70vh;background:#090912;border-radius:10px;margin-top:10px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+#progress{height:5px;background:#39394b;margin-top:12px;border-radius:5px;overflow:hidden}
+#bar{height:100%;width:0;background:#68f0c0}
+.small{font-size:12px;line-height:1.5;color:#bbbcd0}
+@media(max-width:720px){main{grid-template-columns:1fr;padding:9px}header{padding:15px}#canvas{max-height:65vh}}
 </style>
 </head>
 <body>
 <header>
-  <h1>✦ Mina Video AI</h1>
-  <p>Fotoğraftan basit hareket simülasyonu · Ücretsiz · API anahtarsız</p>
+<h1>✦ Mina Video AI</h1>
+<p>Fotoğraftan basit hareket simülasyonu · Ücretsiz · API anahtarsız</p>
 </header>
 
 <main>
 <section class="panel">
-  <h2>🎬 Video ayarları</h2>
+<h2>🎬 Video ayarları</h2>
 
-  <label for="photo">Karakter fotoğrafı yükle</label>
-  <input id="photo" type="file" accept="image/*">
+<label for="photo">Fotoğraf yükle</label>
+<input id="photo" type="file" accept="image/*">
 
-  <label>Video formatı</label>
-  <div class="row">
-    <button class="ratio active" data-ratio="landscape">16:9 Yatay</button>
-    <button class="ratio" data-ratio="portrait">9:16 Dikey</button>
-  </div>
+<label>Video formatı</label>
+<div class="row">
+<button class="ratio active" data-ratio="wide">16:9 Yatay</button>
+<button class="ratio" data-ratio="tall">9:16 Dikey</button>
+</div>
 
-  <label for="motion">Hareket türü</label>
-  <select id="motion">
-    <option value="wave">El sallama</option>
-    <option value="walk">Yürüme simülasyonu</option>
-    <option value="head">Baş hareketi</option>
-    <option value="dance">Dans</option>
-    <option value="custom">Serbest hareket</option>
-  </select>
+<label for="motion">Hareket türü</label>
+<select id="motion">
+<option value="wave">El sallama</option>
+<option value="walk">Yürüme simülasyonu</option>
+<option value="head">Baş hareketi</option>
+<option value="dance">Dans</option>
+<option value="free">Serbest hareket</option>
+</select>
 
-  <label for="duration">Video süresi: <b id="durationVal">5</b> saniye</label>
-  <input id="duration" type="range" min="3" max="15" value="5">
+<label for="duration">Video süresi: <span id="durationVal">5</span> saniye</label>
+<input id="duration" type="range" min="3" max="15" value="5">
 
-  <label for="intensity">Hareket şiddeti: <b id="intensityVal">60</b>%</label>
-  <input id="intensity" type="range" min="10" max="100" value="60">
+<label for="intensity">Hareket şiddeti: <span id="intensityVal">80</span>%</label>
+<input id="intensity" type="range" min="10" max="100" value="80">
 
-  <label for="scale">Fotoğraf büyüklüğü: <b id="scaleVal">100</b>%</label>
-  <input id="scale" type="range" min="60" max="140" value="100">
+<label for="scale">Fotoğraf boyutu: <span id="scaleVal">100</span>%</label>
+<input id="scale" type="range" min="60" max="140" value="100">
 
-  <div class="checkrow" style="margin-top:16px">
-    <input id="showSkeleton" type="checkbox" checked>
-    <label for="showSkeleton">Eklem çizgilerini göster</label>
-  </div>
+<div class="check">
+<input id="skeleton" type="checkbox" checked>
+<label for="skeleton">Hareketli eklem çizgilerini göster</label>
+</div>
+<div class="check">
+<input id="points" type="checkbox" checked>
+<label for="points">Eklem noktalarını göster</label>
+</div>
 
-  <div class="checkrow" style="margin-top:12px">
-    <input id="showLabels" type="checkbox">
-    <label for="showLabels">Eklem noktalarını göster</label>
-  </div>
-
-  <div class="note">
-    <b>Önemli bilgi:</b> Bu uygulama gerçekçi AI video üretmez.
-    Fotoğrafın üzerine basit eklem çizgileriyle hareket simülasyonu
-    ekler. Fotoğraftaki kişinin gerçek bedenini algılamaz veya
-    görüntüsünü yapay zekâyla yeniden oluşturmaz.
-  </div>
+<div class="note">
+<b>Gerçekçi AI animasyonu değildir.</b><br>
+Bu uygulama fotoğrafın üzerine basit bir iskelet çizip hareket ettirir. Fotoğraftaki kişinin gerçek bedenini algılamaz, fotoğrafı deforme etmez ve başka bir yapay zekâ modeli kullanmaz.
+</div>
 </section>
 
 <section class="panel">
-  <div class="preview-title">
-    <h2>👁️ Video önizleme</h2>
-    <span id="status">Hazır</span>
-  </div>
+<div class="previewHead">
+<h2>👁️ Önizleme</h2>
+<span id="status">Hazır</span>
+</div>
 
-  <div class="canvas-wrap">
-    <canvas id="canvas" width="1280" height="720"></canvas>
-  </div>
+<canvas id="canvas" width="1280" height="720"></canvas>
+<div id="progress"><div id="bar"></div></div>
 
-  <div id="progress"><div id="bar"></div></div>
-
-  <div class="actions">
-    <button id="play" class="primary">▶ Hareketi başlat</button>
-    <button id="stop">■ Durdur</button>
-    <button id="record" class="primary">● WebM video kaydet</button>
-    <button id="download" disabled>⬇ Son videoyu indir</button>
-  </div>
-
-  <p class="small">
-    Video, tarayıcının desteklediği WebM formatında kaydedilir.
-    Kayıt sırasında bu sekmeyi açık tut. Bazı tarayıcılar WebM
-    kayıt özelliğini desteklemeyebilir.
-  </p>
+<div class="actions">
+<button id="play" class="primary">▶ Hareketi başlat</button>
+<button id="stop">■ Durdur</button>
+<button id="record" class="primary">● WebM kaydet</button>
+<button id="download" disabled>⬇ Videoyu indir</button>
+</div>
+<p class="small">Kayıt süresi seçtiğin süre kadardır. WebM kayıt özelliği tarayıcı desteğine bağlıdır. Kayıt sırasında bu sekmeyi kapatma.</p>
 </section>
 </main>
-
-<footer>Mina Video AI · Tek dosya · Fotoğraflar sunucuya gönderilmez</footer>
 
 <script>
 (() => {
@@ -167,109 +119,100 @@ const canvas = $("canvas");
 const ctx = canvas.getContext("2d");
 
 let photo = null;
-let ratio = "landscape";
-let startTime = 0;
+let ratio = "wide";
 let running = false;
+let recording = false;
+let startTime = 0;
 let raf = 0;
 let recorder = null;
 let chunks = [];
 let videoURL = "";
-let recording = false;
-let recordingTimer = null;
-let lastProgress = 0;
+let recordTimer = null;
+let stream = null;
 
-const WIDE = [1280, 720];
-const TALL = [720, 1280];
+function status(text){ $("status").textContent = text; }
 
-function setStatus(text){
-  $("status").textContent = text;
-}
-
-function setRatio(next){
-  ratio = next;
-  const dims = ratio === "landscape" ? WIDE : TALL;
-  canvas.width = dims[0];
-  canvas.height = dims[1];
-
-  document.querySelectorAll(".ratio").forEach(button => {
-    button.classList.toggle("active", button.dataset.ratio === ratio);
+function resizeCanvas(){
+  if(ratio === "wide"){
+    canvas.width = 1280;
+    canvas.height = 720;
+  }else{
+    canvas.width = 720;
+    canvas.height = 1280;
+  }
+  document.querySelectorAll(".ratio").forEach(b => {
+    b.classList.toggle("active",b.dataset.ratio === ratio);
   });
-
-  draw(performance.now());
+  render(performance.now(),true);
 }
 
-document.querySelectorAll(".ratio").forEach(button => {
-  button.addEventListener("click", () => setRatio(button.dataset.ratio));
+document.querySelectorAll(".ratio").forEach(b => {
+  b.addEventListener("click",()=>{
+    ratio = b.dataset.ratio;
+    resizeCanvas();
+  });
 });
 
-$("photo").addEventListener("change", event => {
-  const file = event.target.files && event.target.files[0];
+$("photo").addEventListener("change",e=>{
+  const file = e.target.files && e.target.files[0];
   if(!file) return;
-
   if(!file.type.startsWith("image/")){
-    setStatus("Bir görsel dosyası seç");
+    status("Görsel dosyası seçmelisin");
     return;
   }
-
   const url = URL.createObjectURL(file);
   const img = new Image();
-
-  img.onload = () => {
+  img.onload = ()=>{
     photo = img;
-    draw(performance.now());
-    setStatus("Fotoğraf yüklendi");
+    render(performance.now(),true);
+    status("Fotoğraf yüklendi");
     URL.revokeObjectURL(url);
   };
-
-  img.onerror = () => {
+  img.onerror = ()=>{
     URL.revokeObjectURL(url);
-    setStatus("Fotoğraf açılamadı");
+    status("Fotoğraf açılamadı");
   };
-
   img.src = url;
 });
 
-$("duration").addEventListener("input", () => {
+$("duration").addEventListener("input",()=>{
   $("durationVal").textContent = $("duration").value;
 });
-
-$("intensity").addEventListener("input", () => {
+$("intensity").addEventListener("input",()=>{
   $("intensityVal").textContent = $("intensity").value;
+  if(!running) render(performance.now(),true);
 });
-
-$("scale").addEventListener("input", () => {
+$("scale").addEventListener("input",()=>{
   $("scaleVal").textContent = $("scale").value;
+  if(!running) render(performance.now(),true);
 });
-
-["motion","intensity","scale","showSkeleton","showLabels"].forEach(id => {
-  $(id).addEventListener("input", () => {
-    if(!running) draw(performance.now());
+["motion","skeleton","points"].forEach(id=>{
+  $(id).addEventListener("change",()=> {
+    if(!running) render(performance.now(),true);
   });
 });
 
-function drawBackground(){
-  const w = canvas.width;
-  const h = canvas.height;
-
-  ctx.fillStyle = "#11111e";
+function background(){
+  const w=canvas.width,h=canvas.height;
+  ctx.fillStyle="#11111e";
   ctx.fillRect(0,0,w,h);
 
-  if(!photo) {
-    ctx.fillStyle = "#b9b9ce";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.font = "bold 30px Arial";
-    ctx.fillText("Mina Video AI",w/2,h/2-25);
-    ctx.font = "18px Arial";
-    ctx.fillText("Fotoğraf yükleyerek başla",w/2,h/2+18);
+  if(!photo){
+    ctx.fillStyle="#68f0c0";
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+    ctx.font="bold 30px Arial";
+    ctx.fillText("Mina Video AI",w/2,h/2-24);
+    ctx.fillStyle="#c6c6d8";
+    ctx.font="18px Arial";
+    ctx.fillText("Önce bir fotoğraf yükle",w/2,h/2+18);
     return;
   }
 
-  const scale = Number($("scale").value)/100;
-  const fit = Math.min(w/photo.width,h/photo.height)*scale;
-  const dw = photo.width*fit;
-  const dh = photo.height*fit;
-
+  const factor=Math.min(w/photo.width,h/photo.height)*
+    (Number($("scale").value)/100);
+  const dw=photo.width*factor;
+  const dh=photo.height*factor;
   ctx.save();
   ctx.beginPath();
   ctx.rect(0,0,w,h);
@@ -278,322 +221,282 @@ function drawBackground(){
   ctx.restore();
 }
 
-function line(a,b,color,width){
+function stroke(a,b,width){
   ctx.beginPath();
   ctx.moveTo(a.x,a.y);
   ctx.lineTo(b.x,b.y);
-  ctx.strokeStyle = color;
-  ctx.lineWidth = width;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
+  ctx.lineWidth=width;
+  ctx.lineCap="round";
+  ctx.strokeStyle="#68f0c0";
   ctx.stroke();
 }
-
-function joint(p,r,color){
+function dot(p,r){
   ctx.beginPath();
   ctx.arc(p.x,p.y,r,0,Math.PI*2);
-  ctx.fillStyle = color;
+  ctx.fillStyle="#ffd477";
   ctx.fill();
 }
 
-function drawSkeleton(t){
-  const w = canvas.width, h = canvas.height;
-  const amp = Number($("intensity").value)/100;
-  const mode = $("motion").value;
-  const s = Math.min(w,h);
-  const x = w/2;
-  const base = h*0.20;
-  const u = s*0.22;
-  const bob = mode==="walk" || mode==="dance" ? Math.sin(t*7)*u*0.025*amp : 0;
-  const sway = Math.sin(t*2.5)*u*0.045*amp;
+function drawSkeleton(seconds){
+  const w=canvas.width,h=canvas.height;
+  const unit=Math.min(w,h);
+  const amp=Number($("intensity").value)/100;
+  const mode=$("motion").value;
+  const t=seconds;
 
-  const headX = x + sway*0.4 + (mode==="head" ? Math.sin(t*2.2)*u*0.07*amp : 0);
-  const headY = base + bob;
-  const headR = u*0.12;
+  // İskelet, fotoğraftan bağımsız olarak tuvalin ortasında görünür.
+  const cx=w*0.5;
+  const headR=unit*0.055;
+  const headX=cx+Math.sin(t*2)*unit*0.012*amp;
+  const headY=h*0.22+Math.sin(t*2.5)*unit*0.008*amp;
+  const shoulderY=headY+headR*2.3;
+  const shoulderW=unit*0.105;
+  const hipY=h*0.57;
+  const hipW=unit*0.065;
+  const arm=unit*0.16;
+  const leg=unit*0.19;
 
-  const neck = {x:headX,y:headY+headR*1.25};
-  const shoulderY = headY+headR*2.1;
-  const hipY = h*0.59+bob;
-  const shoulderW = u*0.43;
-  const hipW = u*0.25;
+  const shoulderL={x:cx-shoulderW,y:shoulderY};
+  const shoulderR={x:cx+shoulderW,y:shoulderY};
+  const hipL={x:cx-hipW,y:hipY};
+  const hipR={x:cx+hipW,y:hipY};
+  const neck={x:headX,y:headY+headR*1.2};
+  const pelvis={x:cx,y:hipY};
 
-  const leftShoulder = {x:x-shoulderW+sway*0.2,y:shoulderY};
-  const rightShoulder = {x:x+shoulderW+sway*0.2,y:shoulderY};
-  const leftHip = {x:x-hipW+sway*0.15,y:hipY};
-  const rightHip = {x:x+hipW+sway*0.15,y:hipY};
-  const pelvis = {x:x+sway*0.15,y:hipY};
+  let elbowL,handL,elbowR,handR;
+  let kneeL,footL,kneeR,footR;
 
-  const armLen = u*0.52;
-  let leftElbow, rightElbow, leftHand, rightHand;
-
-  if(mode==="wave" || mode==="dance"){
-    const wave = Math.sin(t*5)*amp;
-    rightElbow = {
-      x:rightShoulder.x+armLen*0.55,
-      y:shoulderY-armLen*(0.65+0.15*wave)
+  if(mode==="wave" || mode==="free" || mode==="dance"){
+    const wave=Math.sin(t*6)*amp;
+    elbowR={
+      x:shoulderR.x+arm*0.48,
+      y:shoulderY-arm*(mode==="wave"?0.60+wave*0.12:0.48+wave*0.18)
     };
-    rightHand = {
-      x:rightElbow.x+armLen*(0.20+0.10*Math.sin(t*7)*amp),
-      y:rightElbow.y-armLen*(0.65+0.20*Math.sin(t*8)*amp)
+    handR={
+      x:elbowR.x+arm*(mode==="wave"?0.10+Math.sin(t*9)*0.16*amp:0.45),
+      y:elbowR.y-arm*(mode==="wave"?0.48+Math.cos(t*9)*0.12*amp:0.22)
     };
-  } else if(mode==="walk"){
-    rightElbow = {x:rightShoulder.x+armLen*0.55*Math.sin(t*5)*amp,
-      y:shoulderY+armLen*0.4};
-    rightHand = {x:rightElbow.x+armLen*0.65*Math.sin(t*5)*amp,
-      y:rightElbow.y+armLen*0.7};
-  } else {
-    rightElbow = {x:rightShoulder.x+armLen*0.45,y:shoulderY+armLen*0.65};
-    rightHand = {x:rightElbow.x+armLen*0.30,y:rightElbow.y+armLen*0.65};
+    elbowL={
+      x:shoulderL.x-arm*0.42,
+      y:shoulderY+arm*(0.38+Math.sin(t*4)*0.08*amp)
+    };
+    handL={
+      x:elbowL.x-arm*0.45,
+      y:elbowL.y+arm*0.48
+    };
+  }else if(mode==="walk"){
+    const swing=Math.sin(t*6)*amp;
+    elbowR={x:shoulderR.x+arm*0.35*swing,y:shoulderY+arm*0.43};
+    handR={x:elbowR.x+arm*0.35*swing,y:elbowR.y+arm*0.43};
+    elbowL={x:shoulderL.x-arm*0.35*swing,y:shoulderY+arm*0.43};
+    handL={x:elbowL.x-arm*0.35*swing,y:elbowL.y+arm*0.43};
+  }else{
+    elbowR={x:shoulderR.x+arm*0.48,y:shoulderY+arm*0.42};
+    handR={x:elbowR.x+arm*0.48,y:elbowR.y+arm*0.45};
+    elbowL={x:shoulderL.x-arm*0.48,y:shoulderY+arm*0.42};
+    handL={x:elbowL.x-arm*0.48,y:elbowL.y+arm*0.45};
   }
 
-  if(mode==="walk" || mode==="dance"){
-    leftElbow = {x:leftShoulder.x-armLen*0.45*Math.sin(t*5)*amp,
-      y:shoulderY+armLen*0.4};
-    leftHand = {x:leftElbow.x-armLen*0.65*Math.sin(t*5)*amp,
-      y:leftElbow.y+armLen*0.7};
-  } else {
-    leftElbow = {x:leftShoulder.x-armLen*0.35,y:shoulderY+armLen*0.55};
-    leftHand = {x:leftElbow.x-armLen*0.25,y:leftElbow.y+armLen*0.65};
-  }
+  const swing=(mode==="walk"||mode==="dance")?Math.sin(t*6)*amp:0;
+  kneeL={x:hipL.x+leg*0.12*swing,y:hipY+leg*0.52};
+  kneeR={x:hipR.x-leg*0.12*swing,y:hipY+leg*0.52};
+  footL={x:kneeL.x-leg*0.10*swing,y:kneeL.y+leg*0.43};
+  footR={x:kneeR.x+leg*0.10*swing,y:kneeR.y+leg*0.43};
 
-  const legLen = h*0.17;
-  let leftKnee, rightKnee, leftFoot, rightFoot;
+  const points=[neck,shoulderL,shoulderR,hipL,hipR,pelvis,
+    elbowL,handL,elbowR,handR,kneeL,footL,kneeR,footR];
 
-  if(mode==="walk" || mode==="dance"){
-    const swing = Math.sin(t*5)*amp;
-    leftKnee = {x:leftHip.x+legLen*0.20*swing,y:hipY+legLen*0.53};
-    rightKnee = {x:rightHip.x-legLen*0.20*swing,y:hipY+legLen*0.53};
-    leftFoot = {x:leftKnee.x+legLen*0.25*swing,y:leftKnee.y+legLen*0.45};
-    rightFoot = {x:rightKnee.x-legLen*0.25*swing,y:rightKnee.y+legLen*0.45};
-  } else {
-    leftKnee = {x:leftHip.x-u*0.03,y:hipY+legLen*0.55};
-    rightKnee = {x:rightHip.x+u*0.03,y:hipY+legLen*0.55};
-    leftFoot = {x:leftKnee.x-u*0.05,y:leftKnee.y+legLen*0.45};
-    rightFoot = {x:rightKnee.x+u*0.05,y:rightKnee.y+legLen*0.45};
-  }
-
-  const pts = [
-    neck,leftShoulder,rightShoulder,leftElbow,rightElbow,
-    leftHand,rightHand,pelvis,leftHip,rightHip,leftKnee,
-    rightKnee,leftFoot,rightFoot
-  ];
-
-  // Keep the overlay within the canvas edges.
-  const pad = s*0.04;
-  pts.forEach(p => {
-    p.x = Math.max(pad,Math.min(w-pad,p.x));
-    p.y = Math.max(pad,Math.min(h-pad,p.y));
+  // Kenarlardan taşan noktaları güvenli alanda tut.
+  const margin=unit*0.035;
+  points.forEach(p=>{
+    p.x=Math.max(margin,Math.min(w-margin,p.x));
+    p.y=Math.max(margin,Math.min(h-margin,p.y));
   });
 
-  const color = "#68f0c0";
-  const lw = Math.max(3,s*0.006);
-
+  const lineW=Math.max(3,unit*0.006);
   ctx.save();
-  ctx.globalAlpha = 0.95;
+  ctx.globalAlpha=0.98;
 
-  // Torso and neck
-  line(neck,pelvis,color,lw);
-  line(leftShoulder,rightShoulder,color,lw);
-  line(leftHip,rightHip,color,lw);
+  stroke(neck,pelvis,lineW);
+  stroke(shoulderL,shoulderR,lineW);
+  stroke(hipL,hipR,lineW);
+  stroke(shoulderL,elbowL,lineW);
+  stroke(elbowL,handL,lineW);
+  stroke(shoulderR,elbowR,lineW);
+  stroke(elbowR,handR,lineW);
+  stroke(hipL,kneeL,lineW);
+  stroke(kneeL,footL,lineW);
+  stroke(hipR,kneeR,lineW);
+  stroke(kneeR,footR,lineW);
 
-  // Arms
-  line(leftShoulder,leftElbow,color,lw);
-  line(leftElbow,leftHand,color,lw);
-  line(rightShoulder,rightElbow,color,lw);
-  line(rightElbow,rightHand,color,lw);
-
-  // Legs
-  line(leftHip,leftKnee,color,lw);
-  line(leftKnee,leftFoot,color,lw);
-  line(rightHip,rightKnee,color,lw);
-  line(rightKnee,rightFoot,color,lw);
-
-  // Head
   ctx.beginPath();
-  ctx.ellipse(headX,headY,headR,headR*1.15,
-    mode==="head" ? Math.sin(t*2)*0.18*amp : 0,0,Math.PI*2);
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lw;
+  ctx.ellipse(headX,headY,headR,headR*1.12,
+    mode==="head"?Math.sin(t*2)*0.25*amp:0,0,Math.PI*2);
+  ctx.strokeStyle="#68f0c0";
+  ctx.lineWidth=lineW;
   ctx.stroke();
 
-  if($("showLabels").checked){
-    pts.forEach(p => joint(p,Math.max(4,s*0.008),"#ffcf70"));
-    joint({x:headX,y:headY},Math.max(4,s*0.008),"#ffcf70");
+  if($("points").checked){
+    points.forEach(p=>dot(p,Math.max(4,unit*0.009)));
+    dot({x:headX,y:headY},Math.max(4,unit*0.009));
   }
-
   ctx.restore();
 }
 
-function draw(now){
-  const t = running ? (now-startTime)/1000 : now/1000;
-  drawBackground();
-  if($("showSkeleton").checked) drawSkeleton(t);
+function render(now,staticFrame=false){
+  background();
+  if($("skeleton").checked){
+    const seconds=running&&!staticFrame?(now-startTime)/1000:now/1000;
+    drawSkeleton(seconds);
+  }
 }
 
 function animate(now){
   if(!running) return;
-  draw(now);
-
-  const elapsed = (now-startTime)/1000;
-  const duration = Number($("duration").value);
-  const pct = Math.min(100,elapsed/duration*100);
-
-  if(pct-lastProgress >= 1 || pct===100){
-    $("bar").style.width = pct+"%";
-    lastProgress = pct;
-  }
+  render(now);
+  const elapsed=(now-startTime)/1000;
+  const duration=Number($("duration").value);
+  $("bar").style.width=Math.min(100,elapsed/duration*100)+"%";
 
   if(recording && elapsed>=duration){
     stopRecording();
     return;
   }
-
-  raf = requestAnimationFrame(animate);
+  raf=requestAnimationFrame(animate);
 }
 
 function startAnimation(){
   if(running) return;
-  running = true;
-  startTime = performance.now();
-  lastProgress = 0;
-  $("bar").style.width = "0%";
-  $("play").disabled = true;
-  setStatus(recording ? "Video kaydediliyor…" : "Hareket oynatılıyor");
-  raf = requestAnimationFrame(animate);
+  running=true;
+  startTime=performance.now();
+  $("bar").style.width="0%";
+  $("play").disabled=true;
+  status(recording?"Video kaydediliyor…":"Hareket oynatılıyor");
+  render(startTime);
+  raf=requestAnimationFrame(animate);
 }
 
 function stopAnimation(){
-  running = false;
+  running=false;
   cancelAnimationFrame(raf);
-  $("play").disabled = false;
-  draw(performance.now());
-  if(!recording) setStatus("Durduruldu");
+  $("play").disabled=false;
+  render(performance.now(),true);
+  if(!recording) status("Durduruldu");
 }
 
-$("play").addEventListener("click", () => {
-  if(!running) startAnimation();
+$("play").addEventListener("click",startAnimation);
+$("stop").addEventListener("click",()=>{
+  if(recording) stopRecording();
+  else stopAnimation();
 });
 
-$("stop").addEventListener("click", () => {
-  if(recording){
-    stopRecording();
-  } else {
-    stopAnimation();
-  }
-});
-
-function getWebMMime(){
+function supportedMime(){
   if(!window.MediaRecorder) return "";
-  const types = [
-    "video/webm;codecs=vp9",
-    "video/webm;codecs=vp8",
-    "video/webm"
-  ];
-  return types.find(type => MediaRecorder.isTypeSupported(type)) || "";
+  const types=["video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
+  return types.find(t=>MediaRecorder.isTypeSupported(t))||"";
 }
 
 function startRecording(){
-  if(!canvas.captureStream || !window.MediaRecorder){
-    setStatus("Bu tarayıcı video kaydını desteklemiyor");
+  if(recording) return;
+  if(!canvas.captureStream||!window.MediaRecorder){
+    status("Tarayıcı WebM kaydını desteklemiyor");
     return;
   }
-
-  const mime = getWebMMime();
+  const mime=supportedMime();
   if(!mime){
-    setStatus("WebM kayıt biçimi desteklenmiyor");
+    status("WebM biçimi desteklenmiyor");
     return;
   }
-
   if(videoURL){
     URL.revokeObjectURL(videoURL);
-    videoURL = "";
+    videoURL="";
   }
 
-  chunks = [];
-  let stream;
-
+  chunks=[];
   try{
-    stream = canvas.captureStream(30);
-    recorder = new MediaRecorder(stream,{mimeType:mime});
-  }catch(error){
-    setStatus("Kayıt başlatılamadı");
+    stream=canvas.captureStream(30);
+    recorder=new MediaRecorder(stream,{mimeType:mime});
+  }catch(err){
+    if(stream) stream.getTracks().forEach(t=>t.stop());
+    stream=null;
+    status("Kayıt başlatılamadı");
     return;
   }
 
-  recorder.ondataavailable = event => {
-    if(event.data && event.data.size>0) chunks.push(event.data);
+  recorder.ondataavailable=e=>{
+    if(e.data&&e.data.size) chunks.push(e.data);
   };
 
-  recorder.onerror = () => {
-    recording = false;
+  recorder.onerror=()=>{
+    recording=false;
+    if(stream) stream.getTracks().forEach(t=>t.stop());
+    stream=null;
     stopAnimation();
-    setStatus("Kayıt sırasında hata oluştu");
+    status("Kayıt hatası");
+    $("record").disabled=false;
   };
 
-  recorder.onstop = () => {
-    stream.getTracks().forEach(track => track.stop());
-    recording = false;
+  recorder.onstop=()=>{
+    if(stream) stream.getTracks().forEach(t=>t.stop());
+    stream=null;
+    recording=false;
     stopAnimation();
 
     if(chunks.length===0){
-      setStatus("Video verisi oluşturulamadı");
+      status("Video verisi oluşmadı");
+      $("record").disabled=false;
       return;
     }
-
-    const blob = new Blob(chunks,{type:mime});
-    videoURL = URL.createObjectURL(blob);
-    $("download").disabled = false;
-    setStatus("Video hazır · İndirebilirsin");
-    $("record").disabled = false;
-    $("record").textContent = "● Yeniden kaydet";
+    const blob=new Blob(chunks,{type:mime});
+    videoURL=URL.createObjectURL(blob);
+    $("download").disabled=false;
+    $("record").disabled=false;
+    $("record").textContent="● Yeniden kaydet";
+    status("Video hazır, indirebilirsin");
   };
 
-  recording = true;
-  $("record").disabled = true;
-  $("download").disabled = true;
-  $("record").textContent = "Kaydediliyor…";
-  setStatus("Video kaydediliyor…");
-
-  recorder.start(250);
+  recording=true;
+  $("record").disabled=true;
+  $("download").disabled=true;
+  $("record").textContent="Kaydediliyor…";
+  recorder.start(200);
   startAnimation();
 
-  recordingTimer = setTimeout(() => {
+  recordTimer=setTimeout(()=>{
     if(recording) stopRecording();
-  },Number($("duration").value)*1000+200);
+  },Number($("duration").value)*1000+300);
 }
 
 function stopRecording(){
-  if(recordingTimer){
-    clearTimeout(recordingTimer);
-    recordingTimer = null;
+  if(recordTimer){
+    clearTimeout(recordTimer);
+    recordTimer=null;
   }
-
-  if(recorder && recorder.state!=="inactive"){
+  if(recorder&&recorder.state!=="inactive"){
     recorder.stop();
-  } else {
-    recording = false;
+  }else{
+    recording=false;
     stopAnimation();
   }
 }
 
 $("record").addEventListener("click",startRecording);
 
-$("download").addEventListener("click",() => {
+$("download").addEventListener("click",()=>{
   if(!videoURL) return;
-  const a = document.createElement("a");
-  a.href = videoURL;
-  a.download = "mina-video-"+Date.now()+".webm";
+  const a=document.createElement("a");
+  a.href=videoURL;
+  a.download="mina-video-"+Date.now()+".webm";
   document.body.appendChild(a);
   a.click();
   a.remove();
 });
 
-window.addEventListener("beforeunload",() => {
+window.addEventListener("beforeunload",()=>{
   if(videoURL) URL.revokeObjectURL(videoURL);
 });
 
-setRatio("landscape");
-draw(performance.now());
+resizeCanvas();
 })();
 </script>
 </body>
