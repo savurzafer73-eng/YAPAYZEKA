@@ -4,19 +4,11 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "# Mina Video AI — Ücretsiz Karakter Canlandırma (Colab prototipi)\n",
+        "# Mina Video AI — Karakter Canlandırma (TEK PARÇA)\n",
         "\n",
-        "Bu defter, karakter fotoğrafını bir hareket referans videosuyla canlandırmayı denemek için açık kaynak LivePortrait projesini Google Colab ortamında kurar. Bilgisayarındaki Intel HD Graphics 4000 kullanılmaz; işlem Colab oturumunda yapılır.\n",
+        "Bu defterde tek bir kod hücresi vardır. Google Colab'a yükle, mümkünse Çalışma zamanı türü bölümünden T4 GPU seç ve tek kod hücresini çalıştır. İlk kurulum ve model indirme uzun sürebilir.\n",
         "\n",
-        "**Önemli:** Colab ücretsiz GPU her zaman sunulmayabilir ve oturum/limitler değişebilir. Bu ilk prototip özellikle yüz ve üst beden hareketlerine uygundur; tam vücut sinematik video üretimi değildir. Fotoğraf ve videoları yalnızca kullanma hakkın olan kişiler için kullan."
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "## 1. Çalışma ortamını kontrol et\n",
-        "Üst menüden **Runtime / Çalışma zamanı → Change runtime type / Çalışma zamanı türünü değiştir → T4 GPU** seçeneği varsa seç. Sonra aşağıdaki hücreleri sırayla çalıştır."
+        "Not: Ücretsiz GPU her zaman sunulmaz. Bu prototip LivePortrait ile portre/yüz hareketi yapar; tam vücut metinden video üretimi değildir. Fotoğraf ve videoları yalnızca kullanma hakkın olan kişiler için kullan."
       ]
     },
     {
@@ -25,100 +17,73 @@
       "metadata": {},
       "outputs": [],
       "source": [
-        "!nvidia-smi"
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "## 2. LivePortrait kodunu indir"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {},
-      "outputs": [],
-      "source": [
-        "%cd /content\n",
-        "!git clone https://github.com/KwaiVGI/LivePortrait.git\n",
-        "%cd /content/LivePortrait"
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "## 3. Bağımlılıkları yükle\n",
-        "Kurulum birkaç dakika sürebilir. Bir hata çıkarsa hata metnini kopyalayıp Mina'ya gönder."
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {},
-      "outputs": [],
-      "source": [
-        "!pip install -r requirements.txt\n",
-        "!pip install -U huggingface_hub gradio"
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "## 4. Model dosyalarını indir\n",
-        "Model ağırlıkları büyük olabilir; indirme süresi internet hızına bağlıdır."
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {},
-      "outputs": [],
-      "source": [
-        "!python - <<'PY'\n",
-        "from huggingface_hub import snapshot_download\n",
-        "snapshot_download(repo_id='KwaiVGI/LivePortrait', local_dir='pretrained_weights', ignore_patterns=['*.git*', 'README.md', 'docs/*'])\n",
-        "print('Model indirme tamamlandı.')\n",
-        "PY"
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "## 5. Mina'nın karakter canlandırma arayüzünü başlat\n",
-        "Hücre çalışınca Gradio paylaşım bağlantısı çıktıda görünür. Bağlantıyı açıp kaynak fotoğrafını ve hareket referans videosunu yükle. Bu bağlantı Colab oturumu açıkken çalışır."
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {},
-      "outputs": [],
-      "source": [
-        "!python app.py --server_name 0.0.0.0 --server_port 7860 --share"
-      ]
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "## Kullanım önerisi\n",
-        "- Kaynak fotoğraf: yüzü net, önden veya hafif açılı, iyi aydınlatılmış portre.\n",
-        "- Hareket videosu: tek kişinin yüzü net görünsün; ani kamera kesmeleri olmasın.\n",
-        "- İlk testte 3–8 saniyelik referans video kullan.\n",
-        "- Çıktı üretilemezse hata mesajını olduğu gibi kaydet.\n",
+        "# MINA VIDEO AI — TEK HÜCRELİ KARAKTER CANLANDIRMA KURULUMU\n",
+        "# Google Colab'da bu hücreyi baştan sona bir kez çalıştır.\n",
+        "# Ücretsiz GPU her zaman verilmeyebilir. Hata olursa en alttaki kırmızı mesajı gönder.\n",
         "\n",
-        "Bu prototip, Mina Video AI için ilk karakter-canlandırma motorudur. Daha sonra arayüz ve GeldStory sahne iş akışıyla birleştirebiliriz."
+        "import os, sys, subprocess, traceback, importlib.util\n",
+        "from pathlib import Path\n",
+        "\n",
+        "ROOT = Path('/content/LivePortrait')\n",
+        "\n",
+        "def run(cmd, cwd=None):\n",
+        "    print('\\n' + '='*72 + '\\nÇALIŞTIRILIYOR: ' + (cmd if isinstance(cmd, str) else ' '.join(map(str, cmd))) + '\\n' + '='*72, flush=True)\n",
+        "    subprocess.run(cmd, cwd=str(cwd) if cwd else None, check=True)\n",
+        "\n",
+        "try:\n",
+        "    print('1/5 — Ortam kontrolü', flush=True)\n",
+        "    print('Python:', sys.version, flush=True)\n",
+        "    try:\n",
+        "        run(['nvidia-smi'])\n",
+        "        has_gpu = True\n",
+        "    except Exception:\n",
+        "        has_gpu = False\n",
+        "        print('NVIDIA GPU bulunamadı. Kurulum devam edecek; video üretimi yavaş olabilir.', flush=True)\n",
+        "\n",
+        "    print('\\n2/5 — Resmî LivePortrait deposu indiriliyor', flush=True)\n",
+        "    if ROOT.exists():\n",
+        "        import shutil\n",
+        "        shutil.rmtree(ROOT)\n",
+        "    run(['git', 'clone', '--depth', '1', 'https://github.com/KwaiVGI/LivePortrait.git', str(ROOT)])\n",
+        "\n",
+        "    print('\\n3/5 — Gerekli paketler yükleniyor', flush=True)\n",
+        "    run([sys.executable, '-m', 'pip', 'install', '--upgrade', 'pip'])\n",
+        "    run([sys.executable, '-m', 'pip', 'install', '-r', 'requirements_base.txt'], cwd=ROOT)\n",
+        "    if has_gpu:\n",
+        "        run([sys.executable, '-m', 'pip', 'install', 'onnxruntime-gpu==1.18.0', 'transformers==4.38.0', 'huggingface_hub'], cwd=ROOT)\n",
+        "    else:\n",
+        "        run([sys.executable, '-m', 'pip', 'install', 'onnxruntime==1.18.0', 'transformers==4.38.0', 'huggingface_hub'], cwd=ROOT)\n",
+        "\n",
+        "    print('\\n4/5 — Önceden eğitilmiş model dosyaları indiriliyor (biraz sürebilir)', flush=True)\n",
+        "    from huggingface_hub import snapshot_download\n",
+        "    snapshot_download(\n",
+        "        repo_id='KwaiVGI/LivePortrait',\n",
+        "        local_dir=str(ROOT / 'pretrained_weights'),\n",
+        "        ignore_patterns=['*.git*', 'README.md', 'docs/*']\n",
+        "    )\n",
+        "    print('Model indirme adımı tamamlandı.', flush=True)\n",
+        "\n",
+        "    print('\\n5/5 — Mina karakter canlandırma arayüzü başlatılıyor', flush=True)\n",
+        "    app = ROOT / 'app.py'\n",
+        "    if not app.exists():\n",
+        "        raise FileNotFoundError('Resmî depoda app.py bulunamadı; depo yapısı değişmiş olabilir.')\n",
+        "    print('Birazdan çıktıda public Gradio bağlantısı görünmeli. Bu hücre çalışmaya devam etsin.', flush=True)\n",
+        "    run([sys.executable, 'app.py', '--server_name', '0.0.0.0', '--server_port', '7860', '--share'], cwd=ROOT)\n",
+        "\n",
+        "except subprocess.CalledProcessError as e:\n",
+        "    print('\\n❌ KURULUM KOMUTU BAŞARISIZ OLDU.', flush=True)\n",
+        "    print('Başarısız komut:', e.cmd, flush=True)\n",
+        "    print('Yukarıdaki çıktıda ilk ERROR / Traceback bölümünü kopyalayıp Mina\\'ya gönder.', flush=True)\n",
+        "except Exception as e:\n",
+        "    print('\\n❌ HATA:', repr(e), flush=True)\n",
+        "    traceback.print_exc()\n",
+        "    print('\\nYukarıdaki hata metnini Mina\\'ya gönder.', flush=True)\n"
       ]
     }
   ],
   "metadata": {
     "colab": {
-      "name": "Mina_Video_AI_Karakter_Canlandirma.ipynb",
+      "name": "Mina_Video_AI_Karakter_Canlandirma_TEK_PARCA.ipynb",
       "provenance": []
     },
     "kernelspec": {
