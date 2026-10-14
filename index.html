@@ -53,6 +53,8 @@ hr{border-color:#2d3b5c;margin:20px 0}
 <option value="gently turns the head to the left and right">Başını çevirme</option>
 <option value="moves naturally as if speaking">Konuşma hareketi</option>
 <option value="performs a gentle full-body dance">Hafif dans</option>
+<option value="walks forward, stops and turns naturally">Yürüme ve dönme</option>
+<option value="moves both arms naturally while standing">Kol ve el hareketleri</option>
 </select>
 
 <label>Ek talimat</label>
@@ -60,26 +62,28 @@ hr{border-color:#2d3b5c;margin:20px 0}
 
 <label>Video oranı</label>
 <div class="ratios">
-<button class="active" data-ratio="wide">16:9 YouTube</button>
-<button data-ratio="tall">9:16 Shorts</button>
+<button type="button" class="active" data-ratio="wide">16:9 YouTube</button>
+<button type="button" data-ratio="tall">9:16 Shorts</button>
 </div>
 
 <label>Süre: <span id="durText">5</span> saniye</label>
 <input id="duration" type="range" min="3" max="10" value="5">
 
+<p class="hint">Not: Seçilen süreyi AI hizmeti desteklemeyebilir. Uzunluk garantisi değildir.</p>
+
 <label>Hareket yoğunluğu: <span id="strengthText">50</span>%</label>
 <input id="strength" type="range" min="10" max="100" value="50">
 
-<button class="btn" id="makePrompt">Hareket promptunu hazırla</button>
+<button type="button" class="btn" id="makePrompt">Hareket promptunu hazırla</button>
 
 <label>İngilizce prompt</label>
 <textarea id="prompt">A realistic full-body character walks naturally toward the camera. Preserve the person's identity, face, hairstyle and clothing. Natural anatomy, smooth realistic motion, stable background, no flicker or extra limbs.</textarea>
 
-<button class="btn secondary" id="copy">Promptu kopyala</button>
+<button type="button" class="btn secondary" id="copy">Promptu kopyala</button>
 
 <p class="warning">
 Gerçek AI video üretimi internet bağlantısı ve erişilebilir bir AI hizmeti gerektirir.
-Ücretsiz hizmetlerin bekleme ve kullanım limitleri olabilir.
+Ücretsiz hizmetlerde bekleme, süre ve kullanım limitleri olabilir.
 </p>
 </section>
 
@@ -92,7 +96,7 @@ Gerçek AI video üretimi internet bağlantısı ve erişilebilir bir AI hizmeti
 
 <div class="status" id="status">Henüz fotoğraf seçilmedi.</div>
 
-<button class="btn" id="generateAI">✨ Gerçek AI video oluştur</button>
+<button type="button" class="btn" id="generateAI">✨ Gerçek AI video oluştur</button>
 
 <p class="hint">
 Fotoğraf ve prompt Worker üzerinden AI hizmetine gönderilir.
@@ -107,9 +111,9 @@ Fotoğraf ve prompt Worker üzerinden AI hizmetine gönderilir.
 <hr>
 
 <h3>4. Basit kamera efektli video</h3>
-<p class="hint">Bu özellik yalnızca fotoğrafa yaklaşma efekti ekler; gerçek vücut hareketi oluşturmaz.</p>
-<button class="btn secondary" id="create">Kamera efektli video oluştur</button>
-<button class="btn secondary" id="save" disabled>Videoyu kaydet (.webm)</button>
+<p class="hint">Bu özellik fotoğrafa yaklaşma efekti ekler; gerçek vücut hareketi oluşturmaz.</p>
+<button type="button" class="btn secondary" id="create">Kamera efektli video oluştur</button>
+<button type="button" class="btn secondary" id="save" disabled>Videoyu kaydet (.webm)</button>
 <div class="status" id="videoStatus">Video bekleniyor.</div>
 
 <hr>
@@ -126,20 +130,27 @@ Fotoğraf ve prompt Worker üzerinden AI hizmetine gönderilir.
 "use strict";
 
 const $=id=>document.getElementById(id);
+
 const WORKER="https://mina-video-ai.savurzafer73.workers.dev";
 const HF_BASE="https://cbensimon-wan2-2-fp8da-aoti-preview2.hf.space";
 
-let src="",ratio="wide",videoURL="",aiURL="";
+let src="";
+let ratio="wide";
+let videoURL="";
+let aiURL="";
 
 $("photo").addEventListener("change",e=>{
   const f=e.target.files[0];
   if(!f)return;
+
   if(!f.type.startsWith("image/")){
     $("status").textContent="Lütfen bir fotoğraf seç.";
     return;
   }
+
   if(src)URL.revokeObjectURL(src);
   src=URL.createObjectURL(f);
+
   $("image").src=src;
   $("image").hidden=false;
   $("empty").hidden=true;
@@ -155,8 +166,13 @@ document.querySelectorAll("[data-ratio]").forEach(b=>{
   };
 });
 
-$("duration").oninput=e=>$("durText").textContent=e.target.value;
-$("strength").oninput=e=>$("strengthText").textContent=e.target.value;
+$("duration").oninput=e=>{
+  $("durText").textContent=e.target.value;
+};
+
+$("strength").oninput=e=>{
+  $("strengthText").textContent=e.target.value;
+};
 
 function makePrompt(){
   return "Create a "+$("duration").value+
@@ -184,40 +200,80 @@ $("copy").onclick=async()=>{
   }
 };
 
-/* Gradio SSE yanıtından video dosyasını bul */
-function findVideo(value){
-  if(!value)return null;
+/* Gradio yanıtından video dosyasını bul */
+function findVideo(value,hint=""){
+  if(value==null)return null;
+
+  if(typeof value==="string"){
+    const s=value.trim();
+
+    if(/^https?:\/\/\S+/i.test(s)){
+      if(
+        /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(s) ||
+        /\/(gradio_api\/file=|file=)/i.test(s) ||
+        /video/i.test(hint)
+      ){
+        return s;
+      }
+      return null;
+    }
+
+    if(
+      /^\/(?:tmp\/|gradio_api\/file=|file=)/i.test(s) &&
+      (
+        /video/i.test(hint) ||
+        /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(s) ||
+        /^\/gradio_api\/file=/i.test(s)
+      )
+    ){
+      return s;
+    }
+
+    return null;
+  }
 
   if(Array.isArray(value)){
     for(const item of value){
-      const found=findVideo(item);
+      const found=findVideo(item,hint);
       if(found)return found;
     }
     return null;
   }
 
   if(typeof value==="object"){
-    const mime=String(value.mime_type||value.mimeType||"").toLowerCase();
-    const name=String(value.orig_name||value.filename||value.name||"").toLowerCase();
-    const path=String(value.url||value.path||"");
+    const mime=String(
+      value.mime_type||value.mimeType||""
+    ).toLowerCase();
 
-    if(path && (
-      mime.startsWith("video/") ||
-      /\.(mp4|webm|mov|m4v)(\?|$)/i.test(path) ||
-      /\.(mp4|webm|mov|m4v)$/i.test(name)
-    )){
-      return path;
-    }
+    const name=String(
+      value.orig_name||value.filename||value.name||""
+    );
 
-    for(const key of ["video","output_video","result","data","output"]){
-      if(value[key]){
-        const found=findVideo(value[key]);
-        if(found)return found;
+    const candidates=[
+      value.url,
+      value.path,
+      value.video,
+      value.output_video
+    ];
+
+    for(const candidate of candidates){
+      if(typeof candidate!=="string"||!candidate.trim())continue;
+
+      if(
+        mime.startsWith("video/") ||
+        /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(candidate) ||
+        /\.(mp4|webm|mov|m4v)$/i.test(name) ||
+        /^\/gradio_api\/file=/i.test(candidate)
+      ){
+        return candidate;
       }
     }
 
-    for(const key of Object.keys(value)){
-      const found=findVideo(value[key]);
+    for(const [key,child] of Object.entries(value)){
+      const found=findVideo(
+        child,
+        /video|output|result/i.test(key)?key:hint
+      );
       if(found)return found;
     }
   }
@@ -225,87 +281,130 @@ function findVideo(value){
   return null;
 }
 
+/* Gradio dosya yollarını tam URL'ye dönüştür */
 function normalizeVideoURL(value){
   if(!value)return null;
 
   if(/^https?:\/\//i.test(value))return value;
 
-  if(value.startsWith("/tmp/")){
-    return HF_BASE+"/gradio_api/file="+value;
+  if(value.startsWith("/gradio_api/file=")){
+    return HF_BASE+value;
   }
 
-  if(value.startsWith("/")){
-    return HF_BASE+value;
+  if(value.startsWith("/file=")){
+    return HF_BASE+"/gradio_api"+value;
+  }
+
+  if(value.startsWith("/tmp/")){
+    return HF_BASE+"/gradio_api/file="+value;
   }
 
   return null;
 }
 
+/* AI yanıtını oku ve hata ayrıntılarını koru */
 async function readAIResponse(response){
   const type=response.headers.get("content-type")||"";
 
   if(!response.ok){
     const message=await response.text();
-    throw new Error("Worker HTTP "+response.status+": "+message.slice(0,700));
+    throw new Error(
+      "Worker HTTP "+response.status+": "+message.slice(0,1200)
+    );
   }
 
   if(type.includes("application/json")){
     const json=await response.json();
+
     if(json.error)throw new Error(json.error);
+
     const found=findVideo(json);
     if(found)return found;
-    throw new Error("Yanıt geldi ancak video dosyası bulunamadı: "+JSON.stringify(json).slice(0,500));
+
+    throw new Error(
+      "JSON yanıtında video bağlantısı bulunamadı: "+
+      JSON.stringify(json).slice(0,1200)
+    );
   }
 
-  if(!response.body)throw new Error("AI yanıt akışı boş.");
+  if(!response.body){
+    throw new Error("AI yanıt akışı boş.");
+  }
 
   const reader=response.body.getReader();
   const decoder=new TextDecoder();
-  let buffer="",lastError="",finalData=null;
+
+  let buffer="";
+  let lastError="";
+  let finalData=null;
+  let lastDataPreview="";
 
   while(true){
     const {value,done}=await reader.read();
+
     if(done)break;
 
     buffer+=decoder.decode(value,{stream:true});
+
     const blocks=buffer.split(/\r?\n\r?\n/);
     buffer=blocks.pop()||"";
 
     for(const block of blocks){
       const lines=block.split(/\r?\n/);
-      const event=(lines.find(line=>line.startsWith("event:"))||"").slice(6).trim();
-      const data=lines.filter(line=>line.startsWith("data:"))
-        .map(line=>line.slice(5).trim()).join("\n");
 
-      if(!data)continue;
-      if(data==="null")continue;
+      const event=(lines.find(line=>line.startsWith("event:"))||"")
+        .slice(6).trim();
+
+      const data=lines
+        .filter(line=>line.startsWith("data:"))
+        .map(line=>line.slice(5).trim())
+        .join("\n");
+
+      if(!data||data==="null")continue;
+
+      lastDataPreview=data.slice(0,1200);
 
       let parsed;
-      try{parsed=JSON.parse(data);}catch(e){
+
+      try{
+        parsed=JSON.parse(data);
+      }catch(e){
         if(event==="error")lastError=data;
         continue;
       }
 
       if(event==="error"){
-        lastError=typeof parsed==="string"?parsed:JSON.stringify(parsed);
-      }else if(event==="complete"){
-        finalData=parsed;
-      }else{
-        const found=findVideo(parsed);
-        if(found)finalData=parsed;
+        lastError=typeof parsed==="string"
+          ?parsed
+          :JSON.stringify(parsed);
       }
 
-      const current=findVideo(parsed);
-      if(current && (event==="complete"||!event)){
+      const found=findVideo(parsed);
+
+      if(found){
+        finalData=parsed;
+      }else if(event==="complete"){
         finalData=parsed;
       }
     }
   }
 
+  buffer+=decoder.decode();
+
   if(buffer.trim()){
-    const match=buffer.match(/data:\s*(.+)/);
+    const match=buffer.match(/data:\s*(.+)/s);
+
     if(match){
-      try{finalData=JSON.parse(match[1]);}catch(e){}
+      try{
+        const parsed=JSON.parse(match[1]);
+        const found=findVideo(parsed);
+
+        if(found){
+          finalData=parsed;
+        }else if(!finalData){
+          finalData=parsed;
+        }
+      }catch(e){}
     }
   }
 
@@ -314,8 +413,15 @@ async function readAIResponse(response){
     if(found)return found;
   }
 
-  if(lastError)throw new Error("AI hizmeti: "+lastError);
-  throw new Error("Üretim tamamlandı ancak yanıt içinde erişilebilir video bağlantısı bulunamadı. Worker'ın model API uyumunu kontrol etmemiz gerekiyor.");
+  if(lastError){
+    throw new Error("AI hizmeti: "+lastError);
+  }
+
+  throw new Error(
+    "AI yanıtı geldi ancak video bağlantısı bulunamadı."+
+    "\nSon yanıt parçası: "+(lastDataPreview||"boş")+
+    "\nWorker ve Gradio yanıt biçimini kontrol etmek gerekiyor."
+  );
 }
 
 $("generateAI").onclick=async()=>{
@@ -332,7 +438,9 @@ $("generateAI").onclick=async()=>{
   }
 
   if(location.protocol==="file:"){
-    $("aiStatus").textContent="Önce bu HTML dosyasını GitHub Pages üzerinden aç. file:// adresinden gelen istekler güvenlik nedeniyle engellenebilir.";
+    $("aiStatus").textContent=
+      "Önce bu HTML dosyasını GitHub Pages üzerinden aç. "+
+      "file:// adresinden gelen istekler engellenebilir.";
     return;
   }
 
@@ -343,7 +451,9 @@ $("generateAI").onclick=async()=>{
 
   try{
     const form=new FormData();
+
     form.append("image",file,file.name);
+
     form.append("params",JSON.stringify({
       prompt:$("prompt").value.trim()||makePrompt(),
       duration_seconds:Number($("duration").value),
@@ -356,38 +466,52 @@ $("generateAI").onclick=async()=>{
       body:form
     });
 
-    $("aiStatus").textContent="AI video üretiyor. İşlem birkaç dakika sürebilir…";
+    $("aiStatus").textContent=
+      "AI yanıtı bekleniyor. İşlem birkaç dakika sürebilir…";
 
     const rawURL=await readAIResponse(response);
     const finalURL=normalizeVideoURL(rawURL);
 
     if(!finalURL){
-      throw new Error("Video bağlantısı geçerli değil: "+rawURL);
+      throw new Error("Video bağlantısı tanınamadı: "+rawURL);
     }
 
-    if(aiURL)URL.revokeObjectURL(aiURL);
-    aiURL="";
+    $("resultVideo").onerror=()=>{
+      $("aiStatus").textContent=
+        "Video bağlantısı bulundu ancak oynatılamadı. "+
+        "Dosya silinmiş, erişime kapatılmış veya biçimi desteklenmiyor olabilir.";
+    };
+
+    $("resultVideo").onloadeddata=()=>{
+      $("aiStatus").textContent=
+        "Video hazır! Süre: "+
+        $("resultVideo").duration.toFixed(1)+
+        " saniye.";
+    };
 
     $("resultVideo").src=finalURL;
     $("resultVideo").hidden=false;
+
     $("downloadAI").href=finalURL;
     $("downloadAI").hidden=false;
-    $("aiStatus").textContent="Video bağlantısı alındı. Oynatmak için videodaki Play düğmesine bas.";
+    $("downloadAI").download="mina-ai-video.mp4";
 
-    $("resultVideo").onerror=()=>{
-      $("aiStatus").textContent="Video bağlantısı alındı ancak oynatılamadı. AI hizmeti dosyayı silmiş veya erişimi kısıtlamış olabilir.";
-    };
+    $("aiStatus").textContent=
+      "Video bağlantısı bulundu. Video yükleniyor…";
+
   }catch(error){
     console.error(error);
+
     $("aiStatus").textContent=
-      "AI video oluşturma hatası:\n"+(error.message||String(error))+
-      "\n\nWorker veya Hugging Face API biçimini kontrol etmemiz gerekebilir.";
+      "AI video oluşturma hatası:\n"+
+      (error.message||String(error))+
+      "\n\nAyrıntı için tarayıcı Console kayıtlarını kontrol edebilirsin.";
   }finally{
     $("generateAI").disabled=false;
   }
 };
 
-/* Eski kamera zoom efektini koru */
+/* Kamera zoom efektli video özelliğini koru */
 $("create").onclick=()=>{
   const im=$("image");
 
@@ -396,8 +520,12 @@ $("create").onclick=()=>{
     return;
   }
 
-  if(!HTMLCanvasElement.prototype.captureStream||!window.MediaRecorder){
-    $("videoStatus").textContent="Tarayıcı video kaydını desteklemiyor.";
+  if(
+    !HTMLCanvasElement.prototype.captureStream||
+    !window.MediaRecorder
+  ){
+    $("videoStatus").textContent=
+      "Tarayıcı video kaydını desteklemiyor.";
     return;
   }
 
@@ -408,17 +536,25 @@ $("create").onclick=()=>{
     const sec=+$("duration").value;
     const w=ratio==="wide"?1280:720;
     const h=ratio==="wide"?720:1280;
+
     const c=document.createElement("canvas");
-    c.width=w;c.height=h;
+    c.width=w;
+    c.height=h;
 
     const x=c.getContext("2d");
     const stream=c.captureStream(24);
+
     const mime=MediaRecorder.isTypeSupported("video/webm;codecs=vp8")
-      ?"video/webm;codecs=vp8":"video/webm";
+      ?"video/webm;codecs=vp8"
+      :"video/webm";
+
     const rec=new MediaRecorder(stream,{mimeType:mime});
     const chunks=[];
 
-    rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+    rec.ondataavailable=e=>{
+      if(e.data.size)chunks.push(e.data);
+    };
+
     const done=new Promise(resolve=>rec.onstop=resolve);
     const start=performance.now();
 
@@ -428,6 +564,7 @@ $("create").onclick=()=>{
       const t=Math.min(1,(now-start)/(sec*1000));
       const fit=Math.min(w/im.naturalWidth,h/im.naturalHeight);
       const s=1+t*.12*(+$("strength").value/50);
+
       const dw=im.naturalWidth*fit*s;
       const dh=im.naturalHeight*fit*s;
 
@@ -435,25 +572,32 @@ $("create").onclick=()=>{
       x.fillRect(0,0,w,h);
       x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);
 
-      if(t<1)requestAnimationFrame(draw);
-      else rec.stop();
+      if(t<1){
+        requestAnimationFrame(draw);
+      }else{
+        rec.stop();
+      }
     }
 
     requestAnimationFrame(draw);
 
     done.then(()=>{
       stream.getTracks().forEach(t=>t.stop());
+
       const blob=new Blob(chunks,{type:mime});
 
       if(videoURL)URL.revokeObjectURL(videoURL);
       videoURL=URL.createObjectURL(blob);
 
       $("save").disabled=false;
+
       $("videoStatus").textContent=
         "Hazır: "+(blob.size/1048576).toFixed(2)+
         " MB. Bu yalnızca kamera zoom efektidir.";
+
       $("create").disabled=false;
     });
+
   }catch(e){
     $("videoStatus").textContent="Hata: "+e.message;
     $("create").disabled=false;
@@ -462,11 +606,13 @@ $("create").onclick=()=>{
 
 $("save").onclick=()=>{
   if(!videoURL)return;
+
   const a=document.createElement("a");
   a.href=videoURL;
   a.download="mina-video-"+ratio+".webm";
   a.click();
 };
+
 })();
 </script>
 </body>
